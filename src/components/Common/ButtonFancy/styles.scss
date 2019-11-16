@@ -1,0 +1,50 @@
+@import "src/styles/variables";
+
+.btn-fancy {
+  background-color: transparent;
+  border: 0;
+  color: $colorGrayDarker;
+  display: block;
+  font-size: 16px;
+  letter-spacing: 2px;
+  opacity: 1;
+  padding: 0;
+  margin: 10px 0;
+  transition: all 0.5s ease-in-out;
+
+  &::after {
+    content: "";
+    
+    border-bottom: 1px solid $colorGrayDarkest;
+    display: block;
+    padding-top: 5px;
+    transition: all 0.2s ease-in-out;
+    width: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+
+    &::after {
+      // NOTE: This to prevent the button content from showing and
+      //       the button from dropping when the button is disabled.
+      border-color: transparent;
+    }
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

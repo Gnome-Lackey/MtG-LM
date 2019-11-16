@@ -1,0 +1,16 @@
+@import "src/styles/variables";
+
+.btn-link {
+  background-color: $colorMidGreen;
+  color: $colorWhite;
+  font-size: 18px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.39;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  width: 215px;
+}

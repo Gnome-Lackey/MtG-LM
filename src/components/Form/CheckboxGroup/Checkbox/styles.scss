@@ -1,0 +1,12 @@
+.form-checkbox {
+  align-items: center;
+  display: inline-flex;
+
+  &.checked {
+    font-weight: bold;
+  }
+
+  input {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,11 @@
+.navigation-message {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  text-align: center;
+
+  .message {
+    margin: 10px 0;
+  }
+}

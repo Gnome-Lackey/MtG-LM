@@ -1,0 +1,24 @@
+@import "src/styles/variables";
+
+.login-view {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+
+  .login-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 375px;
+    width: 25%;
+  }
+
+  .title {
+    margin: 0 0 20px;
+    padding: 0;
+  }
+}

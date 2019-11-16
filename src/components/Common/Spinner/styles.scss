@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.spinner {
+  align-items: center;
+  background-color: $colorBlackFaded;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $zLayerFour;
+
+  &.inline {
+    align-items: unset;
+    background-color: transparent;
+    display: block;
+    height: $buttonFontSize;
+    justify-content: center;
+    left: unset;
+    top: unset;
+    position: inherit;
+    width: auto;
+
+    i {
+      font-size: $buttonFontSize;
+    }
+  }
+}

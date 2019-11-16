@@ -1,0 +1,12 @@
+@import "src/styles/variables";
+
+.restriction {
+  color: $colorErrorText;
+  align-items: center;
+  display: inline-flex;
+  margin: 0;
+
+  &.isValid {
+    color: $colorSuccess;
+  }
+}

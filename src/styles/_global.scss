@@ -1,0 +1,25 @@
+@import "src/styles/variables";
+
+html,
+body {
+  background-color: $colorGrayLighter;
+  min-height: $appMinHeight;
+  min-width: 100%;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+
+  &.locked {
+    overflow: hidden;
+  }
+
+  #root {
+    display: flex;
+    flex-flow: column;
+    min-height: $appMinHeight;
+    width: 100%;
+  }
+}

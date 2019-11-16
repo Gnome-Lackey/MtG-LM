@@ -1,0 +1,11 @@
+@keyframes slideIn {
+  0% {
+    left: 10px;
+    opacity: 0;
+  }
+
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}

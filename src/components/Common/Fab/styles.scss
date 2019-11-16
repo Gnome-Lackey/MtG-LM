@@ -1,0 +1,24 @@
+@import "src/styles/variables";
+
+.fab {
+  align-items: center;
+  background-color: $colorOrange;
+  border-radius: 50%;
+  border: 0;
+  color: $colorGrayDarker;
+  display: flex;
+  font-size: 24px;
+  height: 50px;
+  justify-content: center;
+  width: 50px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $colorGrayDarker;
+    color: $colorOrange;
+    cursor: pointer;
+  }
+}

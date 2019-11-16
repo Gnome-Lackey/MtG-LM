@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.password-fields {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .field-container {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .form-input {
+      width: 45%;
+    }
+  }
+
+  .restrictions {
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 20px 0 0;
+    width: 100%;
+
+    .restriction-set {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

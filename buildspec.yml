@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - echo Installing global dependencies ...
+      - apt-get install -y yarn
+      - yarn global add serverless eslint webpack
+      - echo Global dependencies installed without errors
+  pre_build:
+    commands:
+      - echo Installing local dependencies ...
+      - yarn
+      - echo Dependencies installed without errors
+      - echo Linting scripts ...
+      - yarn lint
+      - echo Linting passed without errors
+  build:
+    commands:
+      - echo Building application bundle ...
+      - yarn build
+      - echo Application bundled without errors
+  post_build:
+    commands:
+      - echo Deploying project ...
+      - sls s3remove
+      - sls deploy --verbose --key $AWS_ID --secret $AWS_SECRET --stage $ENV
+      - echo Project deployed without errors

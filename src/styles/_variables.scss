@@ -1,0 +1,32 @@
+$colorBlack: #000;
+$colorBlackFaded: rgba(0, 0, 0, 0.3);
+$colorBlueDark: #004990;
+$colorBlueLight: #80bdff;
+$colorBlueLighter: #9ecaed;
+$colorBlueShadow: rgba(0, 123, 255, 0.25);
+$colorGray: #d6d6d6;
+$colorGrayLighter: #e8e8e8;
+$colorGrayLightest: #f7f7f7;
+$colorGrayDark: #8a8a8a;
+$colorGrayDarker: #5b5b5b;
+$colorGrayDarkest: #404040;
+$colorOrange: #c99128;
+$colorWhite: #fff;
+
+$colorError: #e31937;
+$colorErrorBackground: #f8d7da;
+$colorErrorText: #be2333;
+$colorSuccess: #44aa3c;
+
+$buttonFontSize: 18px;
+$headerHeight: 48px;
+$footerHeight: 48px;
+
+$appMinHeight: calc(100vh + #{$headerHeight});
+$appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
+
+$zLayerBase: 0;
+$zLayerOne: 1;
+$zLayerTwo: 2;
+$zLayerThree: 3;
+$zLayerFour: 4;

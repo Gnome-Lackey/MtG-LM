@@ -1,0 +1,9 @@
+.name-fields {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .form-input {
+        width: 45%;
+    }
+}

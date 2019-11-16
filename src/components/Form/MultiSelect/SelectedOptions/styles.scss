@@ -1,0 +1,85 @@
+@import "src/styles/variables";
+
+.selected-options {
+  border-radius: 0.25rem;
+  height: 0;
+  list-style: none;
+  max-height: 135px;
+  margin: 0;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  top: 55px;
+  transition: height 0.25s ease-in-out;
+  width: 100%;
+
+  .selected-option {
+    align-items: center;
+    background-color: $colorGrayDarker;
+    display: inline-flex;
+    font-size: 12px;
+    justify-content: space-between;
+    padding: 10px 15px;
+    width: calc(100% - 30px);
+
+    &:last-of-type {
+      border-radius: 0 0 0.25rem 0.25rem;
+    }
+
+    .label {
+      color: $colorWhite;
+      width: auto;
+    }
+
+    .btn-remove {
+      background-color: transparent;
+      border: 0;
+      color: $colorWhite;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &:not(.inline) {
+    .has-label {
+      top: 70px;
+    }
+  }
+
+  &.inline {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    left: 0;
+    position: relative;
+    top: 0;
+
+    .selected-option {
+      border-radius: 5rem;
+      height: fit-content;
+      width: auto;
+
+      .btn-remove {
+        margin-left: 25px;
+      }
+
+      &.empty-option {
+        background-color: transparent;
+        border-radius: 0;
+        display: flex;
+        font-size: 14px;
+        justify-content: center;
+        width: 100%;
+
+        .label {
+          color: $colorGrayDarker;
+        }
+      }
+    }
+  }
+}

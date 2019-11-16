@@ -1,0 +1,12 @@
+.form-radio-btn {
+  align-items: center;
+  display: inline-flex;
+
+  &.checked {
+    font-weight: 600;
+  }
+
+  input {
+    margin-right: 10px;
+  }
+}

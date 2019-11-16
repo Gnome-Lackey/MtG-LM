@@ -1,0 +1,14 @@
+@import "src/styles/variables";
+
+.status-symbol {
+  display: flex;
+  margin: 5px;
+  
+  .fa-check-square {
+    color: $colorSuccess;
+  }
+
+  .fa-check-times {
+    color: $colorError;
+  }
+}

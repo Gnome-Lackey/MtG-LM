@@ -1,0 +1,22 @@
+@import "src/styles/variables";
+
+.app-footer {
+  align-items: center;
+  background-color: $colorGrayDarkest;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  min-height: $footerHeight;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  z-index: $zLayerTwo;
+  
+  .copyright {
+    color: $colorWhite;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+}
