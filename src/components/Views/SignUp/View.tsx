@@ -70,7 +70,7 @@ const SignUpView = ({
 
   return (
     <div className="sign-up-view">
-      <h1 className="title">Dungeon Master Form</h1>
+      <h1 className="title">Registration</h1>
       <form className="sign-up-form" onSubmit={submitHandler}>
         <FormInput
           errorMessage={invalidations.userName}
