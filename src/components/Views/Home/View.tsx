@@ -15,7 +15,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => (
   <div className="home-view">
     <p>
-      Welcome {user}! This site is under construction.
+      Welcome {user.name}! This site is under construction.
     </p>
   </div>
 );

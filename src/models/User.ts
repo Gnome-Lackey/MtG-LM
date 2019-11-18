@@ -3,5 +3,5 @@ export interface User {
   name: string;
   email?: string;
   isFirstTimeLogin?: boolean;
-  privileges?: number;
+  accountType?: string;
 }

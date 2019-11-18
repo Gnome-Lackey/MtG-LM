@@ -40,7 +40,7 @@ export const login = async (
   if (accessToken && idToken) {
     sessionStorage.setItem(AXT, accessToken);
     sessionStorage.setItem(IDT, idToken);
-  } else {
+  } else if (window.location.pathname !== ROUTES.ROOT) {
     window.location.href = ROUTES.ROOT;
   }
 
