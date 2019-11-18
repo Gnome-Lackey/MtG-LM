@@ -7,8 +7,7 @@ const environment: string = process.env.ENV;
 */
 
 const authUrlMap: DynamicStringMap = {
-  local: "",
-  dev: ""
+  dev: "https://9l387zvofh.execute-api.us-east-1.amazonaws.com/dev/auth"
 };
 
 const AUTH_BASE_URL: string = authUrlMap[environment];
