@@ -32,7 +32,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Login
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  userName: state.users.user ? state.users.user.name : "",
+  userName: state.users.user ? state.users.user.userName : "",
   validated: state.auth.validated
 });
 

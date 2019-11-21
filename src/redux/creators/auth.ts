@@ -48,7 +48,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
       payload: { user: response.data.user }
     });
   } else if (response.data.error.name === "unconfirmed") {
-    dispatch(emitUpdateUser({ id: response.data.error.name, name: userName }));
+    dispatch(emitUpdateUser({ id: response.data.error.name, userName }));
     dispatch({
       type: EMIT_UPDATE_NEEDS_CONFIRMATION,
       payload: true
@@ -103,7 +103,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 ) => {
   const {
     users: {
-      user: { name }
+      user: { userName }
     }
   } = getState() as RootState;
 
@@ -113,7 +113,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const response = await authService.confirm(name, code);
+  const response = await authService.confirm(userName, code);
 
   if (!response.data.error) {
     dispatch({
@@ -137,13 +137,13 @@ export const requestConfirm = (details: ConfirmFields) => async (
 export const requestResendCode = () => async (dispatch: Function, getState: Function) => {
   const {
     users: {
-      user: { name }
+      user: { userName }
     }
   } = getState() as RootState;
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const response = await authService.resendCode(name);
+  const response = await authService.resendCode(userName);
 
   if (response.data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, response.data.error.message));
