@@ -1,10 +1,9 @@
-export interface SignUpFields {
-  confirmPassword: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  userName: string;
+export interface ConfirmFields {
+  code: string;
+}
+
+export interface GettingStartedFields {
+  favoriteColors: string[];
 }
 
 export interface LoginFields {
@@ -12,6 +11,11 @@ export interface LoginFields {
   userName: string;
 }
 
-export interface ConfirmFields {
-  code: string;
+export interface SignUpFields {
+  confirmPassword: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  userName: string;
 }

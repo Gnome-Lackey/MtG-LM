@@ -1,4 +1,5 @@
 import {
+  GettingStartedFields,
   SignUpFields,
   LoginFields,
   ConfirmFields
@@ -14,6 +15,11 @@ export interface FormData {
 export interface ConfirmFormData extends FormData {
   values: ConfirmFields;
   invalidations: ConfirmFields;
+}
+
+export interface GettingStartedFormData extends FormData {
+  values: GettingStartedFields;
+  invalidations: GettingStartedFields;
 }
 
 export interface LoginFormData extends FormData {

@@ -1,18 +1,21 @@
 import * as React from "react";
 
 import {
-  SignUpFields,
-  LoginFields,
   ConfirmFields,
+  GettingStartedFields,
+  LoginFields,
+  SignUpFields,
 } from "components/Hooks/useFormData/models/FormFields";
 
 import {
   ConfirmFormData,
+  GettingStartedFormData,
   LoginFormData,
   SignUpFormData
 } from "components/Hooks/useFormData/models/FormData";
 
 function useFormData(formFields: ConfirmFields): ConfirmFormData;
+function useFormData(formFields: GettingStartedFields): GettingStartedFormData;
 function useFormData(formFields: LoginFields): LoginFormData;
 function useFormData(formFields: SignUpFields): SignUpFormData;
 
