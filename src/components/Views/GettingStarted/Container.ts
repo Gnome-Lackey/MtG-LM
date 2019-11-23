@@ -3,44 +3,51 @@ import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { History } from "history";
 
-import LoginView from "components/Views/Login/View";
+import GettingStartedView from "components/Views/GettingStarted/View";
 
-import { requestLogin } from "redux/creators/auth";
+import { requestValidation } from "redux/creators/auth";
+import { requestGettingStartedCards } from "redux/creators/card";
 import { emitResetError } from "redux/creators/error";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 
+import { Card } from "models/Card";
+import { User } from "models/User";
 
-interface LoginViewProps {
-  confirmationNeeded: boolean;
+interface GettingStartedViewProps {
+  cards: Card[];
   errors: ErrorState;
   history: History;
   isRequestLoading: boolean;
-  userName: string;
+  user: User;
   validated: boolean;
-};
+}
 
-interface LoginViewActions {
+interface GettingStartedViewActions {
   actions: {
     emitResetError: Function;
-    requestLogin: Function;
+    requestValidation: Function;
   };
-};
+}
 
-const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): LoginViewProps => ({
-  confirmationNeeded: state.auth.confirmationNeeded,
+const mapStateToProps = (
+  state: RootState,
+  ownProps: RouteComponentProps
+): GettingStartedViewProps => ({
+  cards: state.card.list,
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  userName: state.users.user ? state.users.user.userName : "",
+  user: state.users.user,
   validated: state.auth.validated
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): LoginViewActions => ({
+const mapDispatchToProps = (dispatch: Dispatch): GettingStartedViewActions => ({
   actions: bindActionCreators(
     {
       emitResetError,
-      requestLogin
+      requestValidation,
+      requestGettingStartedCards
     },
     dispatch
   )
@@ -49,4 +56,4 @@ const mapDispatchToProps = (dispatch: Dispatch): LoginViewActions => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(LoginView));
+)(withRouter(GettingStartedView));

@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_USER_UPDATED } from "redux/actions/users";
+import { EMIT_USER_UPDATED } from "redux/actions/user";
 import {
   EMIT_LOGIN_SUCCESS,
   EMIT_SIGN_UP_SUCCESS,
@@ -11,30 +11,30 @@ import { UpdateUserAction } from "redux/models/UserAction";
 import { UserState } from "redux/models/UserState";
 
 const INITIAL_STATE: UserState = {
-  user: null
+  current: null
 };
 
 export default handleActions(
   {
     [EMIT_SIGN_UP_SUCCESS]: (state: UserState, action: AuthAction): UserState => ({
       ...state,
-      user: action.payload.user
+      current: action.payload.user
     }),
     [EMIT_LOGIN_SUCCESS]: (state: UserState, action: AuthAction): UserState => ({
       ...state,
-      user: action.payload.user
+      current: action.payload.user
     }),
     [EMIT_USER_UPDATED]: (state: UserState, action: UpdateUserAction): UserState => ({
       ...state,
-      user: {
-        ...state.user,
+      current: {
+        ...state.current,
         ...action.payload.user
       }
     }),
     [EMIT_VALIDATION_SUCCESS]: (state: UserState, action: AuthAction): UserState => ({
       ...state,
-      user: {
-        ...state.user,
+      current: {
+        ...state.current,
         ...action.payload.user
       }
     })

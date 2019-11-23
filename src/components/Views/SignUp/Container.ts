@@ -6,7 +6,7 @@ import { History } from "history";
 import SignUpView from "components/Views/SignUp/View";
 
 import { requestSignUp } from "redux/creators/auth";
-import { emitResetError } from "redux/creators/errors";
+import { emitResetError } from "redux/creators/error";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 

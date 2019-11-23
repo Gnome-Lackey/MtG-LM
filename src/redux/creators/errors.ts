@@ -1,4 +1,4 @@
-import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/actions/errors";
+import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/actions/error";
 
 import { ErrorAction } from "redux/models/ErrorAction";
 

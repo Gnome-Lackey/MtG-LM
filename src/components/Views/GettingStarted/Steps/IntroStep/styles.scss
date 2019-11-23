@@ -1,0 +1,47 @@
+@import "src/styles/animations";
+
+.intro-step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 5px;
+
+  .line {
+    animation: slideIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    left: 10px;
+    opacity: 0;
+    position: relative;
+
+    &.one {
+      animation-delay: 0;
+      margin: 0 0 20px;
+    }
+
+    &.two {
+      animation-delay: 1s;
+    }
+
+    &.three,
+    &.four {
+      animation-delay: 2s;
+    }
+
+    &.five {
+      animation-delay: 3s;
+    }
+  }
+
+  .emphasis {
+    font-style: italic;
+  }
+
+  .section.last {
+    align-items: flex-end;
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+}
