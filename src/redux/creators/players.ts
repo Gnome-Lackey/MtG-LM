@@ -1,11 +1,11 @@
-import { emitResetError } from "redux/creators/error";
+import { emitResetError } from "redux/creators/errors";
 import { emitRequestLoading } from "redux/creators/application";
 
 import * as playerService from "services/player";
 
 import * as userMapper from "mappers/user";
 
-import { EMIT_GET_PLAYERS_SUCCESS } from "redux/actions/player";
+import { EMIT_GET_PLAYERS_SUCCESS } from "redux/actions/players";
 import { User } from "models/User";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";

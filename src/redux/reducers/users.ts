@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_USER_UPDATED } from "redux/actions/user";
+import { EMIT_USER_UPDATED } from "redux/actions/users";
 import {
   EMIT_LOGIN_SUCCESS,
   EMIT_SIGN_UP_SUCCESS,

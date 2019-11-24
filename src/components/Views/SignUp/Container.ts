@@ -6,7 +6,7 @@ import { History } from "history";
 import SignUpView from "components/Views/SignUp/View";
 
 import { requestSignUp } from "redux/creators/auth";
-import { emitResetError } from "redux/creators/error";
+import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): SignU
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  user: state.users.user
+  user: state.users.current
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): SignUpViewActions => ({

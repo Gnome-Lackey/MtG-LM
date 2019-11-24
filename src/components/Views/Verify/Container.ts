@@ -37,7 +37,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Verif
   confirmationCodeNeeded: state.auth.confirmationCodeNeeded,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  userName: state.users.user ? state.users.user.userName : ""
+  userName: state.users.current ? state.users.current.userName : ""
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): VerifyViewActions => ({

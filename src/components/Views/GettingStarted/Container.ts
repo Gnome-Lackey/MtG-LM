@@ -6,8 +6,8 @@ import { History } from "history";
 import GettingStartedView from "components/Views/GettingStarted/View";
 
 import { requestValidation } from "redux/creators/auth";
-import { requestGettingStartedCards } from "redux/creators/card";
-import { emitResetError } from "redux/creators/error";
+import { requestGettingStartedCards } from "redux/creators/cards";
+import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 
@@ -34,11 +34,11 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RouteComponentProps
 ): GettingStartedViewProps => ({
-  cards: state.card.list,
+  cards: state.cards.list,
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  user: state.users.user,
+  user: state.users.current,
   validated: state.auth.validated
 });
 

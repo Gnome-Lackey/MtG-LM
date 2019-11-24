@@ -13,7 +13,7 @@ import useAuth from "components/Hooks/useAuth";
 import { ErrorState } from "redux/models/ErrorState";
 
 import { Card } from "models/Card";
-import { User } from "models/Player";
+import { User } from "models/User";
 
 import { ROUTES } from "constants/routes";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";

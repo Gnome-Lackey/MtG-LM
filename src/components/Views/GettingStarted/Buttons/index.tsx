@@ -22,7 +22,7 @@ const buildButtonDisabledStates = (
 ): { continue: boolean; skip: boolean } => {
   switch (step) {
     case 1:
-      return { continue: !values.favoriteColor, skip: true };
+      return { continue: !values.favoriteColors.length, skip: true };
     default:
       return { continue: false, skip: false };
   }

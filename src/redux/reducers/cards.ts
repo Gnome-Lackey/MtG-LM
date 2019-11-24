@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/card";
+import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/cards";
 
 import { CardState } from "redux/models/CardState";
 import { CardAction } from "redux/models/CardAction";

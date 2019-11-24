@@ -1,4 +1,4 @@
-import { EMIT_USER_UPDATED } from "redux/actions/user";
+import { EMIT_USER_UPDATED } from "redux/actions/users";
 import { UpdateUserAction } from "redux/models/UserAction";
 
 import { User } from "models/User";

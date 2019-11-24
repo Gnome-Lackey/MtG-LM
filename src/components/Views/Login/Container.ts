@@ -6,7 +6,7 @@ import { History } from "history";
 import LoginView from "components/Views/Login/View";
 
 import { requestLogin } from "redux/creators/auth";
-import { emitResetError } from "redux/creators/error";
+import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 
@@ -32,7 +32,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Login
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  userName: state.users.user ? state.users.user.userName : "",
+  userName: state.users.current ? state.users.current.userName : "",
   validated: state.auth.validated
 });
 

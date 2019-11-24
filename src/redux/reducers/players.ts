@@ -1,6 +1,6 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_GET_PLAYERS_SUCCESS } from "redux/actions/player";
+import { EMIT_GET_PLAYERS_SUCCESS } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
 import { PlayerAction } from "redux/models/PlayerAction";

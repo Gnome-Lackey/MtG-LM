@@ -31,7 +31,7 @@ const mapStateToProps = (state: RootState, ownProps: React.ComponentProps<any>):
   children: ownProps.children,
   loggingOut: state.auth.loggingOut,
   showMask: state.application.showMask,
-  user: state.users.user,
+  user: state.users.current,
   validated: state.auth.validated
 });
 
