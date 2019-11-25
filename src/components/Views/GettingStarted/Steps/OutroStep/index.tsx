@@ -22,9 +22,11 @@ const OutroStep = ({
   return (
     <div id="outroContainer" className="outro-step">
       <h1 className="line one">We&apos;re all finished!</h1>
-      <h3 className="line two">Take a look at your player information.</h3>
+      <h3 className="line two">Welcome to the league.</h3>
       <p className="line three">
-        If there are any edits you would like to make just click the back button or the title of the
+        We are sorry if we have wasted your time, but formalities must be abided by to maintain the
+        integrity of the league. Even with someone who&apos;s reputation proceeds him/herself. If
+        there are any edits you would like to make just click the back button or the title of the
         section you want to update.
       </p>
       <dl className="line four details">
@@ -39,7 +41,11 @@ const OutroStep = ({
           </ButtonFancy>
         </dt>
         <dd>
-          <img className="card-image" src={values.favoriteCard.image} alt={values.favoriteCard.name} />
+          <img
+            className="card-image"
+            src={values.favoriteCard.image}
+            alt={values.favoriteCard.name}
+          />
         </dd>
         <dt>
           <ButtonFancy

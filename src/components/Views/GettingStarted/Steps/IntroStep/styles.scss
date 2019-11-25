@@ -30,19 +30,9 @@
     &.four {
       animation-delay: 2s;
     }
-
-    &.five {
-      animation-delay: 3s;
-    }
   }
 
   .emphasis {
     font-style: italic;
-  }
-
-  .section.last {
-    align-items: flex-end;
-    display: inline-flex;
-    flex-wrap: wrap;
   }
 }

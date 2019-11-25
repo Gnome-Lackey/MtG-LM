@@ -40,9 +40,7 @@ const CardStep = ({
   updateValues
 }: CardStepProps): React.FunctionComponentElement<CardStepProps> => {
   const [highlightedCardName, setHighlightedCardName] = React.useState("");
-  const [phraseBuilder] = React.useState(
-    SPIRIT_ANIMAL_SAYINGS[Math.floor(Math.random() * (SPIRIT_ANIMAL_SAYINGS.length - 1))]
-  );
+  const [sayingIndex] = React.useState(Math.floor(Math.random() * SPIRIT_ANIMAL_SAYINGS.length));
 
   return (
     <div className="card-step">
@@ -62,7 +60,7 @@ const CardStep = ({
         ))}
       </ul>
       <p className={classNames("hint", { visible: selectedCard })}>
-        {selectedCard ? phraseBuilder(selectedCard.name) : null}
+        {selectedCard ? SPIRIT_ANIMAL_SAYINGS[sayingIndex](selectedCard.name.toLowerCase()) : null}
       </p>
     </div>
   );

@@ -120,10 +120,10 @@ const EpithetStep = ({
           </Epithet>
         </li>
       </ul>
-      <p className={classNames("hint", { visible: selectedCard })}>
-        {selectedEpithet
-          ? "Fear not! If you don't like what you have chosen you can always change it later."
-          : null}
+      <p className={classNames("hint", { visible: selectedEpithet })}>
+        {selectedEpithet === randomEpithet
+          ? "Ho ho! A mighty Zandikarian. We shall see what great name fate blesses you with."
+          : `The mighty name, ${firstName} ${selectedEpithet} ${lastName}, shall echo throughout the halls of time. However, nothing is set in stone and if this name is not suitable it can always be changed.`}
       </p>
     </div>
   );

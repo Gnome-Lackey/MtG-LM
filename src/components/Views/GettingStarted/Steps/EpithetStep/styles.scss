@@ -8,4 +8,24 @@
   max-width: 50vw;
   padding: 0 5px;
   width: 100%;
+
+  .hint {
+    color: $colorGrayDarkest;
+    font-size: 16px;
+    height: 36px;
+    margin: 50px 0 0;
+    opacity: 0;
+    text-align: left;
+    transition: opacity .5s ease-in-out;
+    width: 50vw;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    .emphasis {
+      color: $colorOrangeDarker;
+      font-style: italic;
+    }
+  }
 }

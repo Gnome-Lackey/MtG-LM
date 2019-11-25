@@ -20,19 +20,26 @@
     display: inline-flex;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 ;
   }
 
   .hint {
-    color: $colorGrayDark;
-    font-size: 14px;
+    color: $colorGrayDarkest;
+    font-size: 16px;
+    height: 18px;
+    margin: 50px 0 0;
     opacity: 0;
-    text-align: left;
+    text-align: center;
     transition: opacity .5s ease-in-out;
     width: 50vw;
 
     &.visible {
       opacity: 1;
+    }
+
+    .emphasis {
+      color: $colorOrangeDarker;
+      font-style: italic;
     }
   }
 }
