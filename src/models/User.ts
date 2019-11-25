@@ -4,7 +4,7 @@ export interface User {
   lastName?: string;
   userName: string;
   email?: string;
-  name?: string;
+  displayName?: string;
   isFirstTimeLogin?: boolean;
   accountType?: string;
 }
