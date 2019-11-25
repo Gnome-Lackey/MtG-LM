@@ -52,7 +52,8 @@
     "lint": "eslint --ext .ts,.tsx src/"
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "build"
   ],
   "devDependencies": {
     "@bsokol/eslint-config": "^3.0.0",
