@@ -51,9 +51,9 @@ const EpithetStep = ({
   const firstName = user ? user.firstName : "";
   const lastName = user ? user.lastName : "";
 
-  const cardNameEpithet = `"${name}"`.toLowerCase();
-  const cardTypeEpithet = `"the ${type.split(" — ")[1]}"`.toLowerCase();
-  const animalEpithet = `"the ${animal} chaser"`.toLowerCase();
+  const cardNameEpithet = name.toLowerCase();
+  const cardTypeEpithet = `the ${type.split(" — ")[1]}`.toLowerCase();
+  const animalEpithet = `the ${animal} chaser`.toLowerCase();
   const randomEpithet = "[[random]]";
 
   const handleUpdate = (epithet: string): void => {
@@ -73,7 +73,7 @@ const EpithetStep = ({
           >
             {firstName}
             &nbsp;
-            <span className="emphasis">{cardNameEpithet}</span>
+            <span className="emphasis">{`"${cardNameEpithet}"`}</span>
             &nbsp;
             {lastName}
           </Epithet>
@@ -87,7 +87,7 @@ const EpithetStep = ({
           >
             {firstName}
             &nbsp;
-            <span className="emphasis">{cardTypeEpithet}</span>
+            <span className="emphasis">{`"${cardTypeEpithet}"`}</span>
             &nbsp;
             {lastName}
           </Epithet>
@@ -102,7 +102,7 @@ const EpithetStep = ({
           >
             {firstName}
             &nbsp;
-            <span className="emphasis">{animalEpithet}</span>
+            <span className="emphasis">{`"${animalEpithet}"`}</span>
             &nbsp;
             {lastName}
           </Epithet>
@@ -123,7 +123,7 @@ const EpithetStep = ({
       <p className={classNames("hint", { visible: selectedEpithet })}>
         {selectedEpithet === randomEpithet
           ? "Ho ho! A mighty Zandikarian. We shall see what great name fate blesses you with."
-          : `The mighty name, ${firstName} ${selectedEpithet} ${lastName}, shall echo throughout the halls of time. However, nothing is set in stone and if this name is not suitable it can always be changed.`}
+          : `The mighty name, ${firstName} "${selectedEpithet}" ${lastName}, shall echo throughout the halls of time. However, nothing is set in stone and if this name is not suitable it can always be changed.`}
       </p>
     </div>
   );
