@@ -23,6 +23,7 @@ import "./styles.scss";
 interface GettingStartedActions {
   emitResetError: Function;
   requestValidation: Function;
+  requestCreatePlayer: Function;
   requestGettingStartedCards: Function;
 }
 
@@ -36,7 +37,7 @@ interface GettingStartedViewProps extends RouteComponentProps {
 }
 
 const FADE_IN_TIMEOUT = 750;
-const MAX_STEP = 4;
+const MAX_STEP = 3;
 
 const handleAnimation = (callback: Function): void => {
   const element = document.querySelector(`.getting-started-content.visible`);
@@ -74,7 +75,8 @@ const GettingStartedView = ({
   validated
 }: GettingStartedViewProps): React.FunctionComponentElement<GettingStartedViewProps> => {
   const { values, updateValues } = useFormData({
-    favoriteColors: []
+    epithet: "",
+    favoriteCard: null
   });
 
   const errorMessage = useErrorMessage(
@@ -93,7 +95,6 @@ const GettingStartedView = ({
     if (!pageLoaded) {
       setPageLoaded(true);
 
-      // TODO: Save player info on page load
       actions.requestGettingStartedCards();
     }
   }, [pageLoaded]);
@@ -102,7 +103,7 @@ const GettingStartedView = ({
     ev.preventDefault();
 
     if (step === MAX_STEP) {
-      // TODO: Submit player form
+      actions.requestCreatePlayer(values);
     } else {
       handleStepIncrement(step, setStep);
     }
@@ -117,7 +118,7 @@ const GettingStartedView = ({
           step={step}
           updateStep={setStep}
           updateValues={updateValues}
-          userName={user.userName}
+          user={user}
           values={values}
         />
         {errorMessage ? <ErrorMessage inline>{errorMessage}</ErrorMessage> : null}

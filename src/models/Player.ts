@@ -6,4 +6,6 @@ export interface Player {
   totalWins?: number;
   totalLosses?: number;
   matches?: string[];
+  epithet: string;
+  favoriteColors: string[];
 }

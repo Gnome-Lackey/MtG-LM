@@ -2,16 +2,16 @@ import * as React from "react";
 
 import ButtonFancy from "components/Common/ButtonFancy";
 
-import { MouseEventFunction } from "models/Event";
+import { MouseButtonEventFunction } from "models/Event";
 import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
 import "./styles.scss";
 
 interface GettingStartedButtonsProps {
-  decrementHandler: MouseEventFunction;
-  incrementHandler: MouseEventFunction;
+  decrementHandler: MouseButtonEventFunction;
+  incrementHandler: MouseButtonEventFunction;
   max: number;
-  skipHandler: MouseEventFunction;
+  skipHandler: MouseButtonEventFunction;
   step: number;
   values: GettingStartedFields;
 }
@@ -22,7 +22,9 @@ const buildButtonDisabledStates = (
 ): { continue: boolean; skip: boolean } => {
   switch (step) {
     case 1:
-      return { continue: !values.favoriteColors.length, skip: true };
+      return { continue: !values.favoriteCard, skip: true };
+    case 2:
+        return { continue: !values.epithet, skip: false };
     default:
       return { continue: false, skip: false };
   }
@@ -32,8 +34,8 @@ const renderSkipButton = (
   firstStep: boolean,
   lastStep: boolean,
   disableSkip: boolean,
-  incrementHandler: MouseEventFunction,
-  skipHandler: MouseEventFunction
+  incrementHandler: MouseButtonEventFunction,
+  skipHandler: MouseButtonEventFunction
 ): React.FunctionComponentElement<any> => {
   if (firstStep) {
     return <ButtonFancy clickHandler={skipHandler}>Home</ButtonFancy>;
@@ -51,7 +53,7 @@ const renderSkipButton = (
 const renderContinueButton = (
   notLastStep: boolean,
   disableContinue: boolean,
-  incrementHandler: MouseEventFunction
+  incrementHandler: MouseButtonEventFunction
 ): React.FunctionComponentElement<any> =>
   notLastStep ? (
     <ButtonFancy clickHandler={incrementHandler} disabled={disableContinue}>

@@ -40,7 +40,7 @@ const NavigationView = ({
           history={props.history}
           loggingOut={loggingOut}
           logoutHandler={actions.requestLogout}
-          userName={user ? user.name : null}
+          userName={user ? user.userName : null}
         />
       )}
     />

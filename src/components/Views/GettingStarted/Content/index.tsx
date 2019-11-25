@@ -1,12 +1,14 @@
 import * as React from "react";
 
-import ColorStep from "components/Views/GettingStarted/Steps/ColorStep";
+import CardStep from "components/Views/GettingStarted/Steps/CardStep";
 import IntroStep from "components/Views/GettingStarted/Steps/IntroStep";
 import OutroStep from "components/Views/GettingStarted/Steps/OutroStep";
+import EpithetStep from "components/Views/GettingStarted/Steps/EpithetStep";
 
 import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
 import { Card } from "models/Card";
+import { User } from "models/User";
 
 import "./styles.scss";
 
@@ -16,7 +18,7 @@ interface GettingStartedContentProps {
   step: number;
   updateStep: Function;
   updateValues: Function;
-  userName: string;
+  user: User;
   values: GettingStartedFields;
 }
 
@@ -26,23 +28,37 @@ const GettingStartedContent = ({
   step,
   updateStep,
   updateValues,
-  userName,
+  user,
   values
 }: GettingStartedContentProps): React.FunctionComponentElement<GettingStartedContentProps> => {
   React.useEffect(() => {
     if (isValidated) {
-      const element = document.querySelector(`.getting-started-content`);
+    const element = document.querySelector(`.getting-started-content`);
 
-      element.setAttribute("class", `getting-started-content visible`);
+    element.setAttribute("class", "getting-started-content visible");
     }
-  }, [isValidated]);
-  
+  }, []);
+
+  const userName = user ? user.userName : "";
+
   return (
     <div className="getting-started-content">
       {
         [
           <IntroStep key="step-intro" name={userName} />,
-          <ColorStep key="step-color" cards={cards} updateValues={updateValues} values={values} />,
+          <CardStep
+            key="step-card"
+            cards={cards}
+            selectedCard={values.favoriteCard}
+            updateValues={updateValues}
+          />,
+          <EpithetStep
+            key="step-epithet"
+            selectedCard={values.favoriteCard}
+            selectedEpithet={values.epithet}
+            updateValues={updateValues}
+            user={user}
+          />,
           <OutroStep key="step-outro" updateStep={updateStep} values={values} />
         ][step]
       }

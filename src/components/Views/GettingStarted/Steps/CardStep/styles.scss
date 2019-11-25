@@ -1,0 +1,23 @@
+.card-step {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 5px;
+
+  .title {
+    font-size: 24px;
+  }
+
+  .dim {
+    opacity: .6;
+  }
+
+  .card-list {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}

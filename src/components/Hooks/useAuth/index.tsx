@@ -11,7 +11,7 @@ const useAuth = (
     if (validated === null) {
       validationHandler();
     } else if (validated === false) {
-      redirectHandler(ROUTES.ROOT);
+      // redirectHandler(ROUTES.ROOT);
     }
   }, [validated]);
 

@@ -2,7 +2,8 @@ export interface ScryfallCard {
   id: string;
   name: string;
   colors: string[];
-  image_uris: {
+  type: string;
+  imageUris: {
     small: string;
     normal: string;
     large: string;

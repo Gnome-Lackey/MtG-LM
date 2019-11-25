@@ -3,6 +3,7 @@
 
 .outro-step {
   padding: 0 5px;
+  width: 50vw;
   
   .line {
     animation: slideIn;
@@ -46,15 +47,13 @@
         margin: 20px 0 5px;
       }
 
-      .meta-details {
-        margin: 0;
-        padding: 0;
+      .card-image {
+        width: 150px;
       }
 
-      .character-details {
-        font-size: 10px;
-        margin: 0;
-        padding: 0;
+      .emphasis {
+        color: $colorOrangeDarker;
+        font-style: italic;
       }
     }
   }

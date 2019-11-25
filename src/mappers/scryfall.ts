@@ -4,6 +4,7 @@ import { Card } from "models/Card";
 export const toCard = (data: ScryfallCard): Card => ({
   id: data.id,
   name: data.name,
-  image: data.image_uris.normal,
+  image: data.imageUris.normal,
+  type: data.type,
   colors: data.colors
 });

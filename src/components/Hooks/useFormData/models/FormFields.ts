@@ -1,9 +1,12 @@
+import { Card } from "models/Card";
+
 export interface ConfirmFields {
   code: string;
 }
 
 export interface GettingStartedFields {
-  favoriteColors: string[];
+  epithet: string;
+  favoriteCard: Card;
 }
 
 export interface LoginFields {

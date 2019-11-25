@@ -19,6 +19,10 @@ const LoginContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/Login/Container")
 );
 
+const GettingStartedContainer: React.LazyExoticComponent<any> = lazy(() =>
+  import("components/Views/GettingStarted/Container")
+);
+
 const HomeContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/Home/Container")
 );
@@ -42,6 +46,7 @@ const Routes = (): React.FunctionComponentElement<void> => (
         <Suspense fallback={<Spinner />}>
           <Switch>
             <Route exact path={ROUTES.ROOT} component={LoginContainer} />
+            <Route exact path={ROUTES.GETTING_STARTED} component={GettingStartedContainer} />
             <Route exact path={ROUTES.SIGN_UP_PAGE} component={SignUpContainer} />
             <Route exact path={ROUTES.VERIFICATION_PAGE} component={VerifyContainer} />
             <Route exact path={ROUTES.HOME_PAGE} component={HomeContainer} />

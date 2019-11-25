@@ -27,6 +27,7 @@ interface LoginViewProps extends RouteComponentProps {
   actions: LoginViewActions;
   confirmationNeeded: boolean;
   errors: ErrorState;
+  isFirstTimeLogin: boolean;
   isRequestLoading: boolean;
   userName: string;
   validated: boolean;
@@ -37,12 +38,17 @@ const LoginView = ({
   confirmationNeeded,
   errors,
   history,
+  isFirstTimeLogin,
   isRequestLoading,
   userName,
   validated
 }: LoginViewProps): React.FunctionComponentElement<LoginViewProps> => {
   useNavigator(confirmationNeeded, ROUTES.VERIFICATION_PAGE, history.push);
-  useNavigator(validated, ROUTES.HOME_PAGE, history.push);
+  useNavigator(
+    validated,
+    isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE,
+    history.push
+  );
 
   const errorMessage = useErrorMessage(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN, errors, emitResetError);
 

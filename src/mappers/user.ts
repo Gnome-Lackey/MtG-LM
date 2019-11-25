@@ -5,5 +5,7 @@ export const toPlayer = (details: User): Player => ({
   id: details.id,
   userName: details.userName,
   name: details.name,
+  epithet: "",
+  favoriteColors: [],
   email: details.email
 });

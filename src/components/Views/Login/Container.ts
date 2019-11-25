@@ -15,6 +15,7 @@ interface LoginViewProps {
   confirmationNeeded: boolean;
   errors: ErrorState;
   history: History;
+  isFirstTimeLogin: boolean;
   isRequestLoading: boolean;
   userName: string;
   validated: boolean;
@@ -31,6 +32,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Login
   confirmationNeeded: state.auth.confirmationNeeded,
   errors: state.errors,
   history: ownProps.history,
+  isFirstTimeLogin: state.users.current ? state.users.current.isFirstTimeLogin : true,
   isRequestLoading: state.application.isRequestLoading,
   userName: state.users.current ? state.users.current.userName : "",
   validated: state.auth.validated
