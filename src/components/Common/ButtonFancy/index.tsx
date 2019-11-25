@@ -1,14 +1,14 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { MouseEventFunction } from "models/Event";
+import { MouseButtonEventFunction } from "models/Event";
 
 import "./styles.scss";
 
 interface ButtonFancyProps {
   children: string;
   className?: string;
-  clickHandler?: MouseEventFunction;
+  clickHandler?: MouseButtonEventFunction;
   disabled?: boolean;
   type?: "button" | "submit";
 }

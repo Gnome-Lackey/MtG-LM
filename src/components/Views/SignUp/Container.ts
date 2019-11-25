@@ -30,7 +30,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): SignU
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  user: state.users.user
+  user: state.users.current
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): SignUpViewActions => ({

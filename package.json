@@ -57,6 +57,7 @@
   "devDependencies": {
     "@bsokol/eslint-config": "^3.0.0",
     "@hot-loader/react-dom": "^16.8.6",
+    "@types/chance": "^1.0.7",
     "@types/redux-devtools-extension": "^2.13.2",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "chance": "^1.0.18",

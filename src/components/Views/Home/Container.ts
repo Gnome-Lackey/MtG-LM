@@ -16,7 +16,7 @@ interface HomeViewActions {
 }
 
 const mapStateToProps = (state: RootState): HomeViewProps => ({
-  user: state.users.user
+  user: state.users.current
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({

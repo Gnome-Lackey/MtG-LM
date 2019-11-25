@@ -6,13 +6,11 @@ import ErrorMessage from "components/Common/ErrorMessage";
 import "./styles.scss";
 
 interface ResendCodeMessageProps {
-  closeHandler: React.MouseEventHandler<HTMLButtonElement>;
   clickHandler: React.MouseEventHandler<HTMLButtonElement>;
   isLoading: boolean;
 }
 
 const ResendCodeMessage = ({
-  closeHandler,
   clickHandler,
   isLoading
 }: ResendCodeMessageProps): React.FunctionComponentElement<ResendCodeMessageProps> => (
@@ -24,7 +22,7 @@ const ResendCodeMessage = ({
       <FormButton loading={isLoading} type="button" onClick={clickHandler}>
         Resend Code
       </FormButton>
-      <FormButton className="alt-btn" disabled={isLoading} type="button" onClick={closeHandler}>
+      <FormButton className="alt-btn" disabled={isLoading}>
         Retry Code
       </FormButton>
     </div>

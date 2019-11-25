@@ -103,7 +103,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 ) => {
   const {
     users: {
-      user: { userName }
+      current: { userName }
     }
   } = getState() as RootState;
 
@@ -137,7 +137,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 export const requestResendCode = () => async (dispatch: Function, getState: Function) => {
   const {
     users: {
-      user: { userName }
+      current: { userName }
     }
   } = getState() as RootState;
 
