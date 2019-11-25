@@ -65,15 +65,13 @@ const VerifyView = ({
   const resendCodeHandler = (ev: React.FormEvent): void => {
     ev.preventDefault();
 
-    requestResendCode(values);
-  };
-
-  const resetHandler = (): void => {
     resetValues({ code: "" });
 
     emitClearCodeNeeded();
 
     document.getElementById("code").focus();
+
+    requestResendCode(values);
   };
 
   return (
@@ -91,7 +89,6 @@ const VerifyView = ({
         />
         {confirmationCodeNeeded ? (
           <ResendCodeMessage
-            closeHandler={resetHandler}
             clickHandler={resendCodeHandler}
             isLoading={isRequestLoading}
           />
