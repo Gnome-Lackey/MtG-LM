@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Chance from "chance";
+import * as classNames from "classnames";
 
 import { Card as CardModel } from "models/Card";
 import { User } from "models/User";
@@ -119,6 +120,11 @@ const EpithetStep = ({
           </Epithet>
         </li>
       </ul>
+      <p className={classNames("hint", { visible: selectedCard })}>
+        {selectedEpithet
+          ? "Fear not! If you don't like what you have chosen you can always change it later."
+          : null}
+      </p>
     </div>
   );
 };

@@ -3,12 +3,10 @@ import * as scryfallService from "services/scryfall";
 import * as scryfallMapper from "mappers/scryfall";
 
 import { emitResetError } from "redux/creators/errors";
-import { emitRequestLoading } from "redux/creators/application";
 import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/cards";
 
 import { ScryfallCard } from "models/Scryfall";
 
-import { REQUEST_GETTING_STARTED_CARDS } from "constants/request";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
 
 const buildQueryString = (color: string, type: string): string =>
@@ -28,8 +26,6 @@ const mapScryfallResultsToCards = (results: any[]): ScryfallCard[] =>
 export const requestGettingStartedCards = () => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_CARDS, true));
-
   const results = await Promise.all([
     scryfallService.getCard(buildQueryString("w", "creature")),
     scryfallService.getCard(buildQueryString("b", "creature")),
@@ -46,6 +42,4 @@ export const requestGettingStartedCards = () => async (dispatch: Function) => {
     type: EMIT_GETTING_STARTED_CARDS_SUCCESS,
     payload: { cards }
   });
-
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_CARDS, false));
 };

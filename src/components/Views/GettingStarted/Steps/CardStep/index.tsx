@@ -1,8 +1,11 @@
 import * as React from "react";
+import * as classNames from "classnames";
 
 import Card from "components/Common/Card";
 
 import { Card as CardModel } from "models/Card";
+
+import { SPIRIT_ANIMAL_SAYINGS } from "constants/gettingStarted";
 
 import "./styles.scss";
 
@@ -37,6 +40,9 @@ const CardStep = ({
   updateValues
 }: CardStepProps): React.FunctionComponentElement<CardStepProps> => {
   const [highlightedCardName, setHighlightedCardName] = React.useState("");
+  const [phraseBuilder] = React.useState(
+    SPIRIT_ANIMAL_SAYINGS[Math.floor(Math.random() * (SPIRIT_ANIMAL_SAYINGS.length - 1))]
+  );
 
   return (
     <div className="card-step">
@@ -55,6 +61,9 @@ const CardStep = ({
           </li>
         ))}
       </ul>
+      <p className={classNames("hint", { visible: selectedCard })}>
+        {selectedCard ? phraseBuilder(selectedCard.name) : null}
+      </p>
     </div>
   );
 };

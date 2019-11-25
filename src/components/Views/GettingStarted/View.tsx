@@ -89,7 +89,8 @@ const GettingStartedView = ({
   const [step, setStep] = React.useState(0);
   const [pageLoaded, setPageLoaded] = React.useState(false);
   const isValidated = useAuth(validated, actions.requestValidation, history.push);
-  const showSpinner = !isValidated || isRequestLoading;
+  const cardsLoading = step === 1 && !cards.length;
+  const showSpinner = !isValidated || isRequestLoading || cardsLoading;
 
   React.useEffect(() => {
     if (!pageLoaded) {

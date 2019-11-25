@@ -1,3 +1,5 @@
+@import "src/styles/variables.scss";
+
 .card-step {
   align-items: center;
   display: flex;
@@ -19,5 +21,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  .hint {
+    color: $colorGrayDark;
+    font-size: 14px;
+    opacity: 0;
+    text-align: left;
+    transition: opacity .5s ease-in-out;
+    width: 50vw;
+
+    &.visible {
+      opacity: 1;
+    }
   }
 }
