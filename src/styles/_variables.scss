@@ -23,7 +23,8 @@ $buttonFontSize: 18px;
 $headerHeight: 48px;
 $footerHeight: 48px;
 
-$appMinHeight: calc(100vh + #{$headerHeight});
+$appMinHeight: 100vh;
+$appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
 
 $zLayerBase: 0;

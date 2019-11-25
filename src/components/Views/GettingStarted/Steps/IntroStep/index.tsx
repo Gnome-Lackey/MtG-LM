@@ -11,8 +11,8 @@ const IntroStep = ({ name }: IntroStepProps): React.FunctionComponentElement<Int
     <h1 className="line one">Welcome, Planeswalker {name}!</h1>
     <h3 className="line two">You&apos;ve been expected.</h3>
     <p className="line three">
-      Before we welcomed in to the league we must ask you a few questions so that we may
-      determined if you are worthy enough to enter.
+      Before you are welcomed in to the league we must ask you a few questions so that we may
+      determine if you are worthy enough to enter.
     </p>
     <div className="section last">
       <span className="line four">
