@@ -8,12 +8,12 @@ import { Player } from "models/Player";
 import { PlayerFilters } from "services/models/Filters";
 
 import { PLAYER_BASE_URL } from "constants/services";
-import { AXT } from "constants/session";
+import { IDT } from "constants/session";
 
 export const create = async (body: Player): Promise<MtglmServiceResponseBody> => {
   const headers = new Headers();
 
-  const token = sessionStorage.getItem(AXT);
+  const token = sessionStorage.getItem(IDT);
 
   headers.append("Authorization", token);
   headers.append("Accept", "application/json");
@@ -28,7 +28,7 @@ export const create = async (body: Player): Promise<MtglmServiceResponseBody> =>
 export const query = async (filters?: PlayerFilters): Promise<MtglmServiceResponseBody> => {
   const headers = new Headers();
 
-  const token = sessionStorage.getItem(AXT);
+  const token = sessionStorage.getItem(IDT);
 
   headers.append("Authorization", token);
   headers.append("Accept", "application/json");
