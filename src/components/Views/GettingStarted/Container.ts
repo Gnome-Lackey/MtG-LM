@@ -19,6 +19,7 @@ interface GettingStartedViewProps {
   cards: Card[];
   errors: ErrorState;
   history: History;
+  isGettingStartedFinished: boolean;
   isRequestLoading: boolean;
   user: User;
   validated: boolean;
@@ -39,6 +40,7 @@ const mapStateToProps = (
   cards: state.cards.list,
   errors: state.errors,
   history: ownProps.history,
+  isGettingStartedFinished: state.application.isGettingStartedFinished,
   isRequestLoading: state.application.isRequestLoading,
   user: state.users.current,
   validated: state.auth.validated

@@ -1,6 +1,6 @@
 import { emitResetError } from "redux/creators/errors";
 import { emitRequestLoading } from "redux/creators/application";
-import { EMIT_GET_PLAYERS_SUCCESS } from "redux/actions/players";
+import { EMIT_GET_PLAYERS_SUCCESS, EMIT_CREATE_PLAYER_SUCCESS } from "redux/actions/players";
 import { RootState } from "redux/models/RootState";
 
 import * as playerService from "services/player";
@@ -30,6 +30,10 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   body.favoriteColors = details.favoriteCard.colors;
 
   await playerService.create(body);
+
+  dispatch({
+    type: EMIT_CREATE_PLAYER_SUCCESS
+  });
 
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };

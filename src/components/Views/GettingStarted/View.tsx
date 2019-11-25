@@ -9,6 +9,7 @@ import Spinner from "components/Common/Spinner";
 import useErrorMessage from "components/Hooks/useErrorMessage";
 import useFormData from "components/Hooks/useFormData";
 import useAuth from "components/Hooks/useAuth";
+import useNavigator from "components/Hooks/useNavigator";
 
 import { ErrorState } from "redux/models/ErrorState";
 
@@ -31,6 +32,7 @@ interface GettingStartedViewProps extends RouteComponentProps {
   actions: GettingStartedActions;
   cards: Card[];
   errors: ErrorState;
+  isGettingStartedFinished: boolean;
   isRequestLoading: boolean;
   user: User;
   validated: boolean;
@@ -70,10 +72,13 @@ const GettingStartedView = ({
   cards,
   errors,
   history,
+  isGettingStartedFinished,
   isRequestLoading,
   user,
   validated
 }: GettingStartedViewProps): React.FunctionComponentElement<GettingStartedViewProps> => {
+  useNavigator(isGettingStartedFinished, ROUTES.HOME_PAGE, history.push);
+
   const { values, updateValues } = useFormData({
     epithet: "",
     favoriteCard: null
