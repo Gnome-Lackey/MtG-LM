@@ -1,0 +1,9 @@
+.record-match-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .record-row {
+    display: inline-flex;
+  }
+}

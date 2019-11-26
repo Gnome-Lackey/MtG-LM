@@ -5,17 +5,20 @@ import {
   GettingStartedFields,
   LoginFields,
   SignUpFields,
+  RecordMatchFields,
 } from "components/Hooks/useFormData/models/FormFields";
 
 import {
   ConfirmFormData,
   GettingStartedFormData,
   LoginFormData,
+  RecordMatchFormData,
   SignUpFormData
 } from "components/Hooks/useFormData/models/FormData";
 
 function useFormData(formFields: ConfirmFields): ConfirmFormData;
 function useFormData(formFields: GettingStartedFields): GettingStartedFormData;
+function useFormData(formFields: RecordMatchFields): RecordMatchFormData;
 function useFormData(formFields: LoginFields): LoginFormData;
 function useFormData(formFields: SignUpFields): SignUpFormData;
 

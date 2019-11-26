@@ -4,7 +4,7 @@ import classNames from "classnames";
 import "./styles.scss";
 
 interface FabProps {
-  children: React.ReactElement;
+  children?: React.ReactElement;
   className?: string;
   clickHandler: React.MouseEventHandler<HTMLButtonElement>;
 }

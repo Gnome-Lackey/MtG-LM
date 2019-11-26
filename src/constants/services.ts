@@ -7,6 +7,7 @@ const environment: string = process.env.ENV;
 */
 
 const authUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local/auth",
   dev: "https://3pt9hx6yxe.execute-api.us-east-1.amazonaws.com/dev/auth"
 };
 
@@ -24,6 +25,7 @@ export const AUTH_VALIDATE = `${AUTH_BASE_URL}/validate`;
 */
 
 const playerUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local/auth",
   dev: "https://5u60j5v8n1.execute-api.us-east-1.amazonaws.com/dev/players"
 };
 

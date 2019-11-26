@@ -23,7 +23,7 @@
     margin: 0;
     width: 100%;
 
-    .btn-multi-select {
+    .btn-type-ahead {
       background-color: $colorWhite;
       border: 0;
       border-radius: 0.25rem;
@@ -59,7 +59,7 @@
     &.selected {
       background-color: $colorGray;
 
-      .btn-multi-select {
+      .btn-type-ahead {
         align-items: center;
         background-color: $colorGray;
         display: inline-flex;

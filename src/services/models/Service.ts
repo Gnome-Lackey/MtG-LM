@@ -1,6 +1,6 @@
 export interface MtglmServiceResponseBody {
   status: number;
-  data?: any;
+  data: any;
 }
 
 export interface MtglmServiceResponse {

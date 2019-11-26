@@ -1,12 +1,12 @@
-import { MultiSelectOption } from "components/Form/MultiSelect/models/MultiSelectOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
-export const mapOptionsToKeys = (options: MultiSelectOption[]): string[] =>
-  options ? options.map((option: MultiSelectOption) => option.key) : [];
+export const mapOptionsToKeys = (options: TypeAheadOption[]): string[] =>
+  options ? options.map((option: TypeAheadOption) => option.key) : [];
 
-export const mapDataToMultiSelectOption = (data: {
+export const mapDataToTypeAheadOption = (data: {
   id: string;
   name: string;
-}): MultiSelectOption => ({
+}): TypeAheadOption => ({
   key: data.id,
   label: data.name
 });

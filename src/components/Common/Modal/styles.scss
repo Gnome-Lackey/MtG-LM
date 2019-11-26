@@ -1,0 +1,23 @@
+@import "src/styles/variables";
+
+.modal-container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+
+  &.show {
+    opacity: 1;
+  }
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 25vw;
+  }
+}

@@ -43,15 +43,15 @@ export const requestGetPlayers = () => async (dispatch: Function) => {
 
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
-  const response = await playerService.query();
+  const { data } = await playerService.query();
 
-  if (response.data.error) {
+  if (data.error) {
     // TODO: Handle error
   } else {
     dispatch({
       type: EMIT_GET_PLAYERS_SUCCESS,
       payload: {
-        players: response.data
+        players: data
       }
     });
   }
