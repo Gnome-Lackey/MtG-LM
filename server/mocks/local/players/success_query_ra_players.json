@@ -1,0 +1,35 @@
+[
+  {
+    "id": "223-1232-4323",
+    "displayName": "Jace Beleran",
+    "userName": "MindSculpter",
+    "email": "wiseman@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "mind sculptor",
+    "favoriteColors": ["U"]
+  },
+  {
+    "id": "323-1232-5435",
+    "displayName": "Gideon Jura",
+    "userName": "ChampionOfJustice",
+    "email": "justiceIsServed@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "champion of justice",
+    "favoriteColors": ["W"]
+  },
+  {
+    "id": "523-1232-2123",
+    "displayName": "Chandra Nalaar",
+    "userName": "TorchOfDefiance",
+    "email": "burnItAllDown@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "torch of defiance",
+    "favoriteColors": ["R"]
+  }
+]
