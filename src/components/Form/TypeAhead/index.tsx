@@ -2,9 +2,10 @@ import * as React from "react";
 
 import TypeAheadInput from "components/Form/TypeAhead/Input";
 import TypeAheadSearchOptions from "components/Form/TypeAhead/SearchOptions";
-import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
 import useOnClickOutside from "components/Hooks/useOnClickOutside";
+
+import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 
 import "./styles.scss";
 
@@ -15,7 +16,6 @@ interface TypeAheadProps {
   options: TypeAheadOption[];
   placeholder?: string;
   searchHandler: Function;
-  selectedOption: TypeAheadOption;
   selectHandler: Function;
 }
 
@@ -26,19 +26,19 @@ const TypeAhead = ({
   options,
   placeholder,
   searchHandler,
-  selectedOption,
-  selectHandler
+  selectHandler,
 }: TypeAheadProps): React.FunctionComponentElement<TypeAheadProps> => {
   const reference = React.useRef();
+
   const [searchText, setSearchText] = React.useState("");
   const [showSearch, setShowSearch] = React.useState(false);
 
   const handleSelect = (option: TypeAheadOption): void => {
     document.getElementById(id).focus();
 
-    if (selectHandler) {
-      selectHandler(option);
-    }
+    setSearchText(option.label);
+    setShowSearch(false);
+    selectHandler(option);
   };
 
   const handleChange = (ev: React.ChangeEvent): void => {
@@ -60,7 +60,6 @@ const TypeAhead = ({
     const { key } = ev;
 
     if (key === "Escape") {
-      setSearchText("");
       setShowSearch(false);
     } else if (key === "Enter") {
       ev.preventDefault();
@@ -90,7 +89,6 @@ const TypeAhead = ({
           handleSelect={handleSelect}
           hasLabel={!!label}
           options={options}
-          selectedOption={selectedOption}
           show={showSearch}
         />
       </div>

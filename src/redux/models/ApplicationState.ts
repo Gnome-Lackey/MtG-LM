@@ -5,4 +5,5 @@ export interface ApplicationState {
   isRequestLoading?: boolean;
   requestsMap?: DynamicBooleanMap,
   showMask?: boolean;
+  showRecordMatchModal?: boolean;
 };

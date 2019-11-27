@@ -21,11 +21,23 @@ export const AUTH_SIGN_UP = `${AUTH_BASE_URL}/signup`;
 export const AUTH_VALIDATE = `${AUTH_BASE_URL}/validate`;
 
 /*
+  Match API
+  TODO: Replace dev url
+*/
+
+const matchUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local/matches",
+  dev: ""
+};
+
+export const MATCH_BASE_URL: string = matchUrlMap[environment];
+
+/*
   Player API
 */
 
 const playerUrlMap: DynamicStringMap = {
-  local: "http://localhost:9001/local/auth",
+  local: "http://localhost:9001/local/players",
   dev: "https://5u60j5v8n1.execute-api.us-east-1.amazonaws.com/dev/players"
 };
 

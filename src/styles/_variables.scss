@@ -26,6 +26,7 @@ $footerHeight: 48px;
 $appMinHeight: 100vh;
 $appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
+$maxModalWidth: 500px;
 
 $zLayerBase: 0;
 $zLayerOne: 1;

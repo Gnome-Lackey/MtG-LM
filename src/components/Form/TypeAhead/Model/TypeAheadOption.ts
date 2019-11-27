@@ -1,4 +1,5 @@
 export interface TypeAheadOption {
-  label: string;
   key: string;
+  label: string;
+  subLabel?: string;
 }

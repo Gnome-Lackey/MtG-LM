@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as classNames from "classnames";
 
 import Mask from "components/Common/Mask";
 
@@ -7,10 +6,10 @@ import "./styles.scss";
 
 interface ModalProps {
   id: string;
-  children: Element;
+  children: React.FunctionComponentElement<any> | string;
   closeHandler: Function;
   mask?: boolean;
-  show: boolean;
+  title?: string;
 }
 
 const Modal = ({
@@ -18,7 +17,7 @@ const Modal = ({
   children,
   closeHandler,
   mask,
-  show
+  title
 }: ModalProps): React.FunctionComponentElement<ModalProps> => {
   const handleClose = (ev: React.MouseEvent): void => {
     ev.preventDefault();
@@ -27,11 +26,12 @@ const Modal = ({
   };
 
   return (
-    <div className={classNames("modal-container", { show })}>
+    <div className="modal-container">
       <Mask show={mask} />
       <div id={id} className="modal">
-        <div className="modal-actions">
-          <button type="button" onClick={handleClose}>
+        <div className="modal-header">
+          <p className="modal-title">{title}</p>
+          <button className="btn-close" type="button" onClick={handleClose}>
             <i className="far fa-times-circle" />
           </button>
         </div>

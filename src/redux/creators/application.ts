@@ -1,4 +1,9 @@
-import { EMIT_REQUEST_LOADING, EMIT_TOGGLE_MASK } from "redux/actions/application";
+import {
+  EMIT_REQUEST_LOADING,
+  EMIT_TOGGLE_MASK,
+  EMIT_TOGGLE_RECORD_MATCH_MODAL
+} from "redux/actions/application";
+
 import { ApplicationAction } from "redux/models/ApplicationAction";
 import { RootState } from "redux/models/RootState";
 
@@ -28,3 +33,6 @@ export const emitToggleMask = (): ApplicationAction => ({
   type: EMIT_TOGGLE_MASK
 });
 
+export const emitToggleRecordMatchModal = (): ApplicationAction => ({
+  type: EMIT_TOGGLE_RECORD_MATCH_MODAL
+});

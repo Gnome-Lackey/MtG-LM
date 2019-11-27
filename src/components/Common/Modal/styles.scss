@@ -1,3 +1,4 @@
+@import "src/styles/animations";
 @import "src/styles/variables";
 
 .modal-container {
@@ -6,18 +7,55 @@
   height: 100vh;
   justify-content: center;
   left: 0;
-  opacity: 0;
   position: absolute;
   top: 0;
   width: 100vw;
 
-  &.show {
-    opacity: 1;
-  }
-  
   .modal {
+    animation: slideUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    background-color: $colorGray;
+    border: 2px solid $colorGrayDark;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
-    max-width: 25vw;
+    max-width: $maxModalWidth;
+    opacity: 0;
+    padding: 15px 30px;
+    position: relative;
+    top: 10px;
+    z-index: $zLayerFour;
+
+    .modal-header {
+      align-items: center;
+      display: flex;
+      height: 35px;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      .modal-title {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .btn-close {
+        background-color: transparent;
+        border: 0;
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
+
+        &:hover {
+          color: $colorOrange;
+          cursor: pointer;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
 }

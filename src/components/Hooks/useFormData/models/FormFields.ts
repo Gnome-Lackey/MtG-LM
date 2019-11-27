@@ -1,5 +1,5 @@
+import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import { Card } from "models/Card";
-import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
 export interface ConfirmFields {
   code: string;
@@ -17,11 +17,9 @@ export interface LoginFields {
 
 export interface RecordMatchFields {
   playerA: TypeAheadOption;
-  playerAWins: number;
-  playerALosses: number;
   playerB: TypeAheadOption;
+  playerAWins: number;
   playerBWins: number;
-  playerBLosses: number;
 }
 
 export interface SignUpFields {
