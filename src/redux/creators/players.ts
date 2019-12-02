@@ -3,7 +3,7 @@ import { emitRequestLoading } from "redux/creators/application";
 
 import {
   EMIT_GET_ACTIVE_PLAYERS_SUCCESS,
-  EMIT_GET_DEFENDING_PLAYERS_B_SUCCESS,
+  EMIT_GET_DEFENDING_PLAYERS_SUCCESS,
   EMIT_GET_PLAYERS_SUCCESS,
   EMIT_CREATE_PLAYER_SUCCESS,
   EMIT_SEARCHING_FOR_ACTIVE_PLAYERS,
@@ -97,7 +97,7 @@ export const requestQueryPlayersForRecord = (playerType: string, query: string) 
   } else {
     const successActionType = isActivePlayer
       ? EMIT_GET_ACTIVE_PLAYERS_SUCCESS
-      : EMIT_GET_DEFENDING_PLAYERS_B_SUCCESS;
+      : EMIT_GET_DEFENDING_PLAYERS_SUCCESS;
 
     dispatch({
       type: successActionType,
