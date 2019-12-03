@@ -12,7 +12,11 @@ import {
   AUTH_SIGN_UP,
   AUTH_VALIDATE
 } from "constants/services";
-import { ROUTES } from "constants/routes";
+
+const handlePostRequestError = (message?: string): MtglmServiceResponseBody => ({
+  status: 500,
+  data: { error: { message: message || "Something went wrong. Please try again later." } }
+});
 
 export const signup = async (details: SignUpFields): Promise<MtglmServiceResponseBody> => {
   const response = await service.post(AUTH_SIGN_UP, details);
@@ -40,11 +44,11 @@ export const login = async (
   if (accessToken && idToken) {
     sessionStorage.setItem(AXT, accessToken);
     sessionStorage.setItem(IDT, idToken);
-  } else if (window.location.pathname !== ROUTES.ROOT) {
-    window.location.href = ROUTES.ROOT;
+
+    return response.body;
   }
 
-  return response.body;
+  return handlePostRequestError();
 };
 
 export const logout = async (): Promise<MtglmServiceResponseBody> => {

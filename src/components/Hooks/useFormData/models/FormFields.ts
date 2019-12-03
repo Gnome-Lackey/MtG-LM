@@ -1,3 +1,4 @@
+import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import { Card } from "models/Card";
 
 export interface ConfirmFields {
@@ -12,6 +13,13 @@ export interface GettingStartedFields {
 export interface LoginFields {
   password: string;
   userName: string;
+}
+
+export interface RecordMatchFields {
+  playerA: TypeAheadOption;
+  playerB: TypeAheadOption;
+  playerAWins: number;
+  playerBWins: number;
 }
 
 export interface SignUpFields {

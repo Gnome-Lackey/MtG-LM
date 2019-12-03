@@ -8,18 +8,19 @@ import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/cards";
 import { ScryfallCard } from "models/Scryfall";
 
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
+import { MtglmServiceResponseBody } from "services/models/Service";
 
 const buildQueryString = (color: string, type: string): string =>
   `c=${color}+lang=en+t=${type}+border=black+-t=legendary+f=modern`;
 
-const mapScryfallResultsToCards = (results: any[]): ScryfallCard[] =>
+const mapScryfallResultsToCards = (results: MtglmServiceResponseBody[]): ScryfallCard[] =>
   results.map(
     (result): ScryfallCard => ({
-      id: result.id,
-      name: result.name,
-      colors: result.colors,
-      type: result.type_line,
-      imageUris: result.image_uris
+      id: result.data.id,
+      name: result.data.name,
+      colors: result.data.colors,
+      type: result.data.type_line,
+      imageUris: result.data.image_uris
     })
   );
 

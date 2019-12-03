@@ -7,7 +7,10 @@ const fetchData = async (uri: string, options: RequestInit): Promise<MtglmServic
 
     return {
       headers: response.headers,
-      body
+      body: {
+        status: response.status,
+        data: body
+      }
     };
   } catch (err) {
     return {

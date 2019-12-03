@@ -5,12 +5,16 @@
   background-color: $colorOrange;
   border-radius: 50%;
   border: 0;
+  bottom: 75px;
   color: $colorGrayDarker;
   display: flex;
   font-size: 24px;
   height: 50px;
   justify-content: center;
+  position: fixed;
+  right: 25px;
   width: 50px;
+  z-index: $zLayerTwo;
 
   &:focus {
     outline: none;

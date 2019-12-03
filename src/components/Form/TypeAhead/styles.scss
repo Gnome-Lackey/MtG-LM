@@ -1,0 +1,12 @@
+@import "src/styles/variables";
+
+.form-type-ahead {
+  align-items: flex-start;
+  display: inline-flex;
+  width: 100%;
+
+  .search {
+    position: relative;
+    min-width: 250px;
+  }
+}

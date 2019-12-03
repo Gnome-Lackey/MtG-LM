@@ -23,7 +23,7 @@
     margin: 0;
     width: 100%;
 
-    .btn-multi-select {
+    .btn-type-ahead {
       background-color: $colorWhite;
       border: 0;
       border-radius: 0.25rem;
@@ -36,14 +36,16 @@
 
       .label {
         display: block;
+        margin: 0;
         overflow: hidden;
+        padding: 0;
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 220px;
 
-        .emphasis {
-          font-weight: 500;
-          color: $colorOrange;
+        .small {
+          font-size: 8px;
+          margin-left: 5px;
         }
       }
 
@@ -53,21 +55,6 @@
 
       &:hover {
         background-color: $colorGrayLighter;
-      }
-    }
-
-    &.selected {
-      background-color: $colorGray;
-
-      .btn-multi-select {
-        align-items: center;
-        background-color: $colorGray;
-        display: inline-flex;
-        justify-content: space-between;
-
-        &:hover {
-          background-color: $colorGray;
-        }
       }
     }
   }

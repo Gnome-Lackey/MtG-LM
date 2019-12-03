@@ -1,6 +1,7 @@
+@import "src/styles/mixins";
 @import "src/styles/variables";
 
-.multi-select-label {
+.type-ahead-label {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -13,16 +14,10 @@
     width: 100%;
 
     .input {
-      border: 1px solid $colorBlueLighter;
-      border-radius: 0.25rem;
-      box-shadow: 0 0 5px $colorBlueLighter;
-      display: block;
-      font-size: 0.9rem;
-      margin: 8px 0;
-      outline: none;
+      @include input;
+
       padding: 10px 40px 10px 15px;
-      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-      width: calc(100% - 30px);
+      width: calc(100% - 35px);
 
       &:focus {
         border-color: $colorBlueLight;

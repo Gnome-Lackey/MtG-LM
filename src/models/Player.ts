@@ -1,6 +1,6 @@
 export interface Player {
   id: string;
-  name: string;
+  displayName: string;
   userName: string;
   email: string;
   totalWins?: number;

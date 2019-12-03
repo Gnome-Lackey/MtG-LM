@@ -1,0 +1,57 @@
+[
+  {
+    "id": "123-1232-1232",
+    "displayName": "Liliana Vess",
+    "userName": "OfTheVeil",
+    "email": "beautyInBlack@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "of the veil",
+    "favoriteColors": ["B"]
+  },
+  {
+    "id": "223-1232-4323",
+    "displayName": "Jace Beleran",
+    "userName": "MindSculpter",
+    "email": "wiseman@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "mind sculptor",
+    "favoriteColors": ["U"]
+  },
+  {
+    "id": "323-1232-5435",
+    "displayName": "Gideon Jura",
+    "userName": "ChampionOfJustice",
+    "email": "justiceIsServed@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "champion of justice",
+    "favoriteColors": ["W"]
+  },
+  {
+    "id": "423-1232-7898",
+    "displayName": "Garruk Wildspeaker",
+    "userName": "CursedHuntsman",
+    "email": "comeAtMeBro@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "cursed huntsman",
+    "favoriteColors": ["G"]
+  },
+  {
+    "id": "523-1232-2123",
+    "displayName": "Chandra Nalaar",
+    "userName": "TorchOfDefiance",
+    "email": "burnItAllDown@planeswalker.mtg",
+    "totalWins": 0,
+    "totalLosses": 0,
+    "matches": [],
+    "epithet": "torch of defiance",
+    "favoriteColors": ["R"]
+  }
+]

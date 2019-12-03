@@ -4,7 +4,13 @@ const handleOnClickOutside = (
   currentElement: HTMLElement,
   clickHandler: Function
 ): EventListener => (ev: Event) => {
-  if (currentElement && !currentElement.contains(ev.target as any)) {
+  if (!currentElement) {
+    return;
+  }
+
+  const containsElement = currentElement.contains(ev.target as any);
+
+  if (!containsElement) {
     clickHandler();
   }
 };

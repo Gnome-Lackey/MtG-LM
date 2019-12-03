@@ -31,3 +31,15 @@
     }
   }
 }
+
+@mixin input {
+  border: 1px solid $colorBlueLighter;
+  border-radius: 0.25rem;
+  border-color: $colorBlueLighter;
+  box-shadow: 0 0 5px $colorBlueLighter;
+  display: block;
+  font-size: 1rem;
+  margin: 8px 0;
+  outline: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

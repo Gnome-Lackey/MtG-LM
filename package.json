@@ -20,6 +20,7 @@
     "css-loader": "2.1.1",
     "debounce": "^1.2.0",
     "file-loader": "^3.0.1",
+    "global": "^4.4.0",
     "html-webpack-plugin": "4.0.0-beta.5",
     "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
@@ -48,7 +49,8 @@
   },
   "scripts": {
     "build": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
-    "start": "webpack-dev-server --config webpack/webpack.config.dev.js --color --inline --open",
+    "start:web": "ENV=local && webpack-dev-server --config webpack/webpack.config.dev.js --color --inline --open",
+    "start:server": "mockserver -p 9001 -m server/mocks",
     "lint": "eslint --ext .ts,.tsx src/"
   },
   "pre-commit": [
@@ -64,6 +66,7 @@
     "chance": "^1.0.18",
     "eslint": "^5",
     "eslint-plugin-filenames": "^1.3.2",
+    "mockserver": "^3.1.1",
     "pre-commit": "^1.2.2",
     "prettier": "^1.18",
     "react-dev-utils": "^9.0.0",

@@ -1,0 +1,32 @@
+@import "src/styles/variables.scss";
+
+.record-match-modal {
+  display: flex;
+  flex-direction: column;
+  width: $maxModalWidth;
+
+  .record-row {
+    align-items: center;
+    display: inline-flex;
+
+    .form-type-ahead {
+      margin-right: 10px;
+      width: calc(#{$maxModalWidth} / 2);
+    }
+
+    .form-input {
+      width: calc(#{$maxModalWidth} / 5);
+    }
+  }
+
+  .record-actions {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+
+    .form-button {
+      margin: 30px 0 0;
+    }
+  }
+}

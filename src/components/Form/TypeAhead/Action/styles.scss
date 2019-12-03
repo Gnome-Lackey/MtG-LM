@@ -1,6 +1,6 @@
 @import "src/styles/variables";
 
-.multi-select-action {
+.type-ahead-action {
   align-items: center;
   display: flex;
   height: 40px;
@@ -10,8 +10,7 @@
   right: 0;
   width: 60px;
 
-  .btn-clear,
-  .btn-counter {
+  .btn-clear {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -19,12 +18,6 @@
 
     &:focus {
       outline: none;
-    }
-  }
-
-  .btn-counter {
-    .count {
-      margin-right: 5px;
     }
   }
 
