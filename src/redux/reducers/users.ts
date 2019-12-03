@@ -33,10 +33,7 @@ export default handleActions(
     }),
     [EMIT_VALIDATION_SUCCESS]: (state: UserState, action: AuthAction): UserState => ({
       ...state,
-      current: {
-        ...state.current,
-        ...action.payload.user
-      }
+      current: action.payload.user
     })
   },
   INITIAL_STATE

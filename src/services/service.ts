@@ -9,7 +9,7 @@ const fetchData = async (uri: string, options: RequestInit): Promise<MtglmServic
       headers: response.headers,
       body: {
         status: response.status,
-        data: body
+        ...body
       }
     };
   } catch (err) {

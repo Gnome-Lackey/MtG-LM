@@ -78,7 +78,7 @@ export const confirm = async (
     verificationCode
   });
 
-  return await response.body;
+  return response.body;
 };
 
 export const resendCode = async (userName: string): Promise<MtglmServiceResponseBody> => {
@@ -86,7 +86,7 @@ export const resendCode = async (userName: string): Promise<MtglmServiceResponse
     userName
   });
 
-  return await response.body;
+  return response.body;
 };
 
 export const validate = async (): Promise<MtglmServiceResponseBody> => {
@@ -101,5 +101,5 @@ export const validate = async (): Promise<MtglmServiceResponseBody> => {
 
   const response = await service.post(AUTH_VALIDATE, undefined, headers);
 
-  return await response.body;
+  return response.body;
 };
