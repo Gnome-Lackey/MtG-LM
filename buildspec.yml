@@ -25,6 +25,6 @@ phases:
   post_build:
     commands:
       - echo Deploying project ...
-      - sls s3remove
+      - sls s3remove --verbose --stage $ENV
       - sls deploy --verbose --key $AWS_ID --secret $AWS_SECRET --stage $ENV
       - echo Project deployed without errors
