@@ -1,15 +1,17 @@
 const { ENV } = process.env;
 
-console.log("Environment set to: ", ENV);
-console.log("Building application based on environment...")
+console.log("Environment set to:", ENV);
 
 let config;
 
 if (ENV === "prod") {
+  console.log('Production environment detected. Using "prod" configuration...');
   config = require("./webpack.config.prod");
 } else if (ENV === "dev") {
+  console.log('Development environment detected. Using "dev" configuration...');
   config = require("./webpack.config.dev");
 } else {
+  console.log('Local environment detected. Using "local" configuration...');
   config = require("./webpack.config.local");
 }
 
