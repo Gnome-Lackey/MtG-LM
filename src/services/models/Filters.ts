@@ -1,4 +1,4 @@
 export interface PlayerFilters {
-  displayName?: string;
+  name?: string;
   userName?: string;
 }

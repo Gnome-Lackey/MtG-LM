@@ -89,7 +89,7 @@ export const requestQueryPlayersForRecord = (playerType: string, query: string) 
 
   const { data } = await playerService.query({
     userName: query,
-    displayName: query
+    name: query
   });
 
   if (data.error) {
