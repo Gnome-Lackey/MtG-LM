@@ -17,6 +17,7 @@ import { VALIDATION_REQUIRED } from "constants/validations";
 import { ROUTES } from "constants/routes";
 
 import "./styles.scss";
+import { User } from "models/User";
 
 interface LoginViewActions {
   emitResetError: Function;
@@ -27,10 +28,8 @@ interface LoginViewProps extends RouteComponentProps {
   actions: LoginViewActions;
   confirmationNeeded: boolean;
   errors: ErrorState;
-  isFirstTimeLogin: boolean;
   isRequestLoading: boolean;
-  userName: string;
-  validated: boolean;
+  user: User;
 }
 
 const LoginView = ({
@@ -38,17 +37,14 @@ const LoginView = ({
   confirmationNeeded,
   errors,
   history,
-  isFirstTimeLogin,
   isRequestLoading,
-  userName,
-  validated
+  user
 }: LoginViewProps): React.FunctionComponentElement<LoginViewProps> => {
+  const isFirstTimeLogin = user && user.isFirstTimeLogin;
+  const userName = user ? user.userName : "";
+
   useNavigator(confirmationNeeded, ROUTES.VERIFICATION_PAGE, history.push);
-  useNavigator(
-    validated,
-    isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE,
-    history.push
-  );
+  useNavigator(user, isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE, history.push);
 
   const errorMessage = useErrorMessage(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN, errors, emitResetError);
 

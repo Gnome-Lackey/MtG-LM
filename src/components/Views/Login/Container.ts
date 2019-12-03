@@ -9,16 +9,15 @@ import { requestLogin } from "redux/creators/auth";
 import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
+import { User } from "models/User";
 
 
 interface LoginViewProps {
   confirmationNeeded: boolean;
   errors: ErrorState;
   history: History;
-  isFirstTimeLogin: boolean;
   isRequestLoading: boolean;
-  userName: string;
-  validated: boolean;
+  user: User;
 };
 
 interface LoginViewActions {
@@ -32,10 +31,8 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Login
   confirmationNeeded: state.auth.confirmationNeeded,
   errors: state.errors,
   history: ownProps.history,
-  isFirstTimeLogin: state.users.current ? state.users.current.isFirstTimeLogin : true,
   isRequestLoading: state.application.isRequestLoading,
-  userName: state.users.current ? state.users.current.userName : "",
-  validated: state.auth.validated
+  user: state.users.current,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): LoginViewActions => ({
