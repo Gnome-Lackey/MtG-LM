@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 
-const base = require("./webpack.config");
+const base = require("./webpack.config.base");
 
 module.exports = {
   mode: "production",
@@ -19,9 +19,7 @@ module.exports = {
           name(module) {
             // get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
-            const packageName = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            )[1];
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
 
             // npm package names are URL-safe, but some servers don't like @ symbols
             return `npm.${packageName.replace("@", "")}`;
@@ -35,7 +33,6 @@ module.exports = {
   plugins: base.plugins.concat([
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: JSON.stringify("production"),
         ENV: JSON.stringify(process.env.ENV)
       }
     })

@@ -48,8 +48,8 @@
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
-    "start:web": "ENV=local && webpack-dev-server --config webpack/webpack.config.dev.js --color --inline --open",
+    "build": "webpack --config webpack/webpack.config.js",
+    "start:web": "ENV=local && webpack-dev-server --config webpack/webpack.config.local.js --color --inline --open",
     "start:server": "mockserver -p 9001 -m server/mocks",
     "lint": "eslint --ext .ts,.tsx src/"
   },
