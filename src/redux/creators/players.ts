@@ -1,26 +1,34 @@
-import { emitResetError } from "redux/creators/errors";
-import { emitRequestLoading } from "redux/creators/application";
-
 import {
-  EMIT_GET_ACTIVE_PLAYERS_SUCCESS,
-  EMIT_GET_DEFENDING_PLAYERS_SUCCESS,
+  EMIT_GET_POTENTIAL_PLAYER_A_SUCCESS,
+  EMIT_GET_POTENTIAL_PLAYER_B_SUCCESS,
   EMIT_GET_PLAYERS_SUCCESS,
   EMIT_CREATE_PLAYER_SUCCESS,
   EMIT_SEARCHING_FOR_ACTIVE_PLAYERS,
-  EMIT_SEARCHING_FOR_DEFENDING_PLAYERS
+  EMIT_SEARCHING_FOR_DEFENDING_PLAYERS,
+  EMIT_CLEAR_PLAYER_A_LIST,
+  EMIT_CLEAR_PLAYER_B_LIST
 } from "redux/actions/players";
 
+import { emitResetError } from "redux/creators/errors";
+import { emitRequestLoading } from "redux/creators/application";
+
 import { RootState } from "redux/models/RootState";
+import { PlayerAction } from "redux/models/PlayerAction";
+import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
 import * as playerService from "services/player";
 
 import * as userMapper from "mappers/user";
 
-import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
-
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
-import { ACTIVE_PLAYER } from "constants/players";
+import { PLAYER_A } from "constants/players";
+
+export const emitClearPlayersForRecord = (playerType: string): PlayerAction => ({
+  type: playerType === PLAYER_A ? 
+  EMIT_CLEAR_PLAYER_A_LIST :
+  EMIT_CLEAR_PLAYER_B_LIST
+})
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (
   dispatch: Function,
@@ -72,11 +80,11 @@ export const requestGetPlayers = () => async (dispatch: Function) => {
 export const requestQueryPlayersForRecord = (playerType: string, query: string) => async (
   dispatch: Function
 ) => {
-  const isActivePlayer = playerType === ACTIVE_PLAYER;
+  const isPlayerA = playerType === PLAYER_A;
 
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  const searchActionType = isActivePlayer
+  const searchActionType = isPlayerA
     ? EMIT_SEARCHING_FOR_ACTIVE_PLAYERS
     : EMIT_SEARCHING_FOR_DEFENDING_PLAYERS;
 
@@ -95,9 +103,9 @@ export const requestQueryPlayersForRecord = (playerType: string, query: string) 
   if (data.error) {
     // Handle Error
   } else {
-    const successActionType = isActivePlayer
-      ? EMIT_GET_ACTIVE_PLAYERS_SUCCESS
-      : EMIT_GET_DEFENDING_PLAYERS_SUCCESS;
+    const successActionType = isPlayerA
+      ? EMIT_GET_POTENTIAL_PLAYER_A_SUCCESS
+      : EMIT_GET_POTENTIAL_PLAYER_B_SUCCESS;
 
     dispatch({
       type: successActionType,

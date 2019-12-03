@@ -1,4 +1,5 @@
 import * as React from "react";
+import { debounce } from "debounce";
 
 import TypeAheadInput from "components/Form/TypeAhead/Input";
 import TypeAheadSearchOptions from "components/Form/TypeAhead/SearchOptions";
@@ -10,6 +11,7 @@ import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption
 import "./styles.scss";
 
 interface TypeAheadProps {
+  clearHandler: Function;
   id: string;
   isSearching: boolean;
   label?: string;
@@ -20,18 +22,20 @@ interface TypeAheadProps {
 }
 
 const TypeAhead = ({
+  clearHandler,
   id,
   isSearching,
   label,
   options,
   placeholder,
   searchHandler,
-  selectHandler,
+  selectHandler
 }: TypeAheadProps): React.FunctionComponentElement<TypeAheadProps> => {
   const reference = React.useRef();
 
   const [searchText, setSearchText] = React.useState("");
   const [showSearch, setShowSearch] = React.useState(false);
+  const [handleSearch] = React.useState(() => debounce(searchHandler, 300));
 
   const handleSelect = (option: TypeAheadOption): void => {
     document.getElementById(id).focus();
@@ -52,7 +56,10 @@ const TypeAhead = ({
     setShowSearch(hasValue);
 
     if (hasValue) {
-      searchHandler(value);
+      handleSearch(value);
+    } else {
+      clearHandler();
+      handleSearch.clear();
     }
   };
 
@@ -67,7 +74,7 @@ const TypeAhead = ({
   };
 
   React.useEffect(() => {
-    setShowSearch(!isSearching);
+    setShowSearch(!isSearching && !!searchText);
   }, [isSearching]);
 
   useOnClickOutside(reference, () => setShowSearch(false));

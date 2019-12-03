@@ -15,12 +15,12 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
   dispatch(emitRequestLoading(REQUEST_RECORD_MATCH, true));
 
   const body = {
-    activePlayerRecord: {
+    PlayerARecord: {
       player: details.playerA.key,
       wins: details.playerAWins || 0,
       losses: details.playerBWins || 0
     },
-    defendingPlayerRecord: {
+    PlayerBRecord: {
       player: details.playerB.key,
       wins: details.playerBWins || 0,
       losses: details.playerAWins || 0

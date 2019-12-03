@@ -1,35 +1,36 @@
 import * as React from "react";
-import { debounce } from "debounce";
 
 import TypeAhead from "components/Form/TypeAhead";
 import FormInput from "components/Form/Input";
+import FormButton from "components/Form/Button";
 
 import useFormData from "components/Hooks/useFormData";
 
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import { Player } from "models/Player";
 
-import { ACTIVE_PLAYER, DEFENDING_PLAYER } from "constants/players";
+import { PLAYER_A, PLAYER_B } from "constants/players";
 
 import "./styles.scss";
-import FormButton from "components/Form/Button";
 
 interface RecordMatchModalContentProps {
+  clearHandler: Function;
   isRequestLoading: boolean;
   potentialAPlayers: Player[];
   potentialBPlayers: Player[];
-  searchingForActivePlayers: boolean;
-  searchingForDefendingPlayers: boolean;
+  searchingForAPlayers: boolean;
+  searchingForBPlayers: boolean;
   searchHandler: Function;
   submitHandler: Function;
 }
 
 const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentProps> = ({
+  clearHandler,
   isRequestLoading,
   potentialAPlayers,
   potentialBPlayers,
-  searchingForActivePlayers,
-  searchingForDefendingPlayers,
+  searchingForAPlayers,
+  searchingForBPlayers,
   searchHandler,
   submitHandler
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
@@ -47,11 +48,19 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   };
 
   const handleSearchForPlayerA = (value: string): void => {
-    searchHandler(ACTIVE_PLAYER, value);
+    searchHandler(PLAYER_A, value);
   };
 
   const handleSearchForPlayerB = (value: string): void => {
-    searchHandler(DEFENDING_PLAYER, value);
+    searchHandler(PLAYER_B, value);
+  };
+
+  const handleClearForPlayerA = (): void => {
+    clearHandler(PLAYER_A);
+  };
+
+  const handleClearForPlayerB = (): void => {
+    clearHandler(PLAYER_B);
   };
 
   const playerAOptions = potentialAPlayers.reduce(
@@ -84,20 +93,20 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     []
   );
 
-  const isDisabled =
-    !values.playerA || !values.playerB || values.playerAWins + values.playerAWins > 3;
-
-  const isLoading = searchingForActivePlayers || searchingForDefendingPlayers || isRequestLoading;
+  const totalGames = values.playerAWins + values.playerBWins;
+  const isDisabled = !values.playerA || !values.playerB || totalGames > 3;
+  const isLoading = searchingForAPlayers || searchingForBPlayers || isRequestLoading;
 
   return (
     <form className="record-match-modal" onSubmit={handleSubmit}>
       <div className="record-row">
         <TypeAhead
           id="playerA"
-          isSearching={searchingForActivePlayers}
+          isSearching={searchingForAPlayers}
           label="Player A"
           options={playerAOptions}
-          searchHandler={debounce(handleSearchForPlayerA, 250)}
+          clearHandler={handleClearForPlayerA}
+          searchHandler={handleSearchForPlayerA}
           selectHandler={(option: TypeAheadOption) => {
             updateValues("playerA", option);
           }}
@@ -113,10 +122,11 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
       <div className="record-row">
         <TypeAhead
           id="playerB"
-          isSearching={searchingForDefendingPlayers}
+          isSearching={searchingForBPlayers}
           label="Player B"
+          clearHandler={handleClearForPlayerB}
           options={playerBOptions}
-          searchHandler={debounce(handleSearchForPlayerB, 250)}
+          searchHandler={handleSearchForPlayerB}
           selectHandler={(option: TypeAheadOption) => {
             updateValues("playerB", option);
           }}

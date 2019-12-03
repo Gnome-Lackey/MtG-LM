@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import HomeView from "components/Views/Home/View";
 
 import { emitToggleRecordMatchModal } from "redux/creators/application";
-import { requestQueryPlayersForRecord } from "redux/creators/players";
+import { emitClearPlayersForRecord, requestQueryPlayersForRecord } from "redux/creators/players";
 import { requestCreateMatch } from "redux/creators/match";
 
 import { RootState } from "redux/models/RootState";
@@ -16,14 +16,15 @@ interface HomeViewProps {
   isRequestLoading: boolean;
   potentialPlayerA: Player[];
   potentialPlayerB: Player[];
-  searchingForActivePlayers: boolean;
-  searchingForDefendingPlayers: boolean;
+  searchingForAPlayers: boolean;
+  searchingForBPlayers: boolean;
   showRecordMatchModal: boolean;
   user: User;
 }
 
 interface HomeViewActions {
   actions: {
+    emitClearPlayersForRecord: Function;
     emitToggleRecordMatchModal: Function;
     requestCreateMatch: Function;
     requestQueryPlayersForRecord: Function;
@@ -32,10 +33,10 @@ interface HomeViewActions {
 
 const mapStateToProps = (state: RootState): HomeViewProps => ({
   isRequestLoading: state.application.isRequestLoading,
-  potentialPlayerA: state.players.activePlayerList,
-  potentialPlayerB: state.players.defendingPlayerList,
-  searchingForActivePlayers: state.players.searchingForActivePlayers,
-  searchingForDefendingPlayers: state.players.searchingForDefendingPlayers,
+  potentialPlayerA: state.players.playerAList,
+  potentialPlayerB: state.players.playerBList,
+  searchingForAPlayers: state.players.searchingForAPlayers,
+  searchingForBPlayers: state.players.searchingForBPlayers,
   showRecordMatchModal: state.application.showRecordMatchModal,
   user: state.users.current
 });
@@ -43,6 +44,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
   actions: bindActionCreators(
     {
+      emitClearPlayersForRecord,
       emitToggleRecordMatchModal,
       requestCreateMatch,
       requestQueryPlayersForRecord
