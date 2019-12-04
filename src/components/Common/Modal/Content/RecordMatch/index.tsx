@@ -95,7 +95,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
 
   const totalGames = values.playerAWins + values.playerBWins;
   const isDisabled = !values.playerA || !values.playerB || totalGames > 3;
-  const isLoading = searchingForAPlayers || searchingForBPlayers || isRequestLoading;
+  const isLoading = !searchingForAPlayers && !searchingForBPlayers && isRequestLoading;
 
   return (
     <form className="record-match-modal" onSubmit={handleSubmit}>
