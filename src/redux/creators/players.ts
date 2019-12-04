@@ -25,9 +25,7 @@ import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from 
 import { PLAYER_A } from "constants/players";
 
 export const emitClearPlayersForRecord = (playerType: string): PlayerAction => ({
-  type: playerType === PLAYER_A ? 
-  EMIT_CLEAR_PLAYER_A_LIST :
-  EMIT_CLEAR_PLAYER_B_LIST
+  type: playerType === PLAYER_A ? EMIT_CLEAR_PLAYER_A_LIST : EMIT_CLEAR_PLAYER_B_LIST
 });
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (

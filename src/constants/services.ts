@@ -22,12 +22,11 @@ export const AUTH_VALIDATE = `${AUTH_BASE_URL}/validate`;
 
 /*
   Match API
-  TODO: Replace dev url
 */
 
 const matchUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/matches",
-  dev: ""
+  dev: "https://kq7rj89il9.execute-api.us-east-1.amazonaws.com/dev/matches"
 };
 
 export const MATCH_BASE_URL: string = matchUrlMap[environment];
