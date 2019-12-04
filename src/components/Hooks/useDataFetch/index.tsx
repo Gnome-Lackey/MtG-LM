@@ -8,8 +8,8 @@ const useDataFetch = (
 
   React.useEffect(() => {
     if (!madeRequest && !fetchCondition) {
-      handleFetch();
       setMadeRequest(true);
+      handleFetch();
     }
   }, [fetchCondition]);
 };

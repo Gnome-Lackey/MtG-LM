@@ -1,7 +1,7 @@
 @import "src/styles/variables";
 
 .protected-content {
-  min-height: $appWithHeaderMinHeight;
+  min-height: $appContentMinHeight;
   margin-top: $headerHeight;
   width: 100%;
 }
