@@ -28,7 +28,7 @@ export const emitClearPlayersForRecord = (playerType: string): PlayerAction => (
   type: playerType === PLAYER_A ? 
   EMIT_CLEAR_PLAYER_A_LIST :
   EMIT_CLEAR_PLAYER_B_LIST
-})
+});
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (
   dispatch: Function,

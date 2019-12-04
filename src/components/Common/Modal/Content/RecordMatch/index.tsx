@@ -115,7 +115,11 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
           id="playerAWins"
           label="Wins"
           type="number"
-          onChange={updateValues}
+          onChange={(key: string, value: string) => {
+            const parsedValue = value ? parseInt(value, 10) : 0;
+
+            updateValues(key, parsedValue);
+          }}
           value={values.playerAWins}
         />
       </div>
@@ -135,7 +139,11 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
           id="playerBWins"
           label="Wins"
           type="number"
-          onChange={updateValues}
+          onChange={(key: string, value: string) => {
+            const parsedValue = value ? parseInt(value, 10) : 0;
+
+            updateValues(key, parsedValue);
+          }}
           value={values.playerBWins}
         />
       </div>
