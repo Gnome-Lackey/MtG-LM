@@ -5,6 +5,7 @@ export interface MatchRecord {
 }
 
 export interface Match {
-  PlayerARecord: MatchRecord;
-  PlayerBRecord: MatchRecord;
+  playerA: MatchRecord;
+  playerB: MatchRecord;
+  season: string;
 }

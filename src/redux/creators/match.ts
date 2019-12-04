@@ -15,16 +15,17 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
   dispatch(emitRequestLoading(REQUEST_RECORD_MATCH, true));
 
   const body = {
-    PlayerARecord: {
+    playerA: {
       player: details.playerA.key,
       wins: details.playerAWins || 0,
       losses: details.playerBWins || 0
     },
-    PlayerBRecord: {
+    playerB: {
       player: details.playerB.key,
       wins: details.playerBWins || 0,
       losses: details.playerAWins || 0
-    }
+    },
+    season: "TODO: Replace with id of real season."
   };
 
   await matchService.create(body);
