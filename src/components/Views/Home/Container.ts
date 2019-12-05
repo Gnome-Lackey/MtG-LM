@@ -14,6 +14,7 @@ import { requestCreateMatch } from "redux/creators/match";
 
 import { RootState } from "redux/models/RootState";
 import { Player } from "models/Player";
+import { User } from "models/User";
 
 interface HomeViewProps {
   isRequestLoading: boolean;
@@ -23,6 +24,7 @@ interface HomeViewProps {
   searchingForAPlayers: boolean;
   searchingForBPlayers: boolean;
   showRecordMatchModal: boolean;
+  user: User;
 }
 
 interface HomeViewActions {
@@ -42,7 +44,8 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   potentialPlayerB: state.players.playerBList,
   searchingForAPlayers: state.players.searchingForAPlayers,
   searchingForBPlayers: state.players.searchingForBPlayers,
-  showRecordMatchModal: state.application.showRecordMatchModal
+  showRecordMatchModal: state.application.showRecordMatchModal,
+  user: state.users.current
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
