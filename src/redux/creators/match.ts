@@ -1,5 +1,6 @@
 import { emitResetError } from "redux/creators/errors";
 import { emitRequestLoading } from "redux/creators/application";
+import { requestGetPlayers } from "redux/creators/players";
 
 import * as matchService from "services/match";
 
@@ -33,6 +34,8 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
   dispatch({
     type: EMIT_CREATE_MATCH_SUCCESS
   });
+
+  dispatch(requestGetPlayers());
 
   dispatch(emitRequestLoading(REQUEST_RECORD_MATCH, false));
 };
