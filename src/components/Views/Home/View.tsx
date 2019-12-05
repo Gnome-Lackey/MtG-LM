@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
-import * as classNames from "classnames";
 
+import PlayerRecordList from "components/Views/Home/PlayerRecordList";
 import Fab from "components/Common/Fab";
 import Modal from "components/Common/Modal";
 import RecordMatchModalContent from "components/Common/Modal/Content/RecordMatch";
@@ -47,26 +47,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   return (
     <div className="home-view">
-      <ul className="player-record-list">
-        <li className="record-headers">
-          <p className="header name">Player Name</p>
-          <p className="header">Total Wins</p>
-          <p className="header">Total Losses</p>
-        </li>
-        {players.map((player) => (
-          <li
-            key={player.id}
-            className={classNames("player-record", { user: user && user.id === player.id })}
-          >
-            <p className="name">
-              {player.displayName}&nbsp;
-              <span className="small">({player.userName})</span>
-            </p>
-            <p className="wins">{player.totalWins}</p>
-            <p className="losses">{player.totalLosses}</p>
-          </li>
-        ))}
-      </ul>
+      <PlayerRecordList players={players} user={user} />
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()}>
         <i className="fas fa-plus" />
       </Fab>

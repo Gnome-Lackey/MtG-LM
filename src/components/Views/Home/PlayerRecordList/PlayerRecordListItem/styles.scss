@@ -1,0 +1,28 @@
+@import "src/styles/variables";
+
+.player-record {
+  align-items: center;
+  background-color: $colorWhite;
+  display: inline-flex;
+  padding: 5px 10px;
+  margin: 0;
+  width: calc(100% - 20px);
+
+  &.user {
+    background-color: $colorOrangeHighlight;
+  }
+
+  .wins,
+  .losses {
+    width: 30%;
+  }
+
+  .name {
+    font-size: 16px;
+    width: 40%;
+
+    .small {
+      font-size: 8px;
+    }
+  }
+}
