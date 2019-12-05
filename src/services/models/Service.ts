@@ -1,6 +1,6 @@
 export interface MtglmServiceResponseBody {
+  [key: string]: any;
   status: number;
-  data: any;
 }
 
 export interface MtglmServiceResponse {

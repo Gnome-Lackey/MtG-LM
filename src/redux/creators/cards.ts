@@ -16,11 +16,11 @@ const buildQueryString = (color: string, type: string): string =>
 const mapScryfallResultsToCards = (results: MtglmServiceResponseBody[]): ScryfallCard[] =>
   results.map(
     (result): ScryfallCard => ({
-      id: result.data.id,
-      name: result.data.name,
-      colors: result.data.colors,
-      type: result.data.type_line,
-      imageUris: result.data.image_uris
+      id: result.id,
+      name: result.name,
+      colors: result.colors,
+      type: result.type_line,
+      images: result.image_uris
     })
   );
 
