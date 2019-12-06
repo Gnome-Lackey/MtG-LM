@@ -35,6 +35,7 @@ const TypeAhead = ({
 
   const [searchText, setSearchText] = React.useState("");
   const [showSearch, setShowSearch] = React.useState(false);
+  const [isEmptyResult, setIsEmptyResult] = React.useState(false);
   const [handleSearch] = React.useState(() => debounce(searchHandler, 300));
 
   const handleSelect = (option: TypeAheadOption): void => {
@@ -53,12 +54,13 @@ const TypeAhead = ({
     const hasValue = !!value;
 
     setSearchText(value);
-    setShowSearch(hasValue);
 
     if (hasValue) {
       handleSearch(value);
     } else {
       handleSearch.clear();
+
+      setShowSearch(false);
 
       if (clearHandler) {
         clearHandler();
@@ -77,8 +79,22 @@ const TypeAhead = ({
   };
 
   React.useEffect(() => {
-    setShowSearch(!isSearching && !!searchText);
+    const foundContent = !isSearching && !!searchText;
+
+    setShowSearch(foundContent);
+
+    if (isSearching) {
+      setIsEmptyResult(false);
+    }
+
+    if (foundContent) {
+      setShowSearch(true);
+    }
   }, [isSearching]);
+
+  React.useEffect(() => {
+    setIsEmptyResult(!options.length);
+  }, [options]);
 
   useOnClickOutside(reference, () => setShowSearch(false));
 
@@ -98,6 +114,7 @@ const TypeAhead = ({
         <TypeAheadSearchOptions
           handleSelect={handleSelect}
           hasLabel={!!label}
+          isEmptyResult={isEmptyResult}
           options={options}
           show={showSearch}
         />

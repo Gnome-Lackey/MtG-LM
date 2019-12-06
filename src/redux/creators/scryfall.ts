@@ -41,14 +41,20 @@ export const requestGetSetByCode = (code: string) => async (dispatch: Function) 
 
   const result = await scryfallService.getSet(code);
 
-  const scryfallSet = scryfallMapper.toScryfallSet(result);
+  if (result.status === 404) {
+    dispatch({
+      type: EMIT_SETS_SUCCESS,
+      payload: { set: null }
+    });
+  } else {
+    const scryfallSet = scryfallMapper.toScryfallSet(result);
+    const set = scryfallMapper.toSet(scryfallSet);
 
-  const set = scryfallMapper.toSet(scryfallSet);
-
-  dispatch({
-    type: EMIT_SETS_SUCCESS,
-    payload: { set }
-  });
+    dispatch({
+      type: EMIT_SETS_SUCCESS,
+      payload: { set }
+    });
+  }
 
   dispatch({
     type: EMIT_SEARCHING_FOR_SET,
