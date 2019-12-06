@@ -43,7 +43,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
-  useDataFetch(!!players.length, actions.requestGetPlayers);
+  useDataFetch(!players.length, actions.requestGetPlayers);
 
   return (
     <div className="home-view">
