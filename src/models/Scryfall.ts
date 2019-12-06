@@ -10,5 +10,13 @@ export interface ScryfallCard {
     png: string;
     art_crop: string;
     border_crop: string;
-  }
+  };
+}
+
+export interface ScryfallSet {
+  id: string;
+  code: string;
+  name: string;
+  releasedOn: string;
+  cardCount: number;
 }

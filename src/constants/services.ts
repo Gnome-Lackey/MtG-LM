@@ -49,3 +49,4 @@ export const PLAYER_BASE_URL: string = playerUrlMap[environment];
 const SCRYFALL_BASE = "https://api.scryfall.com";
 
 export const SCRYFALL_RANDOM_CARD = `${SCRYFALL_BASE}/cards/random`;
+export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;

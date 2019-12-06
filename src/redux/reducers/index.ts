@@ -4,7 +4,7 @@ import { History } from "history";
 
 import applicationReducer from "redux/reducers/application";
 import authReducer from "redux/reducers/auth";
-import cardReducer from "redux/reducers/cards";
+import cardReducer from "redux/reducers/scryfall";
 import errorsReducer from "redux/reducers/errors";
 import playerReducer from "redux/reducers/players";
 import usersReducer from "redux/reducers/users";
@@ -15,7 +15,7 @@ export default (history: History): Reducer<RootState, AnyAction> =>
   combineReducers({
     application: applicationReducer,
     auth: authReducer,
-    cards: cardReducer,
+    scryfall: cardReducer,
     errors: errorsReducer,
     players: playerReducer,
     users: usersReducer,
