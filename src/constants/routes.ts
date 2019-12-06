@@ -9,5 +9,6 @@ export const ROUTES: Routes = {
   VERIFICATION_PAGE: "/verify"
 };
 
-export const LOGGED_IN_ROUTES: string[] = [ROUTES.HOME_PAGE];
 export const ADMIN_ROUTES: string[] = [ROUTES.SEASON_PAGE];
+export const USER_ROUTES: string[] = [ROUTES.HOME_PAGE];
+export const LOGGED_IN_ROUTES: string[] = [...ADMIN_ROUTES, ...USER_ROUTES];

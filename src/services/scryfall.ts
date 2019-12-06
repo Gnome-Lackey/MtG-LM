@@ -17,13 +17,13 @@ export const getCard = async (query: string): Promise<MtglmServiceResponseBody> 
   return await response.body;
 };
 
-export const getSets = async (): Promise<MtglmServiceResponseBody> => {
+export const getSet = async (code: string): Promise<MtglmServiceResponseBody> => {
   const headers = new Headers();
 
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
 
-  const response = await service.get(SCRYFALL_SETS, headers);
+  const response = await service.get(`${SCRYFALL_SETS}/${code}`, headers);
 
   return await response.body;
 };

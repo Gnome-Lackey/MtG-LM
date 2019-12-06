@@ -22,6 +22,10 @@ export interface RecordMatchFields {
   playerBWins: number;
 }
 
+export interface SetFields {
+  code: string
+}
+
 export interface SignUpFields {
   confirmPassword: string;
   email: string;

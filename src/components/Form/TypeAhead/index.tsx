@@ -11,7 +11,7 @@ import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption
 import "./styles.scss";
 
 interface TypeAheadProps {
-  clearHandler: Function;
+  clearHandler?: Function;
   id: string;
   isSearching: boolean;
   label?: string;
@@ -58,8 +58,11 @@ const TypeAhead = ({
     if (hasValue) {
       handleSearch(value);
     } else {
-      clearHandler();
       handleSearch.clear();
+
+      if (clearHandler) {
+        clearHandler();
+      }
     }
   };
 

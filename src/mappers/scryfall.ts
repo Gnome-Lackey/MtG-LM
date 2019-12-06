@@ -28,11 +28,11 @@ export const toScryfallCard = (result: MtglmServiceResponseBody): ScryfallCard =
 });
 
 export const toScryfallSet = (result: MtglmServiceResponseBody): ScryfallSet => ({
-  id: result.data.id,
-  name: result.data.name,
-  releasedOn: result.data.released_at,
-  cardCount: result.data.card_count,
-  code: result.data.code
+  id: result.id,
+  name: result.name,
+  releasedOn: result.released_at,
+  cardCount: result.card_count,
+  code: result.code
 });
 
 export const toCardQueryString = (color: string, type: string): string =>

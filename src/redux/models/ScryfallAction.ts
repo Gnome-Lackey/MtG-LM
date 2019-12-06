@@ -5,6 +5,7 @@ export interface ScryfallAction {
   type: string;
   payload?: {
     cards?: Card[];
-    sets?: Set[];
+    searching?: boolean;
+    set?: Set;
   };
 };

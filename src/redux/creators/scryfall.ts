@@ -3,7 +3,11 @@ import * as scryfallService from "services/scryfall";
 import * as scryfallMapper from "mappers/scryfall";
 
 import { emitResetError } from "redux/creators/errors";
-import { EMIT_GETTING_STARTED_CARDS_SUCCESS, EMIT_SETS_SUCCESS } from "redux/actions/scryfall";
+import {
+  EMIT_GETTING_STARTED_CARDS_SUCCESS,
+  EMIT_SETS_SUCCESS,
+  EMIT_SEARCHING_FOR_SET
+} from "redux/actions/scryfall";
 
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
 
@@ -27,17 +31,27 @@ export const requestGettingStartedCards = () => async (dispatch: Function) => {
   });
 };
 
-export const requestSets = () => async (dispatch: Function) => {
+export const requestGetSetByCode = (code: string) => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  const results = await scryfallService.getSets();
+  dispatch({
+    type: EMIT_SEARCHING_FOR_SET,
+    payload: { searching: true }
+  });
 
-  const scryfallSets = results.data.map(scryfallMapper.toScryfallSet);
+  const result = await scryfallService.getSet(code);
 
-  const sets = scryfallSets.map(scryfallMapper.toCard);
+  const scryfallSet = scryfallMapper.toScryfallSet(result);
+
+  const set = scryfallMapper.toSet(scryfallSet);
 
   dispatch({
     type: EMIT_SETS_SUCCESS,
-    payload: { sets }
+    payload: { set }
+  });
+
+  dispatch({
+    type: EMIT_SEARCHING_FOR_SET,
+    payload: { searching: false }
   });
 };

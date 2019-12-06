@@ -3,7 +3,8 @@ import {
   GettingStartedFields,
   LoginFields,
   RecordMatchFields,
-  SignUpFields
+  SignUpFields,
+  SetFields
 } from "components/Hooks/useFormData/models/FormFields";
 
 export interface FormData {
@@ -31,6 +32,11 @@ export interface LoginFormData extends FormData {
 export interface RecordMatchFormData extends FormData {
   values: RecordMatchFields;
   invalidations: RecordMatchFields;
+}
+
+export interface SetFormData extends FormData {
+  values: SetFields;
+  invalidations: SetFields;
 }
 
 export interface SignUpFormData extends FormData {

@@ -1,24 +1,9 @@
 @import "src/styles/variables";
 
-.verify-view {
+.season-manager-view {
   align-items: center;
   display: flex;
-  flex-direction: column;
-  height: 100vh;
+  height: $appContentMinHeight;
   justify-content: center;
   width: 100vw;
-
-  .verify-form {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 375px;
-    width: 25%;
-  }
-
-  .title {
-    margin: 0 0 20px;
-    padding: 0;
-  }
 }

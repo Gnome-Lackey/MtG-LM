@@ -5,19 +5,19 @@ import { History } from "history";
 
 import SeasonMangerView from "components/Views/SeasonManager/View";
 
-import { requestSets } from "redux/creators/scryfall";
+import { requestGetSetByCode } from "redux/creators/scryfall";
 import { RootState } from "redux/models/RootState";
 import { Set } from "models/Set";
 
 interface SeasonMangerViewProps {
   history: History;
-  isRequestLoading: boolean;
-  sets: Set[];
+  searchForSet: boolean;
+  potentialSet: Set;
 }
 
 interface SeasonMangerViewActions {
   actions: {
-    requestSets: Function;
+    requestGetSetByCode: Function;
   };
 }
 
@@ -26,14 +26,14 @@ const mapStateToProps = (
   ownProps: RouteComponentProps
 ): SeasonMangerViewProps => ({
   history: ownProps.history,
-  isRequestLoading: state.application.isRequestLoading,
-  sets: state.scryfall.sets
+  searchForSet: state.scryfall.searching,
+  potentialSet: state.scryfall.set
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): SeasonMangerViewActions => ({
   actions: bindActionCreators(
     {
-      requestSets
+      requestGetSetByCode
     },
     dispatch
   )

@@ -47,9 +47,11 @@ const ProtectedContent = ({
 }: ProtectedContentProps): React.FunctionComponentElement<ProtectedContentProps> => {
   const isValidated = useAuth(validated, validationHandler, redirectHandler);
 
+  const accountType = user && user.accountType;
+
   return (
     <div className="protected-content">
-      {renderContent(admin, user.accountType, isValidated, children)}
+      {renderContent(admin, accountType, isValidated, children)}
     </div>
   );
 };
