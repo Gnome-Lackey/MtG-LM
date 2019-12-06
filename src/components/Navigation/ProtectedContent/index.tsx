@@ -19,12 +19,12 @@ interface ProtectedContentProps {
 }
 
 const renderContent = (
-  admin: boolean,
+  isAdminContent: boolean,
   accountType: string,
   isValidated: boolean,
   children: React.FunctionComponent<any>
   ): React.FunctionComponentElement<any> | React.FunctionComponent<any> => {
-    if (admin && accountType !== ACCOUNT_TYPE_ADMIN) {
+    if (isValidated && isAdminContent && accountType !== ACCOUNT_TYPE_ADMIN) {
     return (
       <div className="msg-unauthorized">
         <p>Woah there buddy! You need the proper privileges to enter here. I&pos;m going to have to ask you to planeswalk away.</p>
