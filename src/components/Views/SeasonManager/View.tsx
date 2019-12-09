@@ -6,6 +6,7 @@ import useFormData from "components/Hooks/useFormData";
 import TypeAhead from "components/Form/TypeAhead";
 
 import { Set } from "models/Set";
+import { Season } from "models/Season";
 
 import "./styles.scss";
 
@@ -15,15 +16,17 @@ interface SeasonManagerViewActions {
 
 interface SeasonManagerViewProps extends RouteComponentProps {
   actions: SeasonManagerViewActions;
-  searchForSet: boolean;
   potentialSet: Set;
+  searchForSet: boolean;
+  seasons: Season[];
 }
 
 const SeasonManagerView = ({
   actions,
   history,
+  potentialSet,
   searchForSet,
-  potentialSet
+  seasons
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
   const { values, updateValues } = useFormData({
     code: null
