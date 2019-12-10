@@ -11,6 +11,7 @@ import { Player } from "models/Player";
 import { User } from "models/User";
 
 import "./styles.scss";
+import { PlayerSearchResultMap } from "redux/models/PlayerState";
 
 interface HomeViewActions {
   emitClearPlayersForRecord: Function;
@@ -24,10 +25,7 @@ interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
   isRequestLoading: boolean;
   players: Player[];
-  potentialPlayerA: Player[];
-  potentialPlayerB: Player[];
-  searchingForAPlayers: boolean;
-  searchingForBPlayers: boolean;
+  playerSearchResultsMap: PlayerSearchResultMap;
   showRecordMatchModal: boolean;
   user: User;
 }
@@ -36,10 +34,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
   isRequestLoading,
   players,
-  potentialPlayerA,
-  potentialPlayerB,
-  searchingForAPlayers,
-  searchingForBPlayers,
+  playerSearchResultsMap,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
@@ -61,10 +56,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           <RecordMatchModalContent
             clearHandler={actions.emitClearPlayersForRecord}
             isRequestLoading={isRequestLoading}
-            potentialAPlayers={potentialPlayerA}
-            potentialBPlayers={potentialPlayerB}
-            searchingForAPlayers={searchingForAPlayers}
-            searchingForBPlayers={searchingForBPlayers}
+            playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecord}
             submitHandler={actions.requestCreateMatch}
           />

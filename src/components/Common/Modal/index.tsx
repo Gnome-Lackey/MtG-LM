@@ -35,7 +35,7 @@ const Modal = ({
             <i className="far fa-times-circle" />
           </button>
         </div>
-        {children}
+        <div id={`${id}Content`}className="modal-content">{children}</div>
       </div>
     </div>
   );
