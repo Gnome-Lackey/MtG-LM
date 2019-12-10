@@ -6,6 +6,7 @@ import Spinner from "components/Common/Spinner";
 import "./styles.scss";
 
 interface FormButtonProps {
+  id?: string;
   children: string;
   className?: string;
   disabled?: boolean;
@@ -15,6 +16,7 @@ interface FormButtonProps {
 }
 
 const FormButton = ({
+  id,
   children,
   type,
   loading,
@@ -23,6 +25,7 @@ const FormButton = ({
   onClick
 }: FormButtonProps): React.FunctionComponentElement<FormButtonProps> => (
   <button
+  id={id}
     className={classNames("form-button", className)}
     type={type}
     disabled={disabled || loading}

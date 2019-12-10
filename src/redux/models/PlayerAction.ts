@@ -4,6 +4,7 @@ export interface PlayerAction {
   type: string;
   payload?: {
     players?: Player[];
+    playerSearchId: string;
     searching?: boolean;
   };
 };

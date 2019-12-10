@@ -19,21 +19,32 @@
     background-color: $colorGray;
     border: 2px solid $colorGrayDark;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    max-width: $maxModalWidth;
+    height: $maxModalHeight;
     opacity: 0;
-    padding: 15px 30px;
     position: relative;
     top: 10px;
+    width: $maxModalWidth;
     z-index: $zLayerFour;
+
+    .modal-content {
+      margin-top: $modalContentMarginTop;
+      height: calc(#{$maxModalHeight} - #{$modalContentMarginTop});
+      padding: 0 $modalContentHorizontalPadding;
+      position: relative;
+      overflow-y: scroll;
+      width: $modalContentWidth;
+    }
 
     .modal-header {
       align-items: center;
+      background-color: $colorGray;
       display: flex;
-      height: 35px;
+      height: $modalHeaderHeight;
       justify-content: space-between;
-      margin-bottom: 30px;
+      padding: 15px $modalContentHorizontalPadding $modalHeaderVerticalPadding;
+      position: fixed;
+      width: $modalContentWidth;
+      z-index: $zLayerFour;
 
       .modal-title {
         font-size: 18px;

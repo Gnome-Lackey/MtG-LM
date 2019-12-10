@@ -1,25 +1,20 @@
 import * as React from "react";
+import * as uuid from "uuid";
 
-import TypeAhead from "components/Form/TypeAhead";
-import FormInput from "components/Form/Input";
+import RecordRow from "components/Common/Modal/Content/RecordMatch/RecordRow";
 import FormButton from "components/Form/Button";
+import ButtonFancy from "components/Common/ButtonFancy";
 
 import useFormData from "components/Hooks/useFormData";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
-import { Player } from "models/Player";
-
-import { PLAYER_A, PLAYER_B } from "constants/players";
+import { PlayerSearchResultMap } from "redux/models/PlayerState";
 
 import "./styles.scss";
 
 interface RecordMatchModalContentProps {
   clearHandler: Function;
   isRequestLoading: boolean;
-  potentialAPlayers: Player[];
-  potentialBPlayers: Player[];
-  searchingForAPlayers: boolean;
-  searchingForBPlayers: boolean;
+  playerSearchResultsMap: PlayerSearchResultMap;
   searchHandler: Function;
   submitHandler: Function;
 }
@@ -27,18 +22,23 @@ interface RecordMatchModalContentProps {
 const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentProps> = ({
   clearHandler,
   isRequestLoading,
-  potentialAPlayers,
-  potentialBPlayers,
-  searchingForAPlayers,
-  searchingForBPlayers,
+  playerSearchResultsMap,
   searchHandler,
   submitHandler
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
   const { values, updateValues } = useFormData({
-    playerA: null,
-    playerB: null,
-    playerAWins: 0,
-    playerBWins: 0
+    playerRecords: [
+      {
+        id: uuid.v4(),
+        player: null,
+        wins: 0
+      },
+      {
+        id: uuid.v4(),
+        player: null,
+        wins: 0
+      }
+    ]
   });
 
   const handleSubmit = (ev: React.FormEvent): void => {
@@ -47,108 +47,51 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     submitHandler(values);
   };
 
-  const handleSearchForPlayerA = (value: string): void => {
-    searchHandler(PLAYER_A, value);
+  const handleSearchForPlayer = (searchId: string, value: string): void => {
+    searchHandler(searchId, value);
   };
 
-  const handleSearchForPlayerB = (value: string): void => {
-    searchHandler(PLAYER_B, value);
-  };
-
-  const handleClearForPlayerA = (): void => {
-    clearHandler(PLAYER_A);
-  };
-
-  const handleClearForPlayerB = (): void => {
-    clearHandler(PLAYER_B);
-  };
-
-  const playerAOptions = potentialAPlayers.reduce(
-    (aOptions: TypeAheadOption[], player: Player): TypeAheadOption[] => {
-      if (!values.playerB || values.playerB.key !== player.id) {
-        aOptions.push({
-          label: player.displayName,
-          key: player.id,
-          subLabel: player.userName
-        });
+  const handleAddPlayer = (): void => {
+    updateValues("playerRecords", [
+      ...values.playerRecords,
+      {
+        id: uuid.v4(),
+        player: null,
+        wins: 0
       }
+    ]);
+  };
 
-      return aOptions;
-    },
-    []
-  );
+  const { playerRecords } = values;
 
-  const playerBOptions = potentialBPlayers.reduce(
-    (bOptions: TypeAheadOption[], player: Player): TypeAheadOption[] => {
-      if (!values.playerA || values.playerA.key !== player.id) {
-        bOptions.push({
-          label: player.displayName,
-          key: player.id,
-          subLabel: player.userName
-        });
-      }
-
-      return bOptions;
-    },
-    []
-  );
-
-  const totalGames = values.playerAWins + values.playerBWins;
-  const isDisabled = !values.playerA || !values.playerB || totalGames > 3;
-  const isLoading = !searchingForAPlayers && !searchingForBPlayers && isRequestLoading;
+  const hasInvalidGameCount = playerRecords.reduce((total, record) => total + record.wins, 0) <= 0;
+  const hasInvalidPlayers = playerRecords.some((record) => !record.player || record.wins < 0);
+  const isDisabled = hasInvalidGameCount || hasInvalidPlayers;
 
   return (
     <form className="record-match-modal" onSubmit={handleSubmit}>
-      <div className="record-row">
-        <TypeAhead
-          id="playerA"
-          isSearching={searchingForAPlayers}
-          label="Player A"
-          options={playerAOptions}
-          clearHandler={handleClearForPlayerA}
-          searchHandler={handleSearchForPlayerA}
-          selectHandler={(option: TypeAheadOption) => {
-            updateValues("playerA", option);
-          }}
-        />
-        <FormInput
-          id="playerAWins"
-          label="Wins"
-          type="number"
-          onChange={(key: string, value: string) => {
-            const parsedValue = value ? parseInt(value, 10) : 0;
-
-            updateValues(key, parsedValue);
-          }}
-          value={values.playerAWins}
-        />
-      </div>
-      <div className="record-row">
-        <TypeAhead
-          id="playerB"
-          isSearching={searchingForBPlayers}
-          label="Player B"
-          clearHandler={handleClearForPlayerB}
-          options={playerBOptions}
-          searchHandler={handleSearchForPlayerB}
-          selectHandler={(option: TypeAheadOption) => {
-            updateValues("playerB", option);
-          }}
-        />
-        <FormInput
-          id="playerBWins"
-          label="Wins"
-          type="number"
-          onChange={(key: string, value: string) => {
-            const parsedValue = value ? parseInt(value, 10) : 0;
-
-            updateValues(key, parsedValue);
-          }}
-          value={values.playerBWins}
-        />
+      <div className="record-container">
+        {values.playerRecords.map((record) => (
+          <RecordRow
+            key={record.id}
+            record={record}
+            playerSearchResultsMap={playerSearchResultsMap}
+            clearHandler={clearHandler}
+            searchHandler={handleSearchForPlayer}
+            updateValues={updateValues}
+            playerRecords={playerRecords}
+          />
+        ))}
       </div>
       <div className="record-actions">
-        <FormButton type="submit" loading={isLoading} disabled={isDisabled}>
+        <ButtonFancy clickHandler={handleAddPlayer} type="button">
+          Add Player
+        </ButtonFancy>
+        <FormButton
+          type="submit"
+          loading={isRequestLoading}
+          disabled={isDisabled}
+        >
           Submit
         </FormButton>
       </div>

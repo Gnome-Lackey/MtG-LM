@@ -27,7 +27,14 @@ $footerHeight: 48px;
 $appMinHeight: 100vh;
 $appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
+
+$maxModalHeight: 400px;
 $maxModalWidth: 500px;
+$modalHeaderHeight: 35px;
+$modalHeaderVerticalPadding: 10px;
+$modalContentHorizontalPadding: 30px;
+$modalContentMarginTop: calc(#{$modalHeaderHeight} + #{$modalHeaderVerticalPadding} + 25px);
+$modalContentWidth: calc(#{$maxModalWidth} - #{$modalContentHorizontalPadding} * 2);
 
 $zLayerBase: 0;
 $zLayerOne: 1;

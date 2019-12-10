@@ -1,12 +1,9 @@
 import {
-  EMIT_GET_POTENTIAL_PLAYER_A_SUCCESS,
-  EMIT_GET_POTENTIAL_PLAYER_B_SUCCESS,
+  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
   EMIT_GET_PLAYERS_SUCCESS,
   EMIT_CREATE_PLAYER_SUCCESS,
-  EMIT_SEARCHING_FOR_ACTIVE_PLAYERS,
-  EMIT_SEARCHING_FOR_DEFENDING_PLAYERS,
-  EMIT_CLEAR_PLAYER_A_LIST,
-  EMIT_CLEAR_PLAYER_B_LIST
+  EMIT_SEARCHING_FOR_PLAYERS,
+  EMIT_CLEAR_PLAYER_LIST
 } from "redux/actions/players";
 
 import { emitResetError } from "redux/creators/errors";
@@ -22,10 +19,12 @@ import * as userMapper from "mappers/user";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
-import { PLAYER_A } from "constants/players";
 
-export const emitClearPlayersForRecord = (playerType: string): PlayerAction => ({
-  type: playerType === PLAYER_A ? EMIT_CLEAR_PLAYER_A_LIST : EMIT_CLEAR_PLAYER_B_LIST
+export const emitClearPlayersForRecord = (searchId: string): PlayerAction => ({
+  type: EMIT_CLEAR_PLAYER_LIST,
+  payload: {
+    playerSearchId: searchId
+  }
 });
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (
@@ -75,20 +74,15 @@ export const requestGetPlayers = () => async (dispatch: Function) => {
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
 
-export const requestQueryPlayersForRecord = (playerType: string, query: string) => async (
+export const requestQueryPlayersForRecord = (searchId: string, query: string) => async (
   dispatch: Function
 ) => {
-  const isPlayerA = playerType === PLAYER_A;
-
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  const searchActionType = isPlayerA
-    ? EMIT_SEARCHING_FOR_ACTIVE_PLAYERS
-    : EMIT_SEARCHING_FOR_DEFENDING_PLAYERS;
-
   dispatch({
-    type: searchActionType,
+    type: EMIT_SEARCHING_FOR_PLAYERS,
     payload: {
+      playerSearchId: searchId,
       searching: true
     }
   });
@@ -101,21 +95,19 @@ export const requestQueryPlayersForRecord = (playerType: string, query: string) 
   if (data.error) {
     // Handle Error
   } else {
-    const successActionType = isPlayerA
-      ? EMIT_GET_POTENTIAL_PLAYER_A_SUCCESS
-      : EMIT_GET_POTENTIAL_PLAYER_B_SUCCESS;
-
     dispatch({
-      type: successActionType,
+      type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
       payload: {
+        playerSearchId: searchId,
         players: data
       }
     });
   }
 
   dispatch({
-    type: searchActionType,
+    type: EMIT_SEARCHING_FOR_PLAYERS,
     payload: {
+      playerSearchId: searchId,
       searching: false
     }
   });

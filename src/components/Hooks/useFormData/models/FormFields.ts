@@ -15,11 +15,14 @@ export interface LoginFields {
   userName: string;
 }
 
+export interface PlayerRecordFields {
+  id: string;
+  player: TypeAheadOption;
+  wins: number
+}
+
 export interface RecordMatchFields {
-  playerA: TypeAheadOption;
-  playerB: TypeAheadOption;
-  playerAWins: number;
-  playerBWins: number;
+  playerRecords: PlayerRecordFields[];
 }
 
 export interface SetFields {

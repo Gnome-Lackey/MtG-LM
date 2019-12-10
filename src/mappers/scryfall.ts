@@ -6,7 +6,7 @@ import { MtglmServiceResponseBody } from "services/models/Service";
 export const toCard = (data: ScryfallCard): Card => ({
   id: data.id,
   name: data.name,
-  image: data.imageUris.normal,
+  image: data.images.normal,
   type: data.type,
   colors: data.colors
 });
@@ -24,7 +24,7 @@ export const toScryfallCard = (result: MtglmServiceResponseBody): ScryfallCard =
   name: result.data.name,
   colors: result.data.colors,
   type: result.data.type_line,
-  imageUris: result.data.image_uris
+  images: result.data.image_uris
 });
 
 export const toScryfallSet = (result: MtglmServiceResponseBody): ScryfallSet => ({

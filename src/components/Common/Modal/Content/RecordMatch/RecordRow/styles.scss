@@ -1,0 +1,15 @@
+@import "src/styles/variables.scss";
+
+.record-row {
+  align-items: center;
+  display: inline-flex;
+
+  .form-type-ahead {
+    margin-right: 10px;
+    width: calc(#{$maxModalWidth} / 2);
+  }
+
+  .form-input {
+    width: calc(#{$maxModalWidth} / 5);
+  }
+}
