@@ -9,3 +9,13 @@ export interface Match {
   playerB: MatchRecord;
   season: string;
 }
+
+export interface CreateMatchRecordBody {
+  player: string;
+  wins: number;
+}
+
+export interface CreateMatchBody {
+  records: CreateMatchRecordBody[];
+  season: string;
+}

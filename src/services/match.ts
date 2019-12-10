@@ -2,12 +2,12 @@ import service from "services/service";
 
 import { MtglmServiceResponseBody } from "services/models/Service";
 
-import { Match } from "models/Match";
+import { CreateMatchBody } from "models/Match";
 
 import { MATCH_BASE_URL } from "constants/services";
 import { IDT } from "constants/session";
 
-export const create = async (body: Match): Promise<MtglmServiceResponseBody> => {
+export const create = async (body: CreateMatchBody): Promise<MtglmServiceResponseBody> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
