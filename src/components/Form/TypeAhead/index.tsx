@@ -11,6 +11,7 @@ import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption
 import "./styles.scss";
 
 interface TypeAheadProps {
+  autoSubmit?: boolean;
   clearHandler?: Function;
   id: string;
   isSearching: boolean;
@@ -22,6 +23,7 @@ interface TypeAheadProps {
 }
 
 const TypeAhead = ({
+  autoSubmit,
   clearHandler,
   id,
   isSearching,
@@ -41,7 +43,10 @@ const TypeAhead = ({
   const handleSelect = (option: TypeAheadOption): void => {
     document.getElementById(id).focus();
 
-    setSearchText(option.label);
+    if (!autoSubmit) {
+      setSearchText(option.label);
+    }
+
     setShowSearch(false);
     selectHandler(option);
   };

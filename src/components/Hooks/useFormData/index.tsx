@@ -6,7 +6,7 @@ import {
   LoginFields,
   SignUpFields,
   RecordMatchFields,
-  SetFields,
+  SeasonFields,
 } from "components/Hooks/useFormData/models/FormFields";
 
 import {
@@ -15,14 +15,14 @@ import {
   LoginFormData,
   RecordMatchFormData,
   SignUpFormData,
-  SetFormData
+  SeasonFormData
 } from "components/Hooks/useFormData/models/FormData";
 
 function useFormData(formFields: ConfirmFields): ConfirmFormData;
 function useFormData(formFields: GettingStartedFields): GettingStartedFormData;
 function useFormData(formFields: RecordMatchFields): RecordMatchFormData;
 function useFormData(formFields: LoginFields): LoginFormData;
-function useFormData(formFields: SetFields): SetFormData;
+function useFormData(formFields: SeasonFields): SeasonFormData;
 function useFormData(formFields: SignUpFields): SignUpFormData;
 
 function useFormData(formFields: any): any {

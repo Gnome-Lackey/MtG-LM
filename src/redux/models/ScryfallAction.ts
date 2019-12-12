@@ -6,6 +6,6 @@ export interface ScryfallAction {
   payload?: {
     cards?: Card[];
     searching?: boolean;
-    set?: Set;
+    sets?: Set[];
   };
 };

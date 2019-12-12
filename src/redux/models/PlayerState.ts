@@ -2,7 +2,7 @@ import { Player } from "models/Player";
 
 export interface PlayerSearchResult {
   list: Player[];
-  isSearching: boolean;
+  searching: boolean;
 }
 
 export interface PlayerSearchResultMap {
@@ -12,4 +12,6 @@ export interface PlayerSearchResultMap {
 export interface PlayerState {
   list?: Player[];
   searchResultsMap?: PlayerSearchResultMap;
+  searching: boolean;
+  searchResults: Player[];
 }

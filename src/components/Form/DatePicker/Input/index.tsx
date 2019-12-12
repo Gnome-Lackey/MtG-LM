@@ -1,49 +1,46 @@
 import * as React from "react";
 
-import TypeAheadAction from "components/Form/TypeAhead/Input/Action";
+import DatePickerAction from "components/Form/DatePicker/Input/Action";
 
 import "./styles.scss";
 
-interface TypeAheadInputProps {
+interface DatePickerInputProps {
   handleChange: React.ChangeEventHandler;
   handleKeyPress: React.KeyboardEventHandler;
   id: string;
-  isSearching: boolean;
   label?: string;
   placeholder?: string;
-  searchText: string;
-  setSearchText: Function;
+  dateText: string;
+  setDateText: Function;
 }
 
-const TypeAheadInput = ({
+const DatePickerInput = ({
   handleChange,
   handleKeyPress,
   id,
-  isSearching,
   label,
   placeholder,
-  searchText,
-  setSearchText
-}: TypeAheadInputProps): React.FunctionComponentElement<TypeAheadInputProps> => (
+  dateText,
+  setDateText
+}: DatePickerInputProps): React.FunctionComponentElement<DatePickerInputProps> => (
   <label className="type-ahead-label" htmlFor={id}>
     {label || null}
     <div className="input-container">
       <input
         autoComplete="off"
         id={id}
-        value={searchText}
+        value={dateText}
         className="input"
         placeholder={placeholder}
         onChange={handleChange}
         onKeyDown={handleKeyPress}
       />
-      <TypeAheadAction
-        hasText={!!searchText}
-        isSearching={isSearching}
-        setSearchValue={setSearchText}
+      <DatePickerAction
+        hasText={!!dateText}
+        setSearchValue={setDateText}
       />
     </div>
   </label>
 );
 
-export default TypeAheadInput;
+export default DatePickerInput;

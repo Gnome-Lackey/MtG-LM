@@ -29,7 +29,7 @@ const RecordRow: React.FunctionComponent<RecordRowProps> = ({
 }: RecordRowProps): React.FunctionComponentElement<RecordRowProps> => {
   const recordConfig = playerSearchResultsMap[record.id];
   const list = recordConfig && recordConfig.list ? recordConfig.list : [];
-  const isSearching = recordConfig && recordConfig.isSearching ? recordConfig.isSearching : false;
+  const isSearching = recordConfig && recordConfig.searching ? recordConfig.searching : false;
 
   const playerOptions = list.reduce(
     (options: TypeAheadOption[], player: Player): TypeAheadOption[] => {

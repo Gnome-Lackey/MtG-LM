@@ -4,7 +4,7 @@ import {
   LoginFields,
   RecordMatchFields,
   SignUpFields,
-  SetFields
+  SeasonFields
 } from "components/Hooks/useFormData/models/FormFields";
 
 export interface FormData {
@@ -34,9 +34,9 @@ export interface RecordMatchFormData extends FormData {
   invalidations: RecordMatchFields;
 }
 
-export interface SetFormData extends FormData {
-  values: SetFields;
-  invalidations: SetFields;
+export interface SeasonFormData extends FormData {
+  values: SeasonFields;
+  invalidations: SeasonFields;
 }
 
 export interface SignUpFormData extends FormData {

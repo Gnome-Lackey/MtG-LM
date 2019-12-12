@@ -6,7 +6,7 @@ import HomeView from "components/Views/Home/View";
 
 import { emitToggleRecordMatchModal } from "redux/creators/application";
 import {
-  emitClearPlayersForRecord,
+  emitClearPlayerResultsForRecord,
   requestGetPlayers,
   requestQueryPlayersForRecord
 } from "redux/creators/players";
@@ -27,7 +27,7 @@ interface HomeViewProps {
 
 interface HomeViewActions {
   actions: {
-    emitClearPlayersForRecord: Function;
+    emitClearPlayerResultsForRecord: Function;
     emitToggleRecordMatchModal: Function;
     requestCreateMatch: Function;
     requestGetPlayers: Function;
@@ -46,7 +46,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
   actions: bindActionCreators(
     {
-      emitClearPlayersForRecord,
+      emitClearPlayerResultsForRecord,
       emitToggleRecordMatchModal,
       requestCreateMatch,
       requestGetPlayers,

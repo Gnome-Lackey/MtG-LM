@@ -44,7 +44,7 @@ export const requestGetSetByCode = (code: string) => async (dispatch: Function) 
   if (result.status === 404) {
     dispatch({
       type: EMIT_SETS_SUCCESS,
-      payload: { set: null }
+      payload: { sets: [] }
     });
   } else {
     const scryfallSet = scryfallMapper.toScryfallSet(result);
@@ -52,7 +52,7 @@ export const requestGetSetByCode = (code: string) => async (dispatch: Function) 
 
     dispatch({
       type: EMIT_SETS_SUCCESS,
-      payload: { set }
+      payload: { sets: [set] }
     });
   }
 

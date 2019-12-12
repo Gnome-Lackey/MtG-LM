@@ -12,7 +12,7 @@ import { ScryfallAction } from "redux/models/ScryfallAction";
 const INITIAL_STATE: ScryfallState = {
   cards: [],
   searching: false,
-  set: null
+  setSearchResults: []
 };
 
 export default handleActions(
@@ -26,7 +26,7 @@ export default handleActions(
     }),
     [EMIT_SETS_SUCCESS]: (state: ScryfallState, action: ScryfallAction): ScryfallState => ({
       ...state,
-      set: action.payload.set
+      setSearchResults: action.payload.sets
     }),
     [EMIT_SEARCHING_FOR_SET]: (state: ScryfallState, action: ScryfallAction): ScryfallState => ({
       ...state,

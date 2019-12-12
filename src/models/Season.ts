@@ -1,7 +1,16 @@
-export interface Season {
+import { Set } from "models/Set";
+
+export interface SeasonBase {
   id: string;
-  set: string;
   startedOn: Date;
   endedOn?: Date;
   isActive: boolean;
+}
+
+export interface Season extends SeasonBase {
+  set: string;
+}
+
+export interface SeasonDetails extends SeasonBase {
+  set: Set;
 }

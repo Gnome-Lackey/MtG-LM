@@ -18,15 +18,16 @@ export interface LoginFields {
 export interface PlayerRecordFields {
   id: string;
   player: TypeAheadOption;
-  wins: number
+  wins: number;
 }
 
 export interface RecordMatchFields {
   playerRecords: PlayerRecordFields[];
 }
 
-export interface SetFields {
-  code: string
+export interface SeasonFields {
+  setOption: TypeAheadOption;
+  playerOptions: TypeAheadOption[];
 }
 
 export interface SignUpFields {
