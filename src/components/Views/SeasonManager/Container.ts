@@ -10,7 +10,7 @@ import { requestQueryPlayers } from "redux/creators/players";
 import { RootState } from "redux/models/RootState";
 import { Set } from "models/Set";
 import { Player } from "models/Player";
-import { SeasonDetails } from "models/Season";
+import { Season } from "models/Season";
 
 interface SeasonMangerViewProps {
   history: History;
@@ -18,7 +18,7 @@ interface SeasonMangerViewProps {
   potentialPlayers: Player[];
   searchForPlayer: boolean;
   searchForSet: boolean;
-  seasons: SeasonDetails[];
+  seasons: Season[];
 }
 
 interface SeasonMangerViewActions {

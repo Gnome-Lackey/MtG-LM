@@ -7,7 +7,7 @@ import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
 
 import { Set } from "models/Set";
-import { SeasonDetails } from "models/Season";
+import { Season } from "models/Season";
 import { Player } from "models/Player";
 
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
@@ -25,7 +25,7 @@ interface SeasonManagerViewProps extends RouteComponentProps {
   potentialPlayers: Player[];
   searchForPlayer: boolean;
   searchForSet: boolean;
-  seasons: SeasonDetails[];
+  seasons: Season[];
 }
 
 const SeasonManagerView = ({
@@ -78,7 +78,7 @@ const SeasonManagerView = ({
               }}
             >
               <p className="date">{season.startedOn}</p>
-              <p className="set-name">{season.set.name}</p>
+              <p className="set-name">{season.set}</p>
             </button>
           </li>
         ))}
