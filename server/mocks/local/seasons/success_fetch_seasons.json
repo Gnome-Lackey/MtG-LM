@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "123-123-123123",
+      "startedOn": "08/03/1996",
+      "set": "weatherlight",
+      "isActive": false
+    },
+    {
+      "id": "123-123-143123",
+      "startedOn": "01/28/2016",
+      "set": "Innistrad",
+      "isActive": false
+    },
+    {
+      "id": "123-123-156123",
+      "startedOn": "10/12/2019",
+      "set": "Throne of Eldraine",
+      "isActive": true
+    }
+  ]
+}
