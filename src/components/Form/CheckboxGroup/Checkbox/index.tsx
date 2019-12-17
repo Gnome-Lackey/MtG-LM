@@ -31,7 +31,10 @@ const FormCheckbox = ({
       name={name}
       id={id}
       value={value}
-      onChange={(ev) => onChange(name, ev.target.checked ? value || checked : undefined)}
+      checked={checked}
+      onChange={(ev) =>
+        onChange(name || id, ev.target.checked ? value || ev.target.checked : undefined)
+      }
     />
     {label}
   </label>

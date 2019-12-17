@@ -17,6 +17,7 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
+import FormButton from "components/Form/Button";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -117,6 +118,7 @@ const SeasonForm = ({
           onChange={updateValues}
           label="Will this season be active?"
         />
+        <FormButton type="submit">Submit</FormButton>
       </div>
       <PlayerList
         players={values.players}
@@ -125,6 +127,7 @@ const SeasonForm = ({
         searchPlayerHandler={searchPlayerHandler}
         updateValues={updateValues}
       />
+      
     </form>
   );
 };
