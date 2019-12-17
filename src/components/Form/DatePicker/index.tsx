@@ -39,12 +39,19 @@ const DatePicker = ({
 
     const { value } = ev.target as any;
 
-    const isValidDate = /^([0-9]+[/]*)*$/.test(value);
+    const isValidDateText = /^([0-9]+[/]*)*$/.test(value);
+    const isValidDate = /^[0-9]{2}\/[0-9]{2}\/[1-9]{4}$/.test(value);
 
-    if (isValidDate) {
+    if (isValidDateText) {
       const hasValue = !!value;
 
       setDateText(value);
+
+      if (isValidDate) {
+        selectHandler(value);
+      } else {
+        selectHandler("");
+      }
 
       if (hasValue) {
         setShowDropdown(true);

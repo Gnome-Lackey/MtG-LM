@@ -26,6 +26,8 @@ export interface RecordMatchFields {
 }
 
 export interface SeasonFields {
+  startedDate: string;
+  endedDate: string;
   setOption: TypeAheadOption;
   playerOptions: TypeAheadOption[];
 }

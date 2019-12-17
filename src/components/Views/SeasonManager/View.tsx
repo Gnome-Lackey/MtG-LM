@@ -1,8 +1,9 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import useFormData from "components/Hooks/useFormData";
+import useDataFetch from "components/Hooks/useDataFetch";
+import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
 
@@ -17,6 +18,10 @@ import "./styles.scss";
 interface SeasonManagerViewActions {
   requestGetSetByCode: Function;
   requestQueryPlayers: Function;
+  emitSelectSeason: Function;
+  emitDeselectSeason: Function;
+  requestCreateSeason: Function;
+  requestGetSeasons: Function;
 }
 
 interface SeasonManagerViewProps extends RouteComponentProps {
@@ -25,6 +30,7 @@ interface SeasonManagerViewProps extends RouteComponentProps {
   potentialPlayers: Player[];
   searchForPlayer: boolean;
   searchForSet: boolean;
+  selectedSeason: Season;
   seasons: Season[];
 }
 
@@ -34,20 +40,23 @@ const SeasonManagerView = ({
   potentialSets,
   searchForPlayer,
   searchForSet,
+  selectedSeason,
   seasons
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
-  const [selectedSeason, setSelectedSeason] = React.useState(null);
+  useDataFetch(!seasons.length, actions.requestGetSeasons);
 
   const { values, updateValues } = useFormData({
     setOption: null,
-    playerOptions: []
+    playerOptions: [],
+    startedDate: "",
+    endedDate: ""
   });
 
   const setOptions = potentialSets
     ? potentialSets.map(
         (set): TypeAheadOption => ({
           label: set.name,
-          key: set.id
+          key: set.code
         })
       )
     : [];
@@ -66,6 +75,20 @@ const SeasonManagerView = ({
       }, [])
     : [];
 
+  const handleSubmit = (ev: React.FormEvent): void => {
+    ev.preventDefault();
+
+    actions.requestCreateSeason(values);
+  };
+
+  const handleSelectSeason = (season: Season): void => {
+    if (selectedSeason && selectedSeason.id === season.id) {
+      actions.emitDeselectSeason();
+    } else {
+      actions.emitSelectSeason(season);
+    }
+  };
+
   return (
     <div className="season-manager-view">
       <ul className="season-list">
@@ -74,22 +97,32 @@ const SeasonManagerView = ({
             <button
               type="button"
               onClick={() => {
-                setSelectedSeason(season);
+                handleSelectSeason(season);
               }}
             >
               <p className="date">{season.startedOn}</p>
-              <p className="set-name">{season.set}</p>
+              <p className="set-name">{season.set.name}</p>
             </button>
           </li>
         ))}
       </ul>
       {selectedSeason ? (
-        <form onSubmit={() => console.log("submitted")}>
-          <DatePicker 
-            id="startingDate"
+        <form onSubmit={handleSubmit}>
+          <DatePicker
+            id="dateStarted"
             label="Starting Date"
             placeholder={DISPLAY_DATE_FORMAT}
-            selectHandler={(value: string) => console.log(value)}
+            selectHandler={(value: string) => {
+              updateValues("dateStarted", value);
+            }}
+          />
+          <DatePicker
+            id="dateEnded"
+            label="Ending Date"
+            placeholder={DISPLAY_DATE_FORMAT}
+            selectHandler={(value: string) => {
+              updateValues("dateEnded", value);
+            }}
           />
           <TypeAhead
             id="setOption"

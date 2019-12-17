@@ -61,8 +61,6 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 };
 
 export const requestGetPlayers = () => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
-
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
   const { data } = await playerService.query();

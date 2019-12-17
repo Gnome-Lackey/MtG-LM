@@ -43,6 +43,19 @@ const playerUrlMap: DynamicStringMap = {
 export const PLAYER_BASE_URL: string = playerUrlMap[environment];
 
 /*
+  Season API
+*/
+
+const seasonUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local/seasons",
+  dev: "https://8v5oo90j9j.execute-api.us-east-1.amazonaws.com/dev/seasons"
+};
+
+export const SEASON_BASE_URL: string = seasonUrlMap[environment];
+
+export const SEASON_GET_ALL_DETAILS = `${SEASON_BASE_URL}/details`;
+
+/*
   Scryfall API
 */
 
