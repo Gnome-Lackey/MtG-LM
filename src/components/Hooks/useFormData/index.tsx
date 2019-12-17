@@ -54,7 +54,7 @@ function useFormData(formFields: any): any {
 
       setValues(newValues);
     },
-    updateValues: (id: string, value: string | string[]) => {
+    updateValues: (id: string, value: string | string[] | boolean) => {
       setIsDirty(true);
 
       setValues({

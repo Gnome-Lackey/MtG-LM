@@ -30,6 +30,7 @@ export interface SeasonFields {
   endedDate: string;
   set: TypeAheadOption;
   players: TypeAheadOption[];
+  isActive: boolean;
 }
 
 export interface SignUpFields {

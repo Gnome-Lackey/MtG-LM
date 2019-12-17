@@ -14,6 +14,8 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
+import { isAbsolute } from "path";
+import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -36,13 +38,15 @@ const buildFormState = (selectedSeason: Season): SeasonFields =>
           key: player.id
         })),
         startedDate: selectedSeason.startedOn ? selectedSeason.startedOn : "",
-        endedDate: selectedSeason.endedOn ? selectedSeason.endedOn : ""
+        endedDate: selectedSeason.endedOn ? selectedSeason.endedOn : "",
+        isActive: selectedSeason.isActive || false
       }
     : {
         set: null,
         players: [],
         startedDate: "",
-        endedDate: ""
+        endedDate: "",
+        isActive: false
       };
 
 const SeasonForm = ({
@@ -127,6 +131,13 @@ const SeasonForm = ({
             updateValues("set", option);
           }}
         />
+        <FormCheckbox 
+          checked={values.isActive}
+          className="season-is-active"
+          id="isActive"
+          onChange={updateValues}
+          label="Will this season be active?"
+        />
       </div>
       <div className="season-players">
         <TypeAhead
@@ -143,12 +154,8 @@ const SeasonForm = ({
         <ul className="player-list">
           {values.players.map((playerOption) => (
             <li key={playerOption.key} className="player-list-item">
-              <p className="player-name">
-                {playerOption.label}
-              </p>
-              <p className="player-epithet">
-                {playerOption.subLabel}
-              </p>
+              <p className="player-name">{playerOption.label}</p>
+              <p className="player-epithet">{playerOption.subLabel}</p>
               <button
                 className="btn-remove"
                 type="button"

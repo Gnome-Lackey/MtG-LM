@@ -8,8 +8,8 @@ interface FormRadioButtonProps {
   id: string;
   label: string;
   onChange: Function;
-  name: string;
-  value: string;
+  name?: string;
+  value?: string;
 }
 
 const FormRadioButton = ({
@@ -25,7 +25,7 @@ const FormRadioButton = ({
       checked={checked}
       id={id}
       name={name}
-      onChange={() => onChange(value)}
+      onChange={() => onChange(value || checked)}
       type="radio"
       value={value}
     />
