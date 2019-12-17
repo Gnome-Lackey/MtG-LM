@@ -41,17 +41,43 @@ const SeasonManagerView = ({
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
   useDataFetch(!seasons.length, actions.requestGetSeasons);
 
+  const [showForm, setShowForm] = React.useState(false);
+
   const handleSelectSeason = (season: Season): void => {
     if (selectedSeason && selectedSeason.id === season.id) {
       actions.emitDeselectSeason();
+
+      setShowForm(false);
     } else {
       actions.emitSelectSeason(season);
+
+      setShowForm(true);
     }
+  };
+
+  const handleCreateNewSeason = (): void => {
+    if (selectedSeason) {
+      actions.emitDeselectSeason();
+    }
+
+    setShowForm(true);
   };
 
   return (
     <div className="season-manager-view">
       <ul className="season-list">
+        <li className="season-list-item fixed">
+          <button
+            type="button"
+            className="btn-season"
+            onClick={() => {
+              handleCreateNewSeason();
+            }}
+          >
+            <i className="fas fa-plus-circle" />
+            <span className="title">Create New Season</span>
+          </button>
+        </li>
         {seasons.map((season) => (
           <li key={season.id} className="season-list-item">
             <button
@@ -61,16 +87,16 @@ const SeasonManagerView = ({
                 handleSelectSeason(season);
               }}
             >
-              <p className="set-name">
+              <p className="season-set-name">
                 <i className={`ss ss-${season.set.code}`} />
                 {season.set.name}
               </p>
-              <p className="date">{season.startedOn}</p>
+              <p className="season-date-range">{`${season.startedOn} - ${season.endedOn || "present"}`}</p>
             </button>
           </li>
         ))}
       </ul>
-      {selectedSeason ? (
+      {showForm ? (
         <SeasonForm
           potentialPlayers={potentialPlayers}
           potentialSets={potentialSets}

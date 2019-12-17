@@ -12,6 +12,7 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
+import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -24,6 +25,19 @@ interface SeasonFormProps {
   submitHandler: Function;
 }
 
+const buildFormState = (selectedSeason: Season): SeasonFields => ({
+  set: selectedSeason ? { key: selectedSeason.set.id, label: selectedSeason.set.name } : null,
+  players: selectedSeason
+    ? selectedSeason.players.map((player) => ({
+        label: player.displayName,
+        subLabel: player.userName,
+        key: player.id
+      }))
+    : [],
+  startedDate: selectedSeason ? selectedSeason.startedOn : "",
+  endedDate: selectedSeason ? selectedSeason.endedOn : ""
+});
+
 const SeasonForm = ({
   fetchSetHandler,
   potentialPlayers,
@@ -34,18 +48,7 @@ const SeasonForm = ({
   selectedSeason,
   submitHandler
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
-  const { values, updateValues } = useFormData({
-    set: selectedSeason ? { key: selectedSeason.set.id, label: selectedSeason.set.name } : null,
-    players: selectedSeason
-      ? selectedSeason.players.map((player) => ({
-          label: player.displayName,
-          subLabel: player.userName,
-          key: player.id
-        }))
-      : [],
-    startedDate: selectedSeason ? selectedSeason.startedOn : "",
-    endedDate: selectedSeason ? selectedSeason.endedOn : ""
-  });
+  const { values, updateValues, resetValues } = useFormData(buildFormState(selectedSeason));
 
   const setOptions = potentialSets
     ? potentialSets.map(
@@ -75,6 +78,10 @@ const SeasonForm = ({
 
     submitHandler(values);
   };
+
+  React.useEffect(() => {
+    resetValues(buildFormState(selectedSeason));
+  }, [selectedSeason]);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>
