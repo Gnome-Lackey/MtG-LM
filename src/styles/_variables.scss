@@ -29,6 +29,8 @@ $appMinHeight: 100vh;
 $appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
 
+$sidePanelMaxWidth: 300px;
+
 $maxModalHeight: 400px;
 $maxModalWidth: 500px;
 $modalHeaderHeight: 35px;
