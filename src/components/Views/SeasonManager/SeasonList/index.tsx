@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as classNames from "classnames";
 
 import { Season } from "models/Season";
 
@@ -12,6 +13,7 @@ interface SeasonListProps {
   selectHandler: Function;
   selectedSeason: Season;
   seasons: Season[];
+  showForm: boolean;
 }
 
 const SeasonList = ({
@@ -19,13 +21,14 @@ const SeasonList = ({
   deselectHandler,
   selectHandler,
   selectedSeason,
-  seasons
+  seasons,
+  showForm
 }: SeasonListProps): React.FunctionComponentElement<SeasonListProps> => (
   <ul className="season-list">
-    <li className="season-create">
+    <li className={classNames("season-create", { selected: showForm && !selectedSeason })}>
       <button type="button" className="btn-create-season" onClick={createHandler}>
-        <i className="fas fa-plus-circle" />
         <span className="title">Create New Season</span>
+        <i className="fas fa-plus-circle" />
       </button>
     </li>
     {seasons.map((season) => (

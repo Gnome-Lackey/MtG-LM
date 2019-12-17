@@ -72,6 +72,7 @@ const SeasonManagerView = ({
         seasons={seasons}
         selectHandler={handleSelectSeason}
         selectedSeason={selectedSeason}
+        showForm={showForm}
       />
       {showForm ? (
         <SeasonForm

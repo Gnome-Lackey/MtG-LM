@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as classNames from "classnames";
 
 import { Season } from "models/Season";
 
@@ -18,15 +19,19 @@ const SeasonListItem = ({
   season
 }: SeasonListItemProps): React.FunctionComponentElement<SeasonListItemProps> => {
   const handleSelectSeason = (selected: Season): void => {
-    if (selectedSeason && selectedSeason.id === selected.id) {
+    const isSelected = selectedSeason && selectedSeason.id === selected.id;
+
+    if (isSelected) {
       deselectHandler();
     } else {
       selectHandler(selected);
     }
   };
 
+  const isSelected = selectedSeason && selectedSeason.id === season.id;
+
   return (
-    <li key={season.id} className="season-list-item">
+    <li key={season.id} className={classNames("season-list-item", { selected: isSelected })}>
       <button
         type="button"
         className="btn-season"

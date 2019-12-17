@@ -22,7 +22,7 @@
       width: 100%;
 
       i {
-        margin-right: 10px;
+        margin-left: 10px;
       }
 
       &:focus {
@@ -33,10 +33,13 @@
         background-color: $colorGray;
         color: $colorGrayDarker;
         cursor: pointer;
+      }
+    }
 
-        .indicator {
-          background-color: $colorOrangeDarker;
-        }
+    &.selected {
+      .btn-create-season {
+        background-color: $colorGrayLighter;
+        color: $colorGrayDarker;
       }
     }
   }

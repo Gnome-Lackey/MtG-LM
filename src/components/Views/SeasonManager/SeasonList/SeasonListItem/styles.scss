@@ -60,4 +60,15 @@
       }
     }
   }
+
+  &.selected {
+    .btn-season {
+      background-color: $colorGrayLighter;
+      color: $colorGrayDarker;
+
+      .indicator {
+        background-color: $colorOrangeDarker;
+      }
+    }
+  }
 }
