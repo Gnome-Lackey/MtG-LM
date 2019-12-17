@@ -1,9 +1,11 @@
 import * as React from "react";
 
-import useFormData from "components/Hooks/useFormData";
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
+
+import useFormData from "components/Hooks/useFormData";
+import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 import { Set } from "models/Set";
 import { Player } from "models/Player";
@@ -12,7 +14,6 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
-import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -25,18 +26,24 @@ interface SeasonFormProps {
   submitHandler: Function;
 }
 
-const buildFormState = (selectedSeason: Season): SeasonFields => ({
-  set: selectedSeason ? { key: selectedSeason.set.id, label: selectedSeason.set.name } : null,
-  players: selectedSeason
-    ? selectedSeason.players.map((player) => ({
-        label: player.displayName,
-        subLabel: player.userName,
-        key: player.id
-      }))
-    : [],
-  startedDate: selectedSeason ? selectedSeason.startedOn : "",
-  endedDate: selectedSeason ? selectedSeason.endedOn : ""
-});
+const buildFormState = (selectedSeason: Season): SeasonFields =>
+  selectedSeason
+    ? {
+        set: { key: selectedSeason.set.id, label: selectedSeason.set.name },
+        players: selectedSeason.players.map((player) => ({
+          label: player.displayName,
+          subLabel: player.userName,
+          key: player.id
+        })),
+        startedDate: selectedSeason.startedOn ? selectedSeason.startedOn : "",
+        endedDate: selectedSeason.endedOn ? selectedSeason.endedOn : ""
+      }
+    : {
+        set: null,
+        players: [],
+        startedDate: "",
+        endedDate: ""
+      };
 
 const SeasonForm = ({
   fetchSetHandler,
@@ -77,6 +84,12 @@ const SeasonForm = ({
     ev.preventDefault();
 
     submitHandler(values);
+  };
+
+  const handleRemovePlayer = (key: string): void => {
+    const updatedPlayers = values.players.filter((player) => player.key !== key);
+
+    updateValues("players", updatedPlayers);
   };
 
   React.useEffect(() => {
@@ -130,8 +143,19 @@ const SeasonForm = ({
         <ul className="player-list">
           {values.players.map((playerOption) => (
             <li key={playerOption.key} className="player-list-item">
-              <p>{playerOption.label}</p>
-              <p>{playerOption.subLabel}</p>
+              <p className="player-name">
+                {playerOption.label}
+              </p>
+              <p className="player-epithet">
+                {playerOption.subLabel}
+              </p>
+              <button
+                className="btn-remove"
+                type="button"
+                onClick={() => handleRemovePlayer(playerOption.key)}
+              >
+                <i className="fas fa-times-circle" />
+              </button>
             </li>
           ))}
         </ul>

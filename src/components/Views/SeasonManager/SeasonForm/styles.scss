@@ -14,11 +14,79 @@
 
   .season-players {
     .player-list {
+      display: flex;
+      flex-direction: column;
       background-color: $colorGrayDarker;
       list-style: none;
+      height: 250px;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+      border-radius: 5px;
 
       .player-list-item {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
         color: $colorWhite;
+        margin: 0;
+        padding: 0;
+
+        border-bottom: 1px $colorGrayLighter solid;
+
+        .btn-remove {
+          color: $colorWhite;
+          background-color: transparent;
+          border: 0;
+          margin: 0;
+          padding: 0;
+          width: 12px;
+
+          &:hover {
+            cursor: pointer;
+            color: $colorOrangeLighter;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .player-name {
+          align-items: flex-end;
+          display: inline-flex;
+          height: 25px;
+          font-size: 14px;
+          width: 185px;
+          margin: 0;
+          padding: 10px 0 15px 20px;
+          overflow: hidden;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .player-epithet {
+          display: flex;
+          align-items: center;
+          background-color: $colorGrayDark;
+          color: $colorWhite;
+          position: absolute;
+          top: 0;
+          right: -150px;
+          width: 150px;
+          height: 50px;
+          font-size: 14px;
+          margin: 0;
+          padding: 0 0 0 15px;
+          border-radius: 5px 0 0 5px;
+          transition: right 0.5s ease-in-out;
+          z-index: $zLayerOne;
+
+          &:hover {
+            right: 0;
+          }
+        }
       }
     }
   }
