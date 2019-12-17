@@ -2,6 +2,7 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router";
 
 import SeasonForm from "components/Views/SeasonManager/SeasonForm";
+import SeasonList from "components/Views/SeasonManager/SeasonList";
 
 import useDataFetch from "components/Hooks/useDataFetch";
 
@@ -44,15 +45,15 @@ const SeasonManagerView = ({
   const [showForm, setShowForm] = React.useState(false);
 
   const handleSelectSeason = (season: Season): void => {
-    if (selectedSeason && selectedSeason.id === season.id) {
-      actions.emitDeselectSeason();
+    actions.emitSelectSeason(season);
 
-      setShowForm(false);
-    } else {
-      actions.emitSelectSeason(season);
+    setShowForm(true);
+  };
 
-      setShowForm(true);
-    }
+  const handleDeselectSeason = (): void => {
+    actions.emitDeselectSeason();
+
+    setShowForm(false);
   };
 
   const handleCreateNewSeason = (): void => {
@@ -65,42 +66,13 @@ const SeasonManagerView = ({
 
   return (
     <div className="season-manager-view">
-      <ul className="season-list">
-        <li className="season-list-item fixed">
-          <button
-            type="button"
-            className="btn-season"
-            onClick={() => {
-              handleCreateNewSeason();
-            }}
-          >
-            <i className="fas fa-plus-circle" />
-            <span className="title">Create New Season</span>
-          </button>
-        </li>
-        {seasons.map((season) => (
-          <li key={season.id} className="season-list-item">
-            <button
-              type="button"
-              className="btn-season"
-              onClick={() => {
-                handleSelectSeason(season);
-              }}
-            >
-              <div className="season-description">
-                <p className="season-set-name">
-                  <i className={`ss ss-${season.set.code}`} />
-                  {season.set.name}
-                </p>
-                {season.isActive ? <span className="indicator" /> : null}
-              </div>
-              <p className="season-date-range">
-                {`${season.startedOn} - ${season.endedOn || "present"}`}
-              </p>
-            </button>
-          </li>
-        ))}
-      </ul>
+      <SeasonList
+        createHandler={handleCreateNewSeason}
+        deselectHandler={handleDeselectSeason}
+        seasons={seasons}
+        selectHandler={handleSelectSeason}
+        selectedSeason={selectedSeason}
+      />
       {showForm ? (
         <SeasonForm
           potentialPlayers={potentialPlayers}

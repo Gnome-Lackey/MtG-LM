@@ -1,8 +1,11 @@
 import * as React from "react";
 
+import PlayerList from "components/Views/SeasonManager/SeasonForm/PlayerList";
+
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
+import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
 
 import useFormData from "components/Hooks/useFormData";
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
@@ -14,8 +17,6 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
-import { isAbsolute } from "path";
-import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -49,6 +50,11 @@ const buildFormState = (selectedSeason: Season): SeasonFields =>
         isActive: false
       };
 
+const setToOption = (set: Set): TypeAheadOption => ({
+  label: set.name,
+  key: set.code
+});
+
 const SeasonForm = ({
   fetchSetHandler,
   potentialPlayers,
@@ -61,39 +67,12 @@ const SeasonForm = ({
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
   const { values, updateValues, resetValues } = useFormData(buildFormState(selectedSeason));
 
-  const setOptions = potentialSets
-    ? potentialSets.map(
-        (set): TypeAheadOption => ({
-          label: set.name,
-          key: set.code
-        })
-      )
-    : [];
-
-  const playerOptions = potentialPlayers
-    ? potentialPlayers.reduce((options, potentialPlayer): TypeAheadOption[] => {
-        if (!values.players.some((player) => player.key === potentialPlayer.id)) {
-          options.push({
-            label: potentialPlayer.displayName,
-            subLabel: potentialPlayer.userName,
-            key: potentialPlayer.id
-          });
-        }
-
-        return options;
-      }, [])
-    : [];
+  const setOptions = potentialSets ? potentialSets.map(setToOption) : [];
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault();
 
     submitHandler(values);
-  };
-
-  const handleRemovePlayer = (key: string): void => {
-    const updatedPlayers = values.players.filter((player) => player.key !== key);
-
-    updateValues("players", updatedPlayers);
   };
 
   React.useEffect(() => {
@@ -131,7 +110,7 @@ const SeasonForm = ({
             updateValues("set", option);
           }}
         />
-        <FormCheckbox 
+        <FormCheckbox
           checked={values.isActive}
           className="season-is-active"
           id="isActive"
@@ -139,34 +118,13 @@ const SeasonForm = ({
           label="Will this season be active?"
         />
       </div>
-      <div className="season-players">
-        <TypeAhead
-          autoSubmit
-          id="players"
-          isSearching={searchForPlayer}
-          label="Season Players"
-          options={playerOptions}
-          searchHandler={searchPlayerHandler}
-          selectHandler={(option: TypeAheadOption) => {
-            updateValues("players", [...values.players, option]);
-          }}
-        />
-        <ul className="player-list">
-          {values.players.map((playerOption) => (
-            <li key={playerOption.key} className="player-list-item">
-              <p className="player-name">{playerOption.label}</p>
-              <p className="player-epithet">{playerOption.subLabel}</p>
-              <button
-                className="btn-remove"
-                type="button"
-                onClick={() => handleRemovePlayer(playerOption.key)}
-              >
-                <i className="fas fa-times-circle" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <PlayerList
+        players={values.players}
+        potentialPlayers={potentialPlayers}
+        searchForPlayer={searchForPlayer}
+        searchPlayerHandler={searchPlayerHandler}
+        updateValues={updateValues}
+      />
     </form>
   );
 };
