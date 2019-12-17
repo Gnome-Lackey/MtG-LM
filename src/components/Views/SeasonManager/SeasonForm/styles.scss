@@ -7,44 +7,43 @@
 
   .season-players,
   .season-detail-fields {
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
     padding: 20px;
   }
 
   .season-players {
     .player-list {
+      background-color: $colorGrayDarker;
+      border-radius: 5px;
       display: flex;
       flex-direction: column;
-      background-color: $colorGrayDarker;
-      list-style: none;
       height: 250px;
+      list-style: none;
       margin: 0;
-      padding: 0;
       overflow-y: scroll;
-      border-radius: 5px;
+      padding: 0;
 
       .player-list-item {
-        position: relative;
-        display: inline-flex;
         align-items: center;
+        border-bottom: 1px $colorGrayLighter solid;
         color: $colorWhite;
+        display: inline-flex;
+        position: relative;
         margin: 0;
         padding: 0;
 
-        border-bottom: 1px $colorGrayLighter solid;
-
         .btn-remove {
-          color: $colorWhite;
           background-color: transparent;
           border: 0;
+          color: $colorWhite;
           margin: 0;
           padding: 0;
           width: 12px;
 
           &:hover {
-            cursor: pointer;
             color: $colorOrangeLighter;
+            cursor: pointer;
           }
 
           &:focus {
@@ -55,32 +54,31 @@
         .player-name {
           align-items: flex-end;
           display: inline-flex;
-          height: 25px;
           font-size: 14px;
-          width: 185px;
+          height: 25px;
           margin: 0;
+          overflow: hidden;
           padding: 10px 0 15px 20px;
-          overflow: hidden;
-          white-space: nowrap;
-          overflow: hidden;
           text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 185px;
         }
 
         .player-epithet {
-          display: flex;
           align-items: center;
           background-color: $colorGrayDark;
+          border-radius: 5px 0 0 5px;
           color: $colorWhite;
-          position: absolute;
-          top: 0;
-          right: -150px;
-          width: 150px;
-          height: 50px;
+          display: flex;
           font-size: 14px;
+          height: 50px;
           margin: 0;
           padding: 0 0 0 15px;
-          border-radius: 5px 0 0 5px;
+          position: absolute;
+          right: -150px;
+          top: 0;
           transition: right 0.5s ease-in-out;
+          width: 150px;
           z-index: $zLayerOne;
 
           &:hover {

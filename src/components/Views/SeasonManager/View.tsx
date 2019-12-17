@@ -87,11 +87,16 @@ const SeasonManagerView = ({
                 handleSelectSeason(season);
               }}
             >
-              <p className="season-set-name">
-                <i className={`ss ss-${season.set.code}`} />
-                {season.set.name}
+              <div className="season-description">
+                <p className="season-set-name">
+                  <i className={`ss ss-${season.set.code}`} />
+                  {season.set.name}
+                </p>
+                {season.isActive ? <span className="indicator" /> : null}
+              </div>
+              <p className="season-date-range">
+                {`${season.startedOn} - ${season.endedOn || "present"}`}
               </p>
-              <p className="season-date-range">{`${season.startedOn} - ${season.endedOn || "present"}`}</p>
             </button>
           </li>
         ))}

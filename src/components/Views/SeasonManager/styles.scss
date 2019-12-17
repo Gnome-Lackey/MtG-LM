@@ -26,15 +26,31 @@
         padding: 30px 20px;
         width: 100%;
 
-        .season-set-name {
+        .season-description {
           align-items: center;
           display: inline-flex;
-          font-size: 16px;
-          margin: 0;
-          padding: 0;
+          justify-content: space-between;
+          width: 100%;
 
-          i {
-            margin-right: 10px;
+          .season-set-name {
+            align-items: center;
+            display: inline-flex;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+
+            i {
+              margin-right: 10px;
+            }
+          }
+
+          .indicator {
+            background-color: $colorOrangeLighter;
+            border-radius: 100%;
+            height: 8px;
+            margin: 0;
+            padding: 0;
+            width: 8px;
           }
         }
 
@@ -53,6 +69,10 @@
           background-color: $colorGray;
           color: $colorGrayDarker;
           cursor: pointer;
+
+          .indicator {
+            background-color: $colorOrangeDarker;
+          }
         }
       }
 
