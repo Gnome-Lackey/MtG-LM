@@ -80,6 +80,8 @@ const SeasonForm = ({
     resetValues(buildFormState(selectedSeason));
   }, [selectedSeason]);
 
+  const isDisabled = !values.startedDate || !values.set;
+
   return (
     <form className="season-form" onSubmit={handleSubmit}>
       <div className="season-detail-fields">
@@ -118,7 +120,7 @@ const SeasonForm = ({
           onChange={updateValues}
           label="Will this season be active?"
         />
-        <FormButton type="submit">Submit</FormButton>
+        <FormButton type="submit" disabled={isDisabled}>Submit</FormButton>
       </div>
       <PlayerList
         players={values.players}
