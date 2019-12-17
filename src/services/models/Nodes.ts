@@ -3,4 +3,5 @@ export interface CreateSeasonNode {
   endedOn?: string;
   players?: string[];
   set: string;
+  isActive: boolean;
 }
