@@ -1,17 +1,13 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 
-import useFormData from "components/Hooks/useFormData";
+import SeasonForm from "components/Views/SeasonManager/SeasonForm";
+
 import useDataFetch from "components/Hooks/useDataFetch";
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
-import TypeAhead from "components/Form/TypeAhead";
-import DatePicker from "components/Form/DatePicker";
 
 import { Set } from "models/Set";
 import { Season } from "models/Season";
 import { Player } from "models/Player";
-
-import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
 
@@ -45,42 +41,6 @@ const SeasonManagerView = ({
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
   useDataFetch(!seasons.length, actions.requestGetSeasons);
 
-  const { values, updateValues } = useFormData({
-    setOption: null,
-    playerOptions: [],
-    startedDate: "",
-    endedDate: ""
-  });
-
-  const setOptions = potentialSets
-    ? potentialSets.map(
-        (set): TypeAheadOption => ({
-          label: set.name,
-          key: set.code
-        })
-      )
-    : [];
-
-  const playerOptions = potentialPlayers
-    ? potentialPlayers.reduce((options, player): TypeAheadOption[] => {
-        if (!values.playerOptions.some((playerOption) => playerOption.key === player.id)) {
-          options.push({
-            label: player.displayName,
-            subLabel: player.userName,
-            key: player.id
-          });
-        }
-
-        return options;
-      }, [])
-    : [];
-
-  const handleSubmit = (ev: React.FormEvent): void => {
-    ev.preventDefault();
-
-    actions.requestCreateSeason(values);
-  };
-
   const handleSelectSeason = (season: Season): void => {
     if (selectedSeason && selectedSeason.id === season.id) {
       actions.emitDeselectSeason();
@@ -96,64 +56,31 @@ const SeasonManagerView = ({
           <li key={season.id} className="season-list-item">
             <button
               type="button"
+              className="btn-season"
               onClick={() => {
                 handleSelectSeason(season);
               }}
             >
+              <p className="set-name">
+                <i className={`ss ss-${season.set.code}`} />
+                {season.set.name}
+              </p>
               <p className="date">{season.startedOn}</p>
-              <p className="set-name">{season.set.name}</p>
             </button>
           </li>
         ))}
       </ul>
       {selectedSeason ? (
-        <form onSubmit={handleSubmit}>
-          <DatePicker
-            id="dateStarted"
-            label="Starting Date"
-            placeholder={DISPLAY_DATE_FORMAT}
-            selectHandler={(value: string) => {
-              updateValues("dateStarted", value);
-            }}
-          />
-          <DatePicker
-            id="dateEnded"
-            label="Ending Date"
-            placeholder={DISPLAY_DATE_FORMAT}
-            selectHandler={(value: string) => {
-              updateValues("dateEnded", value);
-            }}
-          />
-          <TypeAhead
-            id="setOption"
-            isSearching={searchForSet}
-            label="Season Set Code"
-            options={setOptions}
-            searchHandler={actions.requestGetSetByCode}
-            selectHandler={(option: TypeAheadOption) => {
-              updateValues("setOption", option);
-            }}
-          />
-          <TypeAhead
-            autoSubmit
-            id="playerOptions"
-            isSearching={searchForPlayer}
-            label="Season Players"
-            options={playerOptions}
-            searchHandler={actions.requestQueryPlayers}
-            selectHandler={(option: TypeAheadOption) => {
-              updateValues("playerOptions", [...values.playerOptions, option]);
-            }}
-          />
-          <ul className="player-list">
-            {values.playerOptions.map((playerOption) => (
-              <li key={playerOption.key} className="player-list-item">
-                <p>{playerOption.label}</p>
-                <p>{playerOption.subLabel}</p>
-              </li>
-            ))}
-          </ul>
-        </form>
+        <SeasonForm
+          potentialPlayers={potentialPlayers}
+          potentialSets={potentialSets}
+          searchForPlayer={searchForPlayer}
+          searchForSet={searchForSet}
+          selectedSeason={selectedSeason}
+          fetchSetHandler={actions.requestGetSetByCode}
+          searchPlayerHandler={actions.requestQueryPlayers}
+          submitHandler={actions.requestCreateSeason}
+        />
       ) : null}
     </div>
   );

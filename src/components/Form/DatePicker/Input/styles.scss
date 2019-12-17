@@ -18,11 +18,6 @@
 
       padding: 10px 40px 10px 15px;
       width: calc(100% - 35px);
-
-      &:focus {
-        border-color: $colorBlueLight;
-        box-shadow: 0 0 0 0.2rem $colorBlueShadow;
-      }
     }
   }
 }

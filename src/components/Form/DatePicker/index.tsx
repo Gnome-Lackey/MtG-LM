@@ -12,46 +12,38 @@ interface DatePickerProps {
   label?: string;
   placeholder?: string;
   selectHandler: Function;
+  value: string;
 }
 
 const DatePicker = ({
   id,
   label,
   placeholder,
-  selectHandler
+  selectHandler,
+  value
 }: DatePickerProps): React.FunctionComponentElement<DatePickerProps> => {
   const reference = React.useRef();
 
-  const [dateText, setDateText] = React.useState("");
   const [showDropdown, setShowDropdown] = React.useState(false);
 
-  const handleSelect = (value: string): void => {
+  const handleSelect = (text: string): void => {
     document.getElementById(id).focus();
 
-    setDateText(value);
-
     setShowDropdown(false);
-    selectHandler(value);
+    selectHandler(text);
   };
 
   const handleChange = (ev: React.ChangeEvent): void => {
     ev.preventDefault();
 
-    const { value } = ev.target as any;
+    const { value: text } = ev.target as any;
 
-    const isValidDateText = /^([0-9]+[/]*)*$/.test(value);
-    const isValidDate = /^[0-9]{2}\/[0-9]{2}\/[1-9]{4}$/.test(value);
+    const isValidDateText = /^([0-9]+[/]*)*$/.test(text);
 
     if (isValidDateText) {
-      const hasValue = !!value;
+      const hasValue = !!text;
 
-      setDateText(value);
-
-      if (isValidDate) {
-        selectHandler(value);
-      } else {
-        selectHandler("");
-      }
+      selectHandler(text);
 
       if (hasValue) {
         setShowDropdown(true);
@@ -71,23 +63,30 @@ const DatePicker = ({
     }
   };
 
+  const handleClear = (): void => {
+    selectHandler("");
+  };
+
+  const handleFocus = (): void => {
+    setShowDropdown(true);
+  };
+
   useOnClickOutside(reference, () => setShowDropdown(false));
 
   return (
     <div ref={reference} className="form-date-picker">
       <div className="date-picker-container">
         <DatePickerInput
+          clearHandler={handleClear}
+          dateText={value}
           handleChange={handleChange}
+          handleFocus={handleFocus}
           handleKeyPress={handleKeyPress}
           id={id}
           label={label}
           placeholder={placeholder}
-          dateText={dateText}
-          setDateText={setDateText}
         />
-        {showDropdown ? (
-          <DatePickerDropdown dateText={dateText} selectHandler={handleSelect} />
-        ) : null}
+        {showDropdown ? <DatePickerDropdown dateText={value} selectHandler={handleSelect} /> : null}
       </div>
     </div>
   );

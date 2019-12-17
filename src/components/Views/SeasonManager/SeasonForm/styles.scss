@@ -1,0 +1,25 @@
+@import "src/styles/variables";
+
+.season-form {
+  display: inline-flex;
+  justify-content: center;
+  width: calc(100% - 300px);
+
+  .season-players,
+  .season-detail-fields {
+    flex-direction: column;
+    display: flex;
+    padding: 20px;
+  }
+
+  .season-players {
+    .player-list {
+      background-color: $colorGrayDarker;
+      list-style: none;
+
+      .player-list-item {
+        color: $colorWhite;
+      }
+    }
+  }
+}

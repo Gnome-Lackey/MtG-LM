@@ -22,8 +22,8 @@ function useFormData(formFields: ConfirmFields): ConfirmFormData;
 function useFormData(formFields: GettingStartedFields): GettingStartedFormData;
 function useFormData(formFields: RecordMatchFields): RecordMatchFormData;
 function useFormData(formFields: LoginFields): LoginFormData;
-function useFormData(formFields: SeasonFields): SeasonFormData;
 function useFormData(formFields: SignUpFields): SignUpFormData;
+function useFormData(formFields: SeasonFields): SeasonFormData;
 
 function useFormData(formFields: any): any {
   const [values, setValues] = React.useState(formFields);

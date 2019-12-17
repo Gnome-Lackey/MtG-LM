@@ -42,4 +42,21 @@
   margin: 8px 0;
   outline: none;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    border-color: $colorBlueLight;
+    box-shadow: 0 0 0 0.2rem $colorBlueShadow;
+  }
+
+  &.isInvalid {
+    border-color: $colorError;
+    box-shadow: 0 0 5px $colorError;
+    color: $colorBlack;
+    outline: none;
+
+    &:focus {
+      border-color: $colorError;
+      box-shadow: 0 0 5px $colorError;
+    }
+  }
 }

@@ -5,23 +5,25 @@ import DatePickerAction from "components/Form/DatePicker/Input/Action";
 import "./styles.scss";
 
 interface DatePickerInputProps {
+  clearHandler: Function;
+  dateText: string;
   handleChange: React.ChangeEventHandler;
+  handleFocus: React.FocusEventHandler;
   handleKeyPress: React.KeyboardEventHandler;
   id: string;
   label?: string;
   placeholder?: string;
-  dateText: string;
-  setDateText: Function;
 }
 
 const DatePickerInput = ({
+  clearHandler,
+  dateText,
   handleChange,
+  handleFocus,
   handleKeyPress,
   id,
   label,
-  placeholder,
-  dateText,
-  setDateText
+  placeholder
 }: DatePickerInputProps): React.FunctionComponentElement<DatePickerInputProps> => (
   <label className="type-ahead-label" htmlFor={id}>
     {label || null}
@@ -34,11 +36,9 @@ const DatePickerInput = ({
         placeholder={placeholder}
         onChange={handleChange}
         onKeyDown={handleKeyPress}
+        onFocus={handleFocus}
       />
-      <DatePickerAction
-        hasText={!!dateText}
-        setSearchValue={setDateText}
-      />
+      <DatePickerAction hasText={!!dateText} setSearchValue={clearHandler} />
     </div>
   </label>
 );
