@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router";
 import PlayerRecordList from "components/Views/Home/PlayerRecordList";
 import Fab from "components/Common/Fab";
 import Modal from "components/Common/Modal";
-import RecordMatchModalContent from "components/Common/Modal/Content/RecordMatch";
+import RecordMatchModalContent from "components/Views/Home/RecordMatch";
 import useDataFetch from "components/Hooks/useDataFetch";
 
 import { Player } from "models/Player";
