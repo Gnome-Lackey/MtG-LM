@@ -85,7 +85,11 @@ const SeasonForm = ({
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault();
 
-    submitHandler(values);
+    if (selectedSeason) {
+      submitHandler(selectedSeason.id, values);
+    } else {
+      submitHandler(values);
+    }
   };
 
   React.useEffect(() => {

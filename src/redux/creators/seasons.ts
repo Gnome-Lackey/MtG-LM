@@ -53,7 +53,7 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
   dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, false));
 };
 
-export const requestUpdateSeason = (details: SeasonFields) => async (dispatch: Function, getState: Function) => {
+export const requestUpdateSeason = (id: string, details: SeasonFields) => async (dispatch: Function, getState: Function) => {
   const {
     seasons: { list }
   }: RootState = getState();
@@ -63,7 +63,7 @@ export const requestUpdateSeason = (details: SeasonFields) => async (dispatch: F
   dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, true));
 
   const body = seasonMapper.toUpdateNode(details);
-  const { data } = await seasonService.update(body);
+  const { data } = await seasonService.update(id, body);
 
   if (data.error) {
     // TODO: Handle error

@@ -25,7 +25,10 @@ export const create = async (body: CreateSeasonNode): Promise<MtglmServiceRespon
   return await response.body;
 };
 
-export const update = async (body: UpdateSeasonNode): Promise<MtglmServiceResponseBody> => {
+export const update = async (
+  id: string,
+  body: UpdateSeasonNode
+): Promise<MtglmServiceResponseBody> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -35,7 +38,9 @@ export const update = async (body: UpdateSeasonNode): Promise<MtglmServiceRespon
   headers.append("Content-Type", "application/json");
   headers.append("Access-Control-Allow-Credentials", "true");
 
-  const response = await service.put(SEASON_BASE_URL, body, headers);
+  const url = `${SEASON_BASE_URL}/${id}`;
+
+  const response = await service.put(url, body, headers);
 
   return await response.body;
 };
