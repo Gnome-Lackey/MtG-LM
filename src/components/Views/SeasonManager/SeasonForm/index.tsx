@@ -31,10 +31,15 @@ interface SeasonFormProps {
   submitHandler: Function;
 }
 
+const setToOption = (set: Set): TypeAheadOption => ({
+  label: set.name,
+  key: set.code
+});
+
 const buildFormState = (selectedSeason: Season): SeasonFields =>
   selectedSeason
     ? {
-        set: { key: selectedSeason.set.id, label: selectedSeason.set.name },
+        set: setToOption(selectedSeason.set),
         players: selectedSeason.players.map((player) => ({
           label: player.displayName,
           subLabel: player.userName,
@@ -51,11 +56,6 @@ const buildFormState = (selectedSeason: Season): SeasonFields =>
         endedDate: "",
         isActive: false
       };
-
-const setToOption = (set: Set): TypeAheadOption => ({
-  label: set.name,
-  key: set.code
-});
 
 const isUpdateDisabled = (keys: string[], values: SeasonFields, selectedSeason: Season): boolean =>
   !!selectedSeason && keys.every((key: string) => values[key] === selectedSeason[key]);
@@ -115,16 +115,19 @@ const SeasonForm = ({
           }}
           value={values.endedDate}
         />
-        <TypeAhead
-          id="set"
-          isSearching={searchForSet}
-          label="Season Set Code"
-          options={setOptions}
-          searchHandler={fetchSetHandler}
-          selectHandler={(option: TypeAheadOption) => {
-            updateValues("set", option);
-          }}
-        />
+        <div className="set-container">
+          <TypeAhead
+            id="set"
+            isSearching={searchForSet}
+            label="Season Set Code"
+            options={setOptions}
+            searchHandler={fetchSetHandler}
+            selectHandler={(option: TypeAheadOption) => {
+              updateValues("set", option);
+            }}
+          />
+          {values.set ? <i className={`set-icon ss ss-${values.set.key}`} /> : null}
+        </div>
         <FormCheckbox
           checked={values.isActive}
           className="season-is-active"
