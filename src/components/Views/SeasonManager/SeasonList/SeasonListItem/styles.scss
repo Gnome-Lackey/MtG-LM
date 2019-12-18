@@ -29,13 +29,24 @@
         }
       }
 
-      .indicator {
-        background-color: $colorOrangeLighter;
+      .indicator-container {
+        align-items: center;
+        background-color: transparent;
+        border: 1px solid $colorOrangeLighter;
         border-radius: 100%;
-        height: 8px;
+        display: flex;
+        justify-content: center;
+        height: 10px;
         margin: 0;
-        padding: 0;
-        width: 8px;
+        width: 10px;
+
+        .indicator {
+          background-color: $colorOrangeLighter;
+          border-radius: 100%;
+          height: 8px;
+          margin: 0;
+          width: 8px;
+        }
       }
     }
 
@@ -55,8 +66,12 @@
       color: $colorGrayDarker;
       cursor: pointer;
 
-      .indicator {
-        background-color: $colorOrangeDarker;
+      .indicator-container {
+        border: 1px solid $colorOrangeDarker;
+
+        .indicator {
+          background-color: $colorOrangeDarker;
+        }
       }
     }
   }

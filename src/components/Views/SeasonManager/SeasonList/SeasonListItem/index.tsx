@@ -44,7 +44,11 @@ const SeasonListItem = ({
             <i className={`ss ss-${season.set.code}`} />
             {season.set.name}
           </p>
-          {season.isActive ? <span className="indicator" /> : null}
+          {season.isActive ? (
+            <div className="indicator-container">
+              <div className="indicator" />
+            </div>
+          ) : null}
         </div>
         <p className="season-date-range">
           {`${season.startedOn} - ${season.endedOn || "present"}`}
