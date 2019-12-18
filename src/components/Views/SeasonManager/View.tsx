@@ -11,7 +11,6 @@ import { Season } from "models/Season";
 import { Player } from "models/Player";
 
 import "./styles.scss";
-import { bindActionCreators } from "redux";
 
 interface SeasonManagerViewActions {
   requestGetSetByCode: Function;
