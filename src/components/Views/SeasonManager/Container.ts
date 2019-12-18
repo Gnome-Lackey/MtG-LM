@@ -22,6 +22,7 @@ import { Season } from "models/Season";
 
 interface SeasonMangerViewProps {
   history: History;
+  isRequestLoading: boolean;
   potentialSets: Set[];
   potentialPlayers: Player[];
   searchForPlayer: boolean;
@@ -47,6 +48,7 @@ const mapStateToProps = (
   ownProps: RouteComponentProps
 ): SeasonMangerViewProps => ({
   history: ownProps.history,
+  isRequestLoading: state.application.isRequestLoading,
   searchForSet: state.scryfall.searching,
   potentialSets: state.scryfall.setSearchResults,
   potentialPlayers: state.players.searchResults,

@@ -24,6 +24,7 @@ interface SeasonManagerViewActions {
 
 interface SeasonManagerViewProps extends RouteComponentProps {
   actions: SeasonManagerViewActions;
+  isRequestLoading: boolean;
   potentialSets: Set[];
   potentialPlayers: Player[];
   searchForPlayer: boolean;
@@ -34,6 +35,7 @@ interface SeasonManagerViewProps extends RouteComponentProps {
 
 const SeasonManagerView = ({
   actions,
+  isRequestLoading,
   potentialPlayers,
   potentialSets,
   searchForPlayer,
@@ -79,6 +81,7 @@ const SeasonManagerView = ({
       />
       {showForm ? (
         <SeasonForm
+          isRequestLoading={isRequestLoading}
           potentialPlayers={potentialPlayers}
           potentialSets={potentialSets}
           searchForPlayer={searchForPlayer}

@@ -6,6 +6,7 @@ import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
 import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
+import FormButton from "components/Form/Button";
 
 import useFormData from "components/Hooks/useFormData";
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
@@ -17,10 +18,10 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
-import FormButton from "components/Form/Button";
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
+  isRequestLoading: boolean;
   potentialSets: Set[];
   potentialPlayers: Player[];
   searchForPlayer: boolean;
@@ -61,6 +62,7 @@ const isUpdateDisabled = (keys: string[], values: SeasonFields, selectedSeason: 
 
 const SeasonForm = ({
   fetchSetHandler,
+  isRequestLoading,
   potentialPlayers,
   potentialSets,
   searchForPlayer,
@@ -83,9 +85,13 @@ const SeasonForm = ({
     resetValues(buildFormState(selectedSeason));
   }, [selectedSeason]);
 
+  const invalidEndDate = !values.isActive && !values.endedDate;
+  const invalidRequiredFields = !values.startedDate || !values.set;
+  const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
   const isDisabled =
-    !values.startedDate ||
-    !values.set ||
+    isFormLoading ||
+    invalidRequiredFields ||
+    invalidEndDate ||
     isUpdateDisabled(Object.keys(values), values, selectedSeason);
 
   return (
@@ -126,7 +132,7 @@ const SeasonForm = ({
           onChange={updateValues}
           label="Will this season be active?"
         />
-        <FormButton type="submit" disabled={isDisabled}>
+        <FormButton loading={isRequestLoading} type="submit" disabled={isDisabled}>
           Submit
         </FormButton>
       </div>
