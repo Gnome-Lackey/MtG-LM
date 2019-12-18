@@ -57,8 +57,15 @@ const buildFormState = (selectedSeason: Season): SeasonFields =>
         isActive: false
       };
 
-const isUpdateDisabled = (keys: string[], values: SeasonFields, selectedSeason: Season): boolean =>
-  !!selectedSeason && keys.every((key: string) => values[key] === selectedSeason[key]);
+const isUpdateDisabled = (values: SeasonFields, selectedSeason: Season): boolean =>
+  !!selectedSeason &&
+  (!selectedSeason.endedOn || selectedSeason.endedOn === values.endedDate) &&
+  (!selectedSeason.startedOn || selectedSeason.startedOn === values.startedDate) &&
+  (!selectedSeason.isActive || selectedSeason.isActive === values.isActive) &&
+  (!selectedSeason.set || selectedSeason.set.code === values.set.key) &&
+  values.players.every(
+    (player) => !!selectedSeason.players.find((seasonPlayer) => seasonPlayer.id === player.key)
+  );
 
 const SeasonForm = ({
   fetchSetHandler,
@@ -92,7 +99,7 @@ const SeasonForm = ({
     isFormLoading ||
     invalidRequiredFields ||
     invalidEndDate ||
-    isUpdateDisabled(Object.keys(values), values, selectedSeason);
+    isUpdateDisabled(values, selectedSeason);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>
