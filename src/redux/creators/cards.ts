@@ -3,7 +3,7 @@ import * as scryfallService from "services/scryfall";
 import * as scryfallMapper from "mappers/scryfall";
 
 import { emitResetError } from "redux/creators/errors";
-import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/cards";
+import { EMIT_GETTING_STARTED_CARDS_SUCCESS } from "redux/actions/scryfall";
 
 import { ScryfallCard } from "models/Scryfall";
 

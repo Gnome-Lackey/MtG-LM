@@ -3,4 +3,4 @@ Content-Type: application/json; charset=utf-8
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Origin: http://localhost:8080
 
-#import './success_validate_response.json';
+#import './success_validate_admin_response.json';

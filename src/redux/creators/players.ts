@@ -1,9 +1,12 @@
 import {
-  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+  EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
   EMIT_GET_PLAYERS_SUCCESS,
   EMIT_CREATE_PLAYER_SUCCESS,
+  EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
+  EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
+  EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
-  EMIT_CLEAR_PLAYER_LIST
+  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS
 } from "redux/actions/players";
 
 import { emitResetError } from "redux/creators/errors";
@@ -20,11 +23,15 @@ import * as userMapper from "mappers/user";
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
 
-export const emitClearPlayersForRecord = (searchId: string): PlayerAction => ({
-  type: EMIT_CLEAR_PLAYER_LIST,
+export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
+  type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
   payload: {
     playerSearchId: searchId
   }
+});
+
+export const emitClearPlayerResults = (): PlayerAction => ({
+  type: EMIT_CLEAR_PLAYER_LIST
 });
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (
@@ -54,8 +61,6 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 };
 
 export const requestGetPlayers = () => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
-
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
   const { data } = await playerService.query();
@@ -77,10 +82,8 @@ export const requestGetPlayers = () => async (dispatch: Function) => {
 export const requestQueryPlayersForRecord = (searchId: string, query: string) => async (
   dispatch: Function
 ) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
-
   dispatch({
-    type: EMIT_SEARCHING_FOR_PLAYERS,
+    type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
     payload: {
       playerSearchId: searchId,
       searching: true
@@ -96,7 +99,7 @@ export const requestQueryPlayersForRecord = (searchId: string, query: string) =>
     // Handle Error
   } else {
     dispatch({
-      type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+      type: EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
       payload: {
         playerSearchId: searchId,
         players: data
@@ -105,9 +108,41 @@ export const requestQueryPlayersForRecord = (searchId: string, query: string) =>
   }
 
   dispatch({
-    type: EMIT_SEARCHING_FOR_PLAYERS,
+    type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
     payload: {
       playerSearchId: searchId,
+      searching: false
+    }
+  });
+};
+
+export const requestQueryPlayers = (query: string) => async (dispatch: Function) => {
+  dispatch({
+    type: EMIT_SEARCHING_FOR_PLAYERS,
+    payload: {
+      searching: true
+    }
+  });
+
+  const { data } = await playerService.query({
+    userName: query,
+    name: query
+  });
+
+  if (data.error) {
+    // Handle Error
+  } else {
+    dispatch({
+      type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+      payload: {
+        players: data
+      }
+    });
+  }
+
+  dispatch({
+    type: EMIT_SEARCHING_FOR_PLAYERS,
+    payload: {
       searching: false
     }
   });

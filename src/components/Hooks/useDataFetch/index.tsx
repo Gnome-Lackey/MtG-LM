@@ -7,7 +7,7 @@ const useDataFetch = (
   const [madeRequest, setMadeRequest] = React.useState(false);
 
   React.useEffect(() => {
-    if (!madeRequest && !fetchCondition) {
+    if (!madeRequest && fetchCondition) {
       setMadeRequest(true);
       handleFetch();
     }

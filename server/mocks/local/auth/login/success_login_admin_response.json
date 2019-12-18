@@ -1,0 +1,14 @@
+{
+  "data": {
+    "user": {
+      "id": "623-3454-1278",
+      "firstName": "Admin",
+      "lastName": "McBoss",
+      "userName": "admin",
+      "email": "admin@planeswalker.mtg",
+      "displayName": "Boss Man",
+      "isFirstTimeLogin": false,
+      "accountType": "ADMIN"
+    }
+  }
+}

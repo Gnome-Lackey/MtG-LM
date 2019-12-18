@@ -1,0 +1,18 @@
+@import "src/styles/variables";
+
+.season-form {
+  display: inline-flex;
+  justify-content: center;
+  width: calc(100% - #{$sidePanelMaxWidth});
+
+  .season-players,
+  .season-detail-fields {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .season-is-active {
+    margin-top: 20px;
+  }
+}

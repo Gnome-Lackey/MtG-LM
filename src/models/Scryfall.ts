@@ -1,7 +1,7 @@
 export interface ScryfallCardImages {
   [key: string]: string;
   normal: string;
-};
+}
 
 export interface ScryfallCard {
   id: string;
@@ -9,4 +9,12 @@ export interface ScryfallCard {
   colors: string[];
   type: string;
   images: ScryfallCardImages;
+}
+
+export interface ScryfallSet {
+  id: string;
+  code: string;
+  name: string;
+  releasedOn: string;
+  cardCount: number;
 }

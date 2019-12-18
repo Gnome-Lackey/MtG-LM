@@ -9,12 +9,12 @@ import useDataFetch from "components/Hooks/useDataFetch";
 
 import { Player } from "models/Player";
 import { User } from "models/User";
-
-import "./styles.scss";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 
+import "./styles.scss";
+
 interface HomeViewActions {
-  emitClearPlayersForRecord: Function;
+  emitClearPlayerResultsForRecord: Function;
   emitToggleRecordMatchModal: Function;
   requestCreateMatch: Function;
   requestGetPlayers: Function;
@@ -38,7 +38,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
-  useDataFetch(!!players.length, actions.requestGetPlayers);
+  useDataFetch(!players.length, actions.requestGetPlayers);
 
   return (
     <div className="home-view">
@@ -54,7 +54,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           mask
         >
           <RecordMatchModalContent
-            clearHandler={actions.emitClearPlayersForRecord}
+            clearHandler={actions.emitClearPlayerResultsForRecord}
             isRequestLoading={isRequestLoading}
             playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecord}

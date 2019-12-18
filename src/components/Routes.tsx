@@ -27,6 +27,10 @@ const HomeContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/Home/Container")
 );
 
+const SeasonManagerContainer: React.LazyExoticComponent<any> = lazy(() =>
+  import("components/Views/SeasonManager/Container")
+);
+
 const SignUpContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/SignUp/Container")
 );
@@ -47,6 +51,7 @@ const Routes = (): React.FunctionComponentElement<void> => (
           <Switch>
             <Route exact path={ROUTES.ROOT} component={LoginContainer} />
             <Route exact path={ROUTES.GETTING_STARTED} component={GettingStartedContainer} />
+            <Route exact path={ROUTES.SEASON_PAGE} component={SeasonManagerContainer} />
             <Route exact path={ROUTES.SIGN_UP_PAGE} component={SignUpContainer} />
             <Route exact path={ROUTES.VERIFICATION_PAGE} component={VerifyContainer} />
             <Route exact path={ROUTES.HOME_PAGE} component={HomeContainer} />

@@ -4,4 +4,12 @@
   min-height: $appContentMinHeight;
   margin-top: $headerHeight;
   width: 100%;
+
+  .msg-unauthorized {
+    align-items: center;
+    display: flex;
+    height: $appContentMinHeight;
+    justify-content: center;
+    width: 100%;
+  }
 }

@@ -8,7 +8,7 @@ import ProtectedContent from "components/Navigation/ProtectedContent";
 
 import { User } from "models/User";
 
-import { LOGGED_IN_ROUTES } from "constants/routes";
+import { USER_ROUTES, ADMIN_ROUTES, LOGGED_IN_ROUTES } from "constants/routes";
 
 interface NavigationViewActions {
   requestLogout: React.MouseEventHandler<HTMLButtonElement>;
@@ -40,18 +40,32 @@ const NavigationView = ({
           history={props.history}
           loggingOut={loggingOut}
           logoutHandler={actions.requestLogout}
-          userName={user ? user.userName : null}
+          user={user}
         />
       )}
     />
     <Switch>
       <Route
-        path={LOGGED_IN_ROUTES}
+        path={USER_ROUTES}
         render={(routerProps: RouteComponentProps) => (
           <ProtectedContent
             redirectHandler={routerProps.history.push}
             validationHandler={actions.requestValidation}
             validated={validated}
+          >
+            {children}
+          </ProtectedContent>
+        )}
+      />
+      <Route
+        path={ADMIN_ROUTES}
+        render={(routerProps: RouteComponentProps) => (
+          <ProtectedContent
+            admin
+            redirectHandler={routerProps.history.push}
+            validationHandler={actions.requestValidation}
+            validated={validated}
+            user={user}
           >
             {children}
           </ProtectedContent>

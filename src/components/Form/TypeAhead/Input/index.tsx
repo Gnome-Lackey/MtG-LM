@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import TypeAheadAction from "components/Form/TypeAhead/Action";
+import TypeAheadAction from "components/Form/TypeAhead/Input/Action";
 
 import "./styles.scss";
 

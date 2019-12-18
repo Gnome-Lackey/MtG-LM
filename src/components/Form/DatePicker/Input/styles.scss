@@ -1,0 +1,23 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+
+.type-ahead-label {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+
+  .input-container {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    width: 100%;
+
+    .input {
+      @include input;
+
+      padding: 10px 40px 10px 15px;
+      width: calc(100% - 35px);
+    }
+  }
+}

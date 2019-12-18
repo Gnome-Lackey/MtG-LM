@@ -1,10 +1,11 @@
 @import "src/styles/variables";
 
 .search-options {
-  border-radius: 0.25rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   height: 0;
   list-style: none;
-  max-height: 135px;
   margin: 0;
   overflow-y: scroll;
   padding: 0;
@@ -12,23 +13,39 @@
   top: 55px;
   transition: height 0.25s ease-in-out;
   width: 100%;
-  z-index: 2;
+  z-index: $zLayerTwo;
 
   &.has-label {
     top: 70px;
   }
 
+  .non-option,
   .option {
     background-color: $colorWhite;
     margin: 0;
-    width: 100%;
+    width: calc(100% - 10px);
+  }
+
+  .non-option {
+    border-radius: 0 0 5px 5px;
+
+    .msg {
+      font-size: 10px;
+      margin: 0;
+      padding: 10px 15px;
+    }
+  }
+
+  .option {
+    &:last-of-type {
+      border-radius: 0 0 5px 5px;
+    }
 
     .btn-type-ahead {
       background-color: $colorWhite;
       border: 0;
-      border-radius: 0.25rem;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 10px;
       margin: 0;
       padding: 10px 15px;
       text-align: left;
@@ -47,6 +64,10 @@
           font-size: 8px;
           margin-left: 5px;
         }
+      }
+
+      &.last {
+        border-radius: 0 0 5px 5px;
       }
 
       &:focus {

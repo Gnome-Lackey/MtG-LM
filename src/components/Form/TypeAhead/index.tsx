@@ -11,7 +11,8 @@ import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption
 import "./styles.scss";
 
 interface TypeAheadProps {
-  clearHandler: Function;
+  autoSubmit?: boolean;
+  clearHandler?: Function;
   id: string;
   isSearching: boolean;
   label?: string;
@@ -22,6 +23,7 @@ interface TypeAheadProps {
 }
 
 const TypeAhead = ({
+  autoSubmit,
   clearHandler,
   id,
   isSearching,
@@ -35,12 +37,16 @@ const TypeAhead = ({
 
   const [searchText, setSearchText] = React.useState("");
   const [showSearch, setShowSearch] = React.useState(false);
+  const [isEmptyResult, setIsEmptyResult] = React.useState(false);
   const [handleSearch] = React.useState(() => debounce(searchHandler, 300));
 
   const handleSelect = (option: TypeAheadOption): void => {
     document.getElementById(id).focus();
 
-    setSearchText(option.label);
+    if (!autoSubmit) {
+      setSearchText(option.label);
+    }
+
     setShowSearch(false);
     selectHandler(option);
   };
@@ -53,13 +59,17 @@ const TypeAhead = ({
     const hasValue = !!value;
 
     setSearchText(value);
-    setShowSearch(hasValue);
 
     if (hasValue) {
       handleSearch(value);
     } else {
-      clearHandler();
       handleSearch.clear();
+
+      setShowSearch(false);
+
+      if (clearHandler) {
+        clearHandler();
+      }
     }
   };
 
@@ -74,8 +84,22 @@ const TypeAhead = ({
   };
 
   React.useEffect(() => {
-    setShowSearch(!isSearching && !!searchText);
+    const foundContent = !isSearching && !!searchText;
+
+    setShowSearch(foundContent);
+
+    if (isSearching) {
+      setIsEmptyResult(false);
+    }
+
+    if (foundContent) {
+      setShowSearch(true);
+    }
   }, [isSearching]);
+
+  React.useEffect(() => {
+    setIsEmptyResult(!options.length);
+  }, [options]);
 
   useOnClickOutside(reference, () => setShowSearch(false));
 
@@ -95,6 +119,7 @@ const TypeAhead = ({
         <TypeAheadSearchOptions
           handleSelect={handleSelect}
           hasLabel={!!label}
+          isEmptyResult={isEmptyResult}
           options={options}
           show={showSearch}
         />

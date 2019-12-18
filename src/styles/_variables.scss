@@ -10,6 +10,7 @@ $colorGrayLightest: #f7f7f7;
 $colorGrayDark: #8a8a8a;
 $colorGrayDarker: #5b5b5b;
 $colorGrayDarkest: #404040;
+$colorOrangeLighter: #dfbe82;
 $colorOrange: #c99128;
 $colorOrangeDarker: #c17b0f;
 $colorOrangeHighlight: #fdda9873;
@@ -27,6 +28,8 @@ $footerHeight: 48px;
 $appMinHeight: 100vh;
 $appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
+
+$sidePanelMaxWidth: 300px;
 
 $maxModalHeight: 400px;
 $maxModalWidth: 500px;

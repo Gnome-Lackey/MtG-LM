@@ -1,5 +1,7 @@
-import { ScryfallCard } from "models/Scryfall";
+import { ScryfallCard, ScryfallSet } from "models/Scryfall";
 import { Card } from "models/Card";
+import { Set } from "models/Set";
+import { MtglmServiceResponseBody } from "services/models/Service";
 
 export const toCard = (data: ScryfallCard): Card => ({
   id: data.id,
@@ -8,3 +10,30 @@ export const toCard = (data: ScryfallCard): Card => ({
   type: data.type,
   colors: data.colors
 });
+
+export const toSet = (data: ScryfallSet): Set => ({
+  id: data.id,
+  name: data.name,
+  releasedOn: data.releasedOn,
+  cardCount: data.cardCount,
+  code: data.code
+});
+
+export const toScryfallCard = (result: MtglmServiceResponseBody): ScryfallCard => ({
+  id: result.data.id,
+  name: result.data.name,
+  colors: result.data.colors,
+  type: result.data.type_line,
+  images: result.data.image_uris
+});
+
+export const toScryfallSet = (result: MtglmServiceResponseBody): ScryfallSet => ({
+  id: result.id,
+  name: result.name,
+  releasedOn: result.released_at,
+  cardCount: result.card_count,
+  code: result.code
+});
+
+export const toCardQueryString = (color: string, type: string): string =>
+  `c=${color}+lang=en+t=${type}+border=black+-t=legendary+f=modern`;

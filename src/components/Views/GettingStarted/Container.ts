@@ -7,7 +7,7 @@ import GettingStartedView from "components/Views/GettingStarted/View";
 
 import { requestValidation } from "redux/creators/auth";
 import { requestCreatePlayer } from "redux/creators/players";
-import { requestGettingStartedCards } from "redux/creators/cards";
+import { requestGettingStartedCards } from "redux/creators/scryfall";
 import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
@@ -37,7 +37,7 @@ const mapStateToProps = (
   state: RootState,
   ownProps: RouteComponentProps
 ): GettingStartedViewProps => ({
-  cards: state.cards.list,
+  cards: state.scryfall.cards,
   errors: state.errors,
   history: ownProps.history,
   isGettingStartedFinished: state.application.isGettingStartedFinished,
