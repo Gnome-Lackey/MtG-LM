@@ -5,7 +5,7 @@ import service from "services/service";
 import { MtglmServiceResponseBody } from "services/models/Service";
 
 import { SeasonFilters } from "services/models/Filters";
-import { CreateSeasonNode } from "./models/Nodes";
+import { CreateSeasonNode, UpdateSeasonNode } from "./models/Nodes";
 
 import { SEASON_BASE_URL, SEASON_GET_ALL_DETAILS } from "constants/services";
 import { IDT } from "constants/session";
@@ -21,6 +21,21 @@ export const create = async (body: CreateSeasonNode): Promise<MtglmServiceRespon
   headers.append("Access-Control-Allow-Credentials", "true");
 
   const response = await service.post(SEASON_BASE_URL, body, headers);
+
+  return await response.body;
+};
+
+export const update = async (body: UpdateSeasonNode): Promise<MtglmServiceResponseBody> => {
+  const headers = new Headers();
+
+  const token = sessionStorage.getItem(IDT);
+
+  headers.append("Authorization", token);
+  headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");
+  headers.append("Access-Control-Allow-Credentials", "true");
+
+  const response = await service.put(SEASON_BASE_URL, body, headers);
 
   return await response.body;
 };

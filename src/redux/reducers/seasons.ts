@@ -4,7 +4,8 @@ import {
   EMIT_GET_SEASONS_SUCCESS,
   EMIT_CREATE_SEASON_SUCCESS,
   EMIT_SELECTED_SEASON,
-  EMIT_DESELECTED_SEASON
+  EMIT_DESELECTED_SEASON,
+  EMIT_UPDATED_SEASON_SUCCESS
 } from "redux/actions/seasons";
 
 import { SeasonState } from "redux/models/SeasonState";
@@ -24,6 +25,10 @@ export default handleActions(
     [EMIT_CREATE_SEASON_SUCCESS]: (state: SeasonState, action: SeasonAction): SeasonState => ({
       ...state,
       list: [...state.list, action.payload.season]
+    }),
+    [EMIT_UPDATED_SEASON_SUCCESS]: (state: SeasonState, action: SeasonAction): SeasonState => ({
+      ...state,
+      list: action.payload.seasons
     }),
     [EMIT_SELECTED_SEASON]: (state: SeasonState, action: SeasonAction): SeasonState => ({
       ...state,

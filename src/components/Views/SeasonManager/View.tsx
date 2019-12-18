@@ -11,6 +11,7 @@ import { Season } from "models/Season";
 import { Player } from "models/Player";
 
 import "./styles.scss";
+import { bindActionCreators } from "redux";
 
 interface SeasonManagerViewActions {
   requestGetSetByCode: Function;
@@ -19,6 +20,7 @@ interface SeasonManagerViewActions {
   emitDeselectSeason: Function;
   requestCreateSeason: Function;
   requestGetSeasons: Function;
+  requestUpdateSeason: Function;
 }
 
 interface SeasonManagerViewProps extends RouteComponentProps {
@@ -64,6 +66,8 @@ const SeasonManagerView = ({
     setShowForm(true);
   };
 
+  const submitHandler = selectedSeason ? actions.requestUpdateSeason : actions.requestCreateSeason;
+
   return (
     <div className="season-manager-view">
       <SeasonList
@@ -83,7 +87,7 @@ const SeasonManagerView = ({
           selectedSeason={selectedSeason}
           fetchSetHandler={actions.requestGetSetByCode}
           searchPlayerHandler={actions.requestQueryPlayers}
-          submitHandler={actions.requestCreateSeason}
+          submitHandler={submitHandler}
         />
       ) : null}
     </div>
