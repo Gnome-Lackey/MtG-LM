@@ -18,6 +18,7 @@ import { Season } from "models/Season";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
+import moment = require("moment");
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -57,14 +58,14 @@ const buildFormState = (selectedSeason: Season): SeasonFields =>
         isActive: false
       };
 
-const isUpdateDisabled = (values: SeasonFields, selectedSeason: Season): boolean =>
-  !!selectedSeason &&
-  (!selectedSeason.endedOn || selectedSeason.endedOn === values.endedDate) &&
-  (!selectedSeason.startedOn || selectedSeason.startedOn === values.startedDate) &&
-  (!selectedSeason.isActive || selectedSeason.isActive === values.isActive) &&
-  (!selectedSeason.set || selectedSeason.set.code === values.set.key) &&
+const isUpdateDisabled = (values: SeasonFields, season: Season): boolean =>
+  !!season &&
+  values.startedDate === season.startedOn &&
+  values.isActive === season.isActive &&
+  values.set.key === season.set.code &&
+  (!values.endedDate || values.endedDate === season.endedOn) &&
   values.players.every(
-    (player) => !!selectedSeason.players.find((seasonPlayer) => seasonPlayer.id === player.key)
+    (player) => !!season.players.find((seasonPlayer) => seasonPlayer.id === player.key)
   );
 
 const SeasonForm = ({
@@ -96,12 +97,18 @@ const SeasonForm = ({
     resetValues(buildFormState(selectedSeason));
   }, [selectedSeason]);
 
+  const invalidDates =
+    !values.endedDate ||
+    moment(values.startedDate, DISPLAY_DATE_FORMAT).isAfter(
+      moment(values.endedDate, DISPLAY_DATE_FORMAT)
+    );
+
   const invalidEndDate = !values.isActive && !values.endedDate;
   const invalidRequiredFields = !values.startedDate || !values.set;
   const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
   const updateDisabled = isUpdateDisabled(values, selectedSeason);
 
-  const isDisabled = isFormLoading || invalidRequiredFields || invalidEndDate || updateDisabled;
+  const isDisabled = isFormLoading || invalidRequiredFields || invalidEndDate || invalidDates || updateDisabled;
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>
