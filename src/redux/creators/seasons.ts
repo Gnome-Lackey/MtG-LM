@@ -75,6 +75,7 @@ export const requestUpdateSeason = (details: SeasonFields) => async (dispatch: F
     dispatch({
       type: EMIT_UPDATED_SEASON_SUCCESS,
       payload: {
+        selectedSeason: data,
         seasons: updatedSeasons
       }
     });

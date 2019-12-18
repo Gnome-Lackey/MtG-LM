@@ -28,6 +28,7 @@ export default handleActions(
     }),
     [EMIT_UPDATED_SEASON_SUCCESS]: (state: SeasonState, action: SeasonAction): SeasonState => ({
       ...state,
+      selected: action.payload.selectedSeason,
       list: action.payload.seasons
     }),
     [EMIT_SELECTED_SEASON]: (state: SeasonState, action: SeasonAction): SeasonState => ({

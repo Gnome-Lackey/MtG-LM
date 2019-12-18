@@ -26,6 +26,7 @@ export interface RecordMatchFields {
 }
 
 export interface SeasonFields {
+  [k: string]: any;
   startedDate: string;
   endedDate: string;
   set: TypeAheadOption;

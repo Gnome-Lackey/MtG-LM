@@ -56,6 +56,9 @@ const setToOption = (set: Set): TypeAheadOption => ({
   key: set.code
 });
 
+const isUpdateDisabled = (keys: string[], values: SeasonFields, selectedSeason: Season): boolean =>
+  !!selectedSeason && keys.every((key: string) => values[key] === selectedSeason[key]);
+
 const SeasonForm = ({
   fetchSetHandler,
   potentialPlayers,
@@ -80,7 +83,10 @@ const SeasonForm = ({
     resetValues(buildFormState(selectedSeason));
   }, [selectedSeason]);
 
-  const isDisabled = !values.startedDate || !values.set;
+  const isDisabled =
+    !values.startedDate ||
+    !values.set ||
+    isUpdateDisabled(Object.keys(values), values, selectedSeason);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>
@@ -120,7 +126,9 @@ const SeasonForm = ({
           onChange={updateValues}
           label="Will this season be active?"
         />
-        <FormButton type="submit" disabled={isDisabled}>Submit</FormButton>
+        <FormButton type="submit" disabled={isDisabled}>
+          Submit
+        </FormButton>
       </div>
       <PlayerList
         players={values.players}
@@ -129,7 +137,6 @@ const SeasonForm = ({
         searchPlayerHandler={searchPlayerHandler}
         updateValues={updateValues}
       />
-      
     </form>
   );
 };
