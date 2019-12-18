@@ -9,16 +9,18 @@ import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
 import FormButton from "components/Form/Button";
 
 import useFormData from "components/Hooks/useFormData";
-import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
+
+import * as setMapper from "mappers/sets";
 
 import { Set } from "models/Set";
 import { Player } from "models/Player";
 import { Season } from "models/Season";
 
+import { isSubmitDisabled, buildInitialFormState } from "utils/seasonForm";
+
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
-import moment = require("moment");
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -32,42 +34,6 @@ interface SeasonFormProps {
   submitHandler: Function;
 }
 
-const setToOption = (set: Set): TypeAheadOption => ({
-  label: set.name,
-  key: set.code
-});
-
-const buildFormState = (selectedSeason: Season): SeasonFields =>
-  selectedSeason
-    ? {
-        set: setToOption(selectedSeason.set),
-        players: selectedSeason.players.map((player) => ({
-          label: player.displayName,
-          subLabel: player.userName,
-          key: player.id
-        })),
-        startedDate: selectedSeason.startedOn ? selectedSeason.startedOn : "",
-        endedDate: selectedSeason.endedOn ? selectedSeason.endedOn : "",
-        isActive: selectedSeason.isActive || false
-      }
-    : {
-        set: null,
-        players: [],
-        startedDate: "",
-        endedDate: "",
-        isActive: false
-      };
-
-const isUpdateDisabled = (values: SeasonFields, season: Season): boolean =>
-  !!season &&
-  values.startedDate === season.startedOn &&
-  values.isActive === season.isActive &&
-  values.set.key === season.set.code &&
-  (!values.endedDate || values.endedDate === season.endedOn) &&
-  values.players.every(
-    (player) => !!season.players.find((seasonPlayer) => seasonPlayer.id === player.key)
-  );
-
 const SeasonForm = ({
   fetchSetHandler,
   isRequestLoading,
@@ -79,9 +45,9 @@ const SeasonForm = ({
   selectedSeason,
   submitHandler
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
-  const { values, updateValues, resetValues } = useFormData(buildFormState(selectedSeason));
+  const { values, updateValues, resetValues } = useFormData(buildInitialFormState(selectedSeason));
 
-  const setOptions = potentialSets ? potentialSets.map(setToOption) : [];
+  const setOptions = potentialSets ? potentialSets.map(setMapper.toOption) : [];
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault();
@@ -94,21 +60,11 @@ const SeasonForm = ({
   };
 
   React.useEffect(() => {
-    resetValues(buildFormState(selectedSeason));
+    resetValues(buildInitialFormState(selectedSeason));
   }, [selectedSeason]);
 
-  const invalidDates =
-    !values.endedDate ||
-    moment(values.startedDate, DISPLAY_DATE_FORMAT).isAfter(
-      moment(values.endedDate, DISPLAY_DATE_FORMAT)
-    );
-
-  const invalidEndDate = !values.isActive && !values.endedDate;
-  const invalidRequiredFields = !values.startedDate || !values.set;
   const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
-  const updateDisabled = isUpdateDisabled(values, selectedSeason);
-
-  const isDisabled = isFormLoading || invalidRequiredFields || invalidEndDate || invalidDates || updateDisabled;
+  const isDisabled = isSubmitDisabled(selectedSeason, values, isFormLoading);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>

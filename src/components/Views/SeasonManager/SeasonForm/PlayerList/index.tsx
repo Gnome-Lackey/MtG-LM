@@ -3,6 +3,8 @@ import * as React from "react";
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 
+import * as playerMapper from "mappers/players";
+
 import { Player } from "models/Player";
 
 import "./styles.scss";
@@ -15,22 +17,6 @@ interface PlayerListProps {
   updateValues: Function;
 }
 
-const playerToOption = (
-  players: TypeAheadOption[],
-  options: TypeAheadOption[],
-  potentialPlayer: Player
-): TypeAheadOption[] => {
-  if (!players.some((player) => player.key === potentialPlayer.id)) {
-    options.push({
-      label: potentialPlayer.displayName,
-      subLabel: potentialPlayer.userName,
-      key: potentialPlayer.id
-    });
-  }
-
-  return options;
-};
-
 const PlayerList = ({
   players,
   potentialPlayers,
@@ -39,7 +25,13 @@ const PlayerList = ({
   updateValues
 }: PlayerListProps): React.FunctionComponentElement<PlayerListProps> => {
   const playerOptions = potentialPlayers
-    ? potentialPlayers.reduce((options, player) => playerToOption(players, options, player), [])
+    ? potentialPlayers.reduce((options, potentialPlayer) => {
+        if (!players.some((player) => player.key === potentialPlayer.id)) {
+          options.push(playerMapper.toOption(potentialPlayer));
+        }
+
+        return options;
+      }, [])
     : [];
 
   const handleRemovePlayer = (key: string): void => {
