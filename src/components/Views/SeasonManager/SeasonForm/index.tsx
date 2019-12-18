@@ -99,11 +99,9 @@ const SeasonForm = ({
   const invalidEndDate = !values.isActive && !values.endedDate;
   const invalidRequiredFields = !values.startedDate || !values.set;
   const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
-  const isDisabled =
-    isFormLoading ||
-    invalidRequiredFields ||
-    invalidEndDate ||
-    isUpdateDisabled(values, selectedSeason);
+  const updateDisabled = isUpdateDisabled(values, selectedSeason);
+
+  const isDisabled = isFormLoading || invalidRequiredFields || invalidEndDate || updateDisabled;
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>
