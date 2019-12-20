@@ -2,7 +2,7 @@ import * as queryString from "query-string";
 
 import service from "services/service";
 
-import { MtglmServiceResponseBody } from "services/models/Service";
+import { PlayerResponse } from "services/models/Responses";
 
 import { Player } from "models/Player";
 import { PlayerFilters } from "services/models/Filters";
@@ -10,7 +10,7 @@ import { PlayerFilters } from "services/models/Filters";
 import { PLAYER_BASE_URL } from "constants/services";
 import { IDT } from "constants/session";
 
-export const create = async (body: Player): Promise<MtglmServiceResponseBody> => {
+export const create = async (body: Player): Promise<PlayerResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -22,10 +22,12 @@ export const create = async (body: Player): Promise<MtglmServiceResponseBody> =>
 
   const response = await service.post(PLAYER_BASE_URL, body, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as PlayerResponse;
 };
 
-export const query = async (filters?: PlayerFilters): Promise<MtglmServiceResponseBody> => {
+export const query = async (filters?: PlayerFilters): Promise<PlayerResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -38,5 +40,7 @@ export const query = async (filters?: PlayerFilters): Promise<MtglmServiceRespon
 
   const response = await service.get(url, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as PlayerResponse;
 };

@@ -44,12 +44,12 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.login(userName, password);
+  const data = await authService.login(userName, password);
 
   if (!data.error) {
     dispatch({
       type: EMIT_LOGIN_SUCCESS,
-      payload: { user: data.user }
+      payload: { user: data.body.user }
     });
   } else if (data.error.name === "unconfirmed") {
     dispatch(emitUpdateUser({ id: data.error.name, userName }));
@@ -71,7 +71,7 @@ export const requestLogout = () => async (dispatch: Function) => {
     type: EMIT_LOGGING_OUT
   });
 
-  const { data } = await authService.logout();
+  const data = await authService.logout();
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGOUT, data.error.message));
@@ -87,7 +87,7 @@ export const requestSignUp = (details: SignUpFields) => async (dispatch: Functio
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.signup(details);
+  const data = await authService.signup(details);
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_SIGN_UP, data.error.message));
@@ -117,7 +117,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.confirm(userName, code);
+  const data = await authService.confirm(userName, code);
 
   if (!data.error) {
     dispatch({
@@ -147,7 +147,7 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.resendCode(userName);
+  const data = await authService.resendCode(userName);
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, data.error.message));
@@ -171,7 +171,7 @@ export const emitClearCodeNeeded = (): AuthAction => ({
 export const requestValidation = () => async (dispatch: Function) => {
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.validate();
+  const data = await authService.validate();
 
   if (data.error) {
     dispatch({

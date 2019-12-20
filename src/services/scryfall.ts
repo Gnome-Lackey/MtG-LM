@@ -1,11 +1,11 @@
 import service from "services/service";
 
-import { MtglmServiceResponseBody } from "services/models/Service";
+import { ScryfallCardResponse, ScryfallSetResponse } from "services/models/Responses";
 
 import { SCRYFALL_RANDOM_CARD, SCRYFALL_SETS } from "constants/services";
 import { IDT } from "constants/session";
 
-export const getCard = async (query: string): Promise<MtglmServiceResponseBody> => {
+export const getCard = async (query: string): Promise<ScryfallCardResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -19,10 +19,12 @@ export const getCard = async (query: string): Promise<MtglmServiceResponseBody> 
 
   const response = await service.get(url, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as ScryfallCardResponse;
 };
 
-export const getSet = async (code: string): Promise<MtglmServiceResponseBody> => {
+export const getSet = async (code: string): Promise<ScryfallSetResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -34,5 +36,7 @@ export const getSet = async (code: string): Promise<MtglmServiceResponseBody> =>
 
   const response = await service.get(`${SCRYFALL_SETS}/${code}`, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as ScryfallSetResponse;
 };

@@ -1,5 +1,25 @@
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 import { CreateSeasonNode, UpdateSeasonNode } from "services/models/Nodes";
+import { SeasonDetailsResponse } from "services/models/Responses";
+import { Season } from "models/Season";
+
+export const toSeason = (details: SeasonDetailsResponse): Season => ({
+  id: details.id,
+  isActive: details.isActive,
+  players: details.players.map((player) => ({
+    id: player.id,
+    displayName: player.displayName,
+    userName: player.userName,
+    email: player.email,
+    totalWins: player.totalWins,
+    totalLosses: player.totalLosses,
+    epithet: player.epithet,
+    favoriteColors: player.colors
+  })),
+  set: details.set,
+  startedOn: details.startedOn,
+  endedOn: details.endedOn
+});
 
 export const toCreateNode = (details: SeasonFields): CreateSeasonNode => {
   const { startedDate, endedDate, players, set, isActive } = details;

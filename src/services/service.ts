@@ -1,31 +1,27 @@
-import { MtglmServiceResponse } from "services/models/Service";
+import { MtglmServiceResponse, ErrorResponse } from "services/models/Responses";
 
-const fetchData = async (uri: string, options: RequestInit): Promise<MtglmServiceResponse> => {
+async function fetchData(uri: string, options: RequestInit): Promise<MtglmServiceResponse> {
   try {
     const response = await fetch(uri, options);
     const body = await response.json();
 
     return {
       headers: response.headers,
-      body: {
-        status: response.status,
-        ...body
-      }
+      status: response.status,
+      body
     };
   } catch (err) {
     return {
-      headers: new Headers({
-        status: "500"
-      }),
+      headers: new Headers({ status: "500" }),
+      status: 500,
       body: {
-        status: 500,
-        data: {
-          error: "An unexpected error occurred. Please try again later."
+        error: {
+          message: "An unexpected error occurred. Please try again later."
         }
-      }
+      } as ErrorResponse
     };
   }
-};
+}
 
 const post = async (uri: string, body: object, headers?: Headers): Promise<MtglmServiceResponse> =>
   await fetchData(uri, {
