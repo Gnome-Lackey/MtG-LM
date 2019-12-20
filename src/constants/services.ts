@@ -59,7 +59,12 @@ export const SEASON_GET_ALL_DETAILS = `${SEASON_BASE_URL}/details`;
   Scryfall API
 */
 
-const SCRYFALL_BASE = "https://api.scryfall.com";
+const scryfallUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local"
+};
 
+export const SCRYFALL_BASE: string = scryfallUrlMap[environment];
+
+export const SCRYFALL_CARDS = `${SCRYFALL_BASE}/cards`;
 export const SCRYFALL_RANDOM_CARD = `${SCRYFALL_BASE}/cards/random`;
 export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;

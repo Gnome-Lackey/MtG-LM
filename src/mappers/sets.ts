@@ -1,4 +1,4 @@
-import { Set } from "models/Set";
+import { Set } from "models/Scryfall";
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 
 export const toOption = (set: Set): TypeAheadOption => ({

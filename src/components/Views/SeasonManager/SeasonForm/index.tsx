@@ -12,7 +12,7 @@ import useFormData from "components/Hooks/useFormData";
 
 import * as setMapper from "mappers/sets";
 
-import { Set } from "models/Set";
+import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
 import { Season } from "models/Season";
 

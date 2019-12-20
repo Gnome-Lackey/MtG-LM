@@ -1,17 +1,25 @@
-export interface ScryfallCardImages {
-  [key: string]: string;
-  normal: string;
-}
-
-export interface ScryfallCard {
+export interface Card {
   id: string;
   name: string;
-  colors: string[];
+  language: string;
+  releasedOn: string;
+  image: string;
+  costs: {
+    mana: string;
+    converted: number;
+  };
   type: string;
-  images: ScryfallCardImages;
+  subtype: string;
+  colors: string[];
+  identity: string[];
+  set: {
+    code: string;
+    name: string;
+  };
+  rarity: string;
 }
 
-export interface ScryfallSet {
+export interface Set {
   id: string;
   code: string;
   name: string;

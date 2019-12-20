@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as classNames from "classnames";
 
-import { Card } from "models/Card";
+import { Card } from "models/Scryfall";
 
 import "./styles.scss";
 

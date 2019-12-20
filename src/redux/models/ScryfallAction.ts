@@ -1,5 +1,4 @@
-import { Card } from "models/Card";
-import { Set } from "models/Set";
+import { Card, Set } from "models/Scryfall";
 
 export interface ScryfallAction {
   type: string;
@@ -8,4 +7,4 @@ export interface ScryfallAction {
     searching?: boolean;
     sets?: Set[];
   };
-};
+}

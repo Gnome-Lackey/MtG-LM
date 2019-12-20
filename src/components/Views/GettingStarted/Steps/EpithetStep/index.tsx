@@ -2,7 +2,7 @@ import * as React from "react";
 import * as Chance from "chance";
 import * as classNames from "classnames";
 
-import { Card as CardModel } from "models/Card";
+import { Card as CardModel } from "models/Scryfall";
 import { User } from "models/User";
 
 import "./styles.scss";
