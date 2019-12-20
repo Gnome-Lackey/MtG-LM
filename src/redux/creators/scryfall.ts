@@ -22,11 +22,11 @@ export const requestGettingStartedCards = () => async (dispatch: Function) => {
   };
 
   const results = await Promise.all([
-    scryfallService.getCard(queryString.stringify({ ...queryParams, colors: ["b"] })),
-    scryfallService.getCard(queryString.stringify({ ...queryParams, colors: ["w"] })),
-    scryfallService.getCard(queryString.stringify({ ...queryParams, colors: ["g"] })),
-    scryfallService.getCard(queryString.stringify({ ...queryParams, colors: ["u"] })),
-    scryfallService.getCard(queryString.stringify({ ...queryParams, colors: ["r"] }))
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["b"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["w"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["g"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["u"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["r"] }))
   ]);
 
   dispatch({
