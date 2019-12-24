@@ -1,7 +1,7 @@
 import service from "services/service";
 
 import { SignUpFields } from "components/Hooks/useFormData/models/FormFields";
-import { AuthResponse, ErrorResponse, LoginResponse } from "services/models/Responses";
+import { AuthResponse, LoginResponse } from "services/models/Responses";
 
 import { AMAZON_AXT_HEADER, IDT, AMAZON_ID_HEADER, AXT } from "constants/session";
 import {
