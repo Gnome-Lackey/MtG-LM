@@ -1,4 +1,4 @@
-import { Set } from "./Set";
+import { Set } from "./Scryfall";
 import { Player } from "./Player";
 
 export interface Season {

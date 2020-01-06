@@ -6,7 +6,7 @@ import SeasonList from "components/Views/SeasonManager/SeasonList";
 
 import useDataFetch from "components/Hooks/useDataFetch";
 
-import { Set } from "models/Set";
+import { Set } from "models/Scryfall";
 import { Season } from "models/Season";
 import { Player } from "models/Player";
 

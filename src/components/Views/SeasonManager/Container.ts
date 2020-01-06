@@ -16,7 +16,7 @@ import { requestGetSetByCode } from "redux/creators/scryfall";
 import { requestQueryPlayers } from "redux/creators/players";
 
 import { RootState } from "redux/models/RootState";
-import { Set } from "models/Set";
+import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
 import { Season } from "models/Season";
 

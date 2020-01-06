@@ -7,7 +7,7 @@ import EpithetStep from "components/Views/GettingStarted/Steps/EpithetStep";
 
 import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
-import { Card } from "models/Card";
+import { Card } from "models/Scryfall";
 import { User } from "models/User";
 
 import "./styles.scss";

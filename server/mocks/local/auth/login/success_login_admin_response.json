@@ -1,14 +1,15 @@
 {
+  "status": 200,
   "data": {
     "user": {
-      "id": "623-3454-1278",
-      "firstName": "Admin",
-      "lastName": "McBoss",
+      "id": "9999-9999-9999999",
       "userName": "admin",
-      "email": "admin@planeswalker.mtg",
-      "displayName": "Boss Man",
-      "isFirstTimeLogin": false,
-      "accountType": "ADMIN"
+      "email": "admin@mtglm.com",
+      "firstName": "Boss Man",
+      "lastName": "McBoss",
+      "displayName": "Boss Man McBoss",
+      "accountType": "ADMIN",
+      "isFirstTimeLogin": false
     }
   }
 }

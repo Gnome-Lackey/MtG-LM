@@ -1,6 +1,5 @@
 import * as scryfallService from "services/scryfall";
-
-import * as scryfallMapper from "mappers/scryfall";
+import * as queryString from "query-string";
 
 import { emitResetError } from "redux/creators/errors";
 import {
@@ -14,20 +13,25 @@ import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from 
 export const requestGettingStartedCards = () => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  const results = await Promise.all([
-    scryfallService.getCard(scryfallMapper.toCardQueryString("w", "creature")),
-    scryfallService.getCard(scryfallMapper.toCardQueryString("b", "creature")),
-    scryfallService.getCard(scryfallMapper.toCardQueryString("g", "creature")),
-    scryfallService.getCard(scryfallMapper.toCardQueryString("u", "creature")),
-    scryfallService.getCard(scryfallMapper.toCardQueryString("r", "creature"))
-  ]);
+  const queryParams = {
+    type: "creature",
+    subtype: "legendary",
+    format: "modern",
+    border: "black",
+    language: "en"
+  };
 
-  const scryfallCards = results.map(scryfallMapper.toScryfallCard);
-  const cards = scryfallCards.map(scryfallMapper.toCard);
+  const results = await Promise.all([
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["b"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["w"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["g"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["u"] })),
+    scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["r"] }))
+  ]);
 
   dispatch({
     type: EMIT_GETTING_STARTED_CARDS_SUCCESS,
-    payload: { cards }
+    payload: { cards: results }
   });
 };
 
@@ -47,12 +51,9 @@ export const requestGetSetByCode = (code: string) => async (dispatch: Function) 
       payload: { sets: [] }
     });
   } else {
-    const scryfallSet = scryfallMapper.toScryfallSet(result);
-    const set = scryfallMapper.toSet(scryfallSet);
-
     dispatch({
       type: EMIT_SETS_SUCCESS,
-      payload: { sets: [set] }
+      payload: { sets: [result] }
     });
   }
 

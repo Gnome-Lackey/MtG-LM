@@ -3,7 +3,7 @@ import * as classNames from "classnames";
 
 import Card from "components/Common/Card";
 
-import { Card as CardModel } from "models/Card";
+import { Card as CardModel } from "models/Scryfall";
 
 import { SPIRIT_ANIMAL_SAYINGS } from "constants/gettingStarted";
 

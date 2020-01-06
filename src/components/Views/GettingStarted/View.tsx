@@ -13,7 +13,7 @@ import useNavigator from "components/Hooks/useNavigator";
 
 import { ErrorState } from "redux/models/ErrorState";
 
-import { Card } from "models/Card";
+import { Card } from "models/Scryfall";
 import { User } from "models/User";
 
 import { ROUTES } from "constants/routes";

@@ -63,7 +63,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 export const requestGetPlayers = () => async (dispatch: Function) => {
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
-  const { data } = await playerService.query();
+  const data = await playerService.query();
 
   if (data.error) {
     // TODO: Handle error
@@ -90,7 +90,7 @@ export const requestQueryPlayersForRecord = (searchId: string, query: string) =>
     }
   });
 
-  const { data } = await playerService.query({
+  const data = await playerService.query({
     userName: query,
     name: query
   });
@@ -124,7 +124,7 @@ export const requestQueryPlayers = (query: string) => async (dispatch: Function)
     }
   });
 
-  const { data } = await playerService.query({
+  const data = await playerService.query({
     userName: query,
     name: query
   });

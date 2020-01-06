@@ -1,0 +1,10 @@
+{
+  "status": 200,
+  "data": {
+      "id": "d1026945-2969-42b9-be53-f941405a58cb",
+      "name": "Innistrad",
+      "releasedOn": "2011-09-30",
+      "cardCount": 264,
+      "code": "isd"
+  }
+}

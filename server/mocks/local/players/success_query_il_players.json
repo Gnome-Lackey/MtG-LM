@@ -1,26 +1,20 @@
 {
+  "status": 200,
   "data": [
-    {
-      "id": "123-1232-1232",
-      "displayName": "Liliana Vess",
-      "userName": "OfTheVeil",
-      "email": "beautyInBlack@planeswalker.mtg",
-      "totalWins": 0,
-      "totalLosses": 0,
-      "matches": [],
-      "epithet": "of the veil",
-      "favoriteColors": ["B"]
-    },
-    {
-      "id": "423-1232-7898",
-      "displayName": "Garruk Wildspeaker",
-      "userName": "CursedHuntsman",
-      "email": "comeAtMeBro@planeswalker.mtg",
-      "totalWins": 0,
-      "totalLosses": 0,
-      "matches": [],
-      "epithet": "cursed huntsman",
-      "favoriteColors": ["G"]
-    }
+      {
+          "id": "123-1232-1232",
+          "email": "beautyInBlack@planeswalker.mtg",
+          "userName": "OfTheVeil",
+          "displayName": "Liliana Vess",
+          "colors": [
+              "B"
+          ],
+          "epithet": "of the veil",
+          "totalLosses": 1,
+          "totalWins": 0,
+          "matches": [
+              "5d369844-ce37-4d51-b71a-7a5934c2e95e"
+          ]
+      }
   ]
 }

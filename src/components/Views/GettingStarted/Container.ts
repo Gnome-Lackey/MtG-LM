@@ -12,7 +12,7 @@ import { emitResetError } from "redux/creators/errors";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/models/ErrorState";
 
-import { Card } from "models/Card";
+import { Card } from "models/Scryfall";
 import { User } from "models/User";
 
 interface GettingStartedViewProps {

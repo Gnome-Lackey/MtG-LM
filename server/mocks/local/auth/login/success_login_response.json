@@ -1,14 +1,15 @@
 {
+  "status": 200,
   "data": {
-    "user": {
-      "id": "123-1232-1232",
-      "firstName": "Liliana",
-      "lastName": "Vess",
-      "userName": "OfTheVeil",
-      "email": "beautyInBlack@planeswalker.mtg",
-      "displayName": "Liliana Vess",
-      "isFirstTimeLogin": false,
-      "accountType": "USER"
-    }
+      "user": {
+        "id": "123-1232-1232",
+        "firstName": "Liliana",
+        "lastName": "Vess",
+        "userName": "OfTheVeil",
+        "email": "beautyInBlack@planeswalker.mtg",
+        "displayName": "Liliana Vess",
+        "isFirstTimeLogin": false,
+        "accountType": "USER"
+      }
   }
 }

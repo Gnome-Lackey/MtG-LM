@@ -1,5 +1,5 @@
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
-import { Card } from "models/Card";
+import { Card } from "models/Scryfall";
 
 export interface ConfirmFields {
   code: string;

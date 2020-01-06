@@ -1,7 +1,7 @@
 import service from "services/service";
 
 import { SignUpFields } from "components/Hooks/useFormData/models/FormFields";
-import { MtglmServiceResponseBody } from "services/models/Service";
+import { AuthResponse, LoginResponse } from "services/models/Responses";
 
 import { AMAZON_AXT_HEADER, IDT, AMAZON_ID_HEADER, AXT } from "constants/session";
 import {
@@ -13,21 +13,15 @@ import {
   AUTH_VALIDATE
 } from "constants/services";
 
-const handlePostRequestError = (message?: string): MtglmServiceResponseBody => ({
-  status: 500,
-  data: { error: { message: message || "Something went wrong. Please try again later." } }
-});
-
-export const signup = async (details: SignUpFields): Promise<MtglmServiceResponseBody> => {
+export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
   const response = await service.post(AUTH_SIGN_UP, details);
 
-  return response.body;
+  const data = await response.body;
+
+  return data as AuthResponse;
 };
 
-export const login = async (
-  userName: string,
-  password: string
-): Promise<MtglmServiceResponseBody> => {
+export const login = async (userName: string, password: string): Promise<LoginResponse> => {
   const headers = new Headers();
 
   headers.append("Accept", "application/json");
@@ -45,13 +39,19 @@ export const login = async (
     sessionStorage.setItem(AXT, accessToken);
     sessionStorage.setItem(IDT, idToken);
 
-    return response.body;
+    const data = response.body;
+
+    return data as LoginResponse;
   }
 
-  return handlePostRequestError();
+  return {
+    user: null,
+    headers: null,
+    error: { name: "unauthorized", message: "You are not authorized to access this endpoint." }
+  };
 };
 
-export const logout = async (): Promise<MtglmServiceResponseBody> => {
+export const logout = async (): Promise<AuthResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(AXT);
@@ -66,30 +66,36 @@ export const logout = async (): Promise<MtglmServiceResponseBody> => {
   sessionStorage.removeItem(AXT);
   sessionStorage.removeItem(IDT);
 
-  return response.body;
+  const data = response.body;
+
+  return data as AuthResponse;
 };
 
 export const confirm = async (
   userName: string,
   verificationCode: string
-): Promise<MtglmServiceResponseBody> => {
+): Promise<AuthResponse> => {
   const response = await service.post(AUTH_CONFIRM, {
     userName,
     verificationCode
   });
 
-  return response.body;
+  const data = response.body;
+
+  return data as AuthResponse;
 };
 
-export const resendCode = async (userName: string): Promise<MtglmServiceResponseBody> => {
+export const resendCode = async (userName: string): Promise<AuthResponse> => {
   const response = await service.post(AUTH_RESEND_CODE, {
     userName
   });
 
-  return response.body;
+  const data = response.body;
+
+  return data as AuthResponse;
 };
 
-export const validate = async (): Promise<MtglmServiceResponseBody> => {
+export const validate = async (): Promise<AuthResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(AXT);
@@ -101,5 +107,7 @@ export const validate = async (): Promise<MtglmServiceResponseBody> => {
 
   const response = await service.post(AUTH_VALIDATE, undefined, headers);
 
-  return response.body;
+  const data = response.body;
+
+  return data as AuthResponse;
 };

@@ -44,7 +44,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.login(userName, password);
+  const data = await authService.login(userName, password);
 
   if (!data.error) {
     dispatch({
@@ -71,14 +71,12 @@ export const requestLogout = () => async (dispatch: Function) => {
     type: EMIT_LOGGING_OUT
   });
 
-  const { data } = await authService.logout();
+  const data = await authService.logout();
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGOUT, data.error.message));
   } else {
-    dispatch({
-      type: EMIT_LOGOUT_SUCCESS
-    });
+    dispatch({ type: EMIT_LOGOUT_SUCCESS });
   }
 };
 
@@ -87,7 +85,7 @@ export const requestSignUp = (details: SignUpFields) => async (dispatch: Functio
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.signup(details);
+  const data = await authService.signup(details);
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_SIGN_UP, data.error.message));
@@ -117,22 +115,16 @@ export const requestConfirm = (details: ConfirmFields) => async (
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.confirm(userName, code);
+  const data = await authService.confirm(userName, code);
 
   if (!data.error) {
-    dispatch({
-      type: EMIT_VERIFY_SUCCESS
-    });
+    dispatch({ type: EMIT_VERIFY_SUCCESS });
   } else if (data.error.name === "expiredConfirmationCode") {
-    dispatch({
-      type: EMIT_CONFIRMATION_CODE_EXPIRED
-    });
+    dispatch({ type: EMIT_CONFIRMATION_CODE_EXPIRED });
   } else {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, data.error.message));
 
-    dispatch({
-      type: EMIT_VERIFY_FAILURE
-    });
+    dispatch({ type: EMIT_VERIFY_FAILURE });
   }
 
   dispatch(emitRequestLoading(REQUEST_AUTH, false));
@@ -147,14 +139,12 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
 
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.resendCode(userName);
+  const data = await authService.resendCode(userName);
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, data.error.message));
   } else {
-    dispatch({
-      type: EMIT_RESEND_CODE_SUCCESS
-    });
+    dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
   }
 
   dispatch(emitRequestLoading(REQUEST_AUTH, false));
@@ -171,12 +161,10 @@ export const emitClearCodeNeeded = (): AuthAction => ({
 export const requestValidation = () => async (dispatch: Function) => {
   dispatch(emitRequestLoading(REQUEST_AUTH, true));
 
-  const { data } = await authService.validate();
+  const data = await authService.validate();
 
   if (data.error) {
-    dispatch({
-      type: EMIT_VALIDATION_FAILURE
-    });
+    dispatch({ type: EMIT_VALIDATION_FAILURE });
   } else {
     dispatch({
       type: EMIT_VALIDATION_SUCCESS,

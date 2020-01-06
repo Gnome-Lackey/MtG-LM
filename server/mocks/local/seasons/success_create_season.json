@@ -1,26 +1,24 @@
 {
-  "data": {
-    "id": "565DCC2A-12DB-4F00-8ACF-3F587871C289",
-    "isActive": false,
-    "startedOn": "12/30/2019",
-    "players": [
-      {
-        "id": "3f293940-a8d6-4a98-aba4-419e938a8a13",
-        "email": "herrpfister@gmail.com",
-        "userName": "ironpfist",
-        "displayName": "Matthew Pfister",
-        "colors": ["B"],
-        "epithet": "haloid kite",
-        "totalLosses": 0,
-        "totalWins": 1
-      }
-    ],
-    "set": {
-      "id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec089",
-      "name": "Innistrad",
-      "releasedOn": "2011-09-30",
-      "cardCount": 264,
-      "code": "isd"
+  "id": "565DCC2A-12DB-4F00-8ACF-3F587871C289",
+  "isActive": false,
+  "startedOn": "12/30/2019",
+  "players": [
+    {
+      "id": "3f293940-a8d6-4a98-aba4-419e938a8a13",
+      "email": "herrpfister@gmail.com",
+      "userName": "ironpfist",
+      "displayName": "Matthew Pfister",
+      "colors": ["B"],
+      "epithet": "haloid kite",
+      "totalLosses": 0,
+      "totalWins": 1
     }
+  ],
+  "set": {
+    "id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec089",
+    "name": "Innistrad",
+    "releasedOn": "2011-09-30",
+    "cardCount": 264,
+    "code": "isd"
   }
 }

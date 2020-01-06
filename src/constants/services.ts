@@ -43,6 +43,21 @@ const playerUrlMap: DynamicStringMap = {
 export const PLAYER_BASE_URL: string = playerUrlMap[environment];
 
 /*
+  Scryfall API
+*/
+
+const scryfallUrlMap: DynamicStringMap = {
+  local: "http://localhost:9001/local",
+  dev: "https://nch96cg8ng.execute-api.us-east-1.amazonaws.com/dev"
+};
+
+export const SCRYFALL_BASE: string = scryfallUrlMap[environment];
+
+export const SCRYFALL_CARDS = `${SCRYFALL_BASE}/cards`;
+export const SCRYFALL_RANDOM_CARD = `${SCRYFALL_BASE}/cards/random`;
+export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;
+
+/*
   Season API
 */
 
@@ -54,12 +69,3 @@ const seasonUrlMap: DynamicStringMap = {
 export const SEASON_BASE_URL: string = seasonUrlMap[environment];
 
 export const SEASON_GET_ALL_DETAILS = `${SEASON_BASE_URL}/details`;
-
-/*
-  Scryfall API
-*/
-
-const SCRYFALL_BASE = "https://api.scryfall.com";
-
-export const SCRYFALL_RANDOM_CARD = `${SCRYFALL_BASE}/cards/random`;
-export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;

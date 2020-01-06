@@ -2,7 +2,7 @@ import * as queryString from "query-string";
 
 import service from "services/service";
 
-import { MtglmServiceResponseBody } from "services/models/Service";
+import { SeasonDetailsResponse } from "services/models/Responses";
 
 import { SeasonFilters } from "services/models/Filters";
 import { CreateSeasonNode, UpdateSeasonNode } from "./models/Nodes";
@@ -10,7 +10,7 @@ import { CreateSeasonNode, UpdateSeasonNode } from "./models/Nodes";
 import { SEASON_BASE_URL, SEASON_GET_ALL_DETAILS } from "constants/services";
 import { IDT } from "constants/session";
 
-export const create = async (body: CreateSeasonNode): Promise<MtglmServiceResponseBody> => {
+export const create = async (body: CreateSeasonNode): Promise<SeasonDetailsResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -22,13 +22,15 @@ export const create = async (body: CreateSeasonNode): Promise<MtglmServiceRespon
 
   const response = await service.post(SEASON_BASE_URL, body, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as SeasonDetailsResponse;
 };
 
 export const update = async (
   id: string,
   body: UpdateSeasonNode
-): Promise<MtglmServiceResponseBody> => {
+): Promise<SeasonDetailsResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -42,10 +44,12 @@ export const update = async (
 
   const response = await service.put(url, body, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as SeasonDetailsResponse;
 };
 
-export const query = async (filters?: SeasonFilters): Promise<MtglmServiceResponseBody> => {
+export const query = async (filters?: SeasonFilters): Promise<SeasonDetailsResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -58,10 +62,12 @@ export const query = async (filters?: SeasonFilters): Promise<MtglmServiceRespon
 
   const response = await service.get(url, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as SeasonDetailsResponse;
 };
 
-export const getAllDetails = async (): Promise<MtglmServiceResponseBody> => {
+export const getAllDetails = async (): Promise<SeasonDetailsResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);
@@ -72,5 +78,7 @@ export const getAllDetails = async (): Promise<MtglmServiceResponseBody> => {
 
   const response = await service.get(SEASON_GET_ALL_DETAILS, headers);
 
-  return await response.body;
+  const data = await response.body;
+
+  return data as SeasonDetailsResponse;
 };
