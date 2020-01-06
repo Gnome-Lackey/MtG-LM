@@ -1,20 +1,27 @@
 {
-  "id": "1232-1223-12321232",
-  "name": "Doom Guy",
-  "language": "en",
-  "releasedOn": "06-06-6666",
-  "image": "server/assets/doom_guy.png",
-  "costs": {
-    "mana": "{w}{r}",
-    "converted": 2
-  },
-  "type": "Legendary Creature",
-  "subtype": "Human Demon Slayer",
-  "colors": ["w", "r"],
-  "identity": ["w", "r"],
-  "set": {
-    "code": "bfg",
-    "name": "Experimental Weaponry"
-  },
-  "rarity": "M"
+  "status": 200,
+  "data": {
+      "id": "c8318f40-ecd5-429e-8fe2-febf31f64841",
+      "name": "The Eldest Reborn",
+      "language": "en",
+      "releasedOn": "2018-04-27",
+      "image": "https://img.scryfall.com/cards/normal/front/c/8/c8318f40-ecd5-429e-8fe2-febf31f64841.jpg?1562742744",
+      "costs": {
+          "mana": "{4}{B}",
+          "converted": 5
+      },
+      "type": "Enchantment",
+      "subtype": "Saga",
+      "colors": [
+          "B"
+      ],
+      "identity": [
+          "B"
+      ],
+      "set": {
+          "code": "dom",
+          "name": "Dominaria"
+      },
+      "rarity": "uncommon"
+  }
 }
