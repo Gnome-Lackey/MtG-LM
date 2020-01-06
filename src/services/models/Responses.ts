@@ -25,8 +25,8 @@ export interface ErrorResponse {
 }
 
 export interface LoginResponse extends ErrorResponse {
-  body: AuthResponse;
   headers: AuthHeaderResponse;
+  user: AuthResponse;
 }
 
 export interface MatchResponse extends MatchView, ErrorResponse {
@@ -42,12 +42,18 @@ type MtglmServiceResponseBody =
   | ErrorResponse
   | LoginResponse
   | MatchDetailsResponse
+  | MatchDetailsResponse[]
   | MatchResponse
-  | PlayerResponse
   | PlayerDetailsResponse
-  | RecordResponse
+  | PlayerDetailsResponse[]
+  | PlayerResponse
+  | PlayerResponse[]
   | RecordDetailsResponse
+  | RecordDetailsResponse[]
+  | RecordResponse
+  | RecordResponse[]
   | ScryfallCardResponse
+  | ScryfallCardResponse[]
   | ScryfallSetResponse
   | SeasonResponse
   | SeasonDetailsResponse

@@ -49,7 +49,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
   if (!data.error) {
     dispatch({
       type: EMIT_LOGIN_SUCCESS,
-      payload: { user: data.body.user }
+      payload: { user: data.user }
     });
   } else if (data.error.name === "unconfirmed") {
     dispatch(emitUpdateUser({ id: data.error.name, userName }));
@@ -76,9 +76,7 @@ export const requestLogout = () => async (dispatch: Function) => {
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGOUT, data.error.message));
   } else {
-    dispatch({
-      type: EMIT_LOGOUT_SUCCESS
-    });
+    dispatch({ type: EMIT_LOGOUT_SUCCESS });
   }
 };
 
@@ -120,19 +118,13 @@ export const requestConfirm = (details: ConfirmFields) => async (
   const data = await authService.confirm(userName, code);
 
   if (!data.error) {
-    dispatch({
-      type: EMIT_VERIFY_SUCCESS
-    });
+    dispatch({ type: EMIT_VERIFY_SUCCESS });
   } else if (data.error.name === "expiredConfirmationCode") {
-    dispatch({
-      type: EMIT_CONFIRMATION_CODE_EXPIRED
-    });
+    dispatch({ type: EMIT_CONFIRMATION_CODE_EXPIRED });
   } else {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, data.error.message));
 
-    dispatch({
-      type: EMIT_VERIFY_FAILURE
-    });
+    dispatch({ type: EMIT_VERIFY_FAILURE });
   }
 
   dispatch(emitRequestLoading(REQUEST_AUTH, false));
@@ -152,9 +144,7 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY, data.error.message));
   } else {
-    dispatch({
-      type: EMIT_RESEND_CODE_SUCCESS
-    });
+    dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
   }
 
   dispatch(emitRequestLoading(REQUEST_AUTH, false));
@@ -174,9 +164,7 @@ export const requestValidation = () => async (dispatch: Function) => {
   const data = await authService.validate();
 
   if (data.error) {
-    dispatch({
-      type: EMIT_VALIDATION_FAILURE
-    });
+    dispatch({ type: EMIT_VALIDATION_FAILURE });
   } else {
     dispatch({
       type: EMIT_VALIDATION_SUCCESS,

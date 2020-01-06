@@ -5,10 +5,12 @@ async function fetchData(uri: string, options: RequestInit): Promise<MtglmServic
     const response = await fetch(uri, options);
     const body = await response.json();
 
+    const { data } = body;
+
     return {
       headers: response.headers,
       status: response.status,
-      body
+      body: data
     };
   } catch (err) {
     return {

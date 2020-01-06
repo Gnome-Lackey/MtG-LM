@@ -45,7 +45,7 @@ export const login = async (userName: string, password: string): Promise<LoginRe
   }
 
   return {
-    body: null,
+    user: null,
     headers: null,
     error: { name: "unauthorized", message: "You are not authorized to access this endpoint." }
   };
