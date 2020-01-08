@@ -30,8 +30,12 @@ export const isSubmitDisabled = (
   fields: SeasonFields,
   isFormLoading: boolean
 ): boolean => {
+  const { players: oldPlayers } = season;
+  const { players: newPlayers } = fields;
+
   const invalidDates =
-    !fields.endedDate ||
+    fields.startedDate &&
+    fields.endedDate &&
     moment(fields.startedDate, DISPLAY_DATE_FORMAT).isAfter(
       moment(fields.endedDate, DISPLAY_DATE_FORMAT)
     );
@@ -41,10 +45,8 @@ export const isSubmitDisabled = (
     fields.startedDate === season.startedOn &&
     fields.isActive === season.isActive &&
     fields.set.key === season.set.code &&
-    (!fields.endedDate || fields.endedDate === season.endedOn) &&
-    fields.players.every(
-      (player) => !!season.players.find((seasonPlayer) => seasonPlayer.id === player.key)
-    );
+    newPlayers.length === oldPlayers.length &&
+    newPlayers.every((player) => !!oldPlayers.find((oldPlayer) => oldPlayer.id === player.key));
 
   const invalidEndDate = !fields.isActive && !fields.endedDate;
   const invalidRequiredFields = !fields.startedDate || !fields.set;
