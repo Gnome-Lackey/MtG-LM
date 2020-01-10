@@ -12,14 +12,17 @@
   padding: 0;
   width: 100vw;
 
-  .record-headers {
+  .record-headers,
+  .record-spinner {
     align-items: center;
     background-color: $colorGray;
     border-radius: 5px 5px 0 0;
     display: inline-flex;
     padding: 5px 10px;
     width: calc(100% - 20px);
+  }
 
+  .record-headers {
     .header {
       font-weight: bold;
       width: 30%;

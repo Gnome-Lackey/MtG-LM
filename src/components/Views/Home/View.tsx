@@ -42,7 +42,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   return (
     <div className="home-view">
-      <PlayerRecordList players={players} user={user} />
+      <PlayerRecordList isRequestLoading={isRequestLoading} players={players} user={user} />
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()}>
         <i className="fas fa-plus" />
       </Fab>
