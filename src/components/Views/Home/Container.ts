@@ -10,7 +10,7 @@ import {
   requestGetPlayers,
   requestQueryPlayersForRecord
 } from "redux/creators/players";
-import { requestCreateMatch } from "redux/creators/match";
+import { requestCreateMatch } from "redux/creators/matches";
 
 import { RootState } from "redux/models/RootState";
 import { Player } from "models/Player";
