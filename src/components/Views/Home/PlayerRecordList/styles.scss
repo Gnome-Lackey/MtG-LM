@@ -16,10 +16,22 @@
   .record-spinner {
     align-items: center;
     background-color: $colorGray;
-    border-radius: 5px 5px 0 0;
     display: inline-flex;
     padding: 5px 10px;
     width: calc(100% - 20px);
+  }
+
+  .record-spinner {
+    align-items: center;
+    background-color: $colorGrayLightest;
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    padding-bottom: 30px;
+
+    .spinner > i {
+      font-size: 50px;
+    }
   }
 
   .record-headers {

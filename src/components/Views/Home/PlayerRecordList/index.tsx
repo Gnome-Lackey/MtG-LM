@@ -27,7 +27,7 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
     </li>
     {isRequestLoading ? (
       <li className="record-spinner">
-        <Spinner />
+        <Spinner inline />
       </li>
     ) : (
       players.map((player) => (
