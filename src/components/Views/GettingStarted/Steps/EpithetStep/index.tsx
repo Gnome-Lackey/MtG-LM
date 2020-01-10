@@ -47,12 +47,12 @@ const EpithetStep = ({
   const [highlightedEpithet, setHighlightedEpithet] = React.useState("");
   const [animal] = React.useState(chance.animal());
 
-  const { name, type } = selectedCard;
+  const { name, subtype } = selectedCard;
   const firstName = user ? user.firstName : "";
   const lastName = user ? user.lastName : "";
 
   const cardNameEpithet = name.toLowerCase();
-  const cardTypeEpithet = `the ${type.split(" — ")[1]}`.toLowerCase();
+  const cardTypeEpithet = `the ${subtype}`.toLowerCase();
   const animalEpithet = `the ${animal} chaser`.toLowerCase();
   const randomEpithet = "[[random]]";
 
