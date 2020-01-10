@@ -3,14 +3,13 @@ import * as queryString from "query-string";
 import service from "services/service";
 
 import { PlayerResponse } from "services/models/Responses";
-
-import { Player } from "models/Player";
 import { PlayerFilters } from "services/models/Filters";
+import { CreatePlayerNode } from "services/models/Nodes";
 
 import { PLAYER_BASE_URL } from "constants/services";
 import { IDT } from "constants/session";
 
-export const create = async (body: Player): Promise<PlayerResponse> => {
+export const create = async (body: CreatePlayerNode): Promise<PlayerResponse> => {
   const headers = new Headers();
 
   const token = sessionStorage.getItem(IDT);

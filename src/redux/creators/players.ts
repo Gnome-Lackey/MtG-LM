@@ -19,6 +19,7 @@ import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFi
 import * as playerService from "services/player";
 
 import * as userMapper from "mappers/user";
+import * as playerMapper from "mappers/players";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
@@ -46,7 +47,8 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 
   dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
-  const body = userMapper.toPlayer(current);
+  const player = userMapper.toPlayer(current);
+  const body = playerMapper.toCreateNode(player);
 
   body.epithet = details.epithet;
   body.favoriteColors = details.favoriteCard.colors;

@@ -13,3 +13,13 @@ export interface UpdateSeasonNode {
   set?: string;
   isActive?: boolean;
 }
+
+
+export interface CreatePlayerNode {
+  id: string;
+  name: string;
+  userName: string;
+  email: string;
+  epithet: string;
+  favoriteColors: string[];
+}
