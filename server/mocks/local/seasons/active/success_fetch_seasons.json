@@ -1,0 +1,32 @@
+{
+  "status": 200,
+  "data": [
+    {
+      "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+      "startedOn": "10/01/2019",
+      "players": ["323-1232-5435", "223-1232-4323"],
+      "set": {
+        "name": "Throne of Eldraine",
+        "code": "eld"
+      }
+    },
+    {
+      "id": "9e7fce37-0c85-4616-a5fa-9f962252de30",
+      "startedOn": "12/12/2019",
+      "players": ["87600daf-34d1-43c0-9c15-c0e95b8efd19", "223-1232-4323"],
+      "set": {
+        "name": "Zendikar",
+        "code": "zen"
+      }
+    },
+    {
+      "id": "d90130ce-9c79-4129-9d99-04d5102d9219",
+      "startedOn": "12/28/2019",
+      "players": ["3f293940-a8d6-4a98-aba4-419e938a8a13"],
+      "set": {
+        "name": "Innistrad",
+        "code": "isd"
+      }
+    }
+  ]
+}
