@@ -3,11 +3,12 @@ import {
   EMIT_GET_SEASONS_SUCCESS,
   EMIT_SELECTED_SEASON,
   EMIT_DESELECTED_SEASON,
-  EMIT_UPDATED_SEASON_SUCCESS
+  EMIT_UPDATED_SEASON_SUCCESS,
+  EMIT_GET_ACTIVE_SEASONS
 } from "redux/actions/seasons";
 
 import { emitResetError } from "redux/creators/errors";
-import { emitFullPageRequestLoading } from "redux/creators/application";
+import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
@@ -105,4 +106,25 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
+};
+
+export const requestGetActiveSeasons = () => async (dispatch: Function) => {
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+
+  const data = await seasonService.query({
+    active: true
+  });
+
+  if (data.error) {
+    // TODO: Handle error
+  } else {
+    dispatch({
+      type: EMIT_GET_SEASONS_SUCCESS,
+      payload: {
+        seasons: data
+      }
+    });
+  }
+
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
 };

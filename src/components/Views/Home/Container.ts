@@ -11,17 +11,20 @@ import {
   requestQueryPlayersForRecord
 } from "redux/creators/players";
 import { requestCreateMatch } from "redux/creators/matches";
+import { requestGetActiveSeasons } from "redux/creators/seasons";
 
 import { RootState } from "redux/models/RootState";
 import { Player } from "models/Player";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { Season } from "models/Season";
 
 interface HomeViewProps {
   areRecordsLoading: boolean;
   isMatchRequestLoading: boolean;
   players: Player[];
   playerSearchResultsMap: PlayerSearchResultMap;
+  seasons: Season[];
   showRecordMatchModal: boolean;
   user: User;
 }
@@ -31,6 +34,7 @@ interface HomeViewActions {
     emitClearPlayerResultsForRecord: Function;
     emitToggleRecordMatchModal: Function;
     requestCreateMatch: Function;
+    requestGetActiveSeasons: Function;
     requestGetPlayers: Function;
     requestQueryPlayersForRecord: Function;
   };
@@ -41,6 +45,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   isMatchRequestLoading: state.matches.loading,
   players: state.players.list,
   playerSearchResultsMap: state.players.searchResultsMap,
+  seasons: state.seasons.list,
   showRecordMatchModal: state.application.showRecordMatchModal,
   user: state.users.current
 });
@@ -51,6 +56,7 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
       emitClearPlayerResultsForRecord,
       emitToggleRecordMatchModal,
       requestCreateMatch,
+      requestGetActiveSeasons,
       requestGetPlayers,
       requestQueryPlayersForRecord
     },

@@ -4,4 +4,4 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Origin: http://localhost:8080
 Response-Delay: 800
 
-#import './success_fetch_seasons.json';
+#import './success_fetch_active_seasons.json';

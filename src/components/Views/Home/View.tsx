@@ -10,6 +10,7 @@ import useDataFetch from "components/Hooks/useDataFetch";
 import { Player } from "models/Player";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { Season } from "models/Season";
 
 import "./styles.scss";
 
@@ -17,6 +18,7 @@ interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
   emitToggleRecordMatchModal: Function;
   requestCreateMatch: Function;
+  requestGetActiveSeasons: Function;
   requestGetPlayers: Function;
   requestQueryPlayersForRecord: Function;
 }
@@ -27,6 +29,7 @@ interface HomeViewProps extends RouteComponentProps {
   isMatchRequestLoading: boolean;
   players: Player[];
   playerSearchResultsMap: PlayerSearchResultMap;
+  seasons: Season[];
   showRecordMatchModal: boolean;
   user: User;
 }
@@ -37,10 +40,12 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isMatchRequestLoading,
   players,
   playerSearchResultsMap,
+  seasons,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!players.length, actions.requestGetPlayers);
+  useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
 
   return (
     <div className="home-view">
