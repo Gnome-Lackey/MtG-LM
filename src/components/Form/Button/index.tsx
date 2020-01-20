@@ -26,7 +26,7 @@ const FormButton = ({
 }: FormButtonProps): React.FunctionComponentElement<FormButtonProps> => (
   <button
   id={id}
-    className={classNames("form-button", className)}
+    className={classNames("btn-form", className)}
     type={type}
     disabled={disabled || loading}
     onClick={onClick}

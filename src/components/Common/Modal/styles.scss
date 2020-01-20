@@ -28,16 +28,15 @@
 
     .modal-content {
       margin-top: $modalContentMarginTop;
-      height: calc(#{$maxModalHeight} - #{$modalContentMarginTop});
       padding: 0 $modalContentHorizontalPadding;
       position: relative;
-      overflow-y: scroll;
       width: $modalContentWidth;
     }
 
     .modal-header {
       align-items: center;
-      background-color: $colorGray;
+      background-color: $colorWhite;
+      border-bottom: 2px solid $colorGrayDark;
       display: flex;
       height: $modalHeaderHeight;
       justify-content: space-between;

@@ -7,14 +7,22 @@
   min-height: calc(#{$maxModalHeight} - #{$modalContentMarginTop} - 10px);
   width: $modalContentWidth;
 
+  .record-container {
+    max-height: 250px;
+    overflow-y: scroll;
+  }
+
   .record-actions {
     align-items: center;
+    border-top: 2px solid $colorGrayDark;
     display: flex;
     justify-content: space-between;
-    margin: 30px 0 15px;
+    margin: 0 0 5px;
+    padding-top: 10px;
     width: 100%;
 
-    .form-button {
+    .btn-fancy,
+    .btn-form {
       margin: 0;
     }
   }
