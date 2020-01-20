@@ -4,7 +4,7 @@ import {
   EMIT_TOGGLE_RECORD_MATCH_MODAL
 } from "redux/actions/application";
 
-import { ApplicationAction, LoadingAction } from "redux/models/ApplicationAction";
+import { ApplicationAction } from "redux/models/ApplicationAction";
 import { RootState } from "redux/models/RootState";
 
 export const emitFullPageRequestLoading = (
@@ -24,12 +24,12 @@ export const emitFullPageRequestLoading = (
     type: EMIT_FULL_PAGE_REQUEST_LOADING,
     payload: {
       requestsMap: updatedMap,
-      isRequestLoading: updatedIsRequestLoading
+      loading: updatedIsRequestLoading
     }
   });
 };
 
-export const emitRequestLoading = (type: string, isRequestLoading: boolean): LoadingAction => ({
+export const emitRequestLoading = (type: string, isRequestLoading: boolean): ApplicationAction => ({
   type,
   payload: { loading: isRequestLoading }
 });

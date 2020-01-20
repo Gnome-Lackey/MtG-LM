@@ -22,7 +22,7 @@ export default handleActions(
     ): ApplicationState => ({
       ...state,
       requestsMap: action.payload.requestsMap,
-      isRequestLoading: action.payload.isRequestLoading
+      isRequestLoading: action.payload.loading
     }),
     [EMIT_TOGGLE_MASK]: (state: ApplicationState): ApplicationState => ({
       ...state,
