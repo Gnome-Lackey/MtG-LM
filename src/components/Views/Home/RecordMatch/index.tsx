@@ -65,7 +65,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
         ))}
       </div>
       <div className="record-actions">
-        <ButtonFancy clickHandler={handleAddPlayer} type="button">
+        <ButtonFancy clickHandler={handleAddPlayer} type="button" style="highlight">
           Add Player
         </ButtonFancy>
         <FormButton type="submit" loading={isRequestLoading} disabled={isDisabled}>

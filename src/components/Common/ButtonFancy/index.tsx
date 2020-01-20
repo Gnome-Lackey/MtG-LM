@@ -11,6 +11,7 @@ interface ButtonFancyProps {
   clickHandler?: MouseButtonEventFunction;
   disabled?: boolean;
   type?: "button" | "submit";
+  style?: "highlight" | "underline";
 }
 
 const ButtonFancy = ({
@@ -18,10 +19,16 @@ const ButtonFancy = ({
   className,
   clickHandler,
   disabled,
-  type
+  type,
+  style
 }: ButtonFancyProps): React.FunctionComponentElement<ButtonFancyProps> => (
   <button
-    className={classNames("btn-fancy", { [className]: className }, { disabled })}
+    className={classNames(
+      "btn-fancy",
+      style || "underline",
+      { [className]: className },
+      { disabled }
+    )}
     type={type || "button"}
     disabled={disabled}
     onClick={clickHandler}
