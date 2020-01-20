@@ -1,0 +1,23 @@
+@import "src/styles/variables";
+
+.form-dropdown {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+  position: relative;
+  
+  .btn-dropdown-toggle {
+    background-color: $colorWhite;
+    border: 1px solid $colorGray;
+    border-radius: 5px;
+    padding: 10px 8px;
+    min-width: 250px;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

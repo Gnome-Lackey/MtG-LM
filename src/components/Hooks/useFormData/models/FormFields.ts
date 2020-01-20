@@ -1,5 +1,6 @@
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import { Card } from "models/Scryfall";
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 
 export interface ConfirmFields {
   code: string;
@@ -22,6 +23,7 @@ export interface PlayerRecordFields {
 }
 
 export interface RecordMatchFields {
+  season: DropdownOption;
   playerRecords: PlayerRecordFields[];
 }
 

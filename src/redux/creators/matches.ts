@@ -19,7 +19,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
       player: record.player.key,
       wins: record.wins
     })),
-    season: "TODO: Replace with id of real season."
+    season: details.season.key
   };
 
   await matchService.create(body);

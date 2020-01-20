@@ -14,14 +14,16 @@ export const buildInitialFormState = (): RecordMatchFields => ({
       player: null,
       wins: 0
     }
-  ]
+  ],
+  season: null
 });
 
 export const isSubmitDisabled = (fields: RecordMatchFields): boolean => {
   const { playerRecords } = fields;
 
+  const hasInvalidSeason = !fields.season;
   const hasInvalidGameCount = playerRecords.reduce((total, record) => total + record.wins, 0) <= 0;
   const hasInvalidPlayers = playerRecords.some((record) => !record.player || record.wins < 0);
 
-  return hasInvalidGameCount || hasInvalidPlayers;
+  return hasInvalidSeason || hasInvalidGameCount || hasInvalidPlayers;
 };

@@ -4,16 +4,22 @@ import * as uuid from "uuid";
 import RecordRow from "components/Views/Home/RecordMatch/RecordRow";
 import FormButton from "components/Form/Button";
 import ButtonFancy from "components/Common/ButtonFancy";
+import Dropdown from "components/Form/Dropdown";
 
 import useFormData from "components/Hooks/useFormData";
+
+import * as seasonMapper from "mappers/seasons";
 
 import { buildInitialFormState, isSubmitDisabled } from "utils/recordMatchForm";
 
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { Season } from "models/Season";
 
 import "./styles.scss";
 
 interface RecordMatchModalContentProps {
+  activeSeasons: Season[];
   clearHandler: Function;
   isRequestLoading: boolean;
   playerSearchResultsMap: PlayerSearchResultMap;
@@ -22,6 +28,7 @@ interface RecordMatchModalContentProps {
 }
 
 const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentProps> = ({
+  activeSeasons,
   clearHandler,
   isRequestLoading,
   playerSearchResultsMap,
@@ -40,6 +47,10 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     searchHandler(searchId, value);
   };
 
+  const handleSelectSeason = (option: DropdownOption): void => {
+    updateValues("season", option);
+  };
+
   const handleAddPlayer = (): void => {
     updateValues("playerRecords", [
       ...values.playerRecords,
@@ -51,7 +62,15 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
 
   return (
     <form className="record-match-modal" onSubmit={handleSubmit}>
-      <div className="record-container">
+      <div className="record-season">
+        <Dropdown
+          selectHandler={handleSelectSeason}
+          key="season"
+          options={activeSeasons.map(seasonMapper.toOption)}
+          placeholder="Select match season..."
+        />
+      </div>
+      <div className="record-players">
         {values.playerRecords.map((record) => (
           <RecordRow
             key={record.id}

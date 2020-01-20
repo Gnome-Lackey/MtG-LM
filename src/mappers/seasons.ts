@@ -2,6 +2,13 @@ import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 import { CreateSeasonNode, UpdateSeasonNode } from "services/models/Nodes";
 import { SeasonDetailsResponse } from "services/models/Responses";
 import { Season } from "models/Season";
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+
+export const toOption = (details: Season): DropdownOption => ({
+  key: details.id,
+  label: details.set.name,
+  subLabel: details.startedOn
+});
 
 export const toSeason = (details: SeasonDetailsResponse): Season => ({
   id: details.id,

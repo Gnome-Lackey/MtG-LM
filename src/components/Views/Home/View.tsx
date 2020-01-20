@@ -61,6 +61,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           mask
         >
           <RecordMatchModalContent
+            activeSeasons={seasons}
             clearHandler={actions.emitClearPlayerResultsForRecord}
             isRequestLoading={isMatchRequestLoading}
             playerSearchResultsMap={playerSearchResultsMap}

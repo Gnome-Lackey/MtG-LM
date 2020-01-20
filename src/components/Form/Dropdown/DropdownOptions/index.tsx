@@ -1,47 +1,47 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 
 import "./styles.scss";
 
-interface TypeAheadSearchOptionsProps {
+interface DropdownOptionsProps {
   handleSelect: Function;
   hasLabel: boolean;
   isEmptyResult: boolean;
-  options: TypeAheadOption[];
+  options: DropdownOption[];
   show: boolean;
 }
 
-const buildStyles = (show: boolean, isEmptyResult: boolean): { height: string } => {
+const buildStyles = (show: boolean, isEmptyResult: boolean, count: number): { height: string } => {
   let height = "0";
 
   if (show && isEmptyResult) {
     height = "35px";
   } else if (show) {
-    height = "115px";
+    height = `${count * 35}px`;
   }
 
   return { height };
 };
 
-const TypeAheadSearchOptions = ({
+const DropdownOptions = ({
   handleSelect,
   hasLabel,
   isEmptyResult,
   options,
   show
-}: TypeAheadSearchOptionsProps): React.FunctionComponentElement<TypeAheadSearchOptionsProps> => (
+}: DropdownOptionsProps): React.FunctionComponentElement<DropdownOptionsProps> => (
   <ul
-    className={classNames("search-options", { "has-label": hasLabel })}
-    style={buildStyles(show, isEmptyResult)}
+    className={classNames("dropdown-options", { "has-label": hasLabel })}
+    style={buildStyles(show, isEmptyResult, options.length)}
   >
     {options.length ? (
       options.map((option, index) => (
         <li key={option.key} className="option">
           <button
             type="button"
-            className={classNames("btn-type-ahead", { last: index === options.length - 1 })}
+            className={classNames("btn-dropdown-option", { last: index === options.length - 1 })}
             onClick={() => handleSelect(option)}
           >
             <p className="label">
@@ -59,4 +59,4 @@ const TypeAheadSearchOptions = ({
   </ul>
 );
 
-export default TypeAheadSearchOptions;
+export default DropdownOptions;
