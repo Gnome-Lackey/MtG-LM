@@ -6,11 +6,12 @@ import {
   EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
-  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS
+  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+  EMIT_LOADING_PLAYERS
 } from "redux/actions/players";
 
 import { emitResetError } from "redux/creators/errors";
-import { emitRequestLoading } from "redux/creators/application";
+import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
 
 import { RootState } from "redux/models/RootState";
 import { PlayerAction } from "redux/models/PlayerAction";
@@ -45,7 +46,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 
   dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
 
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
   const player = userMapper.toPlayer(current);
   const body = playerMapper.toCreateNode(player);
@@ -59,11 +60,11 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
     type: EMIT_CREATE_PLAYER_SUCCESS
   });
 
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
 
-export const requestGetPlayers = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
+export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch: Function) => {
+  dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, !overrideLoading));
 
   const data = await playerService.query();
 
@@ -78,7 +79,7 @@ export const requestGetPlayers = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
+  dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, false));
 };
 
 export const requestQueryPlayersForRecord = (searchId: string, query: string) => async (

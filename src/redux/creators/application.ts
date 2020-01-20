@@ -1,13 +1,13 @@
 import {
-  EMIT_REQUEST_LOADING,
+  EMIT_FULL_PAGE_REQUEST_LOADING,
   EMIT_TOGGLE_MASK,
   EMIT_TOGGLE_RECORD_MATCH_MODAL
 } from "redux/actions/application";
 
-import { ApplicationAction } from "redux/models/ApplicationAction";
+import { ApplicationAction, LoadingAction } from "redux/models/ApplicationAction";
 import { RootState } from "redux/models/RootState";
 
-export const emitRequestLoading = (
+export const emitFullPageRequestLoading = (
   key: string,
   isRequestLoading: boolean,
   uid?: string
@@ -21,13 +21,18 @@ export const emitRequestLoading = (
   const updatedIsRequestLoading = Object.keys(updatedMap).some((mapKey) => updatedMap[mapKey]);
 
   dispatch({
-    type: EMIT_REQUEST_LOADING,
+    type: EMIT_FULL_PAGE_REQUEST_LOADING,
     payload: {
       requestsMap: updatedMap,
       isRequestLoading: updatedIsRequestLoading
     }
   });
 };
+
+export const emitRequestLoading = (type: string, isRequestLoading: boolean): LoadingAction => ({
+  type,
+  payload: { loading: isRequestLoading }
+});
 
 export const emitToggleMask = (): ApplicationAction => ({
   type: EMIT_TOGGLE_MASK

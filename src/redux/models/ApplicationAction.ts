@@ -8,3 +8,9 @@ export interface ApplicationAction {
     showMask?: boolean;
   };
 }
+
+export interface LoadingAction {
+  type: string;
+  payload: { loading: boolean };
+}
+

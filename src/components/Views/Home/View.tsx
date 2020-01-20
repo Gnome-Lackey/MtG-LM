@@ -23,7 +23,8 @@ interface HomeViewActions {
 
 interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
-  isRequestLoading: boolean;
+  areRecordsLoading: boolean;
+  isMatchRequestLoading: boolean;
   players: Player[];
   playerSearchResultsMap: PlayerSearchResultMap;
   showRecordMatchModal: boolean;
@@ -32,7 +33,8 @@ interface HomeViewProps extends RouteComponentProps {
 
 const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
-  isRequestLoading,
+  areRecordsLoading,
+  isMatchRequestLoading,
   players,
   playerSearchResultsMap,
   showRecordMatchModal,
@@ -42,7 +44,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   return (
     <div className="home-view">
-      <PlayerRecordList isRequestLoading={isRequestLoading} players={players} user={user} />
+      <PlayerRecordList isRequestLoading={areRecordsLoading} players={players} user={user} />
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()}>
         <i className="fas fa-plus" />
       </Fab>
@@ -55,7 +57,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
         >
           <RecordMatchModalContent
             clearHandler={actions.emitClearPlayerResultsForRecord}
-            isRequestLoading={isRequestLoading}
+            isRequestLoading={isMatchRequestLoading}
             playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecord}
             submitHandler={actions.requestCreateMatch}

@@ -7,7 +7,7 @@ import {
 } from "redux/actions/seasons";
 
 import { emitResetError } from "redux/creators/errors";
-import { emitRequestLoading } from "redux/creators/application";
+import { emitFullPageRequestLoading } from "redux/creators/application";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
@@ -34,7 +34,7 @@ export const emitDeselectSeason = (): SeasonAction => ({
 export const requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_SEASON_CREATE, VIEW_ERROR_SEASON_CREATE));
 
-  dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
   const body = seasonMapper.toCreateNode(details);
   const data = await seasonService.create(body);
@@ -50,7 +50,7 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
 };
 
 export const requestUpdateSeason = (id: string, details: SeasonFields) => async (
@@ -63,7 +63,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
 
   dispatch(emitResetError(DOMAIN_ERROR_SEASON_CREATE, VIEW_ERROR_SEASON_CREATE));
 
-  dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
   const body = seasonMapper.toUpdateNode(details);
   const data = await seasonService.update(id, body);
@@ -85,11 +85,11 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_CREATE_SEASON, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
 };
 
 export const requestGetSeasons = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(REQUEST_GET_SEASONS, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, true));
 
   const data = await seasonService.getAllDetails();
 
@@ -104,5 +104,5 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_GET_SEASONS, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
 };

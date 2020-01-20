@@ -7,7 +7,8 @@ import {
   EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
-  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS
+  EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+  EMIT_LOADING_PLAYERS
 } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
@@ -79,6 +80,10 @@ export default handleActions(
     [EMIT_CLEAR_PLAYER_LIST]: (state: PlayerState): PlayerState => ({
       ...state,
       searchResults: []
+    }),
+    [EMIT_LOADING_PLAYERS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
+      ...state,
+      loading: action.payload.loading
     })
   },
   INITIAL_STATE

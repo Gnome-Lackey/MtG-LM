@@ -13,7 +13,8 @@
   transition: all 0.25s ease-in-out;
 
   &:disabled {
-    background-color: $colorGray;
+    background-color: $colorGrayLightest;
+    color: $colorGray;
   }
 
   &:hover {

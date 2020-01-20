@@ -14,7 +14,7 @@ import {
   EMIT_VALIDATION_SUCCESS
 } from "redux/actions/auth";
 
-import { emitRequestLoading } from "redux/creators/application";
+import { emitFullPageRequestLoading } from "redux/creators/application";
 import { emitRequestError, emitResetError } from "redux/creators/errors";
 import { emitUpdateUser } from "redux/creators/users";
 import { AuthAction } from "redux/models/AuthAction";
@@ -42,7 +42,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
 
   dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN));
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, true));
 
   const data = await authService.login(userName, password);
 
@@ -61,7 +61,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN, data.error.message));
   }
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, false));
 };
 
 export const requestLogout = () => async (dispatch: Function) => {
@@ -83,7 +83,7 @@ export const requestLogout = () => async (dispatch: Function) => {
 export const requestSignUp = (details: SignUpFields) => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_SIGN_UP));
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, true));
 
   const data = await authService.signup(details);
 
@@ -96,7 +96,7 @@ export const requestSignUp = (details: SignUpFields) => async (dispatch: Functio
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, false));
 };
 
 export const requestConfirm = (details: ConfirmFields) => async (
@@ -113,7 +113,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
 
   dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_VERIFY));
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, true));
 
   const data = await authService.confirm(userName, code);
 
@@ -127,7 +127,7 @@ export const requestConfirm = (details: ConfirmFields) => async (
     dispatch({ type: EMIT_VERIFY_FAILURE });
   }
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, false));
 };
 
 export const requestResendCode = () => async (dispatch: Function, getState: Function) => {
@@ -137,7 +137,7 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
     }
   } = getState() as RootState;
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, true));
 
   const data = await authService.resendCode(userName);
 
@@ -147,7 +147,7 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
     dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
   }
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, false));
 };
 
 export const emitClearCodeResent = (): AuthAction => ({
@@ -159,7 +159,7 @@ export const emitClearCodeNeeded = (): AuthAction => ({
 });
 
 export const requestValidation = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(REQUEST_AUTH, true));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, true));
 
   const data = await authService.validate();
 
@@ -172,5 +172,5 @@ export const requestValidation = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_AUTH, false));
+  dispatch(emitFullPageRequestLoading(REQUEST_AUTH, false));
 };

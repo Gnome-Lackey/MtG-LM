@@ -11,7 +11,8 @@ export interface PlayerSearchResultMap {
 
 export interface PlayerState {
   list?: Player[];
+  loading?: boolean;
   searchResultsMap?: PlayerSearchResultMap;
-  searching: boolean;
-  searchResults: Player[];
+  searching?: boolean;
+  searchResults?: Player[];
 }

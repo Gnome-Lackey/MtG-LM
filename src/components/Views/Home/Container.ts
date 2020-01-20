@@ -18,7 +18,8 @@ import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 
 interface HomeViewProps {
-  isRequestLoading: boolean;
+  areRecordsLoading: boolean;
+  isMatchRequestLoading: boolean;
   players: Player[];
   playerSearchResultsMap: PlayerSearchResultMap;
   showRecordMatchModal: boolean;
@@ -36,7 +37,8 @@ interface HomeViewActions {
 }
 
 const mapStateToProps = (state: RootState): HomeViewProps => ({
-  isRequestLoading: state.application.isRequestLoading,
+  areRecordsLoading: state.players.loading,
+  isMatchRequestLoading: state.matches.loading,
   players: state.players.list,
   playerSearchResultsMap: state.players.searchResultsMap,
   showRecordMatchModal: state.application.showRecordMatchModal,
