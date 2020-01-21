@@ -7,5 +7,42 @@
   .search {
     min-width: 250px;
     position: relative;
+
+    &::before,
+    &::after {
+      opacity: 0;
+    }
+
+    &.show {
+      &::before {
+        border: 10px solid transparent;
+        border-bottom-color: $colorGrayDarkest;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -13px;
+        opacity: 1;
+        position: absolute;
+        top: 51px;
+        width: 0;
+        z-index: $zLayerTwo;
+      }
+
+      &::after {
+        border: 8px solid transparent;
+        border-bottom-color: $colorWhite;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -11px;
+        opacity: 1;
+        position: absolute;
+        top: 53px;
+        width: 0;
+        z-index: $zLayerTwo;
+      }
+    }
   }
 }

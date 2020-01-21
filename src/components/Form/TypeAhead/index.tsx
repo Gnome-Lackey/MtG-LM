@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as classNames from "classnames";
 import { debounce } from "debounce";
 
 import TypeAheadInput from "components/Form/TypeAhead/Input";
@@ -105,7 +106,7 @@ const TypeAhead = ({
 
   return (
     <div ref={reference} className="form-type-ahead">
-      <div className="search">
+      <div className={classNames("search", { show: showSearch })}>
         <TypeAheadInput
           handleChange={handleChange}
           handleKeyPress={handleKeyPress}

@@ -16,12 +16,14 @@
     .input {
       @include input;
 
+      border: 0;
+      box-shadow: none;
       padding: 10px 30px 10px 15px;
       width: calc(100% - 35px);
 
       &:focus {
-        border-color: $colorBlueLight;
-        box-shadow: 0 0 0 0.2rem $colorBlueShadow;
+        border: 0;
+        box-shadow: none;
       }
     }
   }

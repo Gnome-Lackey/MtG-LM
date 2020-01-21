@@ -33,7 +33,7 @@ const TypeAheadSearchOptions = ({
   show
 }: TypeAheadSearchOptionsProps): React.FunctionComponentElement<TypeAheadSearchOptionsProps> => (
   <ul
-    className={classNames("search-options", { "has-label": hasLabel })}
+    className={classNames("search-options", { "has-label": hasLabel }, { show })}
     style={buildStyles(show, isEmptyResult)}
   >
     {options.length ? (

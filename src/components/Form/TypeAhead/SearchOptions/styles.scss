@@ -2,18 +2,25 @@
 
 .search-options {
   align-items: center;
+  border: 1px solid $colorGrayDarkest;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   height: 0;
   list-style: none;
   margin: 0;
+  opacity: 0;
   overflow-y: scroll;
   padding: 0;
   position: absolute;
-  top: 55px;
+  top: 60px;
   transition: height 0.25s ease-in-out;
   width: 100%;
   z-index: $zLayerTwo;
+
+  &.show {
+    opacity: 1;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -27,7 +34,7 @@
   .option {
     background-color: $colorWhite;
     margin: 0;
-    width: calc(100% - 10px);
+    width: 100%;
   }
 
   .non-option {
@@ -41,10 +48,6 @@
   }
 
   .option {
-    &:last-of-type {
-      border-radius: 0 0 5px 5px;
-    }
-
     .btn-type-ahead {
       background-color: $colorWhite;
       border: 0;
@@ -68,10 +71,6 @@
           font-size: 8px;
           margin-left: 5px;
         }
-      }
-
-      &.last {
-        border-radius: 0 0 5px 5px;
       }
 
       &:focus {

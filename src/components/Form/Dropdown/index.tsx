@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as classNames from "classnames";
 
 import useOnClickOutside from "components/Hooks/useOnClickOutside";
 
@@ -50,7 +51,7 @@ const Dropdown = ({
       <button className="btn-dropdown-toggle" type="button" onClick={handleToggle}>
         {selectedOption}
       </button>
-      <div className="search">
+      <div className={classNames("dropdown-options-wrapper", { show: showDropdown })}>
         <DropdownOptions
           handleSelect={handleSelect}
           hasLabel={!!label}

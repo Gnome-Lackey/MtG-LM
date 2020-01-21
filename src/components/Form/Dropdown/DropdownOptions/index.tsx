@@ -17,9 +17,9 @@ const buildStyles = (show: boolean, isEmptyResult: boolean, count: number): { he
   let height = "0";
 
   if (show && isEmptyResult) {
-    height = "35px";
+    height = "32px";
   } else if (show) {
-    height = `${count * 35}px`;
+    height = `${count * 32}px`;
   }
 
   return { height };
@@ -33,7 +33,7 @@ const DropdownOptions = ({
   show
 }: DropdownOptionsProps): React.FunctionComponentElement<DropdownOptionsProps> => (
   <ul
-    className={classNames("dropdown-options", { "has-label": hasLabel })}
+    className={classNames("dropdown-options", { "has-label": hasLabel }, { show })}
     style={buildStyles(show, isEmptyResult, options.length)}
   >
     {options.length ? (
