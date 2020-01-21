@@ -16,7 +16,7 @@
     .input {
       @include input;
 
-      padding: 10px 40px 10px 15px;
+      padding: 10px 30px 10px 15px;
       width: calc(100% - 35px);
 
       &:focus {
