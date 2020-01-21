@@ -23,6 +23,7 @@
     z-index: $zLayerThree;
   }
 
+  &::-moz-scrollbar,
   &::-webkit-scrollbar {
     display: none;
   }

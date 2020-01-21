@@ -59,6 +59,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           closeHandler={actions.emitToggleRecordMatchModal}
           title="Record Match"
           mask
+          grow
         >
           <RecordMatchModalContent
             activeSeasons={seasons}

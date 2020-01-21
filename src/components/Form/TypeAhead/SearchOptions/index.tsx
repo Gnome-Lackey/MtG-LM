@@ -13,13 +13,13 @@ interface TypeAheadSearchOptionsProps {
   show: boolean;
 }
 
-const buildStyles = (show: boolean, isEmptyResult: boolean): { height: string } => {
+const buildStyles = (show: boolean, isEmptyResult: boolean, count: number): { height: string } => {
   let height = "0";
 
   if (show && isEmptyResult) {
     height = "35px";
   } else if (show) {
-    height = "115px";
+    height = `${count * 35}px`;
   }
 
   return { height };
@@ -34,7 +34,7 @@ const TypeAheadSearchOptions = ({
 }: TypeAheadSearchOptionsProps): React.FunctionComponentElement<TypeAheadSearchOptionsProps> => (
   <ul
     className={classNames("search-options", { "has-label": hasLabel }, { show })}
-    style={buildStyles(show, isEmptyResult)}
+    style={buildStyles(show, isEmptyResult, options.length)}
   >
     {options.length ? (
       options.map((option, index) => (

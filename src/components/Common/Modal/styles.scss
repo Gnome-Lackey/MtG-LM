@@ -67,5 +67,16 @@
         }
       }
     }
+
+    &.grow {
+      height: initial;
+      max-height: calc(#{$appContentMinHeight} - 100px);
+      overflow-y: scroll;
+
+      &::-moz-scrollbar,
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 }
