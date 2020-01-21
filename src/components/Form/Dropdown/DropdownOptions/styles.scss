@@ -2,6 +2,7 @@
 
 .dropdown-options {
   align-items: center;
+  background-color: $colorWhite;
   border: 1px solid $colorGrayDarkest;
   border-radius: 5px;
   display: flex;
@@ -11,15 +12,15 @@
   margin: 0;
   opacity: 0;
   overflow-y: scroll;
-  padding: 0;
+  padding: 10px 0 0;
   position: absolute;
   top: 12px;
   transition: height 0.25s ease-in-out;
   width: 100%;
-  z-index: $zLayerTwo;
 
   &.show {
     opacity: 1;
+    z-index: $zLayerThree;
   }
 
   &::-webkit-scrollbar {

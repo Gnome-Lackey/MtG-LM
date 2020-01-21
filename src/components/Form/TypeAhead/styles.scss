@@ -26,7 +26,7 @@
         position: absolute;
         top: 51px;
         width: 0;
-        z-index: $zLayerTwo;
+        z-index: $zLayerThree;
       }
 
       &::after {
@@ -41,7 +41,7 @@
         position: absolute;
         top: 53px;
         width: 0;
-        z-index: $zLayerTwo;
+        z-index: $zLayerThree;
       }
     }
   }
