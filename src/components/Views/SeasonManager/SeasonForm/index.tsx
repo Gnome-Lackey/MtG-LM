@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as moment from "moment";
 
 import PlayerList from "components/Views/SeasonManager/SeasonForm/PlayerList";
 
@@ -11,12 +12,12 @@ import FormButton from "components/Form/Button";
 import useFormData from "components/Hooks/useFormData";
 
 import * as setMapper from "mappers/sets";
+import * as playerMapper from "mappers/players";
 
 import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
 import { Season } from "models/Season";
-
-import { isSubmitDisabled, buildInitialFormState } from "utils/seasonForm";
+import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
@@ -33,6 +34,52 @@ interface SeasonFormProps {
   selectedSeason?: Season;
   submitHandler: Function;
 }
+
+export const buildInitialFormState = (season: Season): SeasonFields =>
+  season
+    ? {
+        set: setMapper.toOption(season.set),
+        players: season.players.map(playerMapper.toOption),
+        startedDate: season.startedOn ? season.startedOn : "",
+        endedDate: season.endedOn ? season.endedOn : "",
+        isActive: season.isActive || false
+      }
+    : {
+        set: null,
+        players: [],
+        startedDate: "",
+        endedDate: "",
+        isActive: false
+      };
+
+export const isSubmitDisabled = (
+  season: Season,
+  fields: SeasonFields,
+  isFormLoading: boolean
+): boolean => {
+  const { players: oldPlayers } = season;
+  const { players: newPlayers } = fields;
+
+  const invalidDates =
+    fields.startedDate &&
+    fields.endedDate &&
+    moment(fields.startedDate, DISPLAY_DATE_FORMAT).isAfter(
+      moment(fields.endedDate, DISPLAY_DATE_FORMAT)
+    );
+
+  const updateDisabled =
+    !!season &&
+    fields.startedDate === season.startedOn &&
+    fields.isActive === season.isActive &&
+    fields.set.key === season.set.code &&
+    newPlayers.length === oldPlayers.length &&
+    newPlayers.every((player) => !!oldPlayers.find((oldPlayer) => oldPlayer.id === player.key));
+
+  const invalidEndDate = !fields.isActive && !fields.endedDate;
+  const invalidRequiredFields = !fields.startedDate || !fields.set;
+
+  return isFormLoading || invalidRequiredFields || invalidEndDate || invalidDates || updateDisabled;
+};
 
 const SeasonForm = ({
   fetchSetHandler,

@@ -10,11 +10,10 @@ import useFormData from "components/Hooks/useFormData";
 
 import * as seasonMapper from "mappers/seasons";
 
-import { buildInitialFormState, isSubmitDisabled } from "utils/recordMatchForm";
-
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { Season } from "models/Season";
+import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 
 import "./styles.scss";
 
@@ -26,6 +25,32 @@ interface RecordMatchModalContentProps {
   searchHandler: Function;
   submitHandler: Function;
 }
+
+export const buildInitialFormState = (): RecordMatchFields => ({
+  playerRecords: [
+    {
+      id: uuid.v4(),
+      player: null,
+      wins: 0
+    },
+    {
+      id: uuid.v4(),
+      player: null,
+      wins: 0
+    }
+  ],
+  season: null
+});
+
+export const isSubmitDisabled = (fields: RecordMatchFields): boolean => {
+  const { playerRecords } = fields;
+
+  const hasInvalidSeason = !fields.season;
+  const hasInvalidGameCount = playerRecords.reduce((total, record) => total + record.wins, 0) <= 0;
+  const hasInvalidPlayers = playerRecords.some((record) => !record.player || record.wins < 0);
+
+  return hasInvalidSeason || hasInvalidGameCount || hasInvalidPlayers;
+};
 
 const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentProps> = ({
   activeSeasons,
