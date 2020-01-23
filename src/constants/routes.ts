@@ -10,5 +10,5 @@ export const ROUTES: Routes = {
 };
 
 export const ADMIN_ROUTES: string[] = [ROUTES.SEASON_PAGE];
-export const USER_ROUTES: string[] = [ROUTES.HOME_PAGE];
-export const LOGGED_IN_ROUTES: string[] = [...ADMIN_ROUTES, ...USER_ROUTES];
+export const USER_ROUTES: string[] = [ROUTES.HOME_PAGE, ROUTES.GETTING_STARTED];
+export const CONTAINER_ROUTES: string[] = [ROUTES.SEASON_PAGE, ROUTES.HOME_PAGE];

@@ -8,7 +8,7 @@ import ProtectedContent from "components/Navigation/ProtectedContent";
 
 import { User } from "models/User";
 
-import { USER_ROUTES, ADMIN_ROUTES, LOGGED_IN_ROUTES } from "constants/routes";
+import { USER_ROUTES, ADMIN_ROUTES, CONTAINER_ROUTES } from "constants/routes";
 
 interface NavigationViewActions {
   requestLogout: React.MouseEventHandler<HTMLButtonElement>;
@@ -34,7 +34,7 @@ const NavigationView = ({
 }: NavigationViewProps): React.FunctionComponentElement<NavigationViewProps> => (
   <React.Fragment>
     <Route
-      path={LOGGED_IN_ROUTES}
+      path={CONTAINER_ROUTES}
       render={(props: RouteComponentProps) => (
         <Header
           history={props.history}
@@ -73,7 +73,7 @@ const NavigationView = ({
       />
       <Route render={() => children} />
     </Switch>
-    <Route path={LOGGED_IN_ROUTES} component={Footer} />
+    <Route path={CONTAINER_ROUTES} component={Footer} />
     <Mask show={showMask} />
   </React.Fragment>
 );
