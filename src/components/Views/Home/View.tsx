@@ -3,10 +3,14 @@ import { RouteComponentProps } from "react-router";
 
 import PlayerRecordList from "components/Views/Home/PlayerRecordList";
 import Fab from "components/Common/Fab";
+import Dropdown from "components/Form/Dropdown";
 import Modal from "components/Common/Modal";
 import RecordMatchModalContent from "components/Views/Home/RecordMatch";
 import useDataFetch from "components/Hooks/useDataFetch";
 
+import * as seasonMapper from "mappers/seasons";
+
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { Player } from "models/Player";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
@@ -49,7 +53,17 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   return (
     <div className="home-view">
-      <PlayerRecordList isRequestLoading={areRecordsLoading} players={players} user={user} />
+      <div className="content">
+        <Dropdown
+          className="season-switcher"
+          selectHandler={(value: DropdownOption) => {
+            console.log(value.label);
+          }}
+          options={seasons.map(seasonMapper.toOption)}
+          placeholder="Select match season..."
+        />
+        <PlayerRecordList isRequestLoading={areRecordsLoading} players={players} user={user} />
+      </div>
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()}>
         <i className="fas fa-plus" />
       </Fab>

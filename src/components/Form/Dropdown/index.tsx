@@ -10,6 +10,8 @@ import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import "./styles.scss";
 
 interface DropdownProps {
+  className?: string;
+  heightLimit?: number;
   label?: string;
   options: DropdownOption[];
   placeholder?: string;
@@ -17,6 +19,8 @@ interface DropdownProps {
 }
 
 const Dropdown = ({
+  className,
+  heightLimit,
   label,
   options,
   placeholder,
@@ -47,14 +51,16 @@ const Dropdown = ({
   useOnClickOutside(reference, () => setShowDropdown(false));
 
   return (
-    <div ref={reference} className="form-dropdown">
+    <div ref={reference} className={classNames("form-dropdown", className)}>
       <button className="btn-dropdown-toggle" type="button" onClick={handleToggle}>
         {selectedOption}
+        {showDropdown ? <i className="fas fa-caret-up" /> : <i className="fas fa-caret-down" />}
       </button>
       <div className={classNames("dropdown-options-wrapper", { show: showDropdown })}>
         <DropdownOptions
           handleSelect={handleSelect}
           hasLabel={!!label}
+          heightLimit={heightLimit}
           isEmptyResult={isEmptyResult}
           options={options}
           show={showDropdown}

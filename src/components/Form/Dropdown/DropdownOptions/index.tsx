@@ -9,17 +9,23 @@ interface DropdownOptionsProps {
   handleSelect: Function;
   hasLabel: boolean;
   isEmptyResult: boolean;
+  heightLimit?: number;
   options: DropdownOption[];
   show: boolean;
 }
 
-const buildStyles = (show: boolean, isEmptyResult: boolean, count: number): { height: string } => {
+const buildStyles = (
+  show: boolean,
+  isEmptyResult: boolean,
+  count: number,
+  heightLimit: number
+): { height: string } => {
   let height = "0";
 
   if (show && isEmptyResult) {
-    height = "32px";
+    height = `${heightLimit}px`;
   } else if (show) {
-    height = `${count * 32}px`;
+    height = `${count * heightLimit}px`;
   }
 
   return { height };
@@ -29,12 +35,18 @@ const DropdownOptions = ({
   handleSelect,
   hasLabel,
   isEmptyResult,
+  heightLimit,
   options,
   show
 }: DropdownOptionsProps): React.FunctionComponentElement<DropdownOptionsProps> => (
   <ul
-    className={classNames("dropdown-options", { "has-label": hasLabel }, { show })}
-    style={buildStyles(show, isEmptyResult, options.length)}
+    className={classNames(
+      "dropdown-options",
+      { "has-label": hasLabel },
+      { show },
+      { maxHeight: !heightLimit }
+    )}
+    style={heightLimit ? buildStyles(show, isEmptyResult, options.length, heightLimit) : null}
   >
     {options.length ? (
       options.map((option, index) => (

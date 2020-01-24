@@ -89,6 +89,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     <form className="record-match-modal" onSubmit={handleSubmit}>
       <div className="record-season">
         <Dropdown
+          heightLimit={32}
           selectHandler={handleSelectSeason}
           key="season"
           options={activeSeasons.map(seasonMapper.toOption)}
