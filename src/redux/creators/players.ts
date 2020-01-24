@@ -23,12 +23,7 @@ import * as userMapper from "mappers/user";
 import * as playerMapper from "mappers/players";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
-import {
-  DOMAIN_ERROR_FORM_GETTING_STARTED,
-  VIEW_ERROR_FORM_GETTING_STARTED,
-  DOMAIN_ERROR_GENERAL,
-  VIEW_ERROR_GENERAL
-} from "constants/errors";
+import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
   type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
@@ -49,7 +44,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
     users: { current }
   } = getState() as RootState;
 
-  dispatch(emitResetError(DOMAIN_ERROR_FORM_GETTING_STARTED, VIEW_ERROR_FORM_GETTING_STARTED));
+  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
@@ -62,13 +57,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   const data = await playerService.create(body);
 
   if (data.error) {
-    dispatch(
-      emitRequestError(
-        DOMAIN_ERROR_FORM_GETTING_STARTED,
-        VIEW_ERROR_FORM_GETTING_STARTED,
-        data.error.message
-      )
-    );
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
       type: EMIT_CREATE_PLAYER_SUCCESS

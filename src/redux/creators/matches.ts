@@ -8,10 +8,10 @@ import * as matchService from "services/match";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 
-import { DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH } from "constants/errors";
+import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 export const requestCreateMatch = (details: RecordMatchFields) => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH));
+  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
 
@@ -27,7 +27,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
 
   if (data.error) {
     dispatch(
-      emitRequestError(DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH, data.error.message)
+      emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message)
     );
   } else {
     dispatch({

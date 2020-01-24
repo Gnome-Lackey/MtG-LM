@@ -1,34 +1,39 @@
-import * as React from 'react';
+import * as React from "react";
 import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import NavigationView from "components/Navigation/View";
 
-import {
-  requestLogout,
-  requestValidation
-} from "redux/creators/auth";
+import { emitResetError } from "redux/creators/errors";
+import { requestLogout, requestValidation } from "redux/creators/auth";
 
 import { RootState } from "redux/models/RootState";
-import { User } from 'models/User';
+import { ErrorState } from "redux/models/ErrorState";
+import { User } from "models/User";
 
 interface NavigationProps {
   children: React.FunctionComponent<any>;
+  errors: ErrorState;
   loggingOut: boolean;
   showMask: boolean;
   user: User;
   validated: boolean;
-};
+}
 
 interface NavigationActions {
   actions: {
+    emitResetError: Function;
     requestLogout: Function;
     requestValidation: Function;
   };
-};
+}
 
-const mapStateToProps = (state: RootState, ownProps: React.ComponentProps<any>): NavigationProps => ({
+const mapStateToProps = (
+  state: RootState,
+  ownProps: React.ComponentProps<any>
+): NavigationProps => ({
   children: ownProps.children,
+  errors: state.errors,
   loggingOut: state.auth.loggingOut,
   showMask: state.application.showMask,
   user: state.users.current,
@@ -38,6 +43,7 @@ const mapStateToProps = (state: RootState, ownProps: React.ComponentProps<any>):
 const mapDispatchToProps = (dispatch: Dispatch): NavigationActions => ({
   actions: bindActionCreators(
     {
+      emitResetError,
       requestLogout,
       requestValidation
     },
@@ -45,7 +51,4 @@ const mapDispatchToProps = (dispatch: Dispatch): NavigationActions => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavigationView);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationView);
