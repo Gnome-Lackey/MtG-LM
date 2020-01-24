@@ -35,20 +35,12 @@ export const login = async (userName: string, password: string): Promise<LoginRe
   const accessToken = response.headers.get(AMAZON_AXT_HEADER);
   const idToken = response.headers.get(AMAZON_ID_HEADER);
 
-  if (accessToken && idToken) {
-    sessionStorage.setItem(AXT, accessToken);
-    sessionStorage.setItem(IDT, idToken);
+  sessionStorage.setItem(AXT, accessToken);
+  sessionStorage.setItem(IDT, idToken);
 
-    const data = response.body;
+  const data = response.body;
 
-    return data as LoginResponse;
-  }
-
-  return {
-    user: null,
-    headers: null,
-    error: { name: "unauthorized", message: "You are not authorized to access this endpoint." }
-  };
+  return data as LoginResponse;
 };
 
 export const logout = async (): Promise<AuthResponse> => {

@@ -11,13 +11,13 @@ import useFormData from "components/Hooks/useFormData";
 import useErrorMessage from "components/Hooks/useErrorMessage";
 
 import { ErrorState } from "redux/models/ErrorState";
+import { User } from "models/User";
 
-import { DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN } from "constants/errors";
+import { DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN } from "constants/errors";
 import { VALIDATION_REQUIRED } from "constants/validations";
 import { ROUTES } from "constants/routes";
 
 import "./styles.scss";
-import { User } from "models/User";
 
 interface LoginViewActions {
   emitResetError: Function;
@@ -46,7 +46,12 @@ const LoginView = ({
   useNavigator(confirmationNeeded, ROUTES.VERIFICATION_PAGE, history.push);
   useNavigator(user, isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE, history.push);
 
-  const errorMessage = useErrorMessage(DOMAIN_ERROR_AUTH, VIEW_ERROR_LOGIN, errors, emitResetError);
+  const errorMessage = useErrorMessage(
+    DOMAIN_ERROR_AUTH,
+    VIEW_ERROR_FORM_LOGIN,
+    errors,
+    emitResetError
+  );
 
   const { values, invalidations, updateValues, updateInvalidations } = useFormData({
     userName,

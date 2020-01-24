@@ -8,7 +8,7 @@ import { emitToggleRecordMatchModal } from "redux/creators/application";
 import {
   emitClearPlayerResultsForRecord,
   requestGetPlayers,
-  requestQueryPlayersForRecord
+  requestQueryPlayersForRecordMatch
 } from "redux/creators/players";
 import { requestCreateMatch } from "redux/creators/matches";
 import { requestGetActiveSeasons } from "redux/creators/seasons";
@@ -36,7 +36,7 @@ interface HomeViewActions {
     requestCreateMatch: Function;
     requestGetActiveSeasons: Function;
     requestGetPlayers: Function;
-    requestQueryPlayersForRecord: Function;
+    requestQueryPlayersForRecordMatch: Function;
   };
 }
 
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
       requestCreateMatch,
       requestGetActiveSeasons,
       requestGetPlayers,
-      requestQueryPlayersForRecord
+      requestQueryPlayersForRecordMatch
     },
     dispatch
   )

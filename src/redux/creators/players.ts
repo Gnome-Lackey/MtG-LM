@@ -10,7 +10,7 @@ import {
   EMIT_LOADING_PLAYERS
 } from "redux/actions/players";
 
-import { emitResetError } from "redux/creators/errors";
+import { emitResetError, emitRequestError } from "redux/creators/errors";
 import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
 
 import { RootState } from "redux/models/RootState";
@@ -23,7 +23,12 @@ import * as userMapper from "mappers/user";
 import * as playerMapper from "mappers/players";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
-import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
+import {
+  DOMAIN_ERROR_FORM_GETTING_STARTED,
+  VIEW_ERROR_FORM_GETTING_STARTED,
+  DOMAIN_ERROR_GENERAL,
+  VIEW_ERROR_GENERAL
+} from "constants/errors";
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
   type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
@@ -44,7 +49,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
     users: { current }
   } = getState() as RootState;
 
-  dispatch(emitResetError(DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE));
+  dispatch(emitResetError(DOMAIN_ERROR_FORM_GETTING_STARTED, VIEW_ERROR_FORM_GETTING_STARTED));
 
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
@@ -54,11 +59,21 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   body.epithet = details.epithet;
   body.favoriteColors = details.favoriteCard.colors;
 
-  await playerService.create(body);
+  const data = await playerService.create(body);
 
-  dispatch({
-    type: EMIT_CREATE_PLAYER_SUCCESS
-  });
+  if (data.error) {
+    dispatch(
+      emitRequestError(
+        DOMAIN_ERROR_FORM_GETTING_STARTED,
+        VIEW_ERROR_FORM_GETTING_STARTED,
+        data.error.message
+      )
+    );
+  } else {
+    dispatch({
+      type: EMIT_CREATE_PLAYER_SUCCESS
+    });
+  }
 
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
@@ -69,7 +84,7 @@ export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch:
   const data = await playerService.query();
 
   if (data.error) {
-    // TODO: Handle error
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
       type: EMIT_GET_PLAYERS_SUCCESS,
@@ -82,7 +97,7 @@ export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch:
   dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, false));
 };
 
-export const requestQueryPlayersForRecord = (searchId: string, query: string) => async (
+export const requestQueryPlayersForRecordMatch = (searchId: string, query: string) => async (
   dispatch: Function
 ) => {
   dispatch({
@@ -98,17 +113,13 @@ export const requestQueryPlayersForRecord = (searchId: string, query: string) =>
     name: query
   });
 
-  if (data.error) {
-    // Handle Error
-  } else {
-    dispatch({
-      type: EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
-      payload: {
-        playerSearchId: searchId,
-        players: data
-      }
-    });
-  }
+  dispatch({
+    type: EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
+    payload: {
+      playerSearchId: searchId,
+      players: data.error ? [] : data
+    }
+  });
 
   dispatch({
     type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
@@ -132,16 +143,12 @@ export const requestQueryPlayers = (query: string) => async (dispatch: Function)
     name: query
   });
 
-  if (data.error) {
-    // Handle Error
-  } else {
-    dispatch({
-      type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-      payload: {
-        players: data
-      }
-    });
-  }
+  dispatch({
+    type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+    payload: {
+      players: data.error ? [] : data
+    }
+  });
 
   dispatch({
     type: EMIT_SEARCHING_FOR_PLAYERS,

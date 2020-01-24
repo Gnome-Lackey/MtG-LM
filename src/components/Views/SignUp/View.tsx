@@ -17,7 +17,7 @@ import { ErrorState } from "redux/models/ErrorState";
 
 import { VALIDATION_REQUIRED } from "constants/validations";
 import { ROUTES } from "constants/routes";
-import { DOMAIN_ERROR_AUTH, VIEW_ERROR_SIGN_UP } from "constants/errors";
+import { DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP } from "constants/errors";
 
 import "./styles.scss";
 
@@ -46,7 +46,7 @@ const SignUpView = ({
 
   const errorMessage = useErrorMessage(
     DOMAIN_ERROR_AUTH,
-    VIEW_ERROR_SIGN_UP,
+    VIEW_ERROR_FORM_SIGN_UP,
     errors,
     emitResetError
   );

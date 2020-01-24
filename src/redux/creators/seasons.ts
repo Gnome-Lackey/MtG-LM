@@ -7,7 +7,7 @@ import {
   EMIT_GET_ACTIVE_SEASONS
 } from "redux/actions/seasons";
 
-import { emitResetError } from "redux/creators/errors";
+import { emitResetError, emitRequestError } from "redux/creators/errors";
 import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
@@ -17,11 +17,16 @@ import * as seasonService from "services/season";
 import * as seasonMapper from "mappers/seasons";
 
 import { SeasonAction } from "redux/models/SeasonAction";
+import { RootState } from "redux/models/RootState";
 import { Season } from "models/Season";
 
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
-import { DOMAIN_ERROR_SEASON_CREATE, VIEW_ERROR_SEASON_CREATE } from "constants/errors";
-import { RootState } from "redux/models/RootState";
+import {
+  DOMAIN_ERROR_FORM_SEASON,
+  VIEW_ERROR_FORM_SEASON,
+  DOMAIN_ERROR_GENERAL,
+  VIEW_ERROR_GENERAL
+} from "constants/errors";
 
 export const emitSelectSeason = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON,
@@ -33,7 +38,7 @@ export const emitDeselectSeason = (): SeasonAction => ({
 });
 
 export const requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_SEASON_CREATE, VIEW_ERROR_SEASON_CREATE));
+  dispatch(emitResetError(DOMAIN_ERROR_FORM_SEASON, VIEW_ERROR_FORM_SEASON));
 
   dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
@@ -41,7 +46,9 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
   const data = await seasonService.create(body);
 
   if (data.error) {
-    // TODO: Handle error
+    dispatch(
+      emitRequestError(DOMAIN_ERROR_FORM_SEASON, VIEW_ERROR_FORM_SEASON, data.error.message)
+    );
   } else {
     dispatch({
       type: EMIT_CREATE_SEASON_SUCCESS,
@@ -62,7 +69,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
     seasons: { list }
   }: RootState = getState();
 
-  dispatch(emitResetError(DOMAIN_ERROR_SEASON_CREATE, VIEW_ERROR_SEASON_CREATE));
+  dispatch(emitResetError(DOMAIN_ERROR_FORM_SEASON, VIEW_ERROR_FORM_SEASON));
 
   dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
@@ -70,7 +77,9 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
   const data = await seasonService.update(id, body);
 
   if (data.error) {
-    // TODO: Handle error
+    dispatch(
+      emitRequestError(DOMAIN_ERROR_FORM_SEASON, VIEW_ERROR_FORM_SEASON, data.error.message)
+    );
   } else {
     const updatedSeasons = list.filter((season) => season.id !== data.id);
     const updatedSeason = seasonMapper.toSeason(data);
@@ -95,7 +104,7 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   const data = await seasonService.getAllDetails();
 
   if (data.error) {
-    // TODO: Handle error
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,
@@ -116,7 +125,7 @@ export const requestGetActiveSeasons = () => async (dispatch: Function) => {
   });
 
   if (data.error) {
-    // TODO: Handle error
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,

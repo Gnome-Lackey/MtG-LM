@@ -20,7 +20,7 @@ interface HomeViewActions {
   requestCreateMatch: Function;
   requestGetActiveSeasons: Function;
   requestGetPlayers: Function;
-  requestQueryPlayersForRecord: Function;
+  requestQueryPlayersForRecordMatch: Function;
 }
 
 interface HomeViewProps extends RouteComponentProps {
@@ -66,7 +66,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
             clearHandler={actions.emitClearPlayerResultsForRecord}
             isRequestLoading={isMatchRequestLoading}
             playerSearchResultsMap={playerSearchResultsMap}
-            searchHandler={actions.requestQueryPlayersForRecord}
+            searchHandler={actions.requestQueryPlayersForRecordMatch}
             submitHandler={actions.requestCreateMatch}
           />
         </Modal>

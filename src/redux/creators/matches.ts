@@ -1,16 +1,17 @@
-import { emitResetError } from "redux/creators/errors";
+import { EMIT_CREATE_MATCH_SUCCESS, EMIT_UPDATE_LOADING_MATCHES } from "redux/actions/match";
+
+import { emitResetError, emitRequestError } from "redux/creators/errors";
 import { requestGetPlayers } from "redux/creators/players";
+import { emitRequestLoading } from "redux/creators/application";
 
 import * as matchService from "services/match";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 
-import { DOMAIN_ERROR_RECORD_MATCH, VIEW_ERROR_MATCH_CREATE } from "constants/errors";
-import { EMIT_CREATE_MATCH_SUCCESS, EMIT_UPDATE_LOADING_MATCHES } from "redux/actions/match";
-import { emitRequestLoading } from "./application";
+import { DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH } from "constants/errors";
 
 export const requestCreateMatch = (details: RecordMatchFields) => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_RECORD_MATCH, VIEW_ERROR_MATCH_CREATE));
+  dispatch(emitResetError(DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH));
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
 
@@ -22,13 +23,19 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
     season: details.season.key
   };
 
-  await matchService.create(body);
+  const data = await matchService.create(body);
 
-  dispatch({
-    type: EMIT_CREATE_MATCH_SUCCESS
-  });
+  if (data.error) {
+    dispatch(
+      emitRequestError(DOMAIN_ERROR_FORM_RECORD_MATCH, VIEW_ERROR_FORM_MATCH, data.error.message)
+    );
+  } else {
+    dispatch({
+      type: EMIT_CREATE_MATCH_SUCCESS
+    });
 
-  dispatch(requestGetPlayers(true));
+    dispatch(requestGetPlayers(true));
+  }
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
 };

@@ -17,7 +17,10 @@ import { Card } from "models/Scryfall";
 import { User } from "models/User";
 
 import { ROUTES } from "constants/routes";
-import { DOMAIN_ERROR_GETTING_STARTED, VIEW_ERROR_GETTING_STARTED_CREATE } from "constants/errors";
+import {
+  DOMAIN_ERROR_FORM_GETTING_STARTED,
+  VIEW_ERROR_FORM_GETTING_STARTED
+} from "constants/errors";
 
 import "./styles.scss";
 
@@ -85,8 +88,8 @@ const GettingStartedView = ({
   });
 
   const errorMessage = useErrorMessage(
-    DOMAIN_ERROR_GETTING_STARTED,
-    VIEW_ERROR_GETTING_STARTED_CREATE,
+    DOMAIN_ERROR_FORM_GETTING_STARTED,
+    VIEW_ERROR_FORM_GETTING_STARTED,
     errors,
     actions.emitResetError
   );
