@@ -77,7 +77,7 @@ $menuItemHeight: 50px;
       }
 
       &.title {
-        background-color: $colorWhite;
+        background-color: $colorGray;
         color: $colorGrayDarkest;
         padding: 13px 0 13px calc(#{$menuItemPadding} * 2);
         width: calc(100% - #{$menuItemPadding} * 2);
