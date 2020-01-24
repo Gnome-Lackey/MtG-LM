@@ -15,7 +15,7 @@ $snackbarPaddingRight: 10px;
   justify-content: space-between;
   left: calc(50vw - #{$snackbarPaddingLeft} - #{$snackbarPaddingRight} - #{$snackbarWidth} / 2);
   padding: 0 $snackbarPaddingRight 0 $snackbarPaddingLeft;
-  position: absolute;
+  position: fixed;
   transition: bottom 0.5s ease-in-out;
   width: $snackbarWidth;
   z-index: $zLayerThree;
