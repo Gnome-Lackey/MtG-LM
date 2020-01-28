@@ -63,10 +63,10 @@ export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;
 
 const seasonUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/seasons",
-  dev: "https://8v5oo90j9j.execute-api.us-east-1.amazonaws.com/dev/seasons"
+  dev: "https://2rsi2w9ak4.execute-api.us-east-1.amazonaws.com/dev/seasons"
 };
 
 export const SEASON_BASE_URL: string = seasonUrlMap[environment];
 
-export const SEASON_GET_ALL_DETAILS = `${SEASON_BASE_URL}/details`;
-export const SEASON_GET_CURRENT = `${SEASON_BASE_URL}/current`;
+export const SEASON_GET_DETAILS = `${SEASON_BASE_URL}/details`;
+export const SEASON_GET_CURRENT_DETAILS = `${SEASON_BASE_URL}/details/current`;
