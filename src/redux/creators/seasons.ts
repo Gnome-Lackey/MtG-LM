@@ -4,7 +4,8 @@ import {
   EMIT_SELECTED_SEASON,
   EMIT_DESELECTED_SEASON,
   EMIT_UPDATED_SEASON_SUCCESS,
-  EMIT_GET_ACTIVE_SEASONS
+  EMIT_GET_ACTIVE_SEASONS,
+  EMIT_GET_SEASON_SUCCESS
 } from "redux/actions/seasons";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -25,7 +26,7 @@ import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 export const emitSelectSeason = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON,
-  payload: { selectedSeason: season }
+  payload: { season }
 });
 
 export const emitDeselectSeason = (): SeasonAction => ({
@@ -80,13 +81,51 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
     dispatch({
       type: EMIT_UPDATED_SEASON_SUCCESS,
       payload: {
-        selectedSeason: data,
+        season: data,
         seasons: updatedSeasons
       }
     });
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
+};
+
+export const requestGetCurrentSeason = () => async (dispatch: Function) => {
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+
+  const data = await seasonService.getCurrent();
+
+  if (data.error) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  } else {
+    dispatch({
+      type: EMIT_GET_SEASON_SUCCESS,
+      payload: {
+        season: data
+      }
+    });
+  }
+
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
+};
+
+export const requestGetSeason = (id: string) => async (dispatch: Function) => {
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+
+  const data = await seasonService.get(id);
+
+  if (data.error) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  } else {
+    dispatch({
+      type: EMIT_GET_SEASON_SUCCESS,
+      payload: {
+        season: data
+      }
+    });
+  }
+
+  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
 };
 
 export const requestGetSeasons = () => async (dispatch: Function) => {

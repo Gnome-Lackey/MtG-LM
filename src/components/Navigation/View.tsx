@@ -47,6 +47,8 @@ const NavigationView = ({
     actions.emitResetError
   );
 
+  const hasError = !!errorMessage;
+
   const handleSnackbarClose = (): void => {
     actions.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL);
   };
@@ -94,7 +96,7 @@ const NavigationView = ({
         <Route render={() => children} />
       </Switch>
       <Route path={CONTAINER_ROUTES} component={Footer} />
-      <Snackbar show={!!errorMessage} closeHandler={handleSnackbarClose}>
+      <Snackbar show={hasError} closeHandler={handleSnackbarClose}>
         {errorMessage}
       </Snackbar>
       <Mask show={showMask} />

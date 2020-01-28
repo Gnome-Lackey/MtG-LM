@@ -5,4 +5,35 @@
   display: flex;
   justify-content: center;
   min-height: $appContentMinHeight;
+
+  .season-switcher {
+    margin-top: 20px; 
+    max-width: unset;
+    width: 100%;
+  
+    .btn-dropdown-toggle {
+      font-size: 18px;
+      padding: 30px 40px;
+      text-align: center;
+      width: 100%;
+
+      .fa-caret-up,
+      .fa-caret-down {
+        font-size: 24px;
+        right: 40px;
+      }
+    }
+
+    .dropdown-options {
+      .btn-dropdown-option {
+        .label {
+          font-size: 16px;
+
+          .small {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
 }

@@ -23,26 +23,29 @@ interface RecordMatchModalContentProps {
   isRequestLoading: boolean;
   playerSearchResultsMap: PlayerSearchResultMap;
   searchHandler: Function;
+  selectedSeason: Season;
   submitHandler: Function;
 }
 
-export const buildInitialFormState = (): RecordMatchFields => ({
+const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
+  return selectedSeason
+    ? {
+        label: selectedSeason.set.name,
+        subLabel: selectedSeason.startedOn,
+        key: selectedSeason.id
+      }
+    : null;
+};
+
+const buildInitialFormState = (selectedSeasonOption: DropdownOption): RecordMatchFields => ({
   playerRecords: [
-    {
-      id: uuid.v4(),
-      player: null,
-      wins: 0
-    },
-    {
-      id: uuid.v4(),
-      player: null,
-      wins: 0
-    }
+    { id: uuid.v4(), player: null, wins: 0 },
+    { id: uuid.v4(), player: null, wins: 0 }
   ],
-  season: null
+  season: selectedSeasonOption
 });
 
-export const isSubmitDisabled = (fields: RecordMatchFields): boolean => {
+const isSubmitDisabled = (fields: RecordMatchFields): boolean => {
   const { playerRecords } = fields;
 
   const hasInvalidSeason = !fields.season;
@@ -58,9 +61,12 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   isRequestLoading,
   playerSearchResultsMap,
   searchHandler,
+  selectedSeason,
   submitHandler
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
-  const { values, updateValues } = useFormData(buildInitialFormState());
+  const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
+
+  const { values, updateValues } = useFormData(buildInitialFormState(initialDropdownValue));
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault();
@@ -89,10 +95,12 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     <form className="record-match-modal" onSubmit={handleSubmit}>
       <div className="record-season">
         <Dropdown
+          heightLimit={32}
           selectHandler={handleSelectSeason}
           key="season"
           options={activeSeasons.map(seasonMapper.toOption)}
           placeholder="Select match season..."
+          value={initialDropdownValue}
         />
       </div>
       <div className="record-players">

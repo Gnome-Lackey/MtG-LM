@@ -16,6 +16,12 @@
   width: 50px;
   z-index: $zLayerTwo;
 
+  &.disabled {
+    background-color: $colorGray;
+    color: $colorGrayLightest;
+    opacity: 0.85;
+  }
+
   &:focus {
     outline: none;
   }

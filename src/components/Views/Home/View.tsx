@@ -3,11 +3,14 @@ import { RouteComponentProps } from "react-router";
 
 import PlayerRecordList from "components/Views/Home/PlayerRecordList";
 import Fab from "components/Common/Fab";
+import Dropdown from "components/Form/Dropdown";
 import Modal from "components/Common/Modal";
 import RecordMatchModalContent from "components/Views/Home/RecordMatch";
 import useDataFetch from "components/Hooks/useDataFetch";
 
-import { Player } from "models/Player";
+import * as seasonMapper from "mappers/seasons";
+
+import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
@@ -19,38 +22,66 @@ interface HomeViewActions {
   emitToggleRecordMatchModal: Function;
   requestCreateMatch: Function;
   requestGetActiveSeasons: Function;
-  requestGetPlayers: Function;
+  requestGetCurrentSeason: Function;
+  requestGetSeason: Function;
   requestQueryPlayersForRecordMatch: Function;
 }
 
 interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
-  areRecordsLoading: boolean;
+  isLoadingSeason: boolean;
   isMatchRequestLoading: boolean;
-  players: Player[];
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
+  selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
 }
 
+const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
+  return selectedSeason
+    ? {
+        label: selectedSeason.set.name,
+        subLabel: selectedSeason.startedOn,
+        key: selectedSeason.id
+      }
+    : null;
+};
+
 const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
-  areRecordsLoading,
+  isLoadingSeason,
   isMatchRequestLoading,
-  players,
   playerSearchResultsMap,
   seasons,
+  selectedSeason,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
-  useDataFetch(!players.length, actions.requestGetPlayers);
+  useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
+
+  const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
+  const playerList = selectedSeason ? selectedSeason.players : [];
 
   return (
     <div className="home-view">
-      <PlayerRecordList isRequestLoading={areRecordsLoading} players={players} user={user} />
-      <Fab clickHandler={() => actions.emitToggleRecordMatchModal()}>
+      <div className="content">
+        <Dropdown
+          className="season-switcher"
+          selectHandler={(value: DropdownOption) => {
+            actions.requestGetSeason(value.key);
+          }}
+          options={seasons.map(seasonMapper.toOption)}
+          placeholder="Please select a season..."
+          value={initialDropdownValue}
+        />
+        <PlayerRecordList isRequestLoading={isLoadingSeason} players={playerList} user={user} />
+      </div>
+      <Fab
+        clickHandler={() => actions.emitToggleRecordMatchModal()}
+        disabled={isLoadingSeason || isMatchRequestLoading}
+      >
         <i className="fas fa-plus" />
       </Fab>
       {showRecordMatchModal ? (
@@ -68,6 +99,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
             playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecordMatch}
             submitHandler={actions.requestCreateMatch}
+            selectedSeason={selectedSeason}
           />
         </Modal>
       ) : null}

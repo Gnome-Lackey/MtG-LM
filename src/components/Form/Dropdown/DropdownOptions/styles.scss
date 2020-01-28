@@ -12,11 +12,16 @@
   margin: 0;
   opacity: 0;
   overflow-y: scroll;
-  padding: 10px 0 0;
+  padding: 0;
   position: absolute;
   top: 12px;
   transition: height 0.25s ease-in-out;
   width: 100%;
+
+  &.maxHeight {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+  }
 
   &.show {
     opacity: 1;
@@ -36,7 +41,7 @@
   .option {
     background-color: $colorWhite;
     margin: 0;
-    width: 100%
+    width: 100%;
   }
 
   .non-option {
@@ -50,8 +55,23 @@
   }
 
   .option {
+    background-color: $colorWhite;
+    padding: 10px 15px;
+
+    &:first-of-type {
+      padding: 15px 15px 10px;
+    }
+
+    &:last-of-type {
+      padding: 10px 15px 15px;
+    }
+
+    &:hover {
+      background-color: $colorGrayLighter;
+    }
+
     .btn-dropdown-option {
-      background-color: $colorWhite;
+      background-color: transparent;
       border: 0;
       cursor: pointer;
       font-size: 10px;
@@ -77,10 +97,6 @@
 
       &:focus {
         outline: none;
-      }
-
-      &:hover {
-        background-color: $colorGrayLighter;
       }
     }
   }
