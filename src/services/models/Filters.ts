@@ -5,5 +5,6 @@ export interface PlayerFilters {
 
 export interface SeasonFilters {
   active?: boolean;
+  recent?: boolean;
   startDate?: string;
 }

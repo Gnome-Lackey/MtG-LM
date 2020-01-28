@@ -69,3 +69,4 @@ const seasonUrlMap: DynamicStringMap = {
 export const SEASON_BASE_URL: string = seasonUrlMap[environment];
 
 export const SEASON_GET_ALL_DETAILS = `${SEASON_BASE_URL}/details`;
+export const SEASON_GET_CURRENT = `${SEASON_BASE_URL}/current`;
