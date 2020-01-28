@@ -5,7 +5,9 @@ import {
   EMIT_DESELECTED_SEASON,
   EMIT_UPDATED_SEASON_SUCCESS,
   EMIT_GET_ACTIVE_SEASONS,
-  EMIT_GET_SEASON_SUCCESS
+  EMIT_GET_SEASON_SUCCESS,
+  EMIT_GET_SEASON,
+  EMIT_GET_CURRENT_SEASONS
 } from "redux/actions/seasons";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -91,7 +93,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
 };
 
 export const requestGetCurrentSeason = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+  dispatch(emitRequestLoading(EMIT_GET_CURRENT_SEASONS, true));
 
   const data = await seasonService.getCurrent();
 
@@ -106,11 +108,11 @@ export const requestGetCurrentSeason = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
+  dispatch(emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
 };
 
 export const requestGetSeason = (id: string) => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+  dispatch(emitRequestLoading(EMIT_GET_SEASON, true));
 
   const data = await seasonService.get(id);
 
@@ -125,7 +127,7 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
+  dispatch(emitRequestLoading(EMIT_GET_SEASON, false));
 };
 
 export const requestGetSeasons = () => async (dispatch: Function) => {

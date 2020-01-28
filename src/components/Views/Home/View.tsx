@@ -29,6 +29,8 @@ interface HomeViewActions {
 
 interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
+  isLoadingActiveSeasons: boolean;
+  isLoadingCurrentSeason: boolean;
   isLoadingSeason: boolean;
   isMatchRequestLoading: boolean;
   playerSearchResultsMap: PlayerSearchResultMap;
@@ -50,6 +52,8 @@ const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
 
 const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
+  isLoadingActiveSeasons,
+  isLoadingCurrentSeason,
   isLoadingSeason,
   isMatchRequestLoading,
   playerSearchResultsMap,
@@ -63,6 +67,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
   const playerList = selectedSeason ? selectedSeason.players : [];
+  const showListSpinner = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
 
   return (
     <div className="home-view">
@@ -76,7 +81,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           placeholder="Please select a season..."
           value={initialDropdownValue}
         />
-        <PlayerRecordList isRequestLoading={isLoadingSeason} players={playerList} user={user} />
+        <PlayerRecordList isRequestLoading={showListSpinner} players={playerList} user={user} />
       </div>
       <Fab
         clickHandler={() => actions.emitToggleRecordMatchModal()}

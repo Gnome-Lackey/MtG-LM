@@ -1,7 +1,9 @@
 import { Season } from "models/Season";
 
 export interface SeasonState {
-  loading?: boolean;
+  getSeasonLoading?: boolean;
+  getCurrentSeasonLoading?: boolean;
+  getActiveSeasonsLoading?: boolean;
   list?: Season[];
   selected?: Season;
 }
