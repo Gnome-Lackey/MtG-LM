@@ -1,0 +1,35 @@
+{
+  "status": 200,
+  "data": {
+    "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+    "startedOn": "10/01/2019",
+    "players": [
+      {
+        "id": "123-1232-1232",
+        "email": "beautyInBlack@planeswalker.mtg",
+        "userName": "OfTheVeil",
+        "displayName": "Liliana Vess",
+        "colors": ["B"],
+        "epithet": "of the veil",
+        "totalLosses": 1,
+        "totalWins": 0,
+        "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+      },
+      {
+        "id": "223-1232-4323",
+        "email": "wiseman@planeswalker.mtg",
+        "userName": "MindSculpter",
+        "displayName": "Jace Beleran",
+        "colors": ["U"],
+        "epithet": "mind sculptor",
+        "totalLosses": 0,
+        "totalWins": 0,
+        "matches": []
+      }
+    ],
+    "set": {
+      "name": "Throne of Eldraine",
+      "code": "eld"
+    }
+  }
+}
