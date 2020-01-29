@@ -3,14 +3,11 @@ import { RouteComponentProps } from "react-router";
 
 import PlayerRecordList from "components/Views/Home/PlayerRecordList";
 import Fab from "components/Common/Fab";
-import Dropdown from "components/Form/Dropdown";
 import Modal from "components/Common/Modal";
 import RecordMatchModalContent from "components/Views/Home/RecordMatch";
+import SeasonSwitcher from "components/Views/Home/SeasonSwitcher";
 import useDataFetch from "components/Hooks/useDataFetch";
 
-import * as seasonMapper from "mappers/seasons";
-
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
@@ -40,16 +37,6 @@ interface HomeViewProps extends RouteComponentProps {
   user: User;
 }
 
-const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
-  return selectedSeason
-    ? {
-        label: selectedSeason.set.name,
-        subLabel: selectedSeason.startedOn,
-        key: selectedSeason.id
-      }
-    : null;
-};
-
 const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
   isLoadingActiveSeasons,
@@ -65,21 +52,16 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
 
-  const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
   const playerList = selectedSeason ? selectedSeason.players : [];
   const showListSpinner = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
 
   return (
     <div className="home-view">
       <div className="content">
-        <Dropdown
-          className="season-switcher"
-          selectHandler={(value: DropdownOption) => {
-            actions.requestGetSeason(value.key);
-          }}
-          options={seasons.map(seasonMapper.toOption)}
-          placeholder="Please select a season..."
-          value={initialDropdownValue}
+        <SeasonSwitcher
+          seasons={seasons}
+          selectedSeason={selectedSeason}
+          selectHandler={actions.requestGetSeason}
         />
         <PlayerRecordList isRequestLoading={showListSpinner} players={playerList} user={user} />
       </div>

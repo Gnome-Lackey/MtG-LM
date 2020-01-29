@@ -4,9 +4,9 @@ import { Player } from "models/Player";
 import { User } from "models/User";
 
 import PlayerRecordListItem from "components/Views/Home/PlayerRecordList/PlayerRecordListItem";
+import Spinner from "components/Common/Spinner";
 
 import "./styles.scss";
-import Spinner from "components/Common/Spinner";
 
 interface PlayerRecordListProps {
   isRequestLoading: boolean;
