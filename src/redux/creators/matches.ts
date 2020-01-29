@@ -1,8 +1,8 @@
 import { EMIT_CREATE_MATCH_SUCCESS, EMIT_UPDATE_LOADING_MATCHES } from "redux/actions/match";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
-import { requestGetPlayers } from "redux/creators/players";
 import { emitRequestLoading } from "redux/creators/application";
+import { requestGetSeason } from "redux/creators/seasons";
 
 import * as matchService from "services/match";
 
@@ -26,15 +26,10 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
   const data = await matchService.create(body);
 
   if (data.error) {
-    dispatch(
-      emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message)
-    );
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
-    dispatch({
-      type: EMIT_CREATE_MATCH_SUCCESS
-    });
-
-    dispatch(requestGetPlayers(true));
+    dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
+    dispatch(requestGetSeason(details.season.key));
   }
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
