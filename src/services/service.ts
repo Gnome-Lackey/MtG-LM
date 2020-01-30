@@ -24,7 +24,7 @@ async function fetchData(
     headers.append("Accept", "application/json");
     headers.append("Content-Type", "application/json");
 
-    const config: RequestInit = { method: options.method };
+    const config: RequestInit = { method: options.method, headers };
 
     if (options.body) config.body = options.body;
     if (options.useCredentials) config.credentials = "include";
