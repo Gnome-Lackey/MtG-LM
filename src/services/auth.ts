@@ -16,9 +16,7 @@ import {
 export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
   const response = await service.post(AUTH_SIGN_UP, { body: details });
 
-  const data = await response.body;
-
-  return data as AuthResponse;
+  return response.body as AuthResponse;
 };
 
 export const login = async (userName: string, password: string): Promise<LoginResponse> => {
@@ -45,9 +43,7 @@ export const logout = async (): Promise<AuthResponse> => {
   sessionStorage.removeItem(AXT);
   sessionStorage.removeItem(IDT);
 
-  const data = response.body;
-
-  return data as AuthResponse;
+  return response.body as AuthResponse;
 };
 
 export const confirm = async (
@@ -61,9 +57,7 @@ export const confirm = async (
 
   const response = await service.post(AUTH_CONFIRM, { body });
 
-  const data = response.body;
-
-  return data as AuthResponse;
+  return response.body as AuthResponse;
 };
 
 export const resendCode = async (userName: string): Promise<AuthResponse> => {
@@ -73,9 +67,7 @@ export const resendCode = async (userName: string): Promise<AuthResponse> => {
 
   const response = await service.post(AUTH_RESEND_CODE, { body });
 
-  const data = response.body;
-
-  return data as AuthResponse;
+  return response.body as AuthResponse;
 };
 
 export const validate = async (): Promise<AuthResponse> => {
@@ -83,7 +75,5 @@ export const validate = async (): Promise<AuthResponse> => {
     useAccessToken: true
   });
 
-  const data = response.body;
-
-  return data as AuthResponse;
+  return response.body as AuthResponse;
 };

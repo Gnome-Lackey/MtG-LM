@@ -11,9 +11,7 @@ import { PLAYER_BASE_URL } from "constants/services";
 export const create = async (body: CreatePlayerNode): Promise<PlayerResponse> => {
   const response = await service.post(PLAYER_BASE_URL, { body });
 
-  const data = await response.body;
-
-  return data as PlayerResponse;
+  return response.body as PlayerResponse;
 };
 
 export const query = async (filters?: PlayerFilters): Promise<PlayerResponse> => {
@@ -21,7 +19,5 @@ export const query = async (filters?: PlayerFilters): Promise<PlayerResponse> =>
 
   const response = await service.get(url);
 
-  const data = await response.body;
-
-  return data as PlayerResponse;
+  return response.body as PlayerResponse;
 };

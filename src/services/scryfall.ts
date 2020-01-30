@@ -7,9 +7,7 @@ import { SCRYFALL_RANDOM_CARD, SCRYFALL_SETS, SCRYFALL_CARDS } from "constants/s
 export const fetchCard = async (url: string): Promise<ScryfallCardResponse> => {
   const response = await service.get(url);
 
-  const data = await response.body;
-
-  return data as ScryfallCardResponse;
+  return response.body as ScryfallCardResponse;
 };
 
 export const getCard = async (id: string): Promise<ScryfallCardResponse> => {
@@ -33,7 +31,5 @@ export const getRandomCard = async (query: string): Promise<ScryfallCardResponse
 export const getSet = async (code: string): Promise<ScryfallSetResponse> => {
   const response = await service.get(`${SCRYFALL_SETS}/${code}`);
 
-  const data = await response.body;
-
-  return data as ScryfallSetResponse;
+  return response.body as ScryfallSetResponse;
 };

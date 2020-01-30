@@ -9,7 +9,5 @@ import { MATCH_BASE_URL } from "constants/services";
 export const create = async (body: CreateMatchBody): Promise<MatchResponse> => {
   const response = await service.post(MATCH_BASE_URL, { body });
 
-  const data = await response.body;
-
-  return data as MatchResponse;
+  return response.body as MatchResponse;
 };
