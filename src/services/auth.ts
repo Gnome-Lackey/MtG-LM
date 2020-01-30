@@ -14,7 +14,7 @@ import {
 } from "constants/services";
 
 export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
-  const response = await service.post(AUTH_SIGN_UP, details);
+  const response = await service.post(AUTH_SIGN_UP, { body: details });
 
   const data = await response.body;
 
@@ -22,15 +22,9 @@ export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
 };
 
 export const login = async (userName: string, password: string): Promise<LoginResponse> => {
-  const headers = new Headers();
-
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
-
   const body = { userName, password };
 
-  const response = await service.post(AUTH_LOGIN, body, headers);
+  const response = await service.post(AUTH_LOGIN, { body });
 
   const accessToken = response.headers.get(AMAZON_AXT_HEADER);
   const idToken = response.headers.get(AMAZON_ID_HEADER);
@@ -44,16 +38,9 @@ export const login = async (userName: string, password: string): Promise<LoginRe
 };
 
 export const logout = async (): Promise<AuthResponse> => {
-  const headers = new Headers();
-
-  const token = sessionStorage.getItem(AXT);
-
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
-
-  const response = await service.post(AUTH_LOGOUT, undefined, headers);
+  const response = await service.post(AUTH_LOGOUT, {
+    useAccessToken: true
+  });
 
   sessionStorage.removeItem(AXT);
   sessionStorage.removeItem(IDT);
@@ -67,10 +54,12 @@ export const confirm = async (
   userName: string,
   verificationCode: string
 ): Promise<AuthResponse> => {
-  const response = await service.post(AUTH_CONFIRM, {
+  const body = {
     userName,
     verificationCode
-  });
+  };
+
+  const response = await service.post(AUTH_CONFIRM, { body });
 
   const data = response.body;
 
@@ -78,9 +67,11 @@ export const confirm = async (
 };
 
 export const resendCode = async (userName: string): Promise<AuthResponse> => {
-  const response = await service.post(AUTH_RESEND_CODE, {
+  const body = {
     userName
-  });
+  };
+
+  const response = await service.post(AUTH_RESEND_CODE, { body });
 
   const data = response.body;
 
@@ -88,16 +79,9 @@ export const resendCode = async (userName: string): Promise<AuthResponse> => {
 };
 
 export const validate = async (): Promise<AuthResponse> => {
-  const headers = new Headers();
-
-  const token = sessionStorage.getItem(AXT);
-
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
-
-  const response = await service.post(AUTH_VALIDATE, undefined, headers);
+  const response = await service.post(AUTH_VALIDATE, {
+    useAccessToken: true
+  });
 
   const data = response.body;
 

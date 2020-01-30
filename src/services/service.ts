@@ -10,18 +10,32 @@ import {
   TYPE_ERROR_NOT_FOUND,
   TYPE_ERROR_INTERNAL_ERROR
 } from "constants/errors";
+import { ServiceConfig, ServiceRequestConfig } from "./models/Service";
 
-async function fetchData(uri: string, options: RequestInit): Promise<MtglmServiceResponse> {
+async function fetchData(
+  uri: string,
+  headers: Headers,
+  options: ServiceRequestConfig
+): Promise<MtglmServiceResponse> {
   try {
-    const response = await fetch(uri, options);
-    const body = await response.json();
+    const token = sessionStorage.getItem(options.useAccessToken ? AXT : IDT);
 
-    const { data } = body;
+    headers.append("Authorization", token);
+    headers.append("Accept", "application/json");
+    headers.append("Content-Type", "application/json");
+
+    const config: RequestInit = { method: options.method };
+
+    if (options.body) config.body = options.body;
+    if (options.useCredentials) config.credentials = "include";
+
+    const response = await fetch(uri, config);
+    const responseBody = await response.json();
 
     return {
       headers: response.headers,
       status: response.status,
-      body: data
+      body: responseBody.data
     };
   } catch (err) {
     return {
@@ -70,40 +84,54 @@ const validateResponse = (response: MtglmServiceResponse): MtglmServiceResponse 
   return result;
 };
 
-const post = async (uri: string, body: object, headers?: Headers): Promise<MtglmServiceResponse> =>
-  validateResponse(
-    await fetchData(uri, {
+const post = async (uri: string, options: ServiceConfig): Promise<MtglmServiceResponse> => {
+  const headers = new Headers();
+
+  headers.append("Access-Control-Allow-Credentials", "true");
+
+  return validateResponse(
+    await fetchData(uri, headers, {
       method: "POST",
-      body: JSON.stringify(body),
-      headers,
-      credentials: "include"
+      body: JSON.stringify(options.body),
+      useCredentials: true,
+      useAccessToken: options.useAccessToken
     })
   );
+};
 
-const put = async (uri: string, body: object, headers?: Headers): Promise<MtglmServiceResponse> =>
-  validateResponse(
-    await fetchData(uri, {
+const put = async (uri: string, options: ServiceConfig): Promise<MtglmServiceResponse> => {
+  const headers = new Headers();
+
+  headers.append("Access-Control-Allow-Credentials", "true");
+
+  return validateResponse(
+    await fetchData(uri, headers, {
       method: "PUT",
-      body: JSON.stringify(body),
-      headers,
-      credentials: "include"
+      body: JSON.stringify(options.body),
+      useCredentials: true,
+      useAccessToken: options.useAccessToken
     })
   );
+};
 
-const get = async (uri: string, headers?: Headers): Promise<MtglmServiceResponse> =>
-  validateResponse(
-    await fetchData(uri, {
-      method: "GET",
-      headers
-    })
-  );
+const get = async (uri: string): Promise<MtglmServiceResponse> => {
+  const headers = new Headers();
 
-const remove = async (uri: string, headers?: Headers): Promise<MtglmServiceResponse> =>
-  validateResponse(
-    await fetchData(uri, {
-      method: "DELETE",
-      headers
+  return validateResponse(
+    await fetchData(uri, headers, {
+      method: "GET"
     })
   );
+};
+
+const remove = async (uri: string): Promise<MtglmServiceResponse> => {
+  const headers = new Headers();
+
+  return validateResponse(
+    await fetchData(uri, headers, {
+      method: "DELETE"
+    })
+  );
+};
 
 export default { post, put, get, remove };
