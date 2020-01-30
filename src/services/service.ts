@@ -18,9 +18,12 @@ async function fetchData(
   options: ServiceRequestConfig
 ): Promise<MtglmServiceResponse> {
   try {
-    const token = sessionStorage.getItem(options.useAccessToken ? AXT : IDT);
+    if (options.useToken) {
+      const token = sessionStorage.getItem(options.useAccessToken ? AXT : IDT);
 
-    headers.append("Authorization", token);
+      headers.append("Authorization", token);
+    }
+
     headers.append("Accept", "application/json");
     headers.append("Content-Type", "application/json");
 
@@ -94,7 +97,8 @@ const post = async (uri: string, options: ServiceConfig): Promise<MtglmServiceRe
       method: "POST",
       body: JSON.stringify(options.body),
       useCredentials: true,
-      useAccessToken: options.useAccessToken
+      useAccessToken: options.useAccessToken,
+      useToken: !options.noAuthorizationHeader
     })
   );
 };
@@ -109,27 +113,30 @@ const put = async (uri: string, options: ServiceConfig): Promise<MtglmServiceRes
       method: "PUT",
       body: JSON.stringify(options.body),
       useCredentials: true,
-      useAccessToken: options.useAccessToken
+      useAccessToken: options.useAccessToken,
+      useToken: !options.noAuthorizationHeader
     })
   );
 };
 
-const get = async (uri: string): Promise<MtglmServiceResponse> => {
+const get = async (uri: string, options?: ServiceConfig): Promise<MtglmServiceResponse> => {
   const headers = new Headers();
 
   return validateResponse(
     await fetchData(uri, headers, {
-      method: "GET"
+      method: "GET",
+      useToken: !options || !options.noAuthorizationHeader
     })
   );
 };
 
-const remove = async (uri: string): Promise<MtglmServiceResponse> => {
+const remove = async (uri: string, options?: ServiceConfig): Promise<MtglmServiceResponse> => {
   const headers = new Headers();
 
   return validateResponse(
     await fetchData(uri, headers, {
-      method: "DELETE"
+      method: "DELETE",
+      useToken: !options || !options.noAuthorizationHeader
     })
   );
 };

@@ -14,7 +14,7 @@ import {
 } from "constants/services";
 
 export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
-  const response = await service.post(AUTH_SIGN_UP, { body: details });
+  const response = await service.post(AUTH_SIGN_UP, { body: details, noAuthorizationHeader: true });
 
   return response.body as AuthResponse;
 };
@@ -22,7 +22,7 @@ export const signup = async (details: SignUpFields): Promise<AuthResponse> => {
 export const login = async (userName: string, password: string): Promise<LoginResponse> => {
   const body = { userName, password };
 
-  const response = await service.post(AUTH_LOGIN, { body });
+  const response = await service.post(AUTH_LOGIN, { body, noAuthorizationHeader: true });
 
   const accessToken = response.headers.get(AMAZON_AXT_HEADER);
   const idToken = response.headers.get(AMAZON_ID_HEADER);
