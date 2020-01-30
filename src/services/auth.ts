@@ -55,7 +55,7 @@ export const confirm = async (
     verificationCode
   };
 
-  const response = await service.post(AUTH_CONFIRM, { body });
+  const response = await service.post(AUTH_CONFIRM, { body, noAuthorizationHeader: true });
 
   return response.body as AuthResponse;
 };
@@ -65,7 +65,7 @@ export const resendCode = async (userName: string): Promise<AuthResponse> => {
     userName
   };
 
-  const response = await service.post(AUTH_RESEND_CODE, { body });
+  const response = await service.post(AUTH_RESEND_CODE, { body, noAuthorizationHeader: true });
 
   return response.body as AuthResponse;
 };
