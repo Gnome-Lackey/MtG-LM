@@ -30,14 +30,12 @@ const Dropdown = ({
 }: DropdownProps): React.FunctionComponentElement<DropdownProps> => {
   const reference = React.useRef();
 
-  const [selectedOptionText, setSelectedOptionText] = React.useState(placeholder || "");
+  const [selectedOption, setSelectedOption] = React.useState(null);
   const [showDropdown, setShowDropdown] = React.useState(false);
   const [isEmptyResult, setIsEmptyResult] = React.useState(false);
 
   const handleSelect = (option: DropdownOption): void => {
-    const text = option.subLabel ? `${option.label} (${option.subLabel})` : option.label;
-
-    setSelectedOptionText(text);
+    setSelectedOption(option);
     setShowDropdown(false);
     selectHandler(option);
   };
@@ -51,22 +49,30 @@ const Dropdown = ({
   }, [options]);
 
   React.useEffect(() => {
-    const shouldUpdateText = value && (!selectedOptionText || selectedOptionText === placeholder);
-
-    if (shouldUpdateText) {
-      const text = value.subLabel ? `${value.label} (${value.subLabel})` : value.label;
-
-      setSelectedOptionText(text);
+    if (value && value !== selectedOption) {
+      setSelectedOption(value);
     }
   }, [value]);
 
   useOnClickOutside(reference, () => setShowDropdown(false));
 
+  const icon =
+    selectedOption && selectedOption.icon ? (
+      <i className={`option-icon ${selectedOption.icon}`} />
+    ) : null;
+
+  const text = selectedOption ? selectedOption.label : placeholder;
+  const subtext = selectedOption ? `(${selectedOption.subLabel})` : "";
+
   return (
     <div ref={reference} className={classNames("form-dropdown", className)}>
       <button className="btn-dropdown-toggle" type="button" onClick={handleToggle}>
-        {selectedOptionText}
-        {showDropdown ? <i className="fas fa-caret-up" /> : <i className="fas fa-caret-down" />}
+        {icon}
+        <p className="label">
+          {text}
+          <span className="small">{subtext}</span>
+        </p>
+        <i className={`fas fa-caret-${showDropdown ? "up" : "down"}`} />
       </button>
       <div className={classNames("dropdown-options-wrapper", { show: showDropdown })}>
         <DropdownOptions

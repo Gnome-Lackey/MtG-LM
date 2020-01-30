@@ -10,40 +10,30 @@ import { Season } from "models/Season";
 import "./styles.scss";
 
 interface SeasonSwitcherProps {
-  selectHandler: Function;
   seasons: Season[];
   selectedSeason: Season;
+  selectHandler: Function;
 }
 
-const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
-  return selectedSeason
-    ? {
-        label: selectedSeason.set.name,
-        subLabel: selectedSeason.startedOn,
-        key: selectedSeason.id
-      }
-    : null;
-};
-
 const SeasonSwitcher: React.FunctionComponent<SeasonSwitcherProps> = ({
-  selectHandler,
   seasons,
-  selectedSeason
+  selectedSeason,
+  selectHandler
 }: SeasonSwitcherProps): React.FunctionComponentElement<SeasonSwitcherProps> => {
-  const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
+  const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
   const options = seasons.map(seasonMapper.toOption);
 
   return (
     <div className="season-switcher">
       <p className="season-switcher-title">Currently Active Season</p>
       <Dropdown
+        heightLimit={75}
         className="season-switcher-dropdown"
         selectHandler={(value: DropdownOption) => {
           selectHandler(value.key);
         }}
         options={options}
-        placeholder="Please select a season..."
-        value={initialDropdownValue}
+        value={selectedSeasonOption}
       />
     </div>
   );

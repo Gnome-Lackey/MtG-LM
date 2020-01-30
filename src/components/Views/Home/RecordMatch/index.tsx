@@ -27,16 +27,6 @@ interface RecordMatchModalContentProps {
   submitHandler: Function;
 }
 
-const buildInitialDropdownOption = (selectedSeason: Season): DropdownOption => {
-  return selectedSeason
-    ? {
-        label: selectedSeason.set.name,
-        subLabel: selectedSeason.startedOn,
-        key: selectedSeason.id
-      }
-    : null;
-};
-
 const buildInitialFormState = (selectedSeasonOption: DropdownOption): RecordMatchFields => ({
   playerRecords: [
     { id: uuid.v4(), player: null, wins: 0 },
@@ -64,9 +54,9 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   selectedSeason,
   submitHandler
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
-  const initialDropdownValue = buildInitialDropdownOption(selectedSeason);
+  const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
 
-  const { values, updateValues } = useFormData(buildInitialFormState(initialDropdownValue));
+  const { values, updateValues } = useFormData(buildInitialFormState(selectedSeasonOption));
 
   const handleSubmit = (ev: React.FormEvent): void => {
     ev.preventDefault();
@@ -95,12 +85,12 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
     <form className="record-match-modal" onSubmit={handleSubmit}>
       <div className="record-season">
         <Dropdown
-          heightLimit={32}
+          heightLimit={50}
           selectHandler={handleSelectSeason}
           key="season"
           options={activeSeasons.map(seasonMapper.toOption)}
           placeholder="Select match season..."
-          value={initialDropdownValue}
+          value={selectedSeasonOption}
         />
       </div>
       <div className="record-players">

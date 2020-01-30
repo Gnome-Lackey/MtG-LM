@@ -13,13 +13,13 @@ interface TypeAheadSearchOptionsProps {
   show: boolean;
 }
 
-const buildStyles = (show: boolean, isEmptyResult: boolean, count: number): { height: string } => {
+const buildStyles = (show: boolean, isEmptyResult: boolean): { height: string } => {
   let height = "0";
 
   if (show && isEmptyResult) {
     height = "35px";
   } else if (show) {
-    height = `${count * 35}px`;
+    height = "105px";
   }
 
   return { height };
@@ -34,16 +34,17 @@ const TypeAheadSearchOptions = ({
 }: TypeAheadSearchOptionsProps): React.FunctionComponentElement<TypeAheadSearchOptionsProps> => (
   <ul
     className={classNames("search-options", { "has-label": hasLabel }, { show })}
-    style={buildStyles(show, isEmptyResult, options.length)}
+    style={buildStyles(show, isEmptyResult)}
   >
     {options.length ? (
       options.map((option, index) => (
         <li key={option.key} className="option">
           <button
             type="button"
-            className={classNames("btn-type-ahead", { last: index === options.length - 1 })}
+            className={classNames("btn-type-ahead-option", { last: index === options.length - 1 })}
             onClick={() => handleSelect(option)}
           >
+            {option.icon ? <i className={`option-icon ${option.icon}`} /> : null}
             <p className="label">
               {option.label}
               {option.subLabel ? <span className="small">({option.subLabel})</span> : null}

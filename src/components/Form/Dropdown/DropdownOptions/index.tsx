@@ -17,15 +17,14 @@ interface DropdownOptionsProps {
 const buildStyles = (
   show: boolean,
   isEmptyResult: boolean,
-  count: number,
   heightLimit: number
 ): { height: string } => {
-  let height = "0";
+  let height = "0px";
 
   if (show && isEmptyResult) {
     height = `${heightLimit}px`;
   } else if (show) {
-    height = `${count * heightLimit}px`;
+    height = `${3 * heightLimit}px`;
   }
 
   return { height };
@@ -46,7 +45,7 @@ const DropdownOptions = ({
       { show },
       { maxHeight: !heightLimit }
     )}
-    style={heightLimit ? buildStyles(show, isEmptyResult, options.length, heightLimit) : null}
+    style={heightLimit ? buildStyles(show, isEmptyResult, heightLimit) : null}
   >
     {options.length ? (
       options.map((option, index) => (
@@ -56,6 +55,7 @@ const DropdownOptions = ({
             className={classNames("btn-dropdown-option", { last: index === options.length - 1 })}
             onClick={() => handleSelect(option)}
           >
+            {option.icon ? <i className={`option-icon ${option.icon}`} /> : null}
             <p className="label">
               {option.label}
               {option.subLabel ? <span className="small">({option.subLabel})</span> : null}

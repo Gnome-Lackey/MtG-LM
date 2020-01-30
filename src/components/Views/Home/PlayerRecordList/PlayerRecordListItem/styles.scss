@@ -4,9 +4,9 @@
   align-items: center;
   background-color: $colorWhite;
   display: inline-flex;
-  padding: 5px 10px;
   margin: 0;
-  width: calc(100% - 20px);
+  padding: 5px 30px;
+  width: calc(100% - 60px);
 
   &.user {
     background-color: $colorOrangeHighlight;
@@ -14,6 +14,7 @@
 
   .wins,
   .losses {
+    text-align: center;
     width: 30%;
   }
 

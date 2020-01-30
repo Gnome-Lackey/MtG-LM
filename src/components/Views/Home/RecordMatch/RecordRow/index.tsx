@@ -3,6 +3,8 @@ import * as React from "react";
 import TypeAhead from "components/Form/TypeAhead";
 import FormInput from "components/Form/Input";
 
+import * as playerMapper from "mappers/players";
+
 import { Player } from "models/Player";
 import { PlayerRecordFields } from "components/Hooks/useFormData/models/FormFields";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
@@ -38,11 +40,7 @@ const RecordRow: React.FunctionComponent<RecordRowProps> = ({
       );
 
       if (!playerSelectedAlready) {
-        options.push({
-          label: player.displayName,
-          key: player.id,
-          subLabel: player.userName
-        });
+        options.push(playerMapper.toOption(player));
       }
 
       return options;

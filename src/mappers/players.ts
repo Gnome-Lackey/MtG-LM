@@ -5,6 +5,7 @@ import { CreatePlayerNode } from "services/models/Nodes";
 export const toOption = (player: Player): TypeAheadOption => ({
   label: player.displayName,
   subLabel: player.userName,
+  icon: "fas fa-user",
   key: player.id
 });
 

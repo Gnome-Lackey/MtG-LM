@@ -50,10 +50,12 @@
   }
 
   .option {
-    .btn-type-ahead {
-      background-color: $colorWhite;
+    .btn-type-ahead-option {
+      align-items: center;
+      background-color: transparent;
       border: 0;
       cursor: pointer;
+      display: inline-flex;
       font-size: 10px;
       margin: 0;
       padding: 10px 15px;
@@ -61,7 +63,8 @@
       width: 100%;
 
       .label {
-        display: block;
+        display: flex;
+        flex-direction: column;
         margin: 0;
         overflow: hidden;
         padding: 0;
@@ -70,9 +73,15 @@
         width: 220px;
 
         .small {
-          font-size: 8px;
-          margin-left: 5px;
+          font-size: 6px;
+          font-style: italic;
         }
+      }
+
+      .option-icon {
+        margin: 0 10px 0 0;
+        width: 10px;
+        height: 10px;
       }
 
       &:focus {
@@ -80,7 +89,13 @@
       }
 
       &:hover {
-        background-color: $colorGrayLighter;
+        .label {
+          color: $colorOrangeDarker;
+        }
+
+        .option-icon {
+          color: $colorOrangeDarker;
+        }
       }
     }
   }

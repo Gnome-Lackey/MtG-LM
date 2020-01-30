@@ -6,6 +6,7 @@ import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 
 export const toOption = (details: Season): DropdownOption => ({
   key: details.id,
+  icon: `ss ss-${details.set.code}`,
   label: details.set.name,
   subLabel: details.startedOn
 });

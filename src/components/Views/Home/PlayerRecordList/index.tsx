@@ -39,8 +39,8 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
     <ul className="player-record-list">
       <li className="record-headers">
         <p className="header name">Player Name</p>
-        <p className="header">Total Wins</p>
-        <p className="header">Total Losses</p>
+        <p className="header wins">Total Wins</p>
+        <p className="header losses">Total Losses</p>
       </li>
       {content}
     </ul>
