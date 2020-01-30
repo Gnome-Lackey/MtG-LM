@@ -16,7 +16,7 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
 }: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => (
   <li className={classNames("player-record", { user: userId === player.id })}>
     <p className="name">
-      {player.displayName}&nbsp;
+      {player.displayName}
       <span className="small">({player.userName})</span>
     </p>
     <p className="wins">{player.totalWins}</p>
