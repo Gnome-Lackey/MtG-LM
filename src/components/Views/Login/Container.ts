@@ -18,6 +18,7 @@ interface LoginViewProps {
   history: History;
   isRequestLoading: boolean;
   user: User;
+  validated: boolean;
 };
 
 interface LoginViewActions {
@@ -33,6 +34,7 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Login
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
   user: state.users.current,
+  validated: state.auth.validated
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): LoginViewActions => ({

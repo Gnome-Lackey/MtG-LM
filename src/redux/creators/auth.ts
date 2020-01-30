@@ -63,6 +63,7 @@ export const requestLogin = (details: LoginFields) => async (dispatch: Function)
     });
   } else if (data.error.name === TYPE_ERROR_USER_NOT_CONFIRMED) {
     dispatch(emitUpdateUser({ id: data.error.name, userName }));
+
     dispatch({
       type: EMIT_UPDATE_NEEDS_CONFIRMATION,
       payload: true

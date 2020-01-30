@@ -30,6 +30,7 @@ interface LoginViewProps extends RouteComponentProps {
   errors: ErrorState;
   isRequestLoading: boolean;
   user: User;
+  validated: boolean;
 }
 
 const LoginView = ({
@@ -38,20 +39,22 @@ const LoginView = ({
   errors,
   history,
   isRequestLoading,
-  user
+  user,
+  validated
 }: LoginViewProps): React.FunctionComponentElement<LoginViewProps> => {
-  const isFirstTimeLogin = user && user.isFirstTimeLogin;
-  const userName = user ? user.userName : "";
-
-  useNavigator(confirmationNeeded, ROUTES.VERIFICATION_PAGE, history.push);
-  useNavigator(user, isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE, history.push);
-
   const errorMessage = useErrorMessage(
     DOMAIN_ERROR_AUTH,
     VIEW_ERROR_FORM_LOGIN,
     errors,
     emitResetError
   );
+
+  const isFirstTimeLogin = user && user.isFirstTimeLogin;
+  const userName = user ? user.userName : "";
+  const validatedRoute = isFirstTimeLogin ? ROUTES.GETTING_STARTED : ROUTES.HOME_PAGE;
+
+  useNavigator(confirmationNeeded, ROUTES.VERIFICATION_PAGE, history.push);
+  useNavigator(validated, validatedRoute, history.push);
 
   const { values, invalidations, updateValues, updateInvalidations } = useFormData({
     userName,
