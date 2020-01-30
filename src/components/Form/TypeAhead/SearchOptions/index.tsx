@@ -13,16 +13,16 @@ interface TypeAheadSearchOptionsProps {
   show: boolean;
 }
 
-const buildStyles = (show: boolean, isEmptyResult: boolean): { height: string } => {
-  let height = "0";
+const buildStyles = (show: boolean, isEmptyResult: boolean): { maxHeight: string } => {
+  let maxHeight = "0";
 
   if (show && isEmptyResult) {
-    height = "35px";
+    maxHeight = "35px";
   } else if (show) {
-    height = "105px";
+    maxHeight = "105px";
   }
 
-  return { height };
+  return { maxHeight };
 };
 
 const TypeAheadSearchOptions = ({

@@ -18,16 +18,16 @@ const buildStyles = (
   show: boolean,
   isEmptyResult: boolean,
   heightLimit: number
-): { height: string } => {
-  let height = "0px";
+): { maxHeight: string } => {
+  let maxHeight = "0px";
 
   if (show && isEmptyResult) {
-    height = `${heightLimit}px`;
+    maxHeight = `${heightLimit}px`;
   } else if (show) {
-    height = `${3 * heightLimit}px`;
+    maxHeight = `${3 * heightLimit}px`;
   }
 
-  return { height };
+  return { maxHeight };
 };
 
 const DropdownOptions = ({
@@ -39,12 +39,7 @@ const DropdownOptions = ({
   show
 }: DropdownOptionsProps): React.FunctionComponentElement<DropdownOptionsProps> => (
   <ul
-    className={classNames(
-      "dropdown-options",
-      { "has-label": hasLabel },
-      { show },
-      { maxHeight: !heightLimit }
-    )}
+    className={classNames("dropdown-options", { "has-label": hasLabel }, { show })}
     style={heightLimit ? buildStyles(show, isEmptyResult, heightLimit) : null}
   >
     {options.length ? (
