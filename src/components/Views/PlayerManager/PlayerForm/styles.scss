@@ -1,0 +1,7 @@
+@import "src/styles/variables";
+
+.player-form {
+  display: inline-flex;
+  justify-content: center;
+  width: calc(100% - #{$sidePanelMaxWidth});
+}

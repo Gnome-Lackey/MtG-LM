@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as moment from "moment";
 
-import PlayerList from "components/Views/SeasonManager/SeasonForm/PlayerList";
+import FormPlayerList from "components/Views/SeasonManager/SeasonForm/FormPlayerList";
 
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
@@ -155,7 +155,7 @@ const SeasonForm = ({
           Submit
         </FormButton>
       </div>
-      <PlayerList
+      <FormPlayerList
         players={values.players}
         potentialPlayers={potentialPlayers}
         searchForPlayer={searchForPlayer}

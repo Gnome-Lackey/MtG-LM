@@ -1,4 +1,4 @@
-import { Player } from "models/Player";
+import { Player, PlayerDetails } from "models/Player";
 
 export interface PlayerSearchResult {
   list: Player[];
@@ -11,6 +11,7 @@ export interface PlayerSearchResultMap {
 
 export interface PlayerState {
   list?: Player[];
+  detailList?: PlayerDetails[];
   loading?: boolean;
   searchResultsMap?: PlayerSearchResultMap;
   searching?: boolean;
