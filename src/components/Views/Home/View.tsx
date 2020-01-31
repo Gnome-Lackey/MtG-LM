@@ -13,6 +13,7 @@ import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
 
 import "./styles.scss";
+import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -28,7 +29,6 @@ interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
-  isLoadingSeason: boolean;
   isMatchRequestLoading: boolean;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
@@ -41,7 +41,6 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
-  isLoadingSeason,
   isMatchRequestLoading,
   playerSearchResultsMap,
   seasons,
@@ -53,7 +52,10 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
 
   const playerList = selectedSeason ? selectedSeason.players : [];
-  const showListSpinner = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
+  const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
+  const isCurrentUserInSeason = isAdminUser || playerList.find(({ id }) => id === user.id);
+  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason;
+  const isFabDisabled = isPageLoading || isMatchRequestLoading || !isCurrentUserInSeason;
 
   return (
     <div className="home-view">
@@ -63,12 +65,9 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           selectedSeason={selectedSeason}
           selectHandler={actions.requestGetSeason}
         />
-        <PlayerRecordList isRequestLoading={showListSpinner} players={playerList} user={user} />
+        <PlayerRecordList isRequestLoading={isPageLoading} players={playerList} user={user} />
       </div>
-      <Fab
-        clickHandler={() => actions.emitToggleRecordMatchModal()}
-        disabled={isLoadingSeason || isMatchRequestLoading}
-      >
+      <Fab clickHandler={() => actions.emitToggleRecordMatchModal()} disabled={isFabDisabled}>
         <i className="fas fa-plus" />
       </Fab>
       {showRecordMatchModal ? (

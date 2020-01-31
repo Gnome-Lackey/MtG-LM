@@ -86,9 +86,11 @@ export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch:
   dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, false));
 };
 
-export const requestQueryPlayersForRecordMatch = (searchId: string, query: string) => async (
-  dispatch: Function
-) => {
+export const requestQueryPlayersForRecordMatch = (
+  searchId: string,
+  query: string,
+  seasonId: string
+) => async (dispatch: Function) => {
   dispatch({
     type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
     payload: {
@@ -99,7 +101,8 @@ export const requestQueryPlayersForRecordMatch = (searchId: string, query: strin
 
   const data = await playerService.query({
     userName: query,
-    name: query
+    name: query,
+    season: seasonId
   });
 
   dispatch({
