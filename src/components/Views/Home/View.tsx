@@ -27,6 +27,7 @@ interface HomeViewActions {
 
 interface HomeViewProps extends RouteComponentProps {
   actions: HomeViewActions;
+  isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
@@ -39,6 +40,7 @@ interface HomeViewProps extends RouteComponentProps {
 
 const HomeView: React.FunctionComponent<HomeViewProps> = ({
   actions,
+  isLoadingSeason,
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
   isMatchRequestLoading,
@@ -54,7 +56,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   const playerList = selectedSeason ? selectedSeason.players : [];
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
   const isCurrentUserInSeason = isAdminUser || playerList.find(({ id }) => id === user.id);
-  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason;
+  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
   const isFabDisabled = isPageLoading || isMatchRequestLoading || !isCurrentUserInSeason;
 
   return (

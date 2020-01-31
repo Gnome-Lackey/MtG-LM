@@ -22,6 +22,7 @@ import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
 
 interface HomeViewProps {
+  isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
@@ -45,6 +46,7 @@ interface HomeViewActions {
 }
 
 const mapStateToProps = (state: RootState): HomeViewProps => ({
+  isLoadingSeason: state.seasons.getSeasonLoading,
   isLoadingActiveSeasons: state.seasons.getActiveSeasonsLoading,
   isLoadingCurrentSeason:  state.seasons.getCurrentSeasonLoading,
   isMatchRequestLoading: state.matches.loading,
