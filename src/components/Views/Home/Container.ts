@@ -24,7 +24,6 @@ import { Season } from "models/Season";
 interface HomeViewProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
-  isLoadingSeason: boolean;
   isMatchRequestLoading: boolean;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
@@ -48,7 +47,6 @@ interface HomeViewActions {
 const mapStateToProps = (state: RootState): HomeViewProps => ({
   isLoadingActiveSeasons: state.seasons.getActiveSeasonsLoading,
   isLoadingCurrentSeason:  state.seasons.getCurrentSeasonLoading,
-  isLoadingSeason: state.seasons.getSeasonLoading,
   isMatchRequestLoading: state.matches.loading,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,

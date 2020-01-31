@@ -6,4 +6,4 @@ Access-Control-Allow-Origin: http://localhost:8080
 X-Access-Token: AX1234
 X-ID-Token: ID1234
 
-#import './success_login_admin_response.json';
+#import './success_login_response.json';

@@ -16,12 +16,6 @@
   width: 50px;
   z-index: $zLayerTwo;
 
-  &.disabled {
-    background-color: $colorGray;
-    color: $colorGrayLightest;
-    opacity: 0.85;
-  }
-
   &:focus {
     outline: none;
   }
@@ -30,5 +24,17 @@
     background-color: $colorGrayDarker;
     color: $colorOrange;
     cursor: pointer;
+  }
+
+  &.disabled {
+    background-color: $colorGrayDarker;
+    color: $colorGray;
+    opacity: 0.65;
+
+    &:hover {
+      background-color: $colorGrayDarker;
+      color: $colorGray;
+      cursor: not-allowed;
+    }
   }
 }
