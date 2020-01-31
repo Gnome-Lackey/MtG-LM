@@ -2,7 +2,8 @@
   "status": 200,
   "data": {
     "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
-    "startedOn": "10/01/2019",
+    "startedOn": "12/12/2019",
+    "isActive": true,
     "players": [
       {
         "id": "123-1232-1232",

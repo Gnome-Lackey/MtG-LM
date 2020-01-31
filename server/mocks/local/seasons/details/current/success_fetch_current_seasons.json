@@ -3,6 +3,7 @@
   "data": {
     "id": "d90130ce-9c79-4129-9d99-04d5102d9219",
     "startedOn": "12/28/2019",
+    "isActive": true,
     "players": [
       {
         "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",

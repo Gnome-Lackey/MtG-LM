@@ -2,10 +2,21 @@
   "status": 200,
   "data": [
     {
-      "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+      "id": "d90130ce-9c79-4129-9d99-04d5102d9219",
+      "startedOn": "12/28/2019",
       "isActive": true,
-      "startedOn": "10/01/2019",
       "players": [
+        {
+          "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",
+          "email": "matthewdpfister@gmail.com",
+          "userName": "mrpfister",
+          "displayName": "Matthew Pfister",
+          "colors": ["G"],
+          "epithet": "carnage wurm",
+          "totalLosses": 0,
+          "totalWins": 0,
+          "matches": []
+        },
         {
           "id": "323-1232-5435",
           "email": "justiceIsServed@planeswalker.mtg",
@@ -14,25 +25,113 @@
           "colors": ["W"],
           "epithet": "champion of justice",
           "totalLosses": 0,
-          "totalWins": 0
+          "totalWins": 0,
+          "matches": []
         },
         {
-          "id": "3f293940-a8d6-4a98-aba4-419e938a8a13",
-          "email": "herrpfister@gmail.com",
-          "userName": "ironpfist",
-          "displayName": "Matthew Pfister",
+          "id": "123-1232-1232",
+          "email": "beautyInBlack@planeswalker.mtg",
+          "userName": "OfTheVeil",
+          "displayName": "Liliana Vess",
           "colors": ["B"],
-          "epithet": "haloid kite",
+          "epithet": "of the veil",
+          "totalLosses": 1,
+          "totalWins": 0,
+          "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+        },
+        {
+          "id": "223-1232-4323",
+          "email": "wiseman@planeswalker.mtg",
+          "userName": "MindSculpter",
+          "displayName": "Jace Beleran",
+          "colors": ["U"],
+          "epithet": "mind sculptor",
           "totalLosses": 0,
-          "totalWins": 1
+          "totalWins": 0,
+          "matches": []
         }
       ],
       "set": {
-        "id": "a90a7b2f-9dd8-4fc7-9f7d-8ea2797ec782",
+        "name": "Innistrad",
+        "code": "isd"
+      }
+    },
+    {
+      "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+      "startedOn": "12/12/2019",
+      "isActive": true,
+      "players": [
+        {
+          "id": "123-1232-1232",
+          "email": "beautyInBlack@planeswalker.mtg",
+          "userName": "OfTheVeil",
+          "displayName": "Liliana Vess",
+          "colors": ["B"],
+          "epithet": "of the veil",
+          "totalLosses": 1,
+          "totalWins": 0,
+          "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+        },
+        {
+          "id": "223-1232-4323",
+          "email": "wiseman@planeswalker.mtg",
+          "userName": "MindSculpter",
+          "displayName": "Jace Beleran",
+          "colors": ["U"],
+          "epithet": "mind sculptor",
+          "totalLosses": 0,
+          "totalWins": 0,
+          "matches": []
+        }
+      ],
+      "set": {
         "name": "Throne of Eldraine",
-        "releasedOn": "2019-10-04",
-        "cardCount": 397,
         "code": "eld"
+      }
+    },
+    {
+      "id": "9e7fce37-0c85-4616-a5fa-9f962252de30",
+      "startedOn": "10/01/2019",
+      "endedOn": "12/12/2019",
+      "isActive": false,
+      "players": [
+        {
+          "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",
+          "email": "matthewdpfister@gmail.com",
+          "userName": "mrpfister",
+          "displayName": "Matthew Pfister",
+          "colors": ["G"],
+          "epithet": "carnage wurm",
+          "totalLosses": 2,
+          "totalWins": 1,
+          "matches": []
+        },
+        {
+          "id": "123-1232-1232",
+          "email": "beautyInBlack@planeswalker.mtg",
+          "userName": "OfTheVeil",
+          "displayName": "Liliana Vess",
+          "colors": ["B"],
+          "epithet": "of the veil",
+          "totalLosses": 1,
+          "totalWins": 1,
+          "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+        },
+        {
+          "id": "223-1232-4323",
+          "email": "wiseman@planeswalker.mtg",
+          "userName": "MindSculpter",
+          "displayName": "Jace Beleran",
+          "colors": ["U"],
+          "epithet": "mind sculptor",
+          "totalLosses": 0,
+          "totalWins": 1,
+          "matches": []
+        }
+      ],
+      "set": {
+        "name": "Zendikar",
+        "code": "zen"
       }
     }
   ]
