@@ -7,6 +7,7 @@
   .search {
     min-width: 250px;
     position: relative;
+    width: 100%;
 
     &::before,
     &::after {
@@ -42,6 +43,16 @@
         top: 53px;
         width: 0;
         z-index: $zLayerThree;
+      }
+
+      &.has-label {
+        &::before {
+          top: 67px;
+        }
+
+        &::after {
+          top: 69px;
+        }
       }
     }
   }

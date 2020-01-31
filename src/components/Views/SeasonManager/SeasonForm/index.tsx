@@ -57,9 +57,6 @@ export const isSubmitDisabled = (
   fields: SeasonFields,
   isFormLoading: boolean
 ): boolean => {
-  const { players: oldPlayers } = season;
-  const { players: newPlayers } = fields;
-
   const invalidDates =
     fields.startedDate &&
     fields.endedDate &&
@@ -72,8 +69,8 @@ export const isSubmitDisabled = (
     fields.startedDate === season.startedOn &&
     fields.isActive === season.isActive &&
     fields.set.key === season.set.code &&
-    newPlayers.length === oldPlayers.length &&
-    newPlayers.every((player) => !!oldPlayers.find((oldPlayer) => oldPlayer.id === player.key));
+    fields.players.length === season.players.length &&
+    fields.players.every((newP) => !!season.players.find((oldP) => oldP.id === newP.key));
 
   const invalidEndDate = !fields.isActive && !fields.endedDate;
   const invalidRequiredFields = !fields.startedDate || !fields.set;
@@ -152,7 +149,7 @@ const SeasonForm = ({
           className="season-is-active"
           id="isActive"
           onChange={updateValues}
-          label="Will this season be active?"
+          label="Is active?"
         />
         <FormButton loading={isRequestLoading} type="submit" disabled={isDisabled}>
           Submit

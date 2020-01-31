@@ -45,7 +45,7 @@ const SeasonManagerView = ({
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
   useDataFetch(!seasons.length, actions.requestGetSeasons);
 
-  const [showForm, setShowForm] = React.useState(false);
+  const [showForm, setShowForm] = React.useState(!!selectedSeason);
 
   const handleSelectSeason = (season: Season): void => {
     actions.emitSelectSeason(season);

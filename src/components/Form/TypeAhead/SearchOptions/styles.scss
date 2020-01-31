@@ -30,7 +30,7 @@
   }
 
   &.has-label {
-    top: 70px;
+    top: 76px;
   }
 
   .non-option,
@@ -80,9 +80,9 @@
       }
 
       .option-icon {
+        height: 10px;
         margin: 0 10px 0 0;
         width: 10px;
-        height: 10px;
       }
 
       &:focus {

@@ -7,22 +7,20 @@
   flex-direction: column;
 
   .input-container {
-    display: inline-flex;
     align-items: center;
-    position: relative;
+    display: inline-flex;
     justify-content: flex-end;
+    position: relative;
     width: 100%;
 
     .input {
       @include input;
 
-      border: 0;
       box-shadow: none;
       padding: 10px 30px 10px 15px;
       width: calc(100% - 35px);
 
       &:focus {
-        border: 0;
         box-shadow: none;
       }
     }

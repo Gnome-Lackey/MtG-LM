@@ -106,7 +106,7 @@ const TypeAhead = ({
 
   return (
     <div ref={reference} className="form-type-ahead">
-      <div className={classNames("search", { show: showSearch })}>
+      <div className={classNames("search", { show: showSearch }, { "has-label": !!label })}>
         <TypeAheadInput
           handleChange={handleChange}
           handleKeyPress={handleKeyPress}
