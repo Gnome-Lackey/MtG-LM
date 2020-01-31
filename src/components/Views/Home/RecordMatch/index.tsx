@@ -65,7 +65,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   };
 
   const handleSearchForPlayer = (searchId: string, value: string): void => {
-    searchHandler(searchId, value);
+    searchHandler(searchId, value, selectedSeason.id);
   };
 
   const handleSelectSeason = (option: DropdownOption): void => {
