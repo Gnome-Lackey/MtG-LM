@@ -55,7 +55,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 
   const playerList = selectedSeason ? selectedSeason.players : [];
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
-  const isCurrentUserInSeason = isAdminUser || playerList.find(({ id }) => id === user.id);
+  const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
   const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
   const isFabDisabled = isPageLoading || isMatchRequestLoading || !isCurrentUserInSeason;
 
@@ -67,7 +67,12 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           selectedSeason={selectedSeason}
           selectHandler={actions.requestGetSeason}
         />
-        <PlayerRecordList isRequestLoading={isPageLoading} players={playerList} user={user} />
+        <PlayerRecordList
+          isRequestLoading={isPageLoading}
+          players={playerList}
+          showWarning={!isCurrentUserInSeason}
+          user={user}
+        />
       </div>
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()} disabled={isFabDisabled}>
         <i className="fas fa-plus" />

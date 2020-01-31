@@ -11,12 +11,14 @@ import "./styles.scss";
 interface PlayerRecordListProps {
   isRequestLoading: boolean;
   players: Player[];
+  showWarning?: boolean;
   user: User;
 }
 
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
   isRequestLoading,
   players,
+  showWarning,
   user
 }: PlayerRecordListProps): React.FunctionComponentElement<PlayerRecordListProps> => {
   let content: JSX.Element | JSX.Element[] = (
@@ -42,6 +44,13 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
         <p className="header wins">Total Wins</p>
         <p className="header losses">Total Losses</p>
       </li>
+      {showWarning ? (
+        <li>
+          <p className="not-in-season-message">
+            You are currently not in this season. Please contact an admin to be added.
+          </p>
+        </li>
+      ) : null}
       {content}
     </ul>
   );

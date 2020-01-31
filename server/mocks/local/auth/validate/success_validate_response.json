@@ -2,12 +2,12 @@
   "status": 200,
   "data": {
     "user": {
-      "id": "123-1232-1232",
-      "firstName": "Liliana",
-      "lastName": "Vess",
-      "userName": "OfTheVeil",
-      "email": "beautyInBlack@planeswalker.mtg",
-      "displayName": "Liliana Vess",
+      "id": "123-1232-7777",
+      "firstName": "Nobody",
+      "lastName": "nobody",
+      "userName": "nobody",
+      "email": "nobody@nobody.mtg",
+      "displayName": "nobody nobody",
       "isFirstTimeLogin": false,
       "accountType": "USER"
     }

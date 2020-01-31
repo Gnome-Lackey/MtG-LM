@@ -13,6 +13,14 @@
   padding: 0;
   width: 100vw;
 
+  .not-in-season-message {
+    padding: 10px 20px;
+    background-color: $colorOrangeDarker;
+    color: $colorWhite;
+    margin: 0;
+    width: calc(100% - 40px);
+  }
+
   .record-headers,
   .record-spinner {
     align-items: center;
