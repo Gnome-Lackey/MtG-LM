@@ -90,7 +90,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
           key="season"
           options={activeSeasons.map(seasonMapper.toOption)}
           placeholder="Select match season..."
-          value={selectedSeasonOption}
+          value={values.season}
         />
       </div>
       <div className="record-players">
