@@ -8,7 +8,9 @@ import {
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_LOADING_PLAYERS
+  EMIT_LOADING_PLAYERS,
+  EMIT_SELECTED_PLAYER_FOR_EDITING,
+  EMIT_DESELECTED_PLAYER_FOR_EDITING
 } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
@@ -18,11 +20,26 @@ const INITIAL_STATE: PlayerState = {
   list: [],
   searching: false,
   searchResults: [],
-  searchResultsMap: {}
+  searchResultsMap: {},
+  editing: null
 };
 
 export default handleActions(
   {
+    [EMIT_SELECTED_PLAYER_FOR_EDITING]: (
+      state: PlayerState,
+      action: PlayerAction
+    ): PlayerState => ({
+      ...state,
+      editing: action.payload.player
+    }),
+    [EMIT_DESELECTED_PLAYER_FOR_EDITING]: (
+      state: PlayerState,
+      action: PlayerAction
+    ): PlayerState => ({
+      ...state,
+      editing: action.payload.player
+    }),
     [EMIT_GET_PLAYERS_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
       ...state,
       list: action.payload.players

@@ -7,7 +7,11 @@ import {
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_LOADING_PLAYERS
+  EMIT_LOADING_PLAYERS,
+  EMIT_SELECTED_PLAYER_FOR_EDITING,
+  EMIT_UPDATE_PLAYER_SUCCESS,
+  REQUEST_UPDATE_PLAYER,
+  EMIT_DESELECTED_PLAYER_FOR_EDITING
 } from "redux/actions/players";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -24,6 +28,16 @@ import * as playerMapper from "mappers/players";
 
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+import { PlayerDetails } from "models/Player";
+
+export const emitSelectPlayerForEditing = (player: PlayerDetails): PlayerAction => ({
+  type: EMIT_SELECTED_PLAYER_FOR_EDITING,
+  payload: { player }
+});
+
+export const emitDeselectPlayerForEditing = (): PlayerAction => ({
+  type: EMIT_DESELECTED_PLAYER_FOR_EDITING
+});
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
   type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
@@ -65,6 +79,28 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
+};
+
+export const requestUpdatePlayer = () => async (dispatch: Function) => {
+  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER, true));
+
+  // TODO: Finish this
+  const body = playerMapper.toUpdateNode();
+
+  const data = await playerService.update("", null);
+
+  if (data.error) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  } else {
+    dispatch({
+      type: EMIT_UPDATE_PLAYER_SUCCESS,
+      payload: { player: data }
+    });
+  }
+
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER, false));
 };
 
 export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch: Function) => {

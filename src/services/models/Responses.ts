@@ -72,6 +72,7 @@ export interface PlayerResponse extends PlayerView, ErrorResponse {
 
 export interface PlayerDetailsResponse extends PlayerView, ErrorResponse {
   matches: MatchView[];
+  isAdmin: boolean;
 }
 
 export interface RecordResponse extends RecordView, ErrorResponse {

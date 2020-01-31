@@ -6,12 +6,13 @@ import { History } from "history";
 import SeasonMangerView from "components/Views/SeasonManager/View";
 
 import {
-  emitSelectSeason,
-  emitDeselectSeason,
+  emitSelectSeasonForEditing,
+  emitDeselectSeasonForEditing,
   requestCreateSeason,
   requestGetSeasons,
   requestUpdateSeason
 } from "redux/creators/seasons";
+
 import { requestGetSetByCode } from "redux/creators/scryfall";
 import { requestQueryPlayers } from "redux/creators/players";
 
@@ -33,10 +34,10 @@ interface SeasonMangerViewProps {
 
 interface SeasonMangerViewActions {
   actions: {
+    emitDeselectSeasonForEditing: Function;
+    emitSelectSeasonForEditing: Function;
     requestGetSetByCode: Function;
     requestQueryPlayers: Function;
-    emitSelectSeason: Function;
-    emitDeselectSeason: Function;
     requestCreateSeason: Function;
     requestGetSeasons: Function;
     requestUpdateSeason: Function;
@@ -53,7 +54,7 @@ const mapStateToProps = (
   potentialSets: state.scryfall.setSearchResults,
   potentialPlayers: state.players.searchResults,
   searchForPlayer: state.players.searching,
-  selectedSeason: state.seasons.selected,
+  selectedSeason: state.seasons.editing,
   seasons: state.seasons.list
 });
 
@@ -62,8 +63,8 @@ const mapDispatchToProps = (dispatch: Dispatch): SeasonMangerViewActions => ({
     {
       requestGetSetByCode,
       requestQueryPlayers,
-      emitSelectSeason,
-      emitDeselectSeason,
+      emitSelectSeasonForEditing,
+      emitDeselectSeasonForEditing,
       requestGetSeasons,
       requestCreateSeason,
       requestUpdateSeason

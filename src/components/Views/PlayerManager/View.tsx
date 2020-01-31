@@ -11,29 +11,44 @@ import { PlayerDetails } from "models/Player";
 import "./styles.scss";
 
 interface PlayerManagerViewActions {
+  emitSelectPlayerForEditing: Function;
+  emitDeselectPlayerForEditing: Function;
   requestGetPlayers: Function;
 }
 
 interface PlayerManagerViewProps extends RouteComponentProps {
   actions: PlayerManagerViewActions;
   players: PlayerDetails[];
+  selectedPlayer: PlayerDetails;
 }
 
 const PlayerManagerView = ({
   actions,
-  players
+  players,
+  selectedPlayer
 }: PlayerManagerViewProps): React.FunctionComponentElement<PlayerManagerViewProps> => {
   useDataFetch(!players.length, actions.requestGetPlayers);
 
-  const [selectedPlayer, setSelectedPlayer] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
+
+  const handleSelectPlayer = (player: PlayerDetails): void => {
+    actions.emitSelectPlayerForEditing(player);
+
+    setShowForm(true);
+  };
+
+  const handleDeselectPlayer = (): void => {
+    actions.emitDeselectPlayerForEditing();
+
+    setShowForm(false);
+  };
 
   return (
     <div className="user-manager-view">
       <PlayerList
-        deselectHandler={() => {}}
+        deselectHandler={handleDeselectPlayer}
         players={players}
-        selectHandler={() => {}}
+        selectHandler={handleSelectPlayer}
         selectedPlayer={selectedPlayer}
       />
       {showForm ? (

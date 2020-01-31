@@ -1,8 +1,8 @@
 import {
   EMIT_CREATE_SEASON_SUCCESS,
   EMIT_GET_SEASONS_SUCCESS,
-  EMIT_SELECTED_SEASON,
-  EMIT_DESELECTED_SEASON,
+  EMIT_SELECTED_SEASON_FOR_EDITING,
+  EMIT_DESELECTED_SEASON_FOR_EDITING,
   EMIT_UPDATED_SEASON_SUCCESS,
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
@@ -26,13 +26,13 @@ import { Season } from "models/Season";
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-export const emitSelectSeason = (season: Season): SeasonAction => ({
-  type: EMIT_SELECTED_SEASON,
+export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
+  type: EMIT_SELECTED_SEASON_FOR_EDITING,
   payload: { season }
 });
 
-export const emitDeselectSeason = (): SeasonAction => ({
-  type: EMIT_DESELECTED_SEASON
+export const emitDeselectSeasonForEditing = (): SeasonAction => ({
+  type: EMIT_DESELECTED_SEASON_FOR_EDITING
 });
 
 export const requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
