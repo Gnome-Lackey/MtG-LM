@@ -15,16 +15,20 @@ import "styles/_global.scss";
 
 const { lazy, Suspense } = React;
 
-const LoginContainer: React.LazyExoticComponent<any> = lazy(() =>
-  import("components/Views/Login/Container")
-);
-
 const GettingStartedContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/GettingStarted/Container")
 );
 
 const HomeContainer: React.LazyExoticComponent<any> = lazy(() =>
   import("components/Views/Home/Container")
+);
+
+const LoginContainer: React.LazyExoticComponent<any> = lazy(() =>
+  import("components/Views/Login/Container")
+);
+
+const RoleManagerContainer: React.LazyExoticComponent<any> = lazy(() =>
+  import("components/Views/RoleManager/Container")
 );
 
 const SeasonManagerContainer: React.LazyExoticComponent<any> = lazy(() =>
@@ -51,7 +55,8 @@ const Routes = (): React.FunctionComponentElement<void> => (
           <Switch>
             <Route exact path={ROUTES.ROOT} component={LoginContainer} />
             <Route exact path={ROUTES.GETTING_STARTED} component={GettingStartedContainer} />
-            <Route exact path={ROUTES.SEASON_PAGE} component={SeasonManagerContainer} />
+            <Route exact path={ROUTES.SEASON_MANAGER_PAGE} component={SeasonManagerContainer} />
+            <Route exact path={ROUTES.ROLE_MANAGER_PAGE} component={RoleManagerContainer} />
             <Route exact path={ROUTES.SIGN_UP_PAGE} component={SignUpContainer} />
             <Route exact path={ROUTES.VERIFICATION_PAGE} component={VerifyContainer} />
             <Route exact path={ROUTES.HOME_PAGE} component={HomeContainer} />

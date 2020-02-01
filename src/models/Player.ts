@@ -1,5 +1,3 @@
-import { Match } from "./Match";
-
 export interface Player {
   id: string;
   displayName: string;
@@ -12,15 +10,10 @@ export interface Player {
   favoriteColors: string[];
 }
 
-export interface PlayerDetails {
+export interface PlayerRole {
   id: string;
   displayName: string;
   userName: string;
   email: string;
-  totalWins?: number;
-  totalLosses?: number;
-  matches?: Match[];
-  epithet: string;
-  favoriteColors: string[];
-  isAdmin: string;
+  role: string;
 }

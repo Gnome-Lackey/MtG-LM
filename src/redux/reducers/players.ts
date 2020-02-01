@@ -1,16 +1,13 @@
 import { handleActions } from "redux-actions";
 
 import {
-  EMIT_GET_PLAYERS_SUCCESS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
   EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_LOADING_PLAYERS,
-  EMIT_SELECTED_PLAYER_FOR_EDITING,
-  EMIT_DESELECTED_PLAYER_FOR_EDITING
+  EMIT_GET_PLAYER_ROLES_SUCCESS
 } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
@@ -18,31 +15,17 @@ import { PlayerAction } from "redux/models/PlayerAction";
 
 const INITIAL_STATE: PlayerState = {
   list: [],
+  roles: [],
   searching: false,
   searchResults: [],
-  searchResultsMap: {},
-  editing: null
+  searchResultsMap: {}
 };
 
 export default handleActions(
   {
-    [EMIT_SELECTED_PLAYER_FOR_EDITING]: (
-      state: PlayerState,
-      action: PlayerAction
-    ): PlayerState => ({
+    [EMIT_GET_PLAYER_ROLES_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
       ...state,
-      editing: action.payload.player
-    }),
-    [EMIT_DESELECTED_PLAYER_FOR_EDITING]: (
-      state: PlayerState,
-      action: PlayerAction
-    ): PlayerState => ({
-      ...state,
-      editing: action.payload.player
-    }),
-    [EMIT_GET_PLAYERS_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
-      ...state,
-      list: action.payload.players
+      roles: action.payload.playerRoles
     }),
     [EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS]: (
       state: PlayerState,
@@ -97,10 +80,6 @@ export default handleActions(
     [EMIT_CLEAR_PLAYER_LIST]: (state: PlayerState): PlayerState => ({
       ...state,
       searchResults: []
-    }),
-    [EMIT_LOADING_PLAYERS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
-      ...state,
-      loading: action.payload.loading
     })
   },
   INITIAL_STATE

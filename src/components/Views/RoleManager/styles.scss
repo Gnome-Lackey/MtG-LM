@@ -1,0 +1,56 @@
+@import "src/styles/variables";
+
+.role-manager-view {
+  align-items: center;
+  display: flex;
+  height: $appContentMinHeight;
+  justify-content: center;
+  width: 100vw;
+
+  .player-list {
+    background-color: $colorGrayDarker;
+    height: $appContentMinHeight;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 750px;
+    width: 100%;
+
+    .player-list-item {
+      padding: 20px;
+      width: calc(100% - 40px);
+
+      .player-user-name {
+        align-items: center;
+        display: inline-flex;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+
+        i {
+          margin-right: 10px;
+        }
+      }
+
+      .indicator-container {
+        align-items: center;
+        background-color: transparent;
+        border: 1px solid $colorOrangeLighter;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        height: 10px;
+        margin: 0;
+        width: 10px;
+
+        .indicator {
+          background-color: $colorOrangeLighter;
+          border-radius: 100%;
+          height: 8px;
+          margin: 0;
+          width: 8px;
+        }
+      }
+    }
+  }
+}

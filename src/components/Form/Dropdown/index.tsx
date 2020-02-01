@@ -62,7 +62,7 @@ const Dropdown = ({
     ) : null;
 
   const text = selectedOption ? selectedOption.label : placeholder;
-  const subtext = selectedOption ? `(${selectedOption.subLabel})` : "";
+  const subtext = selectedOption && selectedOption.subLabel ? `(${selectedOption.subLabel})` : "";
 
   return (
     <div ref={reference} className={classNames("form-dropdown", className)}>

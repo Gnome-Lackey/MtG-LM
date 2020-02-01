@@ -42,8 +42,6 @@ const playerUrlMap: DynamicStringMap = {
 
 export const PLAYER_BASE_URL: string = playerUrlMap[environment];
 
-export const PLAYER_DETAILS_URL = `${PLAYER_BASE_URL}/details`;
-
 /*
   Scryfall API
 */
