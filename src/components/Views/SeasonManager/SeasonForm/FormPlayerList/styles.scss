@@ -1,6 +1,8 @@
 @import "src/styles/variables";
 
 .form-player-list {
+  padding: 20px 0;
+  
   .player-list {
     background-color: $colorGrayDarker;
     border-radius: 5px;
