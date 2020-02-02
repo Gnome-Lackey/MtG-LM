@@ -43,25 +43,26 @@ const RoleManagerView = ({
       <ul className="player-list">
         {playerRoles.map((playerRole) => (
           <li key={playerRole.id} className="player-list-item">
-            <div>
-              <p className="player-user-name">
-                <i
-                  className={classNames(
-                    "fas",
-                    { "fa-chess-king": playerRole.role === ACCOUNT_TYPE_ADMIN },
-                    { "fa-user": playerRole.role !== ACCOUNT_TYPE_ADMIN }
-                  )}
-                />
-                {playerRole.displayName}
-                <span>{playerRole.userName}</span>
+            <i
+              className={classNames(
+                "player-role-icon",
+                "fas",
+                { "fa-chess-king": playerRole.role === ACCOUNT_TYPE_ADMIN },
+                { "fa-user": playerRole.role !== ACCOUNT_TYPE_ADMIN }
+              )}
+            />
+            <div className="player-details">
+              <p className="player-names">
+                {playerRole.displayName}&nbsp;
+                <span className="player-user-name">({playerRole.userName})</span>
               </p>
-              <Dropdown
-                options={accountTypeOptions}
-                selectHandler={handleSelect}
-                placeholder={toCapitalCase(playerRole.role)}
-              />
+              <p className="player-email">{playerRole.email}</p>
             </div>
-            <p className="player-email">{playerRole.email}</p>
+            <Dropdown
+              options={accountTypeOptions}
+              selectHandler={handleSelect}
+              placeholder={toCapitalCase(playerRole.role)}
+            />
           </li>
         ))}
       </ul>

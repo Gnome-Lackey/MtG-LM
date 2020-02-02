@@ -8,8 +8,8 @@
   width: 100vw;
 
   .player-list {
-    background-color: $colorGrayDarker;
-    height: $appContentMinHeight;
+    background-color: $colorGrayDark;
+    min-height: $appContentMinHeight;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -17,38 +17,57 @@
     width: 100%;
 
     .player-list-item {
-      padding: 20px;
-      width: calc(100% - 40px);
+      align-items: center;
+      color: $colorGrayLighter;
+      display: inline-flex;
+      padding: 40px 25px;
+      position: relative;
+      width: calc(100% - 50px);
 
-      .player-user-name {
-        align-items: center;
-        display: inline-flex;
-        font-size: 16px;
-        margin: 0;
-        padding: 0;
+      &:hover {
+        background-color: $colorGray;
+        color: $colorGrayDarker;
 
-        i {
-          margin-right: 10px;
+        .player-details {
+          .player-names {
+            .player-user-name {
+              color: $colorOrangeDarker;
+            }
+          }
         }
       }
 
-      .indicator-container {
-        align-items: center;
-        background-color: transparent;
-        border: 1px solid $colorOrangeLighter;
-        border-radius: 100%;
-        display: flex;
-        justify-content: center;
-        height: 10px;
-        margin: 0;
-        width: 10px;
+      .player-role-icon {
+        margin-right: 25px;
+        width: 15px;
+      }
 
-        .indicator {
-          background-color: $colorOrangeLighter;
-          border-radius: 100%;
-          height: 8px;
+      .player-details {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 250px - 40px);
+
+        .player-email,
+        .player-names {
           margin: 0;
-          width: 8px;
+          padding: 0;
+        }
+
+        .player-names {
+          align-items: flex-end;
+          display: inline-flex;
+          font-size: 16px;
+
+          .player-user-name {
+            color: $colorOrangeLighter;
+            font-size: 12px;
+            font-style: italic;
+            margin-bottom: 2px;
+          }
+        }
+
+        .player-email {
+          font-size: 14px;
         }
       }
     }
