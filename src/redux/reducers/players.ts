@@ -7,7 +7,8 @@ import {
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_GET_PLAYER_ROLES_SUCCESS
+  EMIT_GET_PLAYER_ROLES_SUCCESS,
+  EMIT_UPDATE_PLAYER_ROLE_SUCCESS
 } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
@@ -23,6 +24,10 @@ const INITIAL_STATE: PlayerState = {
 
 export default handleActions(
   {
+    [EMIT_UPDATE_PLAYER_ROLE_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
+      ...state,
+      roles: action.payload.playerRoles
+    }),
     [EMIT_GET_PLAYER_ROLES_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
       ...state,
       roles: action.payload.playerRoles

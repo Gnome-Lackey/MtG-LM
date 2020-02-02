@@ -14,6 +14,7 @@ import "./styles.scss";
 
 interface RoleManagerViewActions {
   requestGetPlayerRoles: Function;
+  requestUpdatePlayerRole: Function;
 }
 
 interface RoleManagerViewProps extends RouteComponentProps {
@@ -34,8 +35,8 @@ const RoleManagerView = ({
     key: type
   }));
 
-  const handleSelect = (option: DropdownOption): void => {
-    console.log(option);
+  const handleSelect = (id: string, role: string): void => {
+    actions.requestUpdatePlayerRole(id, role);
   };
 
   return (
@@ -60,7 +61,7 @@ const RoleManagerView = ({
             </div>
             <Dropdown
               options={accountTypeOptions}
-              selectHandler={handleSelect}
+              selectHandler={(option: DropdownOption) => handleSelect(playerRole.id, option.key)}
               placeholder={toCapitalCase(playerRole.role)}
             />
           </li>

@@ -1,6 +1,6 @@
 import { Player } from "models/Player";
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
-import { CreatePlayerNode, UpdatePlayerNode } from "services/models/Nodes";
+import { CreatePlayerNode } from "services/models/Nodes";
 
 export const toOption = (player: Player): TypeAheadOption => ({
   label: player.displayName,
@@ -17,5 +17,3 @@ export const toCreateNode = (player: Player): CreatePlayerNode => ({
   epithet: player.epithet,
   favoriteColors: player.favoriteColors
 });
-
-export const toUpdateNode = (): UpdatePlayerNode => ({});

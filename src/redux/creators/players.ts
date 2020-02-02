@@ -6,8 +6,8 @@ import {
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_UPDATE_PLAYER_SUCCESS,
-  REQUEST_UPDATE_PLAYER,
+  EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
+  REQUEST_UPDATE_PLAYER_ROLE,
   EMIT_LOADING_PLAYER_ROLES,
   EMIT_GET_PLAYER_ROLES_SUCCESS
 } from "redux/actions/players";
@@ -69,26 +69,35 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
 
-export const requestUpdatePlayer = () => async (dispatch: Function) => {
+export const requestUpdatePlayerRole = (id: string, role: string) => async (
+  dispatch: Function,
+  getState: Function
+) => {
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER, true));
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
 
-  // TODO: Finish this
-  const body = playerMapper.toUpdateNode();
+  const {
+    players: { roles }
+  } = getState() as RootState;
 
-  const data = await playerService.update("", null);
+  const data = await playerService.updateRole(id, { role });
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
+    const dupRoles = [...roles];
+    const roleIndex = roles.findIndex((nextRole) => nextRole.id === id);
+
+    dupRoles[roleIndex] = data;
+
     dispatch({
-      type: EMIT_UPDATE_PLAYER_SUCCESS,
-      payload: { player: data }
+      type: EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
+      payload: { playerRoles: dupRoles }
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER, false));
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, false));
 };
 
 export const requestGetPlayerRoles = () => async (dispatch: Function) => {

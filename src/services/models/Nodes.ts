@@ -23,11 +23,6 @@ export interface CreatePlayerNode {
   favoriteColors: string[];
 }
 
-export interface UpdatePlayerNode {
-  name?: string;
-  userName?: string;
-  email?: string;
-  epithet?: string;
-  favoriteColors?: string[];
-  isAdmin?: boolean;
+export interface UpdatePlayerRoleNode {
+  role: string;
 }
