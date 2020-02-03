@@ -70,6 +70,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
         <PlayerRecordList
           isRequestLoading={isPageLoading}
           players={playerList}
+          hasSeason={!!seasons.length}
           showWarning={!isCurrentUserInSeason}
           user={user}
         />

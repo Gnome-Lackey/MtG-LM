@@ -9,6 +9,7 @@ import Spinner from "components/Common/Spinner";
 import "./styles.scss";
 
 interface PlayerRecordListProps {
+  hasSeason: boolean;
   isRequestLoading: boolean;
   players: Player[];
   showWarning?: boolean;
@@ -16,19 +17,26 @@ interface PlayerRecordListProps {
 }
 
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
+  hasSeason,
   isRequestLoading,
   players,
   showWarning,
   user
 }: PlayerRecordListProps): React.FunctionComponentElement<PlayerRecordListProps> => {
   let content: JSX.Element | JSX.Element[] = (
-    <li className="record-empty-message">There are no players in this league.</li>
+    <li className="record-empty-message">There are no players in this season.</li>
   );
 
   if (isRequestLoading) {
     content = (
       <li className="record-spinner">
         <Spinner inline />
+      </li>
+    );
+  } else if (!hasSeason) {
+    content = (
+      <li className="record-empty-message">
+        There are no active seasons. Please contact an admin to get a season started.
       </li>
     );
   } else if (players.length) {
