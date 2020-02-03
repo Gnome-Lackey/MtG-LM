@@ -35,6 +35,14 @@
     }
 
     .dropdown-options {
+      .non-option {
+        .msg {
+          font-size: 18px;
+          padding: 25px 15px;
+          text-align: center;
+        }
+      }
+
       .option {
         padding: 10px 15px;
 
