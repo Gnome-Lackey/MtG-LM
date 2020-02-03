@@ -6,6 +6,7 @@ import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import "./styles.scss";
 
 interface DropdownOptionsProps {
+  emptyMessage?: string;
   handleSelect: Function;
   hasLabel: boolean;
   isEmptyResult: boolean;
@@ -31,6 +32,7 @@ const buildStyles = (
 };
 
 const DropdownOptions = ({
+  emptyMessage,
   handleSelect,
   hasLabel,
   isEmptyResult,
@@ -60,7 +62,7 @@ const DropdownOptions = ({
       ))
     ) : (
       <li className="non-option">
-        <p className="msg">No matching results.</p>
+        <p className="msg">{emptyMessage || "There are no options at this time."}</p>
       </li>
     )}
   </ul>

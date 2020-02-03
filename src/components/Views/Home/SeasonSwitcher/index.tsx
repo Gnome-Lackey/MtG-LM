@@ -21,7 +21,7 @@ const SeasonSwitcher: React.FunctionComponent<SeasonSwitcherProps> = ({
   selectHandler
 }: SeasonSwitcherProps): React.FunctionComponentElement<SeasonSwitcherProps> => {
   const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
-  const options = seasons.map(seasonMapper.toOption);
+  const seasonOptions = seasons.length ? seasons.map(seasonMapper.toOption) : [];
 
   return (
     <div className="season-switcher">
@@ -32,7 +32,8 @@ const SeasonSwitcher: React.FunctionComponent<SeasonSwitcherProps> = ({
         selectHandler={(value: DropdownOption) => {
           selectHandler(value.key);
         }}
-        options={options}
+        emptyMessage="There are currently no active seasons."
+        options={seasonOptions}
         value={selectedSeasonOption}
       />
     </div>

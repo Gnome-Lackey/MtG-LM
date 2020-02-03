@@ -11,6 +11,7 @@ import "./styles.scss";
 
 interface DropdownProps {
   className?: string;
+  emptyMessage?: string;
   heightLimit?: number;
   label?: string;
   options: DropdownOption[];
@@ -21,6 +22,7 @@ interface DropdownProps {
 
 const Dropdown = ({
   className,
+  emptyMessage,
   heightLimit,
   label,
   options,
@@ -79,6 +81,7 @@ const Dropdown = ({
           handleSelect={handleSelect}
           hasLabel={!!label}
           heightLimit={heightLimit}
+          emptyMessage={emptyMessage}
           isEmptyResult={isEmptyResult}
           options={options}
           show={showDropdown}

@@ -55,6 +55,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   submitHandler
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
   const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
+  const seasonOptions = activeSeasons.length ? activeSeasons.map(seasonMapper.toOption) : [];
 
   const { values, updateValues } = useFormData(buildInitialFormState(selectedSeasonOption));
 
@@ -88,7 +89,8 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
           heightLimit={50}
           selectHandler={handleSelectSeason}
           key="season"
-          options={activeSeasons.map(seasonMapper.toOption)}
+          emptyMessage="There are currently no active seasons."
+          options={seasonOptions}
           placeholder="Select match season..."
           value={values.season}
         />
