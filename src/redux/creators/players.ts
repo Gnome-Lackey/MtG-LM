@@ -89,7 +89,7 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
     const dupRoles = [...roles];
     const roleIndex = roles.findIndex((nextRole) => nextRole.id === id);
 
-    dupRoles[roleIndex] = data;
+    dupRoles[roleIndex] = {...data, role };
 
     dispatch({
       type: EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
