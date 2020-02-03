@@ -43,7 +43,7 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
   const body = seasonMapper.toCreateNode(details);
   const data = await seasonService.create(body);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
@@ -72,7 +72,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
   const body = seasonMapper.toUpdateNode(details);
   const data = await seasonService.update(id, body);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     const updatedSeasons = list.filter((season) => season.id !== data.id);
@@ -97,7 +97,7 @@ export const requestGetCurrentSeason = () => async (dispatch: Function) => {
 
   const data = await seasonService.getCurrent();
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
@@ -116,7 +116,7 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
 
   const data = await seasonService.get(id);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
@@ -135,7 +135,7 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
 
   const data = await seasonService.getAllDetails();
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
@@ -156,7 +156,7 @@ export const requestGetActiveSeasons = () => async (dispatch: Function) => {
     active: true
   });
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({

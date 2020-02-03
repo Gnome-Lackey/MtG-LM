@@ -82,7 +82,7 @@ export const requestLogout = () => async (dispatch: Function) => {
 
   const data = await authService.logout();
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT, data.error.message));
   } else {
     dispatch({ type: EMIT_LOGOUT_SUCCESS });
@@ -96,7 +96,7 @@ export const requestSignUp = (details: SignUpFields) => async (dispatch: Functio
 
   const data = await authService.signup(details);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP, data.error.message));
   } else {
     dispatch({
@@ -150,7 +150,7 @@ export const requestResendCode = () => async (dispatch: Function, getState: Func
 
   const data = await authService.resendCode(userName);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY, data.error.message));
   } else {
     dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
@@ -164,7 +164,7 @@ export const requestValidation = () => async (dispatch: Function) => {
 
   const data = await authService.validate();
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch({ type: EMIT_VALIDATION_FAILURE });
   } else {
     dispatch({

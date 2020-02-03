@@ -58,7 +58,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 
   const data = await playerService.create(body);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
@@ -81,7 +81,7 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
 
   const data = await playerService.updateRole(id, { role });
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     const dupRoles = [...roles];
@@ -103,7 +103,7 @@ export const requestGetPlayerRoles = () => async (dispatch: Function) => {
 
   const data = await playerService.getRoles();
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({

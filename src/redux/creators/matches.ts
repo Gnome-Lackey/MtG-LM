@@ -25,7 +25,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
 
   const data = await matchService.create(body);
 
-  if (data.error) {
+  if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
