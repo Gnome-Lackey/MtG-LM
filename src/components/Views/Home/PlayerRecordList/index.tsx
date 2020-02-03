@@ -28,19 +28,19 @@ const renderContent = (
         <Spinner inline />
       </li>
     );
-  } else if (!hasSeason) {
-    return (
-      <li className="record-empty-message">
-        There are no active seasons. Please contact an admin to get a season started.
-      </li>
-    );
+  } else if (hasSeason && !players.length) {
+    return <li className="record-empty-message">There are no players in this season.</li>;
   } else if (players.length) {
     return players.map((player) => (
       <PlayerRecordListItem key={player.id} player={player} userId={user && user.id} />
     ));
   }
 
-  return <li className="record-empty-message">There are no players in this season.</li>;
+  return (
+    <li className="record-empty-message">
+      There are no active seasons. Please contact an admin to get a season started.
+    </li>
+  );
 };
 
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
@@ -63,7 +63,7 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
         </p>
       </li>
     ) : null}
-    {renderContent(hasSeason, isRequestLoading, players, user)}
+    {renderContent(isRequestLoading, hasSeason, players, user)}
   </ul>
 );
 
