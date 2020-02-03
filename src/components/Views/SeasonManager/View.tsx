@@ -13,10 +13,10 @@ import { Player } from "models/Player";
 import "./styles.scss";
 
 interface SeasonManagerViewActions {
+  emitSelectSeasonForEditing: Function;
+  emitDeselectSeasonForEditing: Function;
   requestGetSetByCode: Function;
   requestQueryPlayers: Function;
-  emitSelectSeason: Function;
-  emitDeselectSeason: Function;
   requestCreateSeason: Function;
   requestGetSeasons: Function;
   requestUpdateSeason: Function;
@@ -48,20 +48,20 @@ const SeasonManagerView = ({
   const [showForm, setShowForm] = React.useState(!!selectedSeason);
 
   const handleSelectSeason = (season: Season): void => {
-    actions.emitSelectSeason(season);
+    actions.emitSelectSeasonForEditing(season);
 
     setShowForm(true);
   };
 
   const handleDeselectSeason = (): void => {
-    actions.emitDeselectSeason();
+    actions.emitDeselectSeasonForEditing();
 
     setShowForm(false);
   };
 
   const handleCreateNewSeason = (): void => {
     if (selectedSeason) {
-      actions.emitDeselectSeason();
+      actions.emitDeselectSeasonForEditing();
     }
 
     setShowForm(true);

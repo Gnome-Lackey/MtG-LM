@@ -1,11 +1,12 @@
-import { Player } from "models/Player";
+import { Player, PlayerRole } from "models/Player";
 
 export interface PlayerAction {
   type: string;
   payload?: {
     loading?: boolean;
+    playerRoles?: PlayerRole[];
     players?: Player[];
-    playerSearchId: string;
+    playerSearchId?: string;
     searching?: boolean;
   };
 };

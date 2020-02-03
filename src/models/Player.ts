@@ -9,3 +9,11 @@ export interface Player {
   epithet: string;
   favoriteColors: string[];
 }
+
+export interface PlayerRole {
+  id: string;
+  displayName: string;
+  userName: string;
+  email: string;
+  role: string;
+}

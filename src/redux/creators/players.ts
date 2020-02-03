@@ -1,13 +1,15 @@
 import {
   EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
-  EMIT_GET_PLAYERS_SUCCESS,
   EMIT_CREATE_PLAYER_SUCCESS,
   EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
   EMIT_CLEAR_PLAYER_LIST,
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-  EMIT_LOADING_PLAYERS
+  EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
+  REQUEST_UPDATE_PLAYER_ROLE,
+  EMIT_LOADING_PLAYER_ROLES,
+  EMIT_GET_PLAYER_ROLES_SUCCESS
 } from "redux/actions/players";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -67,23 +69,80 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
 
-export const requestGetPlayers = (overrideLoading?: boolean) => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, !overrideLoading));
+export const requestUpdatePlayerRole = (id: string, role: string) => async (
+  dispatch: Function,
+  getState: Function
+) => {
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
 
-  const data = await playerService.query();
+  const {
+    players: { roles }
+  } = getState() as RootState;
+
+  const data = await playerService.updateRole(id, { role });
+
+  if (data.error) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  } else {
+    const dupRoles = [...roles];
+    const roleIndex = roles.findIndex((nextRole) => nextRole.id === id);
+
+    dupRoles[roleIndex] = {...data, role };
+
+    dispatch({
+      type: EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
+      payload: { playerRoles: dupRoles }
+    });
+  }
+
+  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, false));
+};
+
+export const requestGetPlayerRoles = () => async (dispatch: Function) => {
+  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
+
+  const data = await playerService.getRoles();
 
   if (data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({
-      type: EMIT_GET_PLAYERS_SUCCESS,
+      type: EMIT_GET_PLAYER_ROLES_SUCCESS,
       payload: {
-        players: data
+        playerRoles: data
       }
     });
   }
 
-  dispatch(emitRequestLoading(EMIT_LOADING_PLAYERS, false));
+  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, false));
+};
+
+export const requestQueryPlayers = (query: string) => async (dispatch: Function) => {
+  dispatch({
+    type: EMIT_SEARCHING_FOR_PLAYERS,
+    payload: {
+      searching: true
+    }
+  });
+
+  const data = await playerService.query({
+    userName: query,
+    name: query
+  });
+
+  dispatch({
+    type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
+    payload: {
+      players: data.error ? [] : data
+    }
+  });
+
+  dispatch({
+    type: EMIT_SEARCHING_FOR_PLAYERS,
+    payload: {
+      searching: false
+    }
+  });
 };
 
 export const requestQueryPlayersForRecordMatch = (
@@ -117,34 +176,6 @@ export const requestQueryPlayersForRecordMatch = (
     type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
     payload: {
       playerSearchId: searchId,
-      searching: false
-    }
-  });
-};
-
-export const requestQueryPlayers = (query: string) => async (dispatch: Function) => {
-  dispatch({
-    type: EMIT_SEARCHING_FOR_PLAYERS,
-    payload: {
-      searching: true
-    }
-  });
-
-  const data = await playerService.query({
-    userName: query,
-    name: query
-  });
-
-  dispatch({
-    type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
-    payload: {
-      players: data.error ? [] : data
-    }
-  });
-
-  dispatch({
-    type: EMIT_SEARCHING_FOR_PLAYERS,
-    payload: {
       searching: false
     }
   });

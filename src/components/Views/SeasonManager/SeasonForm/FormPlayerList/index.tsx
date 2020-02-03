@@ -9,7 +9,7 @@ import { Player } from "models/Player";
 
 import "./styles.scss";
 
-interface PlayerListProps {
+interface FormPlayerListProps {
   players: TypeAheadOption[];
   potentialPlayers: Player[];
   searchForPlayer: boolean;
@@ -17,13 +17,13 @@ interface PlayerListProps {
   updateValues: Function;
 }
 
-const PlayerList = ({
+const FormPlayerList = ({
   players,
   potentialPlayers,
   searchForPlayer,
   searchPlayerHandler,
   updateValues
-}: PlayerListProps): React.FunctionComponentElement<PlayerListProps> => {
+}: FormPlayerListProps): React.FunctionComponentElement<FormPlayerListProps> => {
   const playerOptions = potentialPlayers
     ? potentialPlayers.reduce((options, potentialPlayer) => {
         if (!players.some((player) => player.key === potentialPlayer.id)) {
@@ -41,7 +41,7 @@ const PlayerList = ({
   };
 
   return (
-    <div className="season-players">
+    <div className="form-player-list">
       <TypeAhead
         autoSubmit
         id="players"
@@ -74,4 +74,4 @@ const PlayerList = ({
   );
 };
 
-export default PlayerList;
+export default FormPlayerList;

@@ -1,6 +1,8 @@
 @import "src/styles/variables";
 
-.season-players {
+.form-player-list {
+  padding: 20px 0;
+  
   .player-list {
     background-color: $colorGrayDarker;
     border-radius: 5px;

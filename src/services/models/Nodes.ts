@@ -14,7 +14,6 @@ export interface UpdateSeasonNode {
   isActive?: boolean;
 }
 
-
 export interface CreatePlayerNode {
   id: string;
   name: string;
@@ -22,4 +21,8 @@ export interface CreatePlayerNode {
   email: string;
   epithet: string;
   favoriteColors: string[];
+}
+
+export interface UpdatePlayerRoleNode {
+  role: string;
 }

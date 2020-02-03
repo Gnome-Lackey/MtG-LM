@@ -66,12 +66,21 @@ export interface MtglmServiceResponse {
   body: MtglmServiceResponseBody;
 }
 
+export interface PlayerRoleResponse extends ErrorResponse {
+  id: string;
+  displayName: string;
+  userName: string;
+  email: string;
+  role: string;
+}
+
 export interface PlayerResponse extends PlayerView, ErrorResponse {
   matches: string[];
 }
 
 export interface PlayerDetailsResponse extends PlayerView, ErrorResponse {
   matches: MatchView[];
+  isAdmin: boolean;
 }
 
 export interface RecordResponse extends RecordView, ErrorResponse {
