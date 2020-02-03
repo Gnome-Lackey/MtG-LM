@@ -73,8 +73,6 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
   dispatch: Function,
   getState: Function
 ) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
-
   dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
 
   const {
@@ -101,7 +99,7 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
 };
 
 export const requestGetPlayerRoles = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
+  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
 
   const data = await playerService.getRoles();
 
@@ -116,7 +114,7 @@ export const requestGetPlayerRoles = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(EMIT_LOADING_PLAYER_ROLES, false));
+  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, false));
 };
 
 export const requestQueryPlayers = (query: string) => async (dispatch: Function) => {

@@ -12,6 +12,8 @@ import { PlayerRole } from "models/Player";
 
 interface RoleManagerViewProps {
   history: History;
+  isRequestLoading: boolean;
+  isRoleUpdating: boolean;
   playerRoles: PlayerRole[];
 }
 
@@ -27,6 +29,8 @@ const mapStateToProps = (
   ownProps: RouteComponentProps
 ): RoleManagerViewProps => ({
   history: ownProps.history,
+  isRequestLoading: state.application.isRequestLoading,
+  isRoleUpdating: state.players.updatingRole,
   playerRoles: state.players.roles
 });
 

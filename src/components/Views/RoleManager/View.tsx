@@ -2,8 +2,10 @@ import * as React from "react";
 import * as classNames from "classnames";
 import { RouteComponentProps } from "react-router";
 
-import useDataFetch from "components/Hooks/useDataFetch";
 import Dropdown from "components/Form/Dropdown";
+import Spinner from "components/Common/Spinner";
+
+import useDataFetch from "components/Hooks/useDataFetch";
 
 import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { PlayerRole } from "models/Player";
@@ -19,6 +21,8 @@ interface RoleManagerViewActions {
 
 interface RoleManagerViewProps extends RouteComponentProps {
   actions: RoleManagerViewActions;
+  isRequestLoading: boolean;
+  isRoleUpdating: boolean;
   playerRoles: PlayerRole[];
 }
 
@@ -26,9 +30,13 @@ const toCapitalCase = (text: string): string => `${text.charAt(0)}${text.slice(1
 
 const RoleManagerView = ({
   actions,
+  isRequestLoading,
+  isRoleUpdating,
   playerRoles
 }: RoleManagerViewProps): React.FunctionComponentElement<RoleManagerViewProps> => {
   useDataFetch(!playerRoles.length, actions.requestGetPlayerRoles);
+
+  const [selectedRole, setSelectedRole] = React.useState(null);
 
   const accountTypeOptions = ACCOUNT_TYPES.map((type) => ({
     label: toCapitalCase(type),
@@ -36,6 +44,8 @@ const RoleManagerView = ({
   }));
 
   const handleSelect = (id: string, role: string): void => {
+    setSelectedRole(id);
+
     actions.requestUpdatePlayerRole(id, role);
   };
 
@@ -44,14 +54,18 @@ const RoleManagerView = ({
       <ul className="player-list">
         {playerRoles.map((playerRole) => (
           <li key={playerRole.id} className="player-list-item">
-            <i
-              className={classNames(
-                "player-role-icon",
-                "fas",
-                { "fa-chess-king": playerRole.role === ACCOUNT_TYPE_ADMIN },
-                { "fa-user": playerRole.role !== ACCOUNT_TYPE_ADMIN }
-              )}
-            />
+            {isRoleUpdating && selectedRole === playerRole.id ? (
+              <Spinner inline />
+            ) : (
+              <i
+                className={classNames(
+                  "player-role-icon",
+                  "fas",
+                  { "fa-chess-king": playerRole.role === ACCOUNT_TYPE_ADMIN },
+                  { "fa-user": playerRole.role !== ACCOUNT_TYPE_ADMIN }
+                )}
+              />
+            )}
             <div className="player-details">
               <p className="player-names">
                 {playerRole.displayName}&nbsp;
@@ -67,6 +81,7 @@ const RoleManagerView = ({
           </li>
         ))}
       </ul>
+      {isRequestLoading ? <Spinner /> : null}
     </div>
   );
 };

@@ -8,7 +8,8 @@ import {
   EMIT_SEARCHING_FOR_PLAYERS,
   EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
   EMIT_GET_PLAYER_ROLES_SUCCESS,
-  EMIT_UPDATE_PLAYER_ROLE_SUCCESS
+  EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
+  REQUEST_UPDATE_PLAYER_ROLE
 } from "redux/actions/players";
 
 import { PlayerState } from "redux/models/PlayerState";
@@ -19,11 +20,16 @@ const INITIAL_STATE: PlayerState = {
   roles: [],
   searching: false,
   searchResults: [],
-  searchResultsMap: {}
+  searchResultsMap: {},
+  updatingRole: false
 };
 
 export default handleActions(
   {
+    [REQUEST_UPDATE_PLAYER_ROLE]: (state: PlayerState, action: PlayerAction): PlayerState => ({
+      ...state,
+      updatingRole: action.payload.loading
+    }),
     [EMIT_UPDATE_PLAYER_ROLE_SUCCESS]: (state: PlayerState, action: PlayerAction): PlayerState => ({
       ...state,
       roles: action.payload.playerRoles

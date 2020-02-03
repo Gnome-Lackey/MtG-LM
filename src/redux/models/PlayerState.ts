@@ -16,4 +16,5 @@ export interface PlayerState {
   searching?: boolean;
   searchResults?: Player[];
   searchResultsMap?: PlayerSearchResultMap;
+  updatingRole?: boolean;
 }
