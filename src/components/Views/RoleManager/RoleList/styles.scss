@@ -1,0 +1,21 @@
+@import "src/styles/variables";
+
+.role-list {
+  background-color: $colorGrayDark;
+  min-height: $appContentMinHeight;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 750px;
+  width: 100%;
+
+  &.loading {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    .spinner.inline > i {
+      font-size: 35px;
+    }
+  }
+}
