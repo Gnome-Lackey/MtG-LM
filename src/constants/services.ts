@@ -8,7 +8,7 @@ const environment: string = process.env.ENV;
 
 const authUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/auth",
-  dev: "https://3pt9hx6yxe.execute-api.us-east-1.amazonaws.com/dev/auth",
+  dev: "https://7veqmte8wc.execute-api.us-east-1.amazonaws.com/dev/auth",
   qa: "https://wm2farj3t2.execute-api.us-east-1.amazonaws.com/qa/auth"
 };
 
@@ -27,7 +27,7 @@ export const AUTH_VALIDATE = `${AUTH_BASE_URL}/validate`;
 
 const matchUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/matches",
-  dev: "https://kq7rj89il9.execute-api.us-east-1.amazonaws.com/dev/matches",
+  dev: "https://3k5onoxjxk.execute-api.us-east-1.amazonaws.com/dev/matches",
   qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches"
 };
 
@@ -39,7 +39,7 @@ export const MATCH_BASE_URL: string = matchUrlMap[environment];
 
 const playerUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/players",
-  dev: "https://5u60j5v8n1.execute-api.us-east-1.amazonaws.com/dev/players",
+  dev: "https://4mbtf9c63i.execute-api.us-east-1.amazonaws.com/dev/players",
   qa: "https://zs66h3djm8.execute-api.us-east-1.amazonaws.com/qa/players"
 };
 
@@ -51,7 +51,7 @@ export const PLAYER_BASE_URL: string = playerUrlMap[environment];
 
 const scryfallUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local",
-  dev: "https://nch96cg8ng.execute-api.us-east-1.amazonaws.com/dev",
+  dev: "https://vfhqovqprh.execute-api.us-east-1.amazonaws.com/dev",
   qa: "https://fvgfu582w6.execute-api.us-east-1.amazonaws.com/qa"
 };
 
@@ -67,7 +67,7 @@ export const SCRYFALL_SETS = `${SCRYFALL_BASE}/sets`;
 
 const seasonUrlMap: DynamicStringMap = {
   local: "http://localhost:9001/local/seasons",
-  dev: "https://2rsi2w9ak4.execute-api.us-east-1.amazonaws.com/dev/seasons",
+  dev: "https://n3tf249cqf.execute-api.us-east-1.amazonaws.com/dev/seasons",
   qa: "https://mvd9vvkebg.execute-api.us-east-1.amazonaws.com/qa/seasons"
 };
 
