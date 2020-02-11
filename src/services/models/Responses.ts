@@ -3,7 +3,8 @@ import {
   RecordView,
   MatchView,
   SeasonView,
-  ScryfallSetView
+  ScryfallSetView,
+  SeasonMetadataView
 } from "services/models/Views";
 
 export interface AuthHeaderResponse {
@@ -75,11 +76,10 @@ export interface PlayerRoleResponse extends ErrorResponse {
 }
 
 export interface PlayerResponse extends PlayerView, ErrorResponse {
-  matches: string[];
+  [key: string]: string | object | number | string[];
 }
 
 export interface PlayerDetailsResponse extends PlayerView, ErrorResponse {
-  matches: MatchView[];
   isAdmin: boolean;
 }
 
@@ -111,6 +111,13 @@ export interface SeasonResponse extends SeasonView, ErrorResponse {
 export interface SeasonDetailsResponse extends SeasonView, ErrorResponse {
   set: ScryfallSetView;
   players: PlayerView[];
+}
+
+export interface SeasonMetadataResponse extends SeasonMetadataView, ErrorResponse {
+  player: string;
+  season: string;
+  playedOpponents: string[];
+  matches: string[];
 }
 
 export interface SuccessResponse extends ErrorResponse {
