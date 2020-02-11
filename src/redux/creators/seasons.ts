@@ -7,7 +7,9 @@ import {
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
-  EMIT_GET_CURRENT_SEASONS
+  EMIT_GET_CURRENT_SEASONS,
+  EMIT_GET_SEASON_METADATA,
+  EMIT_GET_SEASON_METADATA_SUCCESS
 } from "redux/actions/seasons";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -147,6 +149,25 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
+};
+
+export const requestGetSeasonMetadata = (id: string) => async (dispatch: Function) => {
+  dispatch(emitRequestLoading(EMIT_GET_SEASON_METADATA, true));
+
+  const data = await seasonService.getMetadata(id);
+
+  if (data && data.error) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  } else {
+    dispatch({
+      type: EMIT_GET_SEASON_METADATA_SUCCESS,
+      payload: {
+        metadata: data
+      }
+    });
+  }
+
+  dispatch(emitRequestLoading(EMIT_GET_SEASON_METADATA, false));
 };
 
 export const requestGetActiveSeasons = () => async (dispatch: Function) => {

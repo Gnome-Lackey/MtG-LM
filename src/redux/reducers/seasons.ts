@@ -9,7 +9,8 @@ import {
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
-  EMIT_GET_CURRENT_SEASONS
+  EMIT_GET_CURRENT_SEASONS,
+  EMIT_GET_SEASON_METADATA_SUCCESS
 } from "redux/actions/seasons";
 
 import { SeasonState } from "redux/models/SeasonState";
@@ -21,7 +22,8 @@ const INITIAL_STATE: SeasonState = {
   getCurrentSeasonLoading: false,
   getActiveSeasonsLoading: false,
   list: [],
-  selected: null
+  selected: null,
+  metadata: []
 };
 
 export default handleActions(
@@ -43,7 +45,10 @@ export default handleActions(
       selected: action.payload.season,
       list: action.payload.seasons
     }),
-    [EMIT_SELECTED_SEASON_FOR_EDITING]: (state: SeasonState, action: SeasonAction): SeasonState => ({
+    [EMIT_SELECTED_SEASON_FOR_EDITING]: (
+      state: SeasonState,
+      action: SeasonAction
+    ): SeasonState => ({
       ...state,
       editing: action.payload.season
     }),
@@ -62,6 +67,13 @@ export default handleActions(
     [EMIT_GET_ACTIVE_SEASONS]: (state: SeasonState, action: SeasonAction): SeasonState => ({
       ...state,
       getActiveSeasonsLoading: action.payload.loading
+    }),
+    [EMIT_GET_SEASON_METADATA_SUCCESS]: (
+      state: SeasonState,
+      action: SeasonAction
+    ): SeasonState => ({
+      ...state,
+      metadata: action.payload.metadata
     })
   },
   INITIAL_STATE
