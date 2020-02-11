@@ -34,33 +34,6 @@ export interface MatchResponse extends MatchView, ErrorResponse {
   players: RecordResponse[];
 }
 
-export interface MatchDetailsResponse extends MatchView, ErrorResponse {
-  players: RecordDetailsResponse[];
-}
-
-type MtglmServiceResponseBody =
-  | AuthResponse
-  | ErrorResponse
-  | LoginResponse
-  | MatchDetailsResponse
-  | MatchDetailsResponse[]
-  | MatchResponse
-  | PlayerDetailsResponse
-  | PlayerDetailsResponse[]
-  | PlayerResponse
-  | PlayerResponse[]
-  | RecordDetailsResponse
-  | RecordDetailsResponse[]
-  | RecordResponse
-  | RecordResponse[]
-  | ScryfallCardResponse
-  | ScryfallCardResponse[]
-  | ScryfallSetResponse
-  | SeasonResponse
-  | SeasonDetailsResponse
-  | SuccessResponse
-  | UserResponse;
-
 export interface MtglmServiceResponse {
   headers: Headers;
   status: number;
@@ -76,23 +49,13 @@ export interface PlayerRoleResponse extends ErrorResponse {
 }
 
 export interface PlayerResponse extends PlayerView, ErrorResponse {
-  [key: string]: string | object | number | string[];
-}
-
-export interface PlayerDetailsResponse extends PlayerView, ErrorResponse {
   isAdmin: boolean;
 }
 
 export interface RecordResponse extends RecordView, ErrorResponse {
   losses: number;
-  player: string;
-  match: string;
-}
-
-export interface RecordDetailsResponse extends RecordView, ErrorResponse {
-  losses: number;
-  player: PlayerView;
-  match: MatchView;
+  player: string | PlayerView;
+  match: string | MatchView;
 }
 
 export interface ScryfallCardResponse extends ScryfallSetView, ErrorResponse {
@@ -104,20 +67,15 @@ export interface ScryfallSetResponse extends ScryfallSetView, ErrorResponse {
 }
 
 export interface SeasonResponse extends SeasonView, ErrorResponse {
-  set: string;
-  players: string[];
-}
-
-export interface SeasonDetailsResponse extends SeasonView, ErrorResponse {
-  set: ScryfallSetView;
-  players: PlayerView[];
+  set: string | ScryfallSetView;
+  players: string[] | PlayerView[];
 }
 
 export interface SeasonMetadataResponse extends SeasonMetadataView, ErrorResponse {
-  player: string;
-  season: string;
-  playedOpponents: string[];
-  matches: string[];
+  player: string | PlayerView;
+  season: string | SeasonView;
+  playedOpponents: string[] | PlayerView[];
+  matches: string[] | MatchView[];
 }
 
 export interface SuccessResponse extends ErrorResponse {
@@ -134,3 +92,23 @@ export interface UserResponse extends ErrorResponse {
   isFirstTimeLogin?: boolean;
   accountType: string;
 }
+
+type MtglmServiceResponseBody =
+  | AuthResponse
+  | ErrorResponse
+  | LoginResponse
+  | MatchResponse
+  | MatchResponse[]
+  | PlayerResponse
+  | PlayerResponse[]
+  | RecordResponse
+  | RecordResponse[]
+  | ScryfallCardResponse
+  | ScryfallCardResponse[]
+  | ScryfallSetResponse
+  | SeasonResponse
+  | SeasonResponse[]
+  | SeasonMetadataResponse
+  | SeasonMetadataResponse[]
+  | SuccessResponse
+  | UserResponse;
