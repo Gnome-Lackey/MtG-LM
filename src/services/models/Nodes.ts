@@ -1,5 +1,4 @@
 export interface CreateMatchNode {
-  isSeasonPoint: boolean;
   wins: number;
   games: number;
   winner: string;
