@@ -1,6 +1,5 @@
 import {
   PlayerView,
-  RecordView,
   MatchView,
   SeasonView,
   ScryfallSetView,
@@ -31,7 +30,15 @@ export interface LoginResponse extends ErrorResponse {
 }
 
 export interface MatchResponse extends MatchView, ErrorResponse {
-  players: RecordResponse[];
+  losers: string[];
+  season: string;
+  winner: string;
+}
+
+export interface MatchDetailsResponse extends MatchView, ErrorResponse {
+  losers: PlayerView[];
+  season: SeasonView;
+  winner: PlayerView;
 }
 
 export interface MtglmServiceResponse {
@@ -52,12 +59,6 @@ export interface PlayerResponse extends PlayerView, ErrorResponse {
   isAdmin: boolean;
 }
 
-export interface RecordResponse extends RecordView, ErrorResponse {
-  losses: number;
-  player: string | PlayerView;
-  match: string | MatchView;
-}
-
 export interface ScryfallCardResponse extends ScryfallSetView, ErrorResponse {
   [key: string]: string | string[] | number | boolean | object;
 }
@@ -67,15 +68,20 @@ export interface ScryfallSetResponse extends ScryfallSetView, ErrorResponse {
 }
 
 export interface SeasonResponse extends SeasonView, ErrorResponse {
-  set: string | ScryfallSetView;
-  players: string[] | PlayerView[];
+  set: string;
+  players: string[];
+}
+
+export interface SeasonDetailsResponse extends SeasonView, ErrorResponse {
+  set: ScryfallSetView;
+  players: PlayerView[];
 }
 
 export interface SeasonMetadataResponse extends SeasonMetadataView, ErrorResponse {
-  player: string | PlayerView;
-  season: string | SeasonView;
-  playedOpponents: string[] | PlayerView[];
-  matches: string[] | MatchView[];
+  player: string;
+  season: string;
+  playedOpponents: string[];
+  matches: MatchView[];
 }
 
 export interface SuccessResponse extends ErrorResponse {
@@ -101,13 +107,13 @@ type MtglmServiceResponseBody =
   | MatchResponse[]
   | PlayerResponse
   | PlayerResponse[]
-  | RecordResponse
-  | RecordResponse[]
   | ScryfallCardResponse
   | ScryfallCardResponse[]
   | ScryfallSetResponse
   | SeasonResponse
   | SeasonResponse[]
+  | SeasonDetailsResponse
+  | SeasonDetailsResponse[]
   | SeasonMetadataResponse
   | SeasonMetadataResponse[]
   | SuccessResponse

@@ -7,5 +7,5 @@ export interface SeasonState {
   getActiveSeasonsLoading?: boolean;
   list?: Season[];
   selected?: Season;
-  metadata?: SeasonMetadata[];
+  metadata?: SeasonMetadata;
 }

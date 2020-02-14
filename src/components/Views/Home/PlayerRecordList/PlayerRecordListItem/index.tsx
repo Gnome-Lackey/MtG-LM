@@ -6,15 +6,36 @@ import { Player } from "models/Player";
 import "./styles.scss";
 
 interface PlayerRecordListItemProps {
+  hasPlayedUser: boolean;
+  isLoggedInUser: boolean;
+  hasWinAgainstPlayer: boolean;
   player: Player;
-  userId: string;
 }
 
+const renderIcon = (isLoggedInUser: boolean, hasPlayedUser: boolean): JSX.Element => {
+  if (isLoggedInUser) {
+    return null;
+  } else if (hasPlayedUser) {
+    return <i className="far fa-reward" />;
+  }
+
+  return <i className="far fa-minus-circle" />;
+};
+
 const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> = ({
-  player,
-  userId
+  hasPlayedUser,
+  isLoggedInUser,
+  hasWinAgainstPlayer,
+  player
 }: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => (
-  <li className={classNames("player-record", { user: userId === player.id })}>
+  <li
+    className={classNames("player-record", {
+      user: isLoggedInUser,
+      win: hasPlayedUser && hasWinAgainstPlayer,
+      loss: hasPlayedUser && !hasWinAgainstPlayer
+    })}
+  >
+    {renderIcon(isLoggedInUser, hasPlayedUser)}
     <p className="name">
       {player.displayName}
       <span className="small">({player.userName})</span>

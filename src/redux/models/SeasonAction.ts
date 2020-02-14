@@ -7,6 +7,6 @@ export interface SeasonAction {
     seasons?: Season[];
     season?: Season;
     selectedSeason?: Season;
-    metadata?: SeasonMetadata[];
+    metadata?: SeasonMetadata;
   };
 }

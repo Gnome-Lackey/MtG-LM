@@ -1,21 +1,9 @@
-export interface MatchRecord {
-  player: string;
-  wins: number;
-  losses: number;
-}
-
 export interface Match {
-  playerA: MatchRecord;
-  playerB: MatchRecord;
-  season: string;
-}
-
-export interface CreateMatchRecordBody {
-  player: string;
+  id: string;
+  isSeasonPoint: boolean;
   wins: number;
-}
-
-export interface CreateMatchBody {
-  records: CreateMatchRecordBody[];
+  games: number;
+  losers: string[];
   season: string;
+  winner: string;
 }

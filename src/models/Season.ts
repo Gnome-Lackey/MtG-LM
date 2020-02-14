@@ -1,5 +1,6 @@
 import { Set } from "./Scryfall";
 import { Player } from "./Player";
+import { Match } from "./Match";
 
 export interface Season {
   id: string;
@@ -18,5 +19,5 @@ export interface SeasonMetadata {
   player: string;
   season: string;
   playedOpponents: string[];
-  matches: string[];
+  matches: Match[];
 }

@@ -13,19 +13,21 @@ import { requestCreateMatch } from "redux/creators/matches";
 import {
   requestGetActiveSeasons,
   requestGetCurrentSeason,
-  requestGetSeason
+  requestGetSeason,
+  requestGetSeasonMetadata
 } from "redux/creators/seasons";
 
 import { RootState } from "redux/models/RootState";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
-import { Season } from "models/Season";
+import { Season, SeasonMetadata } from "models/Season";
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
+  metadata: SeasonMetadata;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
   selectedSeason: Season;
@@ -42,6 +44,7 @@ interface HomeViewActions {
     requestGetCurrentSeason: Function;
     requestGetSeason: Function;
     requestQueryPlayersForRecordMatch: Function;
+    requestGetSeasonMetadata: Function;
   };
 }
 
@@ -50,6 +53,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   isLoadingActiveSeasons: state.seasons.getActiveSeasonsLoading,
   isLoadingCurrentSeason:  state.seasons.getCurrentSeasonLoading,
   isMatchRequestLoading: state.matches.loading,
+  metadata: state.seasons.metadata,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,
   selectedSeason: state.seasons.selected,
@@ -65,6 +69,7 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
       requestCreateMatch,
       requestGetActiveSeasons,
       requestGetCurrentSeason,
+      requestGetSeasonMetadata,
       requestGetSeason,
       requestQueryPlayersForRecordMatch
     },

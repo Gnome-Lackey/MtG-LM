@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Player } from "models/Player";
 import { User } from "models/User";
+import { SeasonMetadata } from "models/Season";
 
 import PlayerRecordListItem from "components/Views/Home/PlayerRecordList/PlayerRecordListItem";
 import Spinner from "components/Common/Spinner";
@@ -11,6 +12,7 @@ import "./styles.scss";
 interface PlayerRecordListProps {
   hasSeason: boolean;
   isRequestLoading: boolean;
+  metadata: SeasonMetadata;
   players: Player[];
   showWarning?: boolean;
   user: User;
@@ -19,6 +21,7 @@ interface PlayerRecordListProps {
 const renderContent = (
   isRequestLoading: boolean,
   hasSeason: boolean,
+  metadata: SeasonMetadata,
   players: Player[],
   user: User
 ): JSX.Element | JSX.Element[] => {
@@ -31,9 +34,23 @@ const renderContent = (
   } else if (hasSeason && !players.length) {
     return <li className="record-empty-message">There are no players in this season.</li>;
   } else if (players.length) {
-    return players.map((player) => (
-      <PlayerRecordListItem key={player.id} player={player} userId={user && user.id} />
-    ));
+    return players.map((player) => {
+      const isLoggedInUser = user.id === player.id;
+      const hasPlayedUser = metadata.playedOpponents.includes(user.id);
+      const hasWinAgainstPlayer = metadata.matches.some(
+        (match) => match.winner === user.id && match.losers.includes(player.id)
+      );
+
+      return (
+        <PlayerRecordListItem
+          key={player.id}
+          hasPlayedUser={hasPlayedUser}
+          isLoggedInUser={isLoggedInUser}
+          hasWinAgainstPlayer={hasWinAgainstPlayer}
+          player={player}
+        />
+      );
+    });
   }
 
   return (
@@ -46,6 +63,7 @@ const renderContent = (
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
   hasSeason,
   isRequestLoading,
+  metadata,
   players,
   showWarning,
   user
@@ -63,7 +81,7 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
         </p>
       </li>
     ) : null}
-    {renderContent(isRequestLoading, hasSeason, players, user)}
+    {renderContent(isRequestLoading, hasSeason, metadata, players, user)}
   </ul>
 );
 

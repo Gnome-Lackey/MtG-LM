@@ -151,10 +151,12 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
 };
 
-export const requestGetSeasonMetadata = (id: string) => async (dispatch: Function) => {
+export const requestGetSeasonMetadata = (seasonId: string, playerId: string) => async (
+  dispatch: Function
+) => {
   dispatch(emitRequestLoading(EMIT_GET_SEASON_METADATA, true));
 
-  const data = await seasonService.getMetadata(id);
+  const data = await seasonService.getMetadata(seasonId, playerId);
 
   if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));

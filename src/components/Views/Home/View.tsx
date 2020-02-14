@@ -10,10 +10,11 @@ import useDataFetch from "components/Hooks/useDataFetch";
 
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
-import { Season } from "models/Season";
+import { Season, SeasonMetadata } from "models/Season";
+
+import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
-import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -23,6 +24,7 @@ interface HomeViewActions {
   requestGetCurrentSeason: Function;
   requestGetSeason: Function;
   requestQueryPlayersForRecordMatch: Function;
+  requestGetSeasonMetadata: Function;
 }
 
 interface HomeViewProps extends RouteComponentProps {
@@ -31,6 +33,7 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
+  metadata: SeasonMetadata;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
   selectedSeason: Season;
@@ -44,6 +47,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
   isMatchRequestLoading,
+  metadata,
   playerSearchResultsMap,
   seasons,
   selectedSeason,
@@ -52,6 +56,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
+  useDataFetch(selectedSeason && !metadata, actions.requestGetSeasonMetadata);
 
   const playerList = selectedSeason ? selectedSeason.players : [];
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
@@ -68,6 +73,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           selectHandler={actions.requestGetSeason}
         />
         <PlayerRecordList
+          metadata={metadata}
           isRequestLoading={isPageLoading}
           players={playerList}
           hasSeason={!!selectedSeason}
