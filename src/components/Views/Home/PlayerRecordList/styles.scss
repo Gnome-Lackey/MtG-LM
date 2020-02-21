@@ -48,12 +48,16 @@ $listWidth: calc(100% - 60px);
   }
 
   .record-headers {
+    .rank {
+      font-size: 18px;
+    }
+
     .header {
       font-weight: bold;
       width: 25%;
 
       &.name {
-        padding-left: 92px;
+        padding-left: 76px;
         width: 50%;
       }
 

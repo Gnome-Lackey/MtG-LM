@@ -56,7 +56,7 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
       {renderIcon(isLoggedInUser, hasPlayedUser, hasWinAgainstPlayer)}
       <p className={classNames("name", { unplayed: !hasPlayedUser })}>
         {player.displayName}
-        <span className="small">({player.userName})</span>
+        <span className="small">({player.epithet} / {player.userName})</span>
       </p>
       <p className="wins">{playerMetadata.seasonWins}</p>
       <p className="losses">{playerMetadata.seasonLosses}</p>

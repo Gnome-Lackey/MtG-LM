@@ -70,6 +70,9 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
 }: PlayerRecordListProps): React.FunctionComponentElement<PlayerRecordListProps> => (
   <ul className="player-record-list">
     <li className="record-headers">
+      <p className="rank">
+        <i className="fas fa-list-ol" />
+      </p>
       <p className="header name">Player Name</p>
       <p className="header wins">Total Wins</p>
       <p className="header losses">Total Losses</p>
