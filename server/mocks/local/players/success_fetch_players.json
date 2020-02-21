@@ -2,70 +2,52 @@
   "status": 200,
   "data": [
     {
-      "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",
+      "id": "87600daf-34d1-43c0-9c15-c0e95b777777",
       "email": "matthewdpfister@gmail.com",
       "userName": "mrpfister",
       "displayName": "Matthew Pfister",
       "colors": ["G"],
-      "epithet": "carnage wurm",
-      "totalLosses": 0,
-      "totalWins": 0,
-      "matches": []
+      "epithet": "carnage wurm"
     },
     {
-      "id": "323-1232-5435",
+      "id": "99990daf-34d1-43c0-9c15-c0e95b8efd19",
       "email": "justiceIsServed@planeswalker.mtg",
       "userName": "ChampionOfJustice",
       "displayName": "Gideon Jura",
       "colors": ["W"],
-      "epithet": "champion of justice",
-      "totalLosses": 0,
-      "totalWins": 0,
-      "matches": []
+      "epithet": "champion of justice"
     },
     {
-      "id": "123-1232-1232",
+      "id": "87600daf-1234-43c0-9c15-c0e95b8efd19",
       "email": "beautyInBlack@planeswalker.mtg",
       "userName": "OfTheVeil",
       "displayName": "Liliana Vess",
       "colors": ["B"],
-      "epithet": "of the veil",
-      "totalLosses": 1,
-      "totalWins": 0,
-      "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+      "epithet": "of the veil"
     },
     {
-      "id": "223-1232-4323",
+      "id": "87600daf-34d1-43c0-9c15-c0e95b8ef222",
       "email": "wiseman@planeswalker.mtg",
       "userName": "MindSculpter",
       "displayName": "Jace Beleran",
       "colors": ["U"],
-      "epithet": "mind sculptor",
-      "totalLosses": 0,
-      "totalWins": 0,
-      "matches": []
+      "epithet": "mind sculptor"
     },
     {
-      "id": "3f293940-a8d6-4a98-aba4-419e938a8a13",
-      "email": "herrpfister@gmail.com",
-      "userName": "ironpfist",
-      "displayName": "Matthew Pfister",
+      "id": "87600daf-34d1-43c0-9c15-c0d43d5b8efd19",
+      "email": "admin@mtglm.com",
+      "userName": "admin",
+      "displayName": "Boss Man McBoss",
       "colors": ["B"],
-      "epithet": "haloid kite",
-      "totalLosses": 0,
-      "totalWins": 1,
-      "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
+      "epithet": "haloid kite"
     },
     {
-      "id": "523-1232-2123",
+      "id": "87600daf-34d1-43c0-9c15-c0e95b8easd11",
       "email": "burnItAllDown@planeswalker.mtg",
       "userName": "TorchOfDefiance",
       "displayName": "Chandra Nalaar",
       "colors": ["R"],
-      "epithet": "torch of defiance",
-      "totalLosses": 0,
-      "totalWins": 0,
-      "matches": []
+      "epithet": "torch of defiance"
     }
   ]
 }
