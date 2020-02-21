@@ -12,17 +12,31 @@
     background-color: $colorOrangeHighlight;
   }
 
+  .set-icon {
+    font-size: 18px;
+  }
+
+  .match-status-icon {
+    height: 16px;
+    margin: 0 30px;
+    width: 16px;
+  }
+
   .wins,
   .losses {
     text-align: center;
-    width: 30%;
+    width: 25%;
   }
 
   .name {
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    width: 40%;
+    width: 50%;
+
+    &.unplayed {
+      padding-left: 76px;
+    }
 
     .small {
       font-size: 9px;

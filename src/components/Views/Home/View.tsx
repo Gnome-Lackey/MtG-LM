@@ -33,9 +33,10 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
-  metadata: SeasonMetadata;
+  metadata: SeasonMetadata[];
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
+  selectedMetadata: SeasonMetadata,
   selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
@@ -50,15 +51,19 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   metadata,
   playerSearchResultsMap,
   seasons,
+  selectedMetadata,
   selectedSeason,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
-  useDataFetch(selectedSeason && !metadata, actions.requestGetSeasonMetadata);
+  useDataFetch(selectedSeason && !selectedMetadata, () =>
+    actions.requestGetSeasonMetadata(selectedSeason.id, user.id)
+  );
 
   const playerList = selectedSeason ? selectedSeason.players : [];
+  const setCode = selectedSeason ? selectedSeason.set.code : "";
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
   const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
   const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
@@ -73,12 +78,13 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           selectHandler={actions.requestGetSeason}
         />
         <PlayerRecordList
-          metadata={metadata}
-          isRequestLoading={isPageLoading}
-          players={playerList}
           hasSeason={!!selectedSeason}
+          isRequestLoading={isPageLoading}
+          metadata={metadata}
+          players={playerList}
+          setCode={setCode}
           showWarning={!isCurrentUserInSeason}
-          user={user}
+          userMetadata={selectedMetadata}
         />
       </div>
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()} disabled={isFabDisabled}>

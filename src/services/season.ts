@@ -45,10 +45,20 @@ export const getCurrent = async (): Promise<SeasonDetailsResponse> => {
 };
 
 export const getMetadata = async (
+  seasonId: string
+): Promise<SeasonMetadataResponse[]> => {
+  const url = `${SEASON_BASE_URL}/${seasonId}/metadata`;
+
+  const response = await service.get(url);
+
+  return response.body as SeasonMetadataResponse[];
+};
+
+export const getMetadataForPlayer = async (
   seasonId: string,
   playerId: string
 ): Promise<SeasonMetadataResponse> => {
-  const url = `${SEASON_BASE_URL}/${seasonId}/metadata/${playerId}`;
+  const url = `${SEASON_BASE_URL}/${seasonId}/players/${playerId}/metadata`;
 
   const response = await service.get(url);
 

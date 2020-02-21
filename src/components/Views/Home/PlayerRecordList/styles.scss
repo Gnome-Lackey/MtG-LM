@@ -50,10 +50,11 @@ $listWidth: calc(100% - 60px);
   .record-headers {
     .header {
       font-weight: bold;
-      width: 30%;
+      width: 25%;
 
       &.name {
-        width: 40%;
+        padding-left: 92px;
+        width: 50%;
       }
 
       &.wins,

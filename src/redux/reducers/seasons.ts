@@ -23,7 +23,8 @@ const INITIAL_STATE: SeasonState = {
   getActiveSeasonsLoading: false,
   list: [],
   selected: null,
-  metadata: null
+  selectedMetadata: null,
+  metadata: []
 };
 
 export default handleActions(
@@ -73,6 +74,7 @@ export default handleActions(
       action: SeasonAction
     ): SeasonState => ({
       ...state,
+      selectedMetadata: action.payload.selectedMetadata,
       metadata: action.payload.metadata
     })
   },

@@ -27,7 +27,8 @@ interface HomeViewProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
-  metadata: SeasonMetadata;
+  selectedMetadata: SeasonMetadata;
+  metadata: SeasonMetadata[];
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
   selectedSeason: Season;
@@ -56,6 +57,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   metadata: state.seasons.metadata,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,
+  selectedMetadata: state.seasons.selectedMetadata,
   selectedSeason: state.seasons.selected,
   showRecordMatchModal: state.application.showRecordMatchModal,
   user: state.users.current
