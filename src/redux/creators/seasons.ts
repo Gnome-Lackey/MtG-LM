@@ -27,7 +27,7 @@ import { Season } from "models/Season";
 
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
-import { SeasonMetadataResponse, ErrorResponse } from "services/models/Responses";
+import { ErrorResponse } from "services/models/Responses";
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON_FOR_EDITING,
