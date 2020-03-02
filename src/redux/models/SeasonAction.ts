@@ -1,4 +1,4 @@
-import { Season, SeasonMetadata } from "models/Season";
+import { Season } from "models/Season";
 
 export interface SeasonAction {
   type: string;
@@ -7,7 +7,5 @@ export interface SeasonAction {
     seasons?: Season[];
     season?: Season;
     selectedSeason?: Season;
-    selectedMetadata?: SeasonMetadata;
-    metadata?: SeasonMetadata[];
   };
 }

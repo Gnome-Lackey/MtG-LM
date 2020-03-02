@@ -2,8 +2,7 @@ import {
   PlayerView,
   MatchView,
   SeasonView,
-  ScryfallSetView,
-  SeasonMetadataView
+  ScryfallSetView
 } from "services/models/Views";
 
 export interface AuthHeaderResponse {
@@ -77,13 +76,6 @@ export interface SeasonDetailsResponse extends SeasonView, ErrorResponse {
   players: PlayerView[];
 }
 
-export interface SeasonMetadataResponse extends SeasonMetadataView, ErrorResponse {
-  player: string;
-  season: string;
-  playedOpponents: string[];
-  matches: MatchView[];
-}
-
 export interface SuccessResponse extends ErrorResponse {
   message: string;
 }
@@ -114,7 +106,5 @@ type MtglmServiceResponseBody =
   | SeasonResponse[]
   | SeasonDetailsResponse
   | SeasonDetailsResponse[]
-  | SeasonMetadataResponse
-  | SeasonMetadataResponse[]
   | SuccessResponse
   | UserResponse;

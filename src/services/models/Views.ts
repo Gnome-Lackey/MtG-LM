@@ -51,10 +51,3 @@ export interface SeasonView {
   startedOn: string;
   endedOn: string;
 }
-
-export interface SeasonMetadataView {
-  seasonWins: number;
-  seasonLosses: number;
-  totalWins: number;
-  totalLosses: number;
-}

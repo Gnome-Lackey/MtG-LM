@@ -1,9 +1,9 @@
-import * as queryString from "query-string";
-
 import service from "services/service";
 
+import * as playerMapper from "mappers/players";
+
 import { PlayerResponse, PlayerRoleResponse } from "services/models/Responses";
-import { PlayerFilters } from "services/models/Filters";
+import { PlayerQueryParameters } from "services/models/QueryParams";
 import { CreatePlayerNode, UpdatePlayerRoleNode } from "services/models/Nodes";
 
 import { PLAYER_BASE_URL } from "constants/services";
@@ -28,8 +28,10 @@ export const getRoles = async (): Promise<PlayerRoleResponse> => {
   return response.body as PlayerRoleResponse;
 };
 
-export const query = async (filters?: PlayerFilters): Promise<PlayerResponse> => {
-  const url = filters ? `${PLAYER_BASE_URL}?${queryString.stringify(filters)}` : PLAYER_BASE_URL;
+export const query = async (queryParams?: PlayerQueryParameters): Promise<PlayerResponse> => {
+  const queryString = playerMapper.toSearchQueryString(queryParams);
+
+  const url = queryString ? `${PLAYER_BASE_URL}?${queryString}` : PLAYER_BASE_URL;
 
   const response = await service.get(url);
 

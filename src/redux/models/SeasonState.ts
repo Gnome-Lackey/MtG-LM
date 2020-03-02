@@ -1,4 +1,4 @@
-import { Season, SeasonMetadata } from "models/Season";
+import { Season } from "models/Season";
 
 export interface SeasonState {
   editing?: Season;
@@ -7,6 +7,4 @@ export interface SeasonState {
   getActiveSeasonsLoading?: boolean;
   list?: Season[];
   selected?: Season;
-  selectedMetadata?: SeasonMetadata;
-  metadata?: SeasonMetadata[];
 }

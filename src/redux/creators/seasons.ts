@@ -152,39 +152,6 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
 };
 
-export const requestGetSeasonMetadata = (seasonId: string) => async (
-  dispatch: Function,
-  getState: Function
-) => {
-  dispatch(emitRequestLoading(EMIT_GET_SEASON_METADATA, true));
-
-  const {
-    users: {
-      current: { id }
-    }
-  }: RootState = getState();
-
-  const data = await seasonService.getMetadata(seasonId);
-
-  if (data && data.length) {
-    const loggedInUserMetadata = data.find((metadata) => metadata.player === id);
-
-    dispatch({
-      type: EMIT_GET_SEASON_METADATA_SUCCESS,
-      payload: {
-        selectedMetadata: loggedInUserMetadata,
-        metadata: data
-      }
-    });
-  } else {
-    const { error } = data as ErrorResponse;
-
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, error.message));
-  }
-
-  dispatch(emitRequestLoading(EMIT_GET_SEASON_METADATA, false));
-};
-
 export const requestGetActiveSeasons = () => async (dispatch: Function) => {
   dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
 

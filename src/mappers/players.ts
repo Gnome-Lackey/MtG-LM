@@ -1,6 +1,11 @@
-import { Player } from "models/Player";
+import * as querystring from "query-string";
+
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+
 import { CreatePlayerNode } from "services/models/Nodes";
+import { PlayerQueryParameters } from "services/models/QueryParams";
+
+import { Player } from "models/Player";
 
 export const toOption = (player: Player): TypeAheadOption => ({
   label: player.displayName,
@@ -17,3 +22,15 @@ export const toCreateNode = (player: Player): CreatePlayerNode => ({
   epithet: player.epithet,
   favoriteColors: player.favoriteColors
 });
+
+export const toSearchQueryString = (queryParams: PlayerQueryParameters): string => {
+  if (!queryParams) {
+    return null;
+  }
+
+  return querystring.stringify({
+    "name*": queryParams.name,
+    "userName*": queryParams.userName,
+    season: queryParams.season
+  });
+};
