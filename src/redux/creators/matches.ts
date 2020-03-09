@@ -1,9 +1,14 @@
-import { EMIT_CREATE_MATCH_SUCCESS, EMIT_UPDATE_LOADING_MATCHES } from "redux/actions/match";
+import {
+  EMIT_CREATE_MATCH_SUCCESS,
+  EMIT_UPDATE_LOADING_MATCHES,
+  EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS
+} from "redux/actions/match";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
 import { emitRequestLoading } from "redux/creators/application";
 import { requestGetSeason } from "redux/creators/seasons";
 
+import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
@@ -15,11 +20,22 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
 
+  const winner = details.playerRecords.reduce(
+    (player, record) => (record.wins > player.wins ? record : player),
+    details.playerRecords[0]
+  );
+
+  const losers = details.playerRecords
+    .filter((record) => record.id !== winner.id)
+    .map((record) => record.player.key);
+
+  const gamesPlayed = details.playerRecords.reduce((total, record) => total + record.wins, 0);
+
   const body = {
-    records: details.playerRecords.map((record) => ({
-      player: record.player.key,
-      wins: record.wins
-    })),
+    losers,
+    games: gamesPlayed,
+    winner: winner.player.key,
+    wins: winner.wins,
     season: details.season.key
   };
 
@@ -31,6 +47,30 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
     dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
     dispatch(requestGetSeason(details.season.key));
   }
+
+  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
+};
+
+export const requestMatchesBySeasonAndPlayer = (season: string, players: string[]) => async (
+  dispatch: Function
+) => {
+  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
+
+  const data = await matchService.query({
+    "winners|": players,
+    "losers|": players,
+    season,
+    seasonPoint: true
+  });
+
+  const matchRecordMap = matchMapper.toMatchRecordMap(data);
+
+  dispatch({
+    type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
+    payload: {
+      matchRecords: matchRecordMap
+    }
+  });
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
 };

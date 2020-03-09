@@ -1,5 +1,8 @@
 export interface MatchView {
   id: string;
+  isSeasonPoint: boolean;
+  wins: number;
+  games: number;
 }
 
 export interface PlayerView {
@@ -11,11 +14,6 @@ export interface PlayerView {
   colors: string[];
   totalWins: number;
   totalLosses: number;
-}
-
-export interface RecordView {
-  id: string;
-  wins: number;
 }
 
 export interface ScryfallCardView {

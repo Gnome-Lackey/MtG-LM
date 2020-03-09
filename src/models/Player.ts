@@ -5,7 +5,6 @@ export interface Player {
   email: string;
   totalWins?: number;
   totalLosses?: number;
-  matches?: string[];
   epithet: string;
   favoriteColors: string[];
 }

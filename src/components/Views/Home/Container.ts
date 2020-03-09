@@ -9,7 +9,7 @@ import {
   emitClearPlayerResultsForRecord,
   requestQueryPlayersForRecordMatch
 } from "redux/creators/players";
-import { requestCreateMatch } from "redux/creators/matches";
+import { requestCreateMatch, requestMatchesBySeasonAndPlayer } from "redux/creators/matches";
 import {
   requestGetActiveSeasons,
   requestGetCurrentSeason,
@@ -20,12 +20,14 @@ import { RootState } from "redux/models/RootState";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
+import { MatchRecordMap } from "models/Match";
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
+  matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
   selectedSeason: Season;
@@ -41,6 +43,7 @@ interface HomeViewActions {
     requestGetActiveSeasons: Function;
     requestGetCurrentSeason: Function;
     requestGetSeason: Function;
+    requestMatchesBySeasonAndPlayer: Function;
     requestQueryPlayersForRecordMatch: Function;
   };
 }
@@ -48,8 +51,9 @@ interface HomeViewActions {
 const mapStateToProps = (state: RootState): HomeViewProps => ({
   isLoadingSeason: state.seasons.getSeasonLoading,
   isLoadingActiveSeasons: state.seasons.getActiveSeasonsLoading,
-  isLoadingCurrentSeason:  state.seasons.getCurrentSeasonLoading,
+  isLoadingCurrentSeason: state.seasons.getCurrentSeasonLoading,
   isMatchRequestLoading: state.matches.loading,
+  matchRecords: state.matches.matchRecords,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,
   selectedSeason: state.seasons.selected,
@@ -66,6 +70,7 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
       requestGetActiveSeasons,
       requestGetCurrentSeason,
       requestGetSeason,
+      requestMatchesBySeasonAndPlayer,
       requestQueryPlayersForRecordMatch
     },
     dispatch

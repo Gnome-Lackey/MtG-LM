@@ -133,7 +133,7 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
 export const requestGetSeasons = () => async (dispatch: Function) => {
   dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, true));
 
-  const data = await seasonService.getAllDetails();
+  const data = await seasonService.getAll();
 
   if (data && data.error) {
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));

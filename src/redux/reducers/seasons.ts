@@ -43,7 +43,10 @@ export default handleActions(
       selected: action.payload.season,
       list: action.payload.seasons
     }),
-    [EMIT_SELECTED_SEASON_FOR_EDITING]: (state: SeasonState, action: SeasonAction): SeasonState => ({
+    [EMIT_SELECTED_SEASON_FOR_EDITING]: (
+      state: SeasonState,
+      action: SeasonAction
+    ): SeasonState => ({
       ...state,
       editing: action.payload.season
     }),

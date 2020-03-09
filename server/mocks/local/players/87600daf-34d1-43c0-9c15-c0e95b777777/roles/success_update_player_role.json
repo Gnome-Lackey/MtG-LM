@@ -1,10 +1,10 @@
 {
   "status": 200,
   "data": {
-    "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",
+    "id": "87600daf-34d1-43c0-9c15-c0e95b777777",
     "email": "matthewdpfister@gmail.com",
     "userName": "mrpfister",
     "displayName": "Matthew Pfister",
-    "role": "USER"
+    "role": "ADMIN"
   }
 }

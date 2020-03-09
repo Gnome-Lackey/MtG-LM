@@ -11,9 +11,11 @@ import useDataFetch from "components/Hooks/useDataFetch";
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
 import { Season } from "models/Season";
+import { MatchRecordMap } from "models/Match";
+
+import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
-import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -22,6 +24,7 @@ interface HomeViewActions {
   requestGetActiveSeasons: Function;
   requestGetCurrentSeason: Function;
   requestGetSeason: Function;
+  requestMatchesBySeasonAndPlayer: Function;
   requestQueryPlayersForRecordMatch: Function;
 }
 
@@ -31,6 +34,7 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
+  matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
   selectedSeason: Season;
@@ -44,6 +48,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
   isMatchRequestLoading,
+  matchRecords,
   playerSearchResultsMap,
   seasons,
   selectedSeason,
@@ -52,8 +57,12 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
+  useDataFetch(selectedSeason && !matchRecords, () =>
+    actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedSeason.players)
+  );
 
   const playerList = selectedSeason ? selectedSeason.players : [];
+  const setCode = selectedSeason ? selectedSeason.set.code : "";
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
   const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
   const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
@@ -68,9 +77,11 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           selectHandler={actions.requestGetSeason}
         />
         <PlayerRecordList
-          isRequestLoading={isPageLoading}
-          players={playerList}
           hasSeason={!!selectedSeason}
+          isRequestLoading={isPageLoading}
+          matchRecords={matchRecords}
+          players={playerList}
+          setCode={setCode}
           showWarning={!isCurrentUserInSeason}
           user={user}
         />

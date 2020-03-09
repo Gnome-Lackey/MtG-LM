@@ -3,9 +3,8 @@ import * as queryString from "query-string";
 import service from "services/service";
 
 import { SeasonDetailsResponse } from "services/models/Responses";
-
-import { SeasonFilters } from "services/models/Filters";
-import { CreateSeasonNode, UpdateSeasonNode } from "./models/Nodes";
+import { SeasonQueryParameters } from "services/models/QueryParams";
+import { CreateSeasonNode, UpdateSeasonNode } from "services/models/Nodes";
 
 import {
   SEASON_BASE_URL,
@@ -44,13 +43,13 @@ export const getCurrent = async (): Promise<SeasonDetailsResponse> => {
   return response.body as SeasonDetailsResponse;
 };
 
-export const getAllDetails = async (): Promise<SeasonDetailsResponse> => {
+export const getAll = async (): Promise<SeasonDetailsResponse> => {
   const response = await service.get(SEASON_GET_DETAILS);
 
   return response.body as SeasonDetailsResponse;
 };
 
-export const query = async (filters?: SeasonFilters): Promise<SeasonDetailsResponse> => {
+export const query = async (filters?: SeasonQueryParameters): Promise<SeasonDetailsResponse> => {
   const url = filters ? `${SEASON_GET_DETAILS}?${queryString.stringify(filters)}` : SEASON_BASE_URL;
 
   const response = await service.get(url);

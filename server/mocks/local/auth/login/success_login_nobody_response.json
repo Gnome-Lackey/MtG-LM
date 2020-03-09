@@ -2,12 +2,12 @@
   "status": 200,
   "data": {
     "user": {
-      "id": "323-1232-5435",
-      "email": "justiceIsServed@planeswalker.mtg",
-      "userName": "ChampionOfJustice",
-      "displayName": "Gideon Jura",
-      "firstName": "Gideon",
-      "lastName": "Jura",
+      "id": "123-1232-7777",
+      "firstName": "Nobody",
+      "lastName": "nobody",
+      "userName": "nobody",
+      "email": "nobody@nobody.mtg",
+      "displayName": "nobody nobody",
       "isFirstTimeLogin": false,
       "accountType": "USER"
     }
