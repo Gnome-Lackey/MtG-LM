@@ -10,8 +10,8 @@ export const toSearchQueryString = (queryParams: MatchQueryParameters): string =
   }
 
   return querystring.stringify({
-    "winners*": queryParams.winners,
-    "losers*": queryParams.losers,
+    "winners|": queryParams.winners,
+    "losers|": queryParams.losers,
     season: queryParams.season,
     seasonPoint: queryParams.seasonPoint
   });
