@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import { Player } from "models/Player";
-import { SeasonMetadata } from "models/Season";
+import { MatchRecordMap } from "models/Match";
+import { User } from "models/User";
 
 import PlayerRecordListItem from "components/Views/Home/PlayerRecordList/PlayerRecordListItem";
 import Spinner from "components/Common/Spinner";
@@ -11,20 +12,20 @@ import "./styles.scss";
 interface PlayerRecordListProps {
   hasSeason: boolean;
   isRequestLoading: boolean;
-  metadata: SeasonMetadata[];
+  matchRecords: MatchRecordMap;
   players: Player[];
   setCode: string;
   showWarning?: boolean;
-  userMetadata: SeasonMetadata;
+  user: User;
 }
 
 const renderContent = (
-  isRequestLoading: boolean,
   hasSeason: boolean,
-  setCode: string,
-  metadata: SeasonMetadata[],
+  isRequestLoading: boolean,
+  matchRecords: MatchRecordMap,
   players: Player[],
-  userMetadata: SeasonMetadata
+  setCode: string,
+  user: User
 ): JSX.Element | JSX.Element[] => {
   const noPlayersInSeason = hasSeason && !players.length;
 
@@ -36,20 +37,16 @@ const renderContent = (
     );
   } else if (noPlayersInSeason) {
     return <li className="record-empty-message">There are no players in this season.</li>;
-  } else if (userMetadata) {
-    return players.map((player) => {
-      const playerMetadata = metadata.find((nextMetadata) => nextMetadata.player === player.id);
-
-      return (
-        <PlayerRecordListItem
-          key={player.id}
-          setCode={setCode}
-          player={player}
-          playerMetadata={playerMetadata}
-          userMetadata={userMetadata}
-        />
-      );
-    });
+  } else if (matchRecords) {
+    return players.map((player) => (
+      <PlayerRecordListItem
+        key={player.id}
+        setCode={setCode}
+        player={player}
+        playerRecord={matchRecords[player.id]}
+        loggedInUserRecord={matchRecords[user.id]}
+      />
+    ));
   }
 
   return (
@@ -62,11 +59,11 @@ const renderContent = (
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
   hasSeason,
   isRequestLoading,
-  metadata,
+  matchRecords,
   players,
   setCode,
   showWarning,
-  userMetadata
+  user
 }: PlayerRecordListProps): React.FunctionComponentElement<PlayerRecordListProps> => (
   <ul className="player-record-list">
     <li className="record-headers">
@@ -84,7 +81,7 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
         </p>
       </li>
     ) : null}
-    {renderContent(isRequestLoading, hasSeason, setCode, metadata, players, userMetadata)}
+    {renderContent(hasSeason, isRequestLoading, matchRecords, players, setCode, user)}
   </ul>
 );
 

@@ -10,7 +10,8 @@ import useDataFetch from "components/Hooks/useDataFetch";
 
 import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/models/PlayerState";
-import { Season, SeasonMetadata } from "models/Season";
+import { Season } from "models/Season";
+import { MatchRecordMap } from "models/Match";
 
 import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
@@ -23,8 +24,8 @@ interface HomeViewActions {
   requestGetActiveSeasons: Function;
   requestGetCurrentSeason: Function;
   requestGetSeason: Function;
+  requestMatchesBySeasonAndPlayer: Function;
   requestQueryPlayersForRecordMatch: Function;
-  requestGetSeasonMetadata: Function;
 }
 
 interface HomeViewProps extends RouteComponentProps {
@@ -33,10 +34,9 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
   isMatchRequestLoading: boolean;
-  metadata: SeasonMetadata[];
+  matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
-  selectedMetadata: SeasonMetadata,
   selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
@@ -48,18 +48,17 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
   isMatchRequestLoading,
-  metadata,
+  matchRecords,
   playerSearchResultsMap,
   seasons,
-  selectedMetadata,
   selectedSeason,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
-  useDataFetch(selectedSeason && !selectedMetadata, () =>
-    actions.requestGetSeasonMetadata(selectedSeason.id, user.id)
+  useDataFetch(selectedSeason && !matchRecords, () =>
+    actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedSeason.players)
   );
 
   const playerList = selectedSeason ? selectedSeason.players : [];
@@ -80,11 +79,11 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
         <PlayerRecordList
           hasSeason={!!selectedSeason}
           isRequestLoading={isPageLoading}
-          metadata={metadata}
+          matchRecords={matchRecords}
           players={playerList}
           setCode={setCode}
           showWarning={!isCurrentUserInSeason}
-          userMetadata={selectedMetadata}
+          user={user}
         />
       </div>
       <Fab clickHandler={() => actions.emitToggleRecordMatchModal()} disabled={isFabDisabled}>

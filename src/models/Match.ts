@@ -9,9 +9,11 @@ export interface Match {
 }
 
 export interface MatchRecord {
+  id: string;
   wins: number;
   losses: number;
   opponentsPlayed: string[];
+  opponentsBeat: string[];
 }
 
 export interface MatchRecordMap {

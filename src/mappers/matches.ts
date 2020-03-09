@@ -20,21 +20,29 @@ export const toSearchQueryString = (queryParams: MatchQueryParameters): string =
 export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
   matches.reduce((records: MatchRecordMap, match: MatchResponse) => {
     const winnerIds = match.winners;
+    const loserIds = match.losers;
 
-    winnerIds.forEach((id: string) => {
+    [...winnerIds, ...loserIds].forEach((id: string) => {
       const isWin = match.games - match.wins < match.wins;
+
+      const winners = winnerIds.filter(winnerId => winnerId !== id);
+      const losers = loserIds.filter(loserId => loserId !== id);
+      const otherPlayers = [...winners, ...losers];
 
       if (records[id]) {
         const recordCopy = records[id];
 
         recordCopy.wins += isWin ? 1 : 0;
         recordCopy.losses += isWin ? 0 : 1;
-        recordCopy.opponentsPlayed = recordCopy.opponentsPlayed.concat(match.losers);
+        recordCopy.opponentsPlayed = recordCopy.opponentsPlayed.concat(otherPlayers);
+        recordCopy.opponentsBeat = recordCopy.opponentsBeat.concat(losers);
       } else {
         records[id] = {
+          id,
           wins: isWin ? 1 : 0,
           losses: isWin ? 0 : 1,
-          opponentsPlayed: match.losers
+          opponentsPlayed: otherPlayers,
+          opponentsBeat: losers
         };
       }
     });

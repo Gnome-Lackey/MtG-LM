@@ -1,16 +1,16 @@
 import * as React from "react";
 import * as classNames from "classnames";
 
-import { Player } from "models/Player";
-import { SeasonMetadata } from "models/Season";
+import { MatchRecord } from "models/Match";
 
 import "./styles.scss";
+import { Player } from "models/Player";
 
 interface PlayerRecordListItemProps {
   player: Player;
-  playerMetadata: SeasonMetadata;
+  playerRecord: MatchRecord;
+  loggedInUserRecord: MatchRecord;
   setCode: string;
-  userMetadata: SeasonMetadata;
 }
 
 const renderIcon = (
@@ -29,20 +29,13 @@ const renderIcon = (
 
 const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> = ({
   player,
-  playerMetadata,
+  loggedInUserRecord,
+  playerRecord,
   setCode,
-  userMetadata
 }: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => {
-  const userMatchWin = userMetadata.matches.find(
-    (match) =>
-      match.isSeasonPoint &&
-      match.winner === userMetadata.player &&
-      match.losers.includes(player.id)
-  );
-
-  const isLoggedInUser = userMetadata.player === player.id;
-  const hasPlayedUser = userMetadata.playedOpponents.includes(player.id);
-  const hasWinAgainstPlayer = hasPlayedUser && userMatchWin !== undefined;
+  const isLoggedInUser = loggedInUserRecord.id === playerRecord.id;
+  const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.opponentsPlayed.includes(playerRecord.id);
+  const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsBeat.includes(playerRecord.id);
 
   return (
     <li
@@ -56,10 +49,12 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
       {renderIcon(isLoggedInUser, hasPlayedUser, hasWinAgainstPlayer)}
       <p className={classNames("name", { unplayed: !hasPlayedUser })}>
         {player.displayName}
-        <span className="small">({player.epithet} / {player.userName})</span>
+        <span className="small">
+          ({player.epithet} / {player.userName})
+        </span>
       </p>
-      <p className="wins">{playerMetadata.seasonWins}</p>
-      <p className="losses">{playerMetadata.seasonLosses}</p>
+      <p className="wins">{playerRecord.wins}</p>
+      <p className="losses">{playerRecord.losses}</p>
     </li>
   );
 };
