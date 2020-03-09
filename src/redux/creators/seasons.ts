@@ -7,9 +7,7 @@ import {
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
-  EMIT_GET_CURRENT_SEASONS,
-  EMIT_GET_SEASON_METADATA,
-  EMIT_GET_SEASON_METADATA_SUCCESS
+  EMIT_GET_CURRENT_SEASONS
 } from "redux/actions/seasons";
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
@@ -27,7 +25,6 @@ import { Season } from "models/Season";
 
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
-import { ErrorResponse } from "services/models/Responses";
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON_FOR_EDITING,

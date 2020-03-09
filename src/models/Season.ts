@@ -1,6 +1,5 @@
 import { Set } from "./Scryfall";
 import { Player } from "./Player";
-import { Match } from "./Match";
 
 export interface Season {
   id: string;

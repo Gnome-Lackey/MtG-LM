@@ -31,13 +31,13 @@ export interface LoginResponse extends ErrorResponse {
 export interface MatchResponse extends MatchView, ErrorResponse {
   losers: string[];
   season: string;
-  winner: string;
+  winners: string[];
 }
 
 export interface MatchDetailsResponse extends MatchView, ErrorResponse {
   losers: PlayerView[];
   season: SeasonView;
-  winner: PlayerView;
+  winners: PlayerView[];
 }
 
 export interface MtglmServiceResponse {

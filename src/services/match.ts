@@ -14,12 +14,12 @@ export const create = async (body: CreateMatchNode): Promise<MatchResponse> => {
   return response.body as MatchResponse;
 };
 
-export const query = async (queryParams?: MatchQueryParameters): Promise<MatchResponse> => {
+export const query = async (queryParams?: MatchQueryParameters): Promise<MatchResponse[]> => {
   const queryString = matchMapper.toSearchQueryString(queryParams);
 
   const url = queryString ? `${MATCH_BASE_URL}?${queryString}` : MATCH_BASE_URL;
 
   const response = await service.get(url);
 
-  return response.body as MatchResponse;
+  return response.body as MatchResponse[];
 };
