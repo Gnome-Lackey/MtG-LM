@@ -41,10 +41,11 @@ const renderContent = (
     return players.map((player) => (
       <PlayerRecordListItem
         key={player.id}
-        setCode={setCode}
+        isLoggedInUser={user.id === player.id}
+        loggedInUserRecord={matchRecords[user.id]}
         player={player}
         playerRecord={matchRecords[player.id]}
-        loggedInUserRecord={matchRecords[user.id]}
+        setCode={setCode}
       />
     ));
   }

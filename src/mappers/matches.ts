@@ -22,12 +22,19 @@ export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
     const winnerIds = match.winners;
     const loserIds = match.losers;
 
-    [...winnerIds, ...loserIds].forEach((id: string) => {
-      const isWin = match.games - match.wins < match.wins;
+    const uniquePlayers = Object.keys(
+      [...winnerIds, ...loserIds].reduce((map: { [key: string]: boolean }, id) => {
+        map[id] = true;
+        return map;
+      }, {})
+    );
 
-      const winners = winnerIds.filter(winnerId => winnerId !== id);
-      const losers = loserIds.filter(loserId => loserId !== id);
+    uniquePlayers.forEach((id: string) => {
+      const winners = winnerIds.filter((winnerId) => winnerId !== id);
+      const losers = loserIds.filter((loserId) => loserId !== id);
       const otherPlayers = [...winners, ...losers];
+
+      const isWin = winners.length > 0;
 
       if (records[id]) {
         const recordCopy = records[id];

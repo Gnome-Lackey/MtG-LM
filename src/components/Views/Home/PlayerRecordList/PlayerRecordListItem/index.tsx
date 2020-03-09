@@ -2,14 +2,15 @@ import * as React from "react";
 import * as classNames from "classnames";
 
 import { MatchRecord } from "models/Match";
-
-import "./styles.scss";
 import { Player } from "models/Player";
 
+import "./styles.scss";
+
 interface PlayerRecordListItemProps {
+  isLoggedInUser: boolean;
+  loggedInUserRecord: MatchRecord;
   player: Player;
   playerRecord: MatchRecord;
-  loggedInUserRecord: MatchRecord;
   setCode: string;
 }
 
@@ -27,36 +28,67 @@ const renderIcon = (
   return <i className="match-status-icon fas fa-skull" />;
 };
 
-const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> = ({
-  player,
-  loggedInUserRecord,
-  playerRecord,
-  setCode,
-}: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => {
-  const isLoggedInUser = loggedInUserRecord.id === playerRecord.id;
-  const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.opponentsPlayed.includes(playerRecord.id);
-  const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsBeat.includes(playerRecord.id);
+const renderListItem = (
+  player: Player,
+  setCode: string,
+  isLoggedInUser: boolean,
+  wins?: number,
+  losses?: number,
+  hasPlayedUser?: boolean,
+  hasWinAgainstPlayer?: boolean
+): JSX.Element => (
+  <li
+    className={classNames("player-record", {
+      user: isLoggedInUser,
+      win: hasWinAgainstPlayer,
+      loss: !hasWinAgainstPlayer
+    })}
+  >
+    <i className={`set-icon ss ss-${setCode}`} />
+    {renderIcon(isLoggedInUser, hasPlayedUser, hasWinAgainstPlayer)}
+    <p className={classNames("name", { unplayed: !hasPlayedUser })}>
+      {player.displayName}
+      <span className="small">
+        ({player.epithet} / {player.userName})
+      </span>
+    </p>
+    <p className="wins">{wins || 0}</p>
+    <p className="losses">{losses || 0}</p>
+  </li>
+);
 
-  return (
-    <li
-      className={classNames("player-record", {
-        user: isLoggedInUser,
-        win: hasWinAgainstPlayer,
-        loss: !hasWinAgainstPlayer
-      })}
-    >
-      <i className={`set-icon ss ss-${setCode}`} />
-      {renderIcon(isLoggedInUser, hasPlayedUser, hasWinAgainstPlayer)}
-      <p className={classNames("name", { unplayed: !hasPlayedUser })}>
-        {player.displayName}
-        <span className="small">
-          ({player.epithet} / {player.userName})
-        </span>
-      </p>
-      <p className="wins">{playerRecord.wins}</p>
-      <p className="losses">{playerRecord.losses}</p>
-    </li>
-  );
+const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> = ({
+  isLoggedInUser,
+  loggedInUserRecord,
+  player,
+  playerRecord,
+  setCode
+}: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => {
+  if (loggedInUserRecord && playerRecord) {
+    const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.opponentsPlayed.includes(playerRecord.id);
+    const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsBeat.includes(playerRecord.id);
+  
+    return renderListItem(
+      player,
+      setCode,
+      isLoggedInUser,
+      playerRecord.wins,
+      playerRecord.losses,
+      hasPlayedUser,
+      hasWinAgainstPlayer
+    );
+  } else if (!loggedInUserRecord && playerRecord) {
+    return renderListItem(
+      player,
+      setCode,
+      isLoggedInUser,
+      playerRecord.wins,
+      playerRecord.losses,
+      false
+    );
+  }
+
+  return renderListItem(player, setCode, isLoggedInUser);
 };
 
 export default PlayerRecordListItem;
