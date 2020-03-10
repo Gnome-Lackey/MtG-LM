@@ -1,7 +1,7 @@
 export interface CreateMatchNode {
   wins: number;
   games: number;
-  winner: string;
+  winners: string[];
   losers: string[];
   season: string;
 }
