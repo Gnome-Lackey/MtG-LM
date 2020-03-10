@@ -30,6 +30,7 @@ export const toSearchQueryString = (queryParams: PlayerQueryParameters): string 
 
   return querystring.stringify({
     "name|": queryParams.name,
+    season: queryParams.season,
     "userName|": queryParams.userName
   });
 };
