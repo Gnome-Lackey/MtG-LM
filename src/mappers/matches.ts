@@ -30,7 +30,7 @@ export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
     );
 
     uniquePlayers.forEach((id: string) => {
-      const winners = winnerIds.filter((winnerId) => winnerId !== id);
+      const winners = winnerIds.filter((winnerId) => winnerId === id);
       const losers = loserIds.filter((loserId) => loserId !== id);
       const otherPlayers = [...winners, ...losers];
 

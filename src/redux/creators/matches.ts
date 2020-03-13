@@ -6,7 +6,6 @@ import {
 
 import { emitResetError, emitRequestError } from "redux/creators/errors";
 import { emitRequestLoading } from "redux/creators/application";
-import { requestGetSeason } from "redux/creators/seasons";
 
 import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";
@@ -14,11 +13,43 @@ import * as matchService from "services/match";
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+import { RootState } from "redux/models/RootState";
 
-export const requestCreateMatch = (details: RecordMatchFields) => async (dispatch: Function) => {
+export const requestMatchesBySeasonAndPlayer = (season: string, players: string[]) => async (
+  dispatch: Function
+) => {
+  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
+
+  const data = await matchService.query({
+    "winners|": players,
+    "losers|": players,
+    season,
+    seasonPoint: true
+  });
+
+  const matchRecordMap = matchMapper.toMatchRecordMap(data);
+
+  dispatch({
+    type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
+    payload: {
+      matchRecords: matchRecordMap
+    }
+  });
+
+  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
+};
+
+export const requestCreateMatch = (details: RecordMatchFields) => async (
+  dispatch: Function,
+  getState: Function
+) => {
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
+
+  const {
+    seasons: { selected: selectedSeason }
+  } = getState() as RootState;
 
   const winningGameCount = details.playerRecords.reduce(
     (wins, record) => (record.wins > wins ? record.wins : wins),
@@ -49,32 +80,16 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
     dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
   } else {
     dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
-    dispatch(requestGetSeason(details.season.key));
-  }
 
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
-};
-
-export const requestMatchesBySeasonAndPlayer = (season: string, players: string[]) => async (
-  dispatch: Function
-) => {
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
-
-  const data = await matchService.query({
-    "winners|": players,
-    "losers|": players,
-    season,
-    seasonPoint: true
-  });
-
-  const matchRecordMap = matchMapper.toMatchRecordMap(data);
-
-  dispatch({
-    type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
-    payload: {
-      matchRecords: matchRecordMap
+    if (details.season.key === selectedSeason.id) {
+      dispatch(
+        requestMatchesBySeasonAndPlayer(
+          selectedSeason.id,
+          selectedSeason.players.map((player) => player.id)
+        )
+      );
     }
-  });
+  }
 
   dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
 };
