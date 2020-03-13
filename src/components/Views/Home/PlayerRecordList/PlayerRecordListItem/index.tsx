@@ -65,8 +65,8 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
   setCode
 }: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => {
   if (loggedInUserRecord && playerRecord) {
-    const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.opponentsPlayed.includes(playerRecord.id);
-    const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsBeat.includes(playerRecord.id);
+    const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.playersPlayed.includes(playerRecord.id);
+    const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsDefeated.includes(playerRecord.id);
   
     return renderListItem(
       player,

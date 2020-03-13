@@ -11,9 +11,9 @@ import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
+import { RootState } from "redux/models/RootState";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
-import { RootState } from "redux/models/RootState";
 
 export const requestMatchesBySeasonAndPlayer = (season: string, players: string[]) => async (
   dispatch: Function

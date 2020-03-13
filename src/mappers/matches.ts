@@ -22,34 +22,36 @@ export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
     const winnerIds = match.winners;
     const loserIds = match.losers;
 
-    const uniquePlayers = Object.keys(
-      [...winnerIds, ...loserIds].reduce((map: { [key: string]: boolean }, id) => {
-        map[id] = true;
-        return map;
-      }, {})
-    );
+    const uniquePlayers = [...winnerIds, ...loserIds];
 
     uniquePlayers.forEach((id: string) => {
-      const winners = winnerIds.filter((winnerId) => winnerId === id);
-      const losers = loserIds.filter((loserId) => loserId !== id);
-      const otherPlayers = [...winners, ...losers];
+      const otherWinners = winnerIds.filter((winnerId) => winnerId !== id);
+      const otherLosers = loserIds.filter((loserId) => loserId !== id);
 
-      const isWin = winners.length > 0;
+      const isWin = winnerIds.some((winnerId) => winnerId === id);
 
       if (records[id]) {
         const recordCopy = records[id];
 
+        const newOpponentsDefeated = isWin
+          ? otherLosers.filter((loserId) => !recordCopy.opponentsDefeated.includes(loserId))
+          : [];
+
+        const newPlayersPlayed = isWin
+          ? otherLosers.filter((loserId) => !recordCopy.playersPlayed.includes(loserId))
+          : otherWinners.filter((winnerId) => !recordCopy.playersPlayed.includes(winnerId));
+
         recordCopy.wins += isWin ? 1 : 0;
         recordCopy.losses += isWin ? 0 : 1;
-        recordCopy.opponentsPlayed = recordCopy.opponentsPlayed.concat(otherPlayers);
-        recordCopy.opponentsBeat = recordCopy.opponentsBeat.concat(losers);
+        recordCopy.playersPlayed = recordCopy.playersPlayed.concat(newPlayersPlayed);
+        recordCopy.opponentsDefeated = recordCopy.opponentsDefeated.concat(newOpponentsDefeated);
       } else {
         records[id] = {
           id,
           wins: isWin ? 1 : 0,
           losses: isWin ? 0 : 1,
-          opponentsPlayed: otherPlayers,
-          opponentsBeat: losers
+          playersPlayed: isWin ? otherLosers : otherWinners,
+          opponentsDefeated: isWin ? otherLosers : []
         };
       }
     });
