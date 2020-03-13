@@ -9,7 +9,7 @@ import { Player } from "models/Player";
 
 export const toOption = (player: Player): TypeAheadOption => ({
   label: player.displayName,
-  subLabel: player.userName,
+  subLabel: `(${player.epithet} / ${player.userName})`,
   icon: "fas fa-user",
   key: player.id
 });
