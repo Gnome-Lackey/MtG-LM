@@ -30,7 +30,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (dispatc
     .map((record) => record.player.key);
 
   const losers = details.playerRecords
-    .filter((record) => !winners.includes(record.id))
+    .filter((record) => record.wins !== winningGameCount)
     .map((record) => record.player.key);
 
   const gamesPlayed = details.playerRecords.reduce((total, record) => total + record.wins, 0);
