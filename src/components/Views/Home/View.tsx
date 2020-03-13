@@ -66,7 +66,9 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   const playerList = selectedSeason ? selectedSeason.players : [];
   const setCode = selectedSeason ? selectedSeason.set.code : "";
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
-  const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
+  const isCurrentUserInSeason = isAdminUser 
+    || !playerList.length 
+    || !!playerList.find(({ id }) => id === user.id);
 
   const isPageLoading = isLoadingActiveSeasons 
     || isLoadingCurrentSeason 
