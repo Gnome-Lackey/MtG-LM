@@ -26,7 +26,8 @@ interface HomeViewProps {
   isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
-  isMatchRequestLoading: boolean;
+  isLoadingMatchCreation: boolean;
+  isLoadingMatches: boolean;
   matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
@@ -52,7 +53,8 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   isLoadingSeason: state.seasons.getSeasonLoading,
   isLoadingActiveSeasons: state.seasons.getActiveSeasonsLoading,
   isLoadingCurrentSeason: state.seasons.getCurrentSeasonLoading,
-  isMatchRequestLoading: state.matches.loading,
+  isLoadingMatchCreation: state.matches.loadingMatchCreation,
+  isLoadingMatches: state.matches.loadingAllMatches,
   matchRecords: state.matches.matchRecords,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,

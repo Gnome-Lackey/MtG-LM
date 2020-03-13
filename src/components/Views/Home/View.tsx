@@ -33,7 +33,8 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
-  isMatchRequestLoading: boolean;
+  isLoadingMatchCreation: boolean;
+  isLoadingMatches: boolean;
   matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
@@ -47,7 +48,8 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isLoadingSeason,
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
-  isMatchRequestLoading,
+  isLoadingMatchCreation,
+  isLoadingMatches,
   matchRecords,
   playerSearchResultsMap,
   seasons,
@@ -65,8 +67,13 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   const setCode = selectedSeason ? selectedSeason.set.code : "";
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
   const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
-  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
-  const isFabDisabled = isPageLoading || isMatchRequestLoading || !isCurrentUserInSeason;
+
+  const isPageLoading = isLoadingActiveSeasons 
+    || isLoadingCurrentSeason 
+    || isLoadingSeason 
+    || isLoadingMatches;
+
+  const isFabDisabled = isPageLoading || isLoadingMatchCreation || !isCurrentUserInSeason;
 
   return (
     <div className="home-view">
@@ -100,7 +107,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           <RecordMatchModalContent
             activeSeasons={seasons}
             clearHandler={actions.emitClearPlayerResultsForRecord}
-            isRequestLoading={isMatchRequestLoading}
+            isRequestLoading={isLoadingMatchCreation}
             playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecordMatch}
             submitHandler={actions.requestCreateMatch}
