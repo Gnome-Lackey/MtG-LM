@@ -14,8 +14,8 @@ import {
   EMIT_VALIDATION_SUCCESS,
   EMIT_VERIFY_SUCCESS,
   EMIT_VERIFY_FAILURE
-} from "redux/actions/auth";
-import { AuthState } from "redux/models/AuthState";
+} from "redux/auth/actions";
+import { AuthState } from "redux/auth/models/State";
 
 const INITIAL_STATE: AuthState = {
   codeResent: false,

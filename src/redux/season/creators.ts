@@ -8,10 +8,10 @@ import {
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
   EMIT_GET_CURRENT_SEASONS
-} from "redux/actions/seasons";
+} from "redux/season/actions";
 
-import { emitResetError, emitRequestError } from "redux/creators/errors";
-import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
+import { emitResetError, emitRequestError } from "redux/error/creators";
+import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
@@ -19,7 +19,7 @@ import * as seasonService from "services/season";
 
 import * as seasonMapper from "mappers/seasons";
 
-import { SeasonAction } from "redux/models/SeasonAction";
+import { SeasonAction } from "redux/season/models/Action";
 import { RootState } from "redux/models/RootState";
 import { Season } from "models/Season";
 

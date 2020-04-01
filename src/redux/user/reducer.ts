@@ -1,14 +1,14 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_USER_UPDATED } from "redux/actions/users";
+import { EMIT_USER_UPDATED } from "redux/user/actions";
 import {
   EMIT_LOGIN_SUCCESS,
   EMIT_SIGN_UP_SUCCESS,
   EMIT_VALIDATION_SUCCESS
-} from "redux/actions/auth";
-import { AuthAction } from "redux/models/AuthAction";
-import { UpdateUserAction } from "redux/models/UserAction";
-import { UserState } from "redux/models/UserState";
+} from "redux/auth/actions";
+import { AuthAction } from "redux/auth/models/Action";
+import { UpdateUserAction } from "redux/user/models/Action";
+import { UserState } from "redux/user/models/State";
 
 const INITIAL_STATE: UserState = {
   current: null

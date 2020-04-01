@@ -5,10 +5,10 @@ import { History } from "history";
 
 import LoginView from "components/Views/Login/View";
 
-import { requestLogin } from "redux/creators/auth";
-import { emitResetError } from "redux/creators/errors";
+import { requestLogin } from "redux/auth/reducer";
+import { emitResetError } from "redux/error/creators";
 import { RootState } from "redux/models/RootState";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
 

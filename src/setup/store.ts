@@ -3,7 +3,7 @@ import { routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import createRootReducer from "redux/reducers";
+import createRootReducer from "redux/root";
 import { RootState } from "redux/models/RootState";
 
 import history from "setup/history";

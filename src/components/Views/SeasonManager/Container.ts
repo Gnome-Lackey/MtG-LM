@@ -11,10 +11,10 @@ import {
   requestCreateSeason,
   requestGetSeasons,
   requestUpdateSeason
-} from "redux/creators/seasons";
+} from "redux/season/creators";
 
-import { requestGetSetByCode } from "redux/creators/scryfall";
-import { requestQueryPlayers } from "redux/creators/players";
+import { requestGetSetByCode } from "redux/scryfall/creators";
+import { requestQueryPlayers } from "redux/player/creators";
 
 import { RootState } from "redux/models/RootState";
 import { Set } from "models/Scryfall";

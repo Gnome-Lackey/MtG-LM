@@ -10,13 +10,13 @@ import {
   REQUEST_UPDATE_PLAYER_ROLE,
   EMIT_LOADING_PLAYER_ROLES,
   EMIT_GET_PLAYER_ROLES_SUCCESS
-} from "redux/actions/players";
+} from "redux/player/actions";
 
-import { emitResetError, emitRequestError } from "redux/creators/errors";
-import { emitFullPageRequestLoading, emitRequestLoading } from "redux/creators/application";
+import { emitResetError, emitRequestError } from "redux/error/creators";
+import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
 
 import { RootState } from "redux/models/RootState";
-import { PlayerAction } from "redux/models/PlayerAction";
+import { PlayerAction } from "redux/player/models/Action";
 import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
 import * as playerService from "services/player";

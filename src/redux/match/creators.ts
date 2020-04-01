@@ -3,10 +3,10 @@ import {
   EMIT_UPDATE_LOADING_MATCHES,
   EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
   EMIT_UPDATE_LOADING_MATCH_CREATION
-} from "redux/actions/match";
+} from "redux/match/actions";
 
-import { emitResetError, emitRequestError } from "redux/creators/errors";
-import { emitRequestLoading } from "redux/creators/application";
+import { emitResetError, emitRequestError } from "redux/error/creators";
+import { emitRequestLoading } from "redux/application/creators";
 
 import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";

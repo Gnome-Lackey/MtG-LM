@@ -4,10 +4,10 @@ import {
   EMIT_UPDATE_LOADING_MATCHES,
   EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
   EMIT_UPDATE_LOADING_MATCH_CREATION
-} from "redux/actions/match";
+} from "redux/match/actions";
 
-import { MatchState } from "redux/models/MatchState";
-import { MatchAction } from "redux/models/MatchAction";
+import { MatchState } from "redux/match/models/State";
+import { MatchAction } from "redux/match/models/Action";
 
 const INITIAL_STATE: MatchState = {
   loadingMatchCreation: false,

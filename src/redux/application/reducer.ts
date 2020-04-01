@@ -1,10 +1,12 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_FULL_PAGE_REQUEST_LOADING, EMIT_TOGGLE_MASK, EMIT_TOGGLE_RECORD_MATCH_MODAL } from "redux/actions/application";
-import { ApplicationState } from "redux/models/ApplicationState";
-import { ApplicationAction } from "redux/models/ApplicationAction";
-import { EMIT_CREATE_PLAYER_SUCCESS } from "redux/actions/players";
-import { EMIT_CREATE_MATCH_SUCCESS } from "redux/actions/match";
+import { EMIT_CREATE_PLAYER_SUCCESS } from "redux/player/actions";
+import { EMIT_CREATE_MATCH_SUCCESS } from "redux/match/actions";
+
+import { ApplicationAction } from "redux/application/models/Action";
+import { ApplicationState } from "redux/application/models/State";
+
+import { EMIT_FULL_PAGE_REQUEST_LOADING, EMIT_TOGGLE_MASK, EMIT_TOGGLE_RECORD_MATCH_MODAL } from "redux/application/actions";
 
 const INITIAL_STATE: ApplicationState = {
   isGettingStartedFinished: false,

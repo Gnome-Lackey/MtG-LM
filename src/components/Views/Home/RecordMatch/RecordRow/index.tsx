@@ -7,7 +7,7 @@ import * as playerMapper from "mappers/players";
 
 import { Player } from "models/Player";
 import { PlayerRecordFields } from "components/Hooks/useFormData/models/FormFields";
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { PlayerSearchResultMap } from "redux/player/models/State";
 import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 
 import "./styles.scss";

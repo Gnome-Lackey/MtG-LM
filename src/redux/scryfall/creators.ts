@@ -5,7 +5,7 @@ import {
   EMIT_GETTING_STARTED_CARDS_SUCCESS,
   EMIT_SETS_SUCCESS,
   EMIT_SEARCHING_FOR_SET
-} from "redux/actions/scryfall";
+} from "redux/scryfall/actions";
 
 export const requestGettingStartedCards = () => async (dispatch: Function) => {
   const queryParams = {

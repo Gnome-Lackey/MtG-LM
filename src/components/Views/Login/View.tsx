@@ -10,7 +10,7 @@ import useNavigator from "components/Hooks/useNavigator";
 import useFormData from "components/Hooks/useFormData";
 import useErrorMessage from "components/Hooks/useErrorMessage";
 
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
 import { DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN } from "constants/errors";

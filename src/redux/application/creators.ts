@@ -2,9 +2,9 @@ import {
   EMIT_FULL_PAGE_REQUEST_LOADING,
   EMIT_TOGGLE_MASK,
   EMIT_TOGGLE_RECORD_MATCH_MODAL
-} from "redux/actions/application";
+} from "redux/application/actions";
 
-import { ApplicationAction } from "redux/models/ApplicationAction";
+import { ApplicationAction } from "redux/application/models/Action";
 import { RootState } from "redux/models/RootState";
 
 export const emitFullPageRequestLoading = (

@@ -10,10 +10,10 @@ import {
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
   EMIT_GET_CURRENT_SEASONS
-} from "redux/actions/seasons";
+} from "redux/season/actions";
 
-import { SeasonState } from "redux/models/SeasonState";
-import { SeasonAction } from "redux/models/SeasonAction";
+import { SeasonState } from "redux/season/models/State";
+import { SeasonAction } from "redux/season/models/Action";
 
 const INITIAL_STATE: SeasonState = {
   editing: null,

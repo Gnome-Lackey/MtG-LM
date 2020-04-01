@@ -10,10 +10,10 @@ import {
   EMIT_GET_PLAYER_ROLES_SUCCESS,
   EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
   REQUEST_UPDATE_PLAYER_ROLE
-} from "redux/actions/players";
+} from "redux/player/actions";
 
-import { PlayerState } from "redux/models/PlayerState";
-import { PlayerAction } from "redux/models/PlayerAction";
+import { PlayerState } from "redux/player/models/State";
+import { PlayerAction } from "redux/player/models/Action";
 
 const INITIAL_STATE: PlayerState = {
   list: [],

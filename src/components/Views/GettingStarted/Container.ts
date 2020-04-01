@@ -5,12 +5,12 @@ import { History } from "history";
 
 import GettingStartedView from "components/Views/GettingStarted/View";
 
-import { requestValidation } from "redux/creators/auth";
-import { requestCreatePlayer } from "redux/creators/players";
-import { requestGettingStartedCards } from "redux/creators/scryfall";
-import { emitResetError } from "redux/creators/errors";
+import { requestValidation } from "redux/auth/reducer";
+import { requestCreatePlayer } from "redux/player/creators";
+import { requestGettingStartedCards } from "redux/scryfall/creators";
+import { emitResetError } from "redux/error/creators";
 import { RootState } from "redux/models/RootState";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 import { Card } from "models/Scryfall";
 import { User } from "models/User";

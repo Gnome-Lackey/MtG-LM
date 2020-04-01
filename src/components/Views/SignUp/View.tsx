@@ -13,7 +13,7 @@ import useFormData from "components/Hooks/useFormData";
 import useErrorMessage from "components/Hooks/useErrorMessage";
 
 import { User } from "models/User";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 import { VALIDATION_REQUIRED } from "constants/validations";
 import { ROUTES } from "constants/routes";

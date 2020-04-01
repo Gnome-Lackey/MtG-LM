@@ -2,14 +2,14 @@ import { combineReducers, Reducer, AnyAction } from "redux";
 import { connectRouter } from "connected-react-router";
 import { History } from "history";
 
-import applicationReducer from "redux/reducers/application";
-import authReducer from "redux/reducers/auth";
-import cardReducer from "redux/reducers/scryfall";
-import errorsReducer from "redux/reducers/errors";
-import matchReducer from "redux/reducers/matches";
-import playerReducer from "redux/reducers/players";
-import seasonReducer from "redux/reducers/seasons";
-import usersReducer from "redux/reducers/users";
+import applicationReducer from "redux/application/reducer";
+import authReducer from "redux/auth/creators";
+import cardReducer from "redux/scryfall/reducer";
+import errorsReducer from "redux/error/reducer";
+import matchReducer from "redux/match/reducer";
+import playerReducer from "redux/player/reducer";
+import seasonReducer from "redux/season/reducer";
+import usersReducer from "redux/user/reducer";
 
 import { RootState } from "redux/models/RootState";
 

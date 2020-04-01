@@ -4,10 +4,10 @@ import {
   EMIT_GETTING_STARTED_CARDS_SUCCESS,
   EMIT_SETS_SUCCESS,
   EMIT_SEARCHING_FOR_SET
-} from "redux/actions/scryfall";
+} from "redux/scryfall/actions";
 
-import { ScryfallState } from "redux/models/ScryfallState";
-import { ScryfallAction } from "redux/models/ScryfallAction";
+import { ScryfallState } from "redux/scryfall/models/State";
+import { ScryfallAction } from "redux/scryfall/models/Action";
 
 const INITIAL_STATE: ScryfallState = {
   cards: [],

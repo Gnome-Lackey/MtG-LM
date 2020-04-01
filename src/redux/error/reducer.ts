@@ -1,8 +1,8 @@
 import { handleActions } from "redux-actions";
 
-import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/actions/errors";
-import { ErrorAction } from "redux/models/ErrorAction";
-import { ErrorState } from "redux/models/ErrorState";
+import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/error/actions";
+import { ErrorAction } from "redux/error/models/Action";
+import { ErrorState } from "redux/error/models/State";
 
 import {
   DOMAIN_ERROR_AUTH,

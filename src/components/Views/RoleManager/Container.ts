@@ -5,7 +5,7 @@ import { History } from "history";
 
 import RoleManagerView from "components/Views/RoleManager/View";
 
-import { requestGetPlayerRoles, requestUpdatePlayerRole } from "redux/creators/players";
+import { requestGetPlayerRoles, requestUpdatePlayerRole } from "redux/player/creators";
 
 import { RootState } from "redux/models/RootState";
 import { PlayerRole } from "models/Player";

@@ -9,7 +9,7 @@ import SeasonSwitcher from "components/Views/Home/SeasonSwitcher";
 import useDataFetch from "components/Hooks/useDataFetch";
 
 import { User } from "models/User";
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
 import { MatchRecordMap } from "models/Match";
 

@@ -12,12 +12,12 @@ import {
   EMIT_LOGGING_OUT,
   EMIT_CONFIRMATION_CODE_EXPIRED,
   EMIT_VALIDATION_SUCCESS
-} from "redux/actions/auth";
+} from "redux/auth/actions";
 
-import { emitFullPageRequestLoading } from "redux/creators/application";
-import { emitRequestError, emitResetError } from "redux/creators/errors";
-import { emitUpdateUser } from "redux/creators/users";
-import { AuthAction } from "redux/models/AuthAction";
+import { emitFullPageRequestLoading } from "redux/application/creators";
+import { emitRequestError, emitResetError } from "redux/error/creators";
+import { emitUpdateUser } from "redux/user/creators";
+import { AuthAction } from "redux/auth/models/Action";
 import { RootState } from "redux/models/RootState";
 
 import * as authService from "services/auth";

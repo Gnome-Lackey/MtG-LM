@@ -4,21 +4,21 @@ import { withRouter } from "react-router-dom";
 
 import HomeView from "components/Views/Home/View";
 
-import { emitToggleRecordMatchModal } from "redux/creators/application";
+import { emitToggleRecordMatchModal } from "redux/application/creators";
 import {
   emitClearPlayerResultsForRecord,
   requestQueryPlayersForRecordMatch
-} from "redux/creators/players";
-import { requestCreateMatch, requestMatchesBySeasonAndPlayer } from "redux/creators/matches";
+} from "redux/player/creators";
+import { requestCreateMatch, requestMatchesBySeasonAndPlayer } from "redux/match/creators";
 import {
   requestGetActiveSeasons,
   requestGetCurrentSeason,
   requestGetSeason
-} from "redux/creators/seasons";
+} from "redux/season/creators";
 
 import { RootState } from "redux/models/RootState";
 import { User } from "models/User";
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
 import { MatchRecordMap } from "models/Match";
 

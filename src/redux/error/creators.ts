@@ -1,6 +1,6 @@
-import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/actions/errors";
+import { EMIT_RESET_ERROR, EMIT_REQUEST_ERROR } from "redux/error/actions";
 
-import { ErrorAction } from "redux/models/ErrorAction";
+import { ErrorAction } from "redux/error/models/Action";
 
 export const emitResetError = (domain: string, view: string): ErrorAction => ({
   type: EMIT_RESET_ERROR,

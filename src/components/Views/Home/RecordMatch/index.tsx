@@ -10,7 +10,7 @@ import useFormData from "components/Hooks/useFormData";
 
 import * as seasonMapper from "mappers/seasons";
 
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { PlayerSearchResultMap } from "redux/player/models/State";
 import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { Season } from "models/Season";
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";

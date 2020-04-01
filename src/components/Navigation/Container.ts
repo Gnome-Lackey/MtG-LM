@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 import NavigationView from "components/Navigation/View";
 
-import { emitResetError } from "redux/creators/errors";
-import { requestLogout, requestValidation } from "redux/creators/auth";
+import { emitResetError } from "redux/error/creators";
+import { requestLogout, requestValidation } from "redux/auth/reducer";
 
 import { RootState } from "redux/models/RootState";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
 interface NavigationProps {
