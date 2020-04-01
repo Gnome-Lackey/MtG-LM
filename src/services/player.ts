@@ -22,18 +22,18 @@ export const updateRole = async (id: string, body: UpdatePlayerRoleNode): Promis
   return response.body as PlayerRoleResponse;
 };
 
-export const getRoles = async (): Promise<PlayerRoleResponse> => {
+export const getRoles = async (): Promise<PlayerRoleResponse[]> => {
   const response = await service.get(`${PLAYER_BASE_URL}/roles`);
   
-  return response.body as PlayerRoleResponse;
+  return response.body as PlayerRoleResponse[];
 };
 
-export const query = async (queryParams?: PlayerQueryParameters): Promise<PlayerResponse> => {
+export const query = async (queryParams?: PlayerQueryParameters): Promise<PlayerResponse[]> => {
   const queryString = playerMapper.toSearchQueryString(queryParams);
 
   const url = queryString ? `${PLAYER_BASE_URL}?${queryString}` : PLAYER_BASE_URL;
 
   const response = await service.get(url);
 
-  return response.body as PlayerResponse;
+  return response.body as PlayerResponse[];
 };

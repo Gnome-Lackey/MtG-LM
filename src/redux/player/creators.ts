@@ -9,23 +9,29 @@ import {
   EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
   REQUEST_UPDATE_PLAYER_ROLE,
   EMIT_LOADING_PLAYER_ROLES,
-  EMIT_GET_PLAYER_ROLES_SUCCESS
+  EMIT_GET_PLAYER_ROLES_SUCCESS,
+  EMIT_UPDATE_PLAYERS
 } from "redux/player/actions";
 
 import { emitResetError, emitRequestError } from "redux/error/creators";
 import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
-
-import { RootState } from "redux/models/RootState";
-import { PlayerAction } from "redux/player/models/Action";
-import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
 
 import * as playerService from "services/player";
 
 import * as userMapper from "mappers/user";
 import * as playerMapper from "mappers/players";
 
+import ErrorUtility from "utils/errors";
+
+import { RootState } from "redux/models/RootState";
+import { PlayerAction } from "redux/player/models/Action";
+import { GettingStartedFields } from "components/Hooks/useFormData/models/FormFields";
+import { Player } from "models/Player";
+
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+
+const errorUtility = new ErrorUtility();
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
   type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
@@ -36,6 +42,11 @@ export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction 
 
 export const emitClearPlayerResults = (): PlayerAction => ({
   type: EMIT_CLEAR_PLAYER_LIST
+});
+
+export const emitUpdatePlayers = (players: Player[]): PlayerAction => ({
+  type: EMIT_UPDATE_PLAYERS,
+  payload: { players }
 });
 
 export const requestCreatePlayer = (details: GettingStartedFields) => async (
@@ -58,8 +69,10 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 
   const data = await playerService.create(body);
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_CREATE_PLAYER_SUCCESS
@@ -81,13 +94,15 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
 
   const data = await playerService.updateRole(id, { role });
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     const dupRoles = [...roles];
     const roleIndex = roles.findIndex((nextRole) => nextRole.id === id);
 
-    dupRoles[roleIndex] = {...data, role };
+    dupRoles[roleIndex] = { ...data, role };
 
     dispatch({
       type: EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
@@ -103,8 +118,10 @@ export const requestGetPlayerRoles = () => async (dispatch: Function) => {
 
   const data = await playerService.getRoles();
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_PLAYER_ROLES_SUCCESS,
@@ -133,7 +150,7 @@ export const requestQueryPlayers = (query: string) => async (dispatch: Function)
   dispatch({
     type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
     payload: {
-      players: data.error ? [] : data
+      players: errorUtility.hasError(data) ? [] : data
     }
   });
 
@@ -168,7 +185,7 @@ export const requestQueryPlayersForRecordMatch = (
     type: EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
     payload: {
       playerSearchId: searchId,
-      players: data.error ? [] : data
+      players: errorUtility.hasError(data) ? [] : data
     }
   });
 

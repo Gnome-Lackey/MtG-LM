@@ -28,6 +28,7 @@ interface SeasonMangerViewProps {
   potentialPlayers: Player[];
   searchForPlayer: boolean;
   searchForSet: boolean;
+  selectedPlayers: Player[];
   selectedSeason: Season;
   seasons: Season[];
 }
@@ -54,6 +55,7 @@ const mapStateToProps = (
   potentialSets: state.scryfall.setSearchResults,
   potentialPlayers: state.players.searchResults,
   searchForPlayer: state.players.searching,
+  selectedPlayers: state.players.selected,
   selectedSeason: state.seasons.editing,
   seasons: state.seasons.list
 });

@@ -14,16 +14,6 @@ export const toOption = (details: Season): DropdownOption => ({
 export const toSeason = (details: SeasonDetailsResponse): Season => ({
   id: details.id,
   isActive: details.isActive,
-  players: details.players.map((player) => ({
-    id: player.id,
-    displayName: player.displayName,
-    userName: player.userName,
-    email: player.email,
-    totalWins: player.totalWins,
-    totalLosses: player.totalLosses,
-    epithet: player.epithet,
-    favoriteColors: player.colors
-  })),
   set: details.set,
   startedOn: details.startedOn,
   endedOn: details.endedOn

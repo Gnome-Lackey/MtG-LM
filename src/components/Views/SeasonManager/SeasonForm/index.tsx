@@ -31,15 +31,16 @@ interface SeasonFormProps {
   searchForPlayer: boolean;
   searchForSet: boolean;
   searchPlayerHandler: Function;
+  selectedPlayers?: Player[];
   selectedSeason?: Season;
   submitHandler: Function;
 }
 
-export const buildInitialFormState = (season: Season): SeasonFields =>
+export const buildInitialFormState = (season: Season, players: Player[]): SeasonFields =>
   season
     ? {
         set: setMapper.toOption(season.set),
-        players: season.players.map(playerMapper.toOption),
+        players: players.map(playerMapper.toOption),
         startedDate: season.startedOn ? season.startedOn : "",
         endedDate: season.endedOn ? season.endedOn : "",
         isActive: season.isActive || false
@@ -54,6 +55,7 @@ export const buildInitialFormState = (season: Season): SeasonFields =>
 
 export const isSubmitDisabled = (
   season: Season,
+  players: Player[],
   fields: SeasonFields,
   isFormLoading: boolean
 ): boolean => {
@@ -69,8 +71,8 @@ export const isSubmitDisabled = (
     fields.startedDate === season.startedOn &&
     fields.isActive === season.isActive &&
     fields.set.key === season.set.code &&
-    fields.players.length === season.players.length &&
-    fields.players.every((newP) => !!season.players.find((oldP) => oldP.id === newP.key));
+    fields.players.length === players.length &&
+    fields.players.every((newP) => !!players.find((oldP) => oldP.id === newP.key));
 
   const invalidEndDate = !fields.isActive && !fields.endedDate;
   const invalidRequiredFields = !fields.startedDate || !fields.set;
@@ -86,10 +88,13 @@ const SeasonForm = ({
   searchForPlayer,
   searchForSet,
   searchPlayerHandler,
+  selectedPlayers,
   selectedSeason,
   submitHandler
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
-  const { values, updateValues, resetValues } = useFormData(buildInitialFormState(selectedSeason));
+  const { values, updateValues, resetValues } = useFormData(
+    buildInitialFormState(selectedSeason, selectedPlayers)
+  );
 
   const setOptions = potentialSets ? potentialSets.map(setMapper.toOption) : [];
 
@@ -104,11 +109,11 @@ const SeasonForm = ({
   };
 
   React.useEffect(() => {
-    resetValues(buildInitialFormState(selectedSeason));
+    resetValues(buildInitialFormState(selectedSeason, selectedPlayers));
   }, [selectedSeason]);
 
   const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
-  const isDisabled = isSubmitDisabled(selectedSeason, values, isFormLoading);
+  const isDisabled = isSubmitDisabled(selectedSeason, selectedPlayers, values, isFormLoading);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>

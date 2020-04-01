@@ -55,6 +55,6 @@ export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
         };
       }
     });
-
+    
     return records;
   }, {});

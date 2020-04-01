@@ -21,6 +21,7 @@ import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
 import { MatchRecordMap } from "models/Match";
+import { Player } from "models/Player";
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
@@ -31,6 +32,7 @@ interface HomeViewProps {
   matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
+  selectedPlayers: Player[];
   selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
@@ -58,6 +60,7 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
   matchRecords: state.matches.matchRecords,
   playerSearchResultsMap: state.players.searchResultsMap,
   seasons: state.seasons.list,
+  selectedPlayers: state.players.selected,
   selectedSeason: state.seasons.selected,
   showRecordMatchModal: state.application.showRecordMatchModal,
   user: state.users.current

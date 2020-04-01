@@ -16,6 +16,7 @@ import { MatchRecordMap } from "models/Match";
 import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
+import { Player } from "models/Player";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -38,6 +39,7 @@ interface HomeViewProps extends RouteComponentProps {
   matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
+  selectedPlayers: Player[];
   selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
@@ -53,6 +55,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   matchRecords,
   playerSearchResultsMap,
   seasons,
+  selectedPlayers,
   selectedSeason,
   showRecordMatchModal,
   user
@@ -60,20 +63,19 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
   useDataFetch(selectedSeason && !matchRecords, () =>
-    actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedSeason.players)
+    actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedPlayers)
   );
 
-  const playerList = selectedSeason ? selectedSeason.players : [];
   const setCode = selectedSeason ? selectedSeason.set.code : "";
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
-  const isCurrentUserInSeason = isAdminUser 
-    || !playerList.length 
-    || !!playerList.find(({ id }) => id === user.id);
 
-  const isPageLoading = isLoadingActiveSeasons 
-    || isLoadingCurrentSeason 
-    || isLoadingSeason 
-    || isLoadingMatches;
+  const isCurrentUserInSeason = 
+    isAdminUser || 
+    !selectedPlayers.length || 
+    !!selectedPlayers.find(({ id }) => id === user.id);
+
+  const isPageLoading =
+    isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason || isLoadingMatches;
 
   const isFabDisabled = isPageLoading || isLoadingMatchCreation || !isCurrentUserInSeason;
 
@@ -89,7 +91,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           hasSeason={!!selectedSeason}
           isRequestLoading={isPageLoading}
           matchRecords={matchRecords}
-          players={playerList}
+          players={selectedPlayers}
           setCode={setCode}
           showWarning={!isCurrentUserInSeason}
           user={user}

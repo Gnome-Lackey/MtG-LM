@@ -4,32 +4,34 @@ import { ScryfallCardResponse, ScryfallSetResponse } from "services/models/Respo
 
 import { SCRYFALL_RANDOM_CARD, SCRYFALL_SETS, SCRYFALL_CARDS } from "constants/services";
 
-export const fetchCard = async (url: string): Promise<ScryfallCardResponse> => {
+export const getCard = async (id: string): Promise<ScryfallCardResponse> => {
+  const url = `${SCRYFALL_CARDS}/${id}`;
+
   const response = await service.get(url);
 
   return response.body as ScryfallCardResponse;
 };
 
-export const getCard = async (id: string): Promise<ScryfallCardResponse> => {
-  const url = `${SCRYFALL_CARDS}/${id}`;
-
-  return fetchCard(url);
-};
-
-export const queryCard = async (query: string): Promise<ScryfallCardResponse> => {
+export const queryCard = async (query: string): Promise<ScryfallCardResponse[]> => {
   const url = query ? `${SCRYFALL_CARDS}?${query}` : SCRYFALL_CARDS;
 
-  return fetchCard(url);
+  const response = await service.get(url);
+
+  return response.body as ScryfallCardResponse[];
 };
 
 export const getRandomCard = async (query: string): Promise<ScryfallCardResponse> => {
   const url = query ? `${SCRYFALL_RANDOM_CARD}?${query}` : SCRYFALL_RANDOM_CARD;
 
-  return fetchCard(url);
+  const response = await service.get(url);
+
+  return response.body as ScryfallCardResponse;
 };
 
 export const getSet = async (code: string): Promise<ScryfallSetResponse> => {
-  const response = await service.get(`${SCRYFALL_SETS}/${code}`);
+  const url = `${SCRYFALL_SETS}/${code}`;
+
+  const response = await service.get(url);
 
   return response.body as ScryfallSetResponse;
 };

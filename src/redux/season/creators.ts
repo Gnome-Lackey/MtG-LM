@@ -12,12 +12,16 @@ import {
 
 import { emitResetError, emitRequestError } from "redux/error/creators";
 import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
+import { emitUpdatePlayers } from "redux/player/creators";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 import * as seasonService from "services/season";
 
 import * as seasonMapper from "mappers/seasons";
+import * as playerMapper from "mappers/players";
+
+import ErrorUtility from "utils/errors";
 
 import { SeasonAction } from "redux/season/models/Action";
 import { RootState } from "redux/models/RootState";
@@ -25,6 +29,8 @@ import { Season } from "models/Season";
 
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+
+const errorUtility = new ErrorUtility();
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON_FOR_EDITING,
@@ -43,15 +49,19 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
   const body = seasonMapper.toCreateNode(details);
   const data = await seasonService.create(body);
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_CREATE_SEASON_SUCCESS,
       payload: {
-        season: data
+        season: seasonMapper.toSeason(data)
       }
     });
+
+    dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
@@ -72,8 +82,10 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
   const body = seasonMapper.toUpdateNode(details);
   const data = await seasonService.update(id, body);
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     const updatedSeasons = list.filter((season) => season.id !== data.id);
     const updatedSeason = seasonMapper.toSeason(data);
@@ -87,6 +99,8 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
         seasons: updatedSeasons
       }
     });
+
+    dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
   dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
@@ -97,15 +111,19 @@ export const requestGetCurrentSeason = () => async (dispatch: Function) => {
 
   const data = await seasonService.getCurrent();
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASON_SUCCESS,
       payload: {
-        season: data
+        season: seasonMapper.toSeason(data)
       }
     });
+
+    dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
   dispatch(emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
@@ -116,15 +134,19 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
 
   const data = await seasonService.get(id);
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASON_SUCCESS,
       payload: {
-        season: data
+        season: seasonMapper.toSeason(data)
       }
     });
+
+    dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
   dispatch(emitRequestLoading(EMIT_GET_SEASON, false));
@@ -135,13 +157,15 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
 
   const data = await seasonService.getAll();
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,
       payload: {
-        seasons: data
+        seasons: data.map(seasonMapper.toSeason)
       }
     });
   }
@@ -156,13 +180,15 @@ export const requestGetActiveSeasons = () => async (dispatch: Function) => {
     active: true
   });
 
-  if (data && data.error) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, data.error.message));
+  const errorMessage = errorUtility.getErrorMessage(data);
+
+  if (errorMessage) {
+    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,
       payload: {
-        seasons: data
+        seasons: data.map(seasonMapper.toSeason)
       }
     });
   }
