@@ -54,19 +54,6 @@
             ]
         },
         {
-            "id": "2f154103-7d0e-4271-a170-b6d0caefee24",
-            "isSeasonPoint": true,
-            "games": 2,
-            "wins": 2,
-            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
-            "losers": [
-                "99990daf-34d1-43c0-9c15-c0e95b8efd19"
-            ],
-            "winners": [
-                "87600daf-1234-43c0-9c15-c0e95b8efd19"
-            ]
-        },
-        {
             "id": "25154103-7d0e-4271-a170-b6d0caefee25",
             "isSeasonPoint": true,
             "games": 2,
