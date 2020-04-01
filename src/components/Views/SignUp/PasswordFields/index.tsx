@@ -5,7 +5,7 @@ import Restriction from "components/Views/SignUp/PasswordFields/Restriction";
 
 import usePasswordValidation from "components/Hooks/usePasswordValidation";
 
-import { VALIDATION_REQUIRED } from "constants/validations";
+import { VALIDATION_PASSWORD } from "constants/validations";
 
 import "./styles.scss";
 
@@ -52,7 +52,7 @@ const PasswordFields = ({
           onChange={onChange}
           onInvalidation={onInvalidation}
           type="password"
-          validations={VALIDATION_REQUIRED}
+          validations={VALIDATION_PASSWORD}
           value={password}
         />
         <FormInput
@@ -62,7 +62,7 @@ const PasswordFields = ({
           onChange={onChange}
           onInvalidation={onInvalidation}
           type="password"
-          validations={VALIDATION_REQUIRED}
+          validations={VALIDATION_PASSWORD}
           value={confirmPassword}
         />
       </div>

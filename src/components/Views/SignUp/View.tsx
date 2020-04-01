@@ -60,7 +60,10 @@ const SignUpView = ({
     confirmPassword: ""
   });
 
-  const isFormInvalid = Object.values(values).some((value) => !value) || !isPasswordValid;
+  const isFormInvalid =
+    Object.values(values).some((value) => !value) ||
+    Object.values(invalidations).some((invalidation) => !!invalidation) ||
+    !isPasswordValid;
 
   const submitHandler = (ev: React.FormEvent): void => {
     ev.preventDefault();
@@ -92,8 +95,10 @@ const SignUpView = ({
         />
         <NameFields
           firstName={values.firstName}
+          invalidations={invalidations}
           lastName={values.lastName}
           onChange={updateValues}
+          onInvalidation={updateInvalidations}
         />
         <PasswordFields
           confirmPassword={values.confirmPassword}

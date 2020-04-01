@@ -9,6 +9,7 @@ import { DynamicValidation } from "models/Dynamics";
 import { handleValidation } from "utils/form";
 
 import "./styles.scss";
+import ErrorMessage from "components/Common/ErrorMessage";
 
 interface FormInputProps {
   autoComplete?: string;
@@ -111,16 +112,13 @@ const FormInput = ({
   const classes = classNames(
     "form-input",
     { [className]: !!className },
-    { readOnly },
-    { disabled },
-    { isInvalid }
+    { "is-invalid": isInvalid },
+    { "has-validation": !!validations }
   );
 
   return (
     <label className={classes} id={`${id}-label`} htmlFor={id}>
-      {hasHeader ? (
-        <FormInputHeader label={label} error={errorMessage} isRequired={isRequired} />
-      ) : null}
+      {hasHeader ? <FormInputHeader label={label} isRequired={isRequired} /> : null}
       <div className="input-wrapper">
         <input
           autoComplete={useAutoComplete}
@@ -145,6 +143,7 @@ const FormInput = ({
           <ShowHideButton clickHandler={setIsProtectedTextVisible} show={isProtectedTextVisible} />
         ) : null}
       </div>
+      {errorMessage ? <ErrorMessage inline>{errorMessage}</ErrorMessage> : null}
     </label>
   );
 };
