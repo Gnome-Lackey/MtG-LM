@@ -44,7 +44,7 @@ export default class ErrorUtility {
     } else if (results.length) {
       return results.some((result: any) => !!result.error);
     } else {
-      return !!results.error.message;
+      return !!results.error;
     }
   }
 

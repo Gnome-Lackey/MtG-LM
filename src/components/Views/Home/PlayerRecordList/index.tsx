@@ -10,7 +10,6 @@ import Spinner from "components/Common/Spinner";
 import "./styles.scss";
 
 interface PlayerRecordListProps {
-  hasSeason: boolean;
   isRequestLoading: boolean;
   matchRecords: MatchRecordMap;
   players: Player[];
@@ -20,14 +19,13 @@ interface PlayerRecordListProps {
 }
 
 const renderContent = (
-  hasSeason: boolean,
   isRequestLoading: boolean,
   matchRecords: MatchRecordMap,
   players: Player[],
   setCode: string,
   user: User
 ): JSX.Element | JSX.Element[] => {
-  const noPlayersInSeason = hasSeason && !players.length;
+  const noPlayersInSeason = !players.length;
 
   if (isRequestLoading) {
     return (
@@ -58,7 +56,6 @@ const renderContent = (
 };
 
 const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
-  hasSeason,
   isRequestLoading,
   matchRecords,
   players,
@@ -82,7 +79,7 @@ const PlayerRecordList: React.FunctionComponent<PlayerRecordListProps> = ({
         </p>
       </li>
     ) : null}
-    {renderContent(hasSeason, isRequestLoading, matchRecords, players, setCode, user)}
+    {renderContent(isRequestLoading, matchRecords, players, setCode, user)}
   </ul>
 );
 

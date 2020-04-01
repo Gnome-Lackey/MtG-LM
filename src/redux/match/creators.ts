@@ -13,13 +13,15 @@ import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";
 
 import ErrorUtility from "utils/errors";
+import MatchUtility from "utils/match";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 import { RootState } from "redux/models/RootState";
-
-import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 import { Player } from "models/Player";
 
+import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+
+const matchUtility = new MatchUtility();
 const errorUtility = new ErrorUtility();
 
 export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[]) => async (
@@ -43,19 +45,7 @@ export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[
   } else {
     const matchRecordMap = matchMapper.toMatchRecordMap(data);
 
-    const sortedPlayers = players.sort((playerA: Player, playerB: Player) => {
-      const recordA = matchRecordMap[playerA.id];
-      const recordB = matchRecordMap[playerB.id];
-
-      const playedMatchPointFactorA = recordA.playersPlayed.length / Math.floor(players.length / 8);
-      const playedMatchPointFactorB = recordB.playersPlayed.length / Math.floor(players.length / 8);
-
-      const recordAPoints = recordA.wins * 3 + playedMatchPointFactorA;
-      const recordBPoints = recordB.wins * 3 + playedMatchPointFactorB;
-
-      if (recordAPoints > recordBPoints) return -1;
-      if (recordAPoints < recordBPoints) return 1;
-    });
+    const sortedPlayers = matchUtility.generateRanking(players, matchRecordMap);
 
     dispatch({
       type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
