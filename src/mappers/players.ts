@@ -21,7 +21,7 @@ export const toPlayer = (player: PlayerView): Player => ({
 
 export const toOption = (player: Player): TypeAheadOption => ({
   label: player.displayName,
-  subLabel: `(${player.epithet} / ${player.userName})`,
+  subLabel: `${player.epithet} / ${player.userName}`,
   icon: "fas fa-user",
   key: player.id
 });
