@@ -48,6 +48,7 @@ export const toMatchRecordMap = (matches: MatchResponse[]): MatchRecordMap =>
       } else {
         records[id] = {
           id,
+          rank: "common",
           wins: isWin ? 1 : 0,
           losses: isWin ? 0 : 1,
           playersPlayed: isWin ? otherLosers : otherWinners,

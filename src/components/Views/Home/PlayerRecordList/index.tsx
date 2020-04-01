@@ -36,16 +36,22 @@ const renderContent = (
   } else if (noPlayersInSeason) {
     return <li className="record-empty-message">There are no players in this season.</li>;
   } else if (matchRecords) {
-    return players.map((player) => (
-      <PlayerRecordListItem
-        key={player.id}
-        isLoggedInUser={user.id === player.id}
-        loggedInUserRecord={matchRecords[user.id]}
-        player={player}
-        playerRecord={matchRecords[player.id]}
-        setCode={setCode}
-      />
-    ));
+    return players.map((player) => {
+      const isLoggedInUser = user.id === player.id;
+      const playerRecord = matchRecords[player.id];
+      const loggedInUserRecord = matchRecords[user.id];
+
+      return (
+        <PlayerRecordListItem
+          key={player.id}
+          isLoggedInUser={isLoggedInUser}
+          loggedInUserRecord={loggedInUserRecord}
+          player={player}
+          playerRecord={playerRecord}
+          setCode={setCode}
+        />
+      );
+    });
   }
 
   return (

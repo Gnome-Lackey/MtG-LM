@@ -14,6 +14,7 @@ export interface MatchRecord {
   losses: number;
   playersPlayed: string[];
   opponentsDefeated: string[];
+  rank: string;
 }
 
 export interface MatchRecordMap {

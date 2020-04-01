@@ -30,6 +30,7 @@ const renderIcon = (
 
 const renderListItem = (
   player: Player,
+  playerRank: string,
   setCode: string,
   isLoggedInUser: boolean,
   wins?: number,
@@ -44,7 +45,7 @@ const renderListItem = (
       loss: !hasWinAgainstPlayer
     })}
   >
-    <i className={`set-icon ss ss-${setCode}`} />
+    <i className={`set-icon ss ss-${setCode} ss-${playerRank}`} />
     {renderIcon(isLoggedInUser, hasPlayedUser, hasWinAgainstPlayer)}
     <p className={classNames("name", { unplayed: !hasPlayedUser })}>
       {player.displayName}
@@ -65,11 +66,14 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
   setCode
 }: PlayerRecordListItemProps): React.FunctionComponentElement<PlayerRecordListItemProps> => {
   if (loggedInUserRecord && playerRecord) {
-    const hasPlayedUser = !isLoggedInUser && loggedInUserRecord.playersPlayed.includes(playerRecord.id);
-    const hasWinAgainstPlayer = hasPlayedUser && loggedInUserRecord.opponentsDefeated.includes(playerRecord.id);
-  
+    const { playersPlayed, opponentsDefeated } = loggedInUserRecord;
+
+    const hasPlayedUser = !isLoggedInUser && playersPlayed.includes(playerRecord.id);
+    const hasWinAgainstPlayer = hasPlayedUser && opponentsDefeated.includes(playerRecord.id);
+
     return renderListItem(
       player,
+      playerRecord.rank,
       setCode,
       isLoggedInUser,
       playerRecord.wins,
@@ -80,6 +84,7 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
   } else if (!loggedInUserRecord && playerRecord) {
     return renderListItem(
       player,
+      playerRecord.rank,
       setCode,
       isLoggedInUser,
       playerRecord.wins,
@@ -88,7 +93,7 @@ const PlayerRecordListItem: React.FunctionComponent<PlayerRecordListItemProps> =
     );
   }
 
-  return renderListItem(player, setCode, isLoggedInUser);
+  return renderListItem(player, "common", setCode, isLoggedInUser);
 };
 
 export default PlayerRecordListItem;

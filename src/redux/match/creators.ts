@@ -13,7 +13,7 @@ import * as matchMapper from "mappers/matches";
 import * as matchService from "services/match";
 
 import ErrorUtility from "utils/errors";
-import MatchUtility from "utils/match";
+import RankUtility from "utils/rank";
 
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
 import { RootState } from "redux/models/RootState";
@@ -21,7 +21,7 @@ import { Player } from "models/Player";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const matchUtility = new MatchUtility();
+const rankUtility = new RankUtility();
 const errorUtility = new ErrorUtility();
 
 export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[]) => async (
@@ -45,12 +45,12 @@ export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[
   } else {
     const matchRecordMap = matchMapper.toMatchRecordMap(data);
 
-    const sortedPlayers = matchUtility.generateRanking(players, matchRecordMap);
+    const sortedPlayers = rankUtility.sortByRank(players, matchRecordMap);
 
     dispatch({
       type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
       payload: {
-        matchRecords: matchRecordMap
+        matchRecords: rankUtility.populateRanks(sortedPlayers, matchRecordMap)
       }
     });
 
