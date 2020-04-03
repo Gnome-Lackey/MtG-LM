@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 
 import NavigationView from "components/Navigation/View";
 
-import { emitResetError } from "redux/error/creators";
 import AuthCreator from "redux/auth/creator";
+import ErrorCreator from "redux/error/creator";
 
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
 const authCreator = new AuthCreator();
+const errorCreator = new ErrorCreator();
 
 interface NavigationProps {
   children: React.FunctionComponent<any>;
@@ -45,7 +46,7 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch: Dispatch): NavigationActions => ({
   actions: bindActionCreators(
     {
-      emitResetError,
+      emitResetError: errorCreator.emitResetError,
       requestLogout: authCreator.requestLogout,
       requestValidation: authCreator.requestValidation
     },

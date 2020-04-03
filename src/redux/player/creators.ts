@@ -13,8 +13,8 @@ import {
   EMIT_UPDATE_PLAYERS
 } from "redux/player/actions";
 
-import { emitResetError, emitRequestError } from "redux/error/creators";
 import ApplicationCreator from "redux/application/creator";
+import ErrorCreator from "redux/error/creator";
 
 import PlayerService from "services/player";
 
@@ -31,8 +31,9 @@ import { Player } from "models/Player";
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const playerService = new PlayerService();
 const applicationCreator = new ApplicationCreator();
+const playerService = new PlayerService();
+const errorCreator = new ErrorCreator();
 const errorUtility = new ErrorUtility();
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
@@ -59,7 +60,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
     users: { current }
   } = getState() as RootState;
 
-  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+  dispatch(errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
@@ -74,7 +75,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_CREATE_PLAYER_SUCCESS
@@ -99,7 +100,7 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     const dupRoles = [...roles];
     const roleIndex = roles.findIndex((nextRole) => nextRole.id === id);
@@ -123,7 +124,7 @@ export const requestGetPlayerRoles = () => async (dispatch: Function) => {
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_PLAYER_ROLES_SUCCESS,

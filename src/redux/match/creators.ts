@@ -5,8 +5,8 @@ import {
   EMIT_UPDATE_LOADING_MATCH_CREATION
 } from "redux/match/actions";
 
-import { emitResetError, emitRequestError } from "redux/error/creators";
 import ApplicationCreator from "redux/application/creator";
+import ErrorCreator from "redux/error/creator";
 import { emitUpdatePlayers } from "redux/player/creators";
 
 import MatchService from "services/match";
@@ -22,10 +22,11 @@ import { Player } from "models/Player";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const matchService = new MatchService();
 const applicationCreator = new ApplicationCreator();
-const rankUtility = new RankUtility();
+const errorCreator = new ErrorCreator();
 const errorUtility = new ErrorUtility();
+const matchService = new MatchService();
+const rankUtility = new RankUtility();
 
 export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[]) => async (
   dispatch: Function
@@ -44,7 +45,7 @@ export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     const matchRecordMap = matchMapper.toMatchRecordMap(data);
 
@@ -67,7 +68,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (
   dispatch: Function,
   getState: Function
 ) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+  dispatch(errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
 
@@ -104,7 +105,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
 

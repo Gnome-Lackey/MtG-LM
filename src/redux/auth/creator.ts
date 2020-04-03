@@ -15,7 +15,7 @@ import {
 } from "redux/auth/actions";
 
 import ApplicationCreator from "redux/application/creator";
-import { emitRequestError, emitResetError } from "redux/error/creators";
+import ErrorCreator from "redux/error/creator";
 import { emitUpdateUser } from "redux/user/creators";
 import { AuthAction } from "redux/auth/models/Action";
 import { RootState } from "redux/models/RootState";
@@ -39,13 +39,15 @@ import {
   TYPE_ERROR_EXPIRED_CONFIRMATION_CODE
 } from "constants/errors";
 
-const authService = new AuthService();
 const applicationCreator = new ApplicationCreator();
+const authService = new AuthService();
+const errorCreator = new ErrorCreator();
 
 export default class AuthCreator {
   emitClearCodeResent(): AuthAction {
     return { type: EMIT_CLEAR_CODE_RESENT };
   }
+
   emitClearCodeNeeded(): AuthAction {
     return { type: EMIT_CLEAR_CODE_NEEDED };
   }
@@ -54,7 +56,7 @@ export default class AuthCreator {
     return async (dispatch: Function) => {
       const { userName, password } = details;
 
-      dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN));
+      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN));
 
       dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
@@ -73,7 +75,13 @@ export default class AuthCreator {
           payload: true
         });
       } else {
-        dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN, data.error.message));
+        dispatch(
+          errorCreator.emitRequestError(
+            DOMAIN_ERROR_AUTH,
+            VIEW_ERROR_FORM_LOGIN,
+            data.error.message
+          )
+        );
       }
 
       dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
@@ -81,14 +89,20 @@ export default class AuthCreator {
   }
   requestLogout() {
     return async (dispatch: Function) => {
-      dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT));
+      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT));
 
       dispatch({ type: EMIT_LOGGING_OUT });
 
       const data = await authService.logout();
 
       if (data && data.error) {
-        dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT, data.error.message));
+        dispatch(
+          errorCreator.emitRequestError(
+            DOMAIN_ERROR_AUTH,
+            VIEW_ERROR_FORM_LOGOUT,
+            data.error.message
+          )
+        );
       } else {
         dispatch({ type: EMIT_LOGOUT_SUCCESS });
       }
@@ -96,14 +110,20 @@ export default class AuthCreator {
   }
   requestSignUp(details: SignUpFields) {
     return async (dispatch: Function) => {
-      dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP));
+      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP));
 
       dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
       const data = await authService.signup(details);
 
       if (data && data.error) {
-        dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP, data.error.message));
+        dispatch(
+          errorCreator.emitRequestError(
+            DOMAIN_ERROR_AUTH,
+            VIEW_ERROR_FORM_SIGN_UP,
+            data.error.message
+          )
+        );
       } else {
         dispatch({
           type: EMIT_SIGN_UP_SUCCESS,
@@ -125,7 +145,7 @@ export default class AuthCreator {
 
       const { code } = details;
 
-      dispatch(emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY));
+      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY));
 
       dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
@@ -136,7 +156,13 @@ export default class AuthCreator {
       } else if (data.error.name === TYPE_ERROR_EXPIRED_CONFIRMATION_CODE) {
         dispatch({ type: EMIT_CONFIRMATION_CODE_EXPIRED });
       } else {
-        dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY, data.error.message));
+        dispatch(
+          errorCreator.emitRequestError(
+            DOMAIN_ERROR_AUTH,
+            VIEW_ERROR_FORM_VERIFY,
+            data.error.message
+          )
+        );
 
         dispatch({ type: EMIT_VERIFY_FAILURE });
       }
@@ -158,7 +184,13 @@ export default class AuthCreator {
       const data = await authService.resendCode(userName);
 
       if (data && data.error) {
-        dispatch(emitRequestError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY, data.error.message));
+        dispatch(
+          errorCreator.emitRequestError(
+            DOMAIN_ERROR_AUTH,
+            VIEW_ERROR_FORM_VERIFY,
+            data.error.message
+          )
+        );
       } else {
         dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
       }

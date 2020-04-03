@@ -10,8 +10,8 @@ import {
   EMIT_GET_CURRENT_SEASONS
 } from "redux/season/actions";
 
-import { emitResetError, emitRequestError } from "redux/error/creators";
 import ApplicationCreator from "redux/application/creator";
+import ErrorCreator from "redux/error/creator";
 import { emitUpdatePlayers } from "redux/player/creators";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
@@ -30,9 +30,10 @@ import { Season } from "models/Season";
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const seasonService = new SeasonService();
 const applicationCreator = new ApplicationCreator();
+const errorCreator = new ErrorCreator();
 const errorUtility = new ErrorUtility();
+const seasonService = new SeasonService();
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
   type: EMIT_SELECTED_SEASON_FOR_EDITING,
@@ -44,7 +45,7 @@ export const emitDeselectSeasonForEditing = (): SeasonAction => ({
 });
 
 export const requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
-  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+  dispatch(errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
@@ -54,7 +55,7 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_CREATE_SEASON_SUCCESS,
@@ -77,7 +78,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
     seasons: { list }
   }: RootState = getState();
 
-  dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+  dispatch(errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
   dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
@@ -87,7 +88,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     const updatedSeasons = list.filter((season) => season.id !== data.id);
     const updatedSeason = seasonMapper.toSeason(data);
@@ -116,7 +117,7 @@ export const requestGetCurrentSeason = () => async (dispatch: Function) => {
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASON_SUCCESS,
@@ -139,7 +140,7 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASON_SUCCESS,
@@ -162,7 +163,7 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,
@@ -185,7 +186,7 @@ export const requestGetActiveSeasons = () => async (dispatch: Function) => {
   const errorMessage = errorUtility.getErrorMessage(data);
 
   if (errorMessage) {
-    dispatch(emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+    dispatch(errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
   } else {
     dispatch({
       type: EMIT_GET_SEASONS_SUCCESS,
