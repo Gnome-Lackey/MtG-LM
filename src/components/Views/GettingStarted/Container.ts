@@ -5,7 +5,7 @@ import { History } from "history";
 
 import GettingStartedView from "components/Views/GettingStarted/View";
 
-import { requestValidation } from "redux/auth/creators";
+import AuthCreator from "redux/auth/creator";
 import { requestCreatePlayer } from "redux/player/creators";
 import { requestGettingStartedCards } from "redux/scryfall/creators";
 import { emitResetError } from "redux/error/creators";
@@ -14,6 +14,8 @@ import { ErrorState } from "redux/error/models/State";
 
 import { Card } from "models/Scryfall";
 import { User } from "models/User";
+
+const authCreator = new AuthCreator();
 
 interface GettingStartedViewProps {
   cards: Card[];
@@ -50,7 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch): GettingStartedViewActions => ({
   actions: bindActionCreators(
     {
       emitResetError,
-      requestValidation,
+      requestValidation: authCreator.requestValidation,
       requestCreatePlayer,
       requestGettingStartedCards
     },

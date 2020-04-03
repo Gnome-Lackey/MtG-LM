@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import NavigationView from "components/Navigation/View";
 
 import { emitResetError } from "redux/error/creators";
-import { requestLogout, requestValidation } from "redux/auth/creators";
+import AuthCreator from "redux/auth/creator";
 
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
+
+const authCreator = new AuthCreator();
 
 interface NavigationProps {
   children: React.FunctionComponent<any>;
@@ -44,8 +46,8 @@ const mapDispatchToProps = (dispatch: Dispatch): NavigationActions => ({
   actions: bindActionCreators(
     {
       emitResetError,
-      requestLogout,
-      requestValidation
+      requestLogout: authCreator.requestLogout,
+      requestValidation: authCreator.requestValidation
     },
     dispatch
   )

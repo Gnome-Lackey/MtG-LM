@@ -11,7 +11,7 @@ import {
 } from "redux/season/actions";
 
 import { emitResetError, emitRequestError } from "redux/error/creators";
-import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
+import ApplicationCreator from "redux/application/creator";
 import { emitUpdatePlayers } from "redux/player/creators";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
@@ -31,6 +31,7 @@ import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 const seasonService = new SeasonService();
+const applicationCreator = new ApplicationCreator();
 const errorUtility = new ErrorUtility();
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
@@ -45,7 +46,7 @@ export const emitDeselectSeasonForEditing = (): SeasonAction => ({
 export const requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
   const body = seasonMapper.toCreateNode(details);
   const data = await seasonService.create(body);
@@ -65,7 +66,7 @@ export const requestCreateSeason = (details: SeasonFields) => async (dispatch: F
     dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
-  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
 };
 
 export const requestUpdateSeason = (id: string, details: SeasonFields) => async (
@@ -78,7 +79,7 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
 
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
   const body = seasonMapper.toUpdateNode(details);
   const data = await seasonService.update(id, body);
@@ -104,11 +105,11 @@ export const requestUpdateSeason = (id: string, details: SeasonFields) => async 
     dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
-  dispatch(emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
 };
 
 export const requestGetCurrentSeason = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_GET_CURRENT_SEASONS, true));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_CURRENT_SEASONS, true));
 
   const data = await seasonService.getCurrent();
 
@@ -127,11 +128,11 @@ export const requestGetCurrentSeason = () => async (dispatch: Function) => {
     dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
-  dispatch(emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
 };
 
 export const requestGetSeason = (id: string) => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_GET_SEASON, true));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_SEASON, true));
 
   const data = await seasonService.get(id);
 
@@ -150,11 +151,11 @@ export const requestGetSeason = (id: string) => async (dispatch: Function) => {
     dispatch(emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
   }
 
-  dispatch(emitRequestLoading(EMIT_GET_SEASON, false));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_SEASON, false));
 };
 
 export const requestGetSeasons = () => async (dispatch: Function) => {
-  dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, true));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_GET_SEASONS, true));
 
   const data = await seasonService.getAll();
 
@@ -171,11 +172,11 @@ export const requestGetSeasons = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
 };
 
 export const requestGetActiveSeasons = () => async (dispatch: Function) => {
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
 
   const data = await seasonService.query({
     active: true
@@ -194,5 +195,5 @@ export const requestGetActiveSeasons = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));
 };

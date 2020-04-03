@@ -14,7 +14,7 @@ import {
 } from "redux/player/actions";
 
 import { emitResetError, emitRequestError } from "redux/error/creators";
-import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
+import ApplicationCreator from "redux/application/creator";
 
 import PlayerService from "services/player";
 
@@ -32,6 +32,7 @@ import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 const playerService = new PlayerService();
+const applicationCreator = new ApplicationCreator();
 const errorUtility = new ErrorUtility();
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({
@@ -60,7 +61,7 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
 
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-  dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, true));
 
   const player = userMapper.toPlayer(current);
   const body = playerMapper.toCreateNode(player);
@@ -80,14 +81,14 @@ export const requestCreatePlayer = (details: GettingStartedFields) => async (
     });
   }
 
-  dispatch(emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
+  dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false));
 };
 
 export const requestUpdatePlayerRole = (id: string, role: string) => async (
   dispatch: Function,
   getState: Function
 ) => {
-  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
+  dispatch(applicationCreator.emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
 
   const {
     players: { roles }
@@ -111,11 +112,11 @@ export const requestUpdatePlayerRole = (id: string, role: string) => async (
     });
   }
 
-  dispatch(emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, false));
+  dispatch(applicationCreator.emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, false));
 };
 
 export const requestGetPlayerRoles = () => async (dispatch: Function) => {
-  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
+  dispatch(applicationCreator.emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
 
   const data = await playerService.getRoles();
 
@@ -132,7 +133,7 @@ export const requestGetPlayerRoles = () => async (dispatch: Function) => {
     });
   }
 
-  dispatch(emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, false));
+  dispatch(applicationCreator.emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, false));
 };
 
 export const requestQueryPlayers = (query: string) => async (dispatch: Function) => {

@@ -5,13 +5,10 @@ import { History } from "history";
 
 import VerifyView from "components/Views/Verify/View";
 
-import {
-  emitClearCodeNeeded,
-  emitClearCodeResent,
-  requestConfirm,
-  requestResendCode
-} from "redux/auth/creators";
+import AuthCreator from "redux/auth/creator";
 import { RootState } from "redux/models/RootState";
+
+const authCreator = new AuthCreator();
 
 interface VerifyViewProps {
   confirmed: boolean;
@@ -43,16 +40,13 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): Verif
 const mapDispatchToProps = (dispatch: Dispatch): VerifyViewActions => ({
   actions: bindActionCreators(
     {
-      emitClearCodeNeeded,
-      emitClearCodeResent,
-      requestConfirm,
-      requestResendCode
+      emitClearCodeNeeded: authCreator.emitClearCodeNeeded,
+      emitClearCodeResent: authCreator.emitClearCodeResent,
+      requestConfirm: authCreator.requestConfirm,
+      requestResendCode: authCreator.requestResendCode
     },
     dispatch
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(VerifyView));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(VerifyView));

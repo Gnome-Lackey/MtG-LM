@@ -5,12 +5,14 @@ import { History } from "history";
 
 import SignUpView from "components/Views/SignUp/View";
 
-import { requestSignUp } from "redux/auth/creators";
+import AuthCreator from "redux/auth/creator";
 import { emitResetError } from "redux/error/creators";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";
 
 import { User } from "models/User";
+
+const authCreator = new AuthCreator();
 
 interface SignUpViewProps {
   errors: ErrorState;
@@ -37,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SignUpViewActions => ({
   actions: bindActionCreators(
     {
       emitResetError,
-      requestSignUp
+      requestSignUp: authCreator.requestSignUp
     },
     dispatch
   )

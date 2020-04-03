@@ -6,7 +6,7 @@ import {
 } from "redux/match/actions";
 
 import { emitResetError, emitRequestError } from "redux/error/creators";
-import { emitRequestLoading } from "redux/application/creators";
+import ApplicationCreator from "redux/application/creator";
 import { emitUpdatePlayers } from "redux/player/creators";
 
 import MatchService from "services/match";
@@ -23,13 +23,14 @@ import { Player } from "models/Player";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
 const matchService = new MatchService();
+const applicationCreator = new ApplicationCreator();
 const rankUtility = new RankUtility();
 const errorUtility = new ErrorUtility();
 
 export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[]) => async (
   dispatch: Function
 ) => {
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
 
   const playerIds = players.map((player) => player.id);
 
@@ -59,7 +60,7 @@ export const requestMatchesBySeasonAndPlayer = (season: string, players: Player[
     dispatch(emitUpdatePlayers(sortedPlayers));
   }
 
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
 };
 
 export const requestCreateMatch = (details: RecordMatchFields) => async (
@@ -68,7 +69,7 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (
 ) => {
   dispatch(emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
 
   const {
     players: { selected: selectedPlayers },
@@ -112,5 +113,5 @@ export const requestCreateMatch = (details: RecordMatchFields) => async (
     }
   }
 
-  dispatch(emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false));
+  dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false));
 };

@@ -5,12 +5,13 @@ import { History } from "history";
 
 import LoginView from "components/Views/Login/View";
 
-import { requestLogin } from "redux/auth/creators";
+import AuthCreator from "redux/auth/creator";
 import { emitResetError } from "redux/error/creators";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
+const authCreator = new AuthCreator();
 
 interface LoginViewProps {
   confirmationNeeded: boolean;
@@ -19,14 +20,14 @@ interface LoginViewProps {
   isRequestLoading: boolean;
   user: User;
   validated: boolean;
-};
+}
 
 interface LoginViewActions {
   actions: {
     emitResetError: Function;
     requestLogin: Function;
   };
-};
+}
 
 const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): LoginViewProps => ({
   confirmationNeeded: state.auth.confirmationNeeded,
@@ -41,13 +42,10 @@ const mapDispatchToProps = (dispatch: Dispatch): LoginViewActions => ({
   actions: bindActionCreators(
     {
       emitResetError,
-      requestLogin
+      requestLogin: authCreator.requestLogin
     },
     dispatch
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(LoginView));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LoginView));

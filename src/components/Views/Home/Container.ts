@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import HomeView from "components/Views/Home/View";
 
-import { emitToggleRecordMatchModal } from "redux/application/creators";
+import ApplicationCreator from "redux/application/creator";
 import {
   emitClearPlayerResultsForRecord,
   requestQueryPlayersForRecordMatch
@@ -22,6 +22,8 @@ import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
 import { MatchRecordMap } from "models/Match";
 import { Player } from "models/Player";
+
+const applicationCreator = new ApplicationCreator();
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
@@ -70,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
   actions: bindActionCreators(
     {
       emitClearPlayerResultsForRecord,
-      emitToggleRecordMatchModal,
+      emitToggleRecordMatchModal: applicationCreator.emitToggleRecordMatchModal,
       requestCreateMatch,
       requestGetActiveSeasons,
       requestGetCurrentSeason,
