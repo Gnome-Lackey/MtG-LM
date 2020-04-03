@@ -1,4 +1,4 @@
-import * as scryfallService from "services/scryfall";
+import ScryfallService from "services/scryfall";
 import * as queryString from "query-string";
 
 import {
@@ -6,6 +6,8 @@ import {
   EMIT_SETS_SUCCESS,
   EMIT_SEARCHING_FOR_SET
 } from "redux/scryfall/actions";
+
+const scryfallService = new ScryfallService();
 
 export const requestGettingStartedCards = () => async (dispatch: Function) => {
   const queryParams = {

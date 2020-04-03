@@ -3,7 +3,7 @@ import { connectRouter } from "connected-react-router";
 import { History } from "history";
 
 import applicationReducer from "redux/application/reducer";
-import authReducer from "redux/auth/creators";
+import authReducer from "redux/auth/reducer";
 import cardReducer from "redux/scryfall/reducer";
 import errorsReducer from "redux/error/reducer";
 import matchReducer from "redux/match/reducer";

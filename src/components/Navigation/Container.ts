@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import NavigationView from "components/Navigation/View";
 
 import { emitResetError } from "redux/error/creators";
-import { requestLogout, requestValidation } from "redux/auth/reducer";
+import { requestLogout, requestValidation } from "redux/auth/creators";
 
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";

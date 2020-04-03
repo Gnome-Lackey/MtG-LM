@@ -10,7 +10,7 @@ import {
   emitClearCodeResent,
   requestConfirm,
   requestResendCode
-} from "redux/auth/reducer";
+} from "redux/auth/creators";
 import { RootState } from "redux/models/RootState";
 
 interface VerifyViewProps {

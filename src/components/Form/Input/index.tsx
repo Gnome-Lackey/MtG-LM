@@ -3,13 +3,15 @@ import classNames from "classnames";
 
 import ShowHideButton from "components/Form/Input/ShowHideButton";
 import FormInputHeader from "components/Form/Input/Header";
+import ErrorMessage from "components/Common/ErrorMessage";
 
 import { DynamicValidation } from "models/Dynamics";
 
-import { handleValidation } from "utils/form";
+import ValidationUtility from "utils/form";
 
 import "./styles.scss";
-import ErrorMessage from "components/Common/ErrorMessage";
+
+const validationUtility = new ValidationUtility();
 
 interface FormInputProps {
   autoComplete?: string;
@@ -54,7 +56,7 @@ const handleOnBlur = (
     const { target } = event;
     const { value }: any = target;
 
-    const error = handleValidation(value, validations);
+    const error = validationUtility.handleValidation(value, validations);
 
     setIsInvalid(!!error);
 

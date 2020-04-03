@@ -16,7 +16,7 @@ import { emitUpdatePlayers } from "redux/player/creators";
 
 import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
-import * as seasonService from "services/season";
+import SeasonService from "services/season";
 
 import * as seasonMapper from "mappers/seasons";
 import * as playerMapper from "mappers/players";
@@ -30,6 +30,7 @@ import { Season } from "models/Season";
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
+const seasonService = new SeasonService();
 const errorUtility = new ErrorUtility();
 
 export const emitSelectSeasonForEditing = (season: Season): SeasonAction => ({

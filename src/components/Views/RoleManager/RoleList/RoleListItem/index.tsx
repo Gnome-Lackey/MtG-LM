@@ -4,7 +4,7 @@ import * as classNames from "classnames";
 import Dropdown from "components/Form/Dropdown";
 import Spinner from "components/Common/Spinner";
 
-import { toCapitalCase } from "utils/string";
+import StringUtility from "utils/string";
 
 import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
 import { PlayerRole } from "models/Player";
@@ -12,6 +12,8 @@ import { PlayerRole } from "models/Player";
 import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
+
+const stringUtility = new StringUtility();
 
 interface RoleListItemProps {
   isRoleUpdating: boolean;
@@ -55,7 +57,7 @@ const RoleListItem = ({
       <Dropdown
         options={options}
         selectHandler={(option: DropdownOption) => selectHandler(playerRole.id, option.key)}
-        placeholder={toCapitalCase(playerRole.role)}
+        placeholder={stringUtility.toCapitalCase(playerRole.role)}
       />
     </li>
   );

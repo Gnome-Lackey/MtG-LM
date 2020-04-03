@@ -16,7 +16,7 @@ import {
 import { emitResetError, emitRequestError } from "redux/error/creators";
 import { emitFullPageRequestLoading, emitRequestLoading } from "redux/application/creators";
 
-import * as playerService from "services/player";
+import PlayerService from "services/player";
 
 import * as userMapper from "mappers/user";
 import * as playerMapper from "mappers/players";
@@ -31,6 +31,7 @@ import { Player } from "models/Player";
 import { REQUEST_GETTING_STARTED_PLAYER } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
+const playerService = new PlayerService();
 const errorUtility = new ErrorUtility();
 
 export const emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => ({

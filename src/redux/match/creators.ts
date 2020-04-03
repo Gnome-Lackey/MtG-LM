@@ -9,8 +9,9 @@ import { emitResetError, emitRequestError } from "redux/error/creators";
 import { emitRequestLoading } from "redux/application/creators";
 import { emitUpdatePlayers } from "redux/player/creators";
 
+import MatchService from "services/match";
+
 import * as matchMapper from "mappers/matches";
-import * as matchService from "services/match";
 
 import ErrorUtility from "utils/errors";
 import RankUtility from "utils/rank";
@@ -21,6 +22,7 @@ import { Player } from "models/Player";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
+const matchService = new MatchService();
 const rankUtility = new RankUtility();
 const errorUtility = new ErrorUtility();
 

@@ -5,7 +5,7 @@ import { History } from "history";
 
 import GettingStartedView from "components/Views/GettingStarted/View";
 
-import { requestValidation } from "redux/auth/reducer";
+import { requestValidation } from "redux/auth/creators";
 import { requestCreatePlayer } from "redux/player/creators";
 import { requestGettingStartedCards } from "redux/scryfall/creators";
 import { emitResetError } from "redux/error/creators";

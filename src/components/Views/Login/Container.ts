@@ -5,7 +5,7 @@ import { History } from "history";
 
 import LoginView from "components/Views/Login/View";
 
-import { requestLogin } from "redux/auth/reducer";
+import { requestLogin } from "redux/auth/creators";
 import { emitResetError } from "redux/error/creators";
 import { RootState } from "redux/models/RootState";
 import { ErrorState } from "redux/error/models/State";
