@@ -14,14 +14,15 @@ import {
   EMIT_VALIDATION_SUCCESS
 } from "redux/auth/actions";
 
+import { AuthAction } from "redux/auth/models/Action";
+
 import ApplicationCreator from "redux/application/creator";
 import ErrorCreator from "redux/error/creator";
-import { emitUpdateUser } from "redux/user/creators";
-import { AuthAction } from "redux/auth/models/Action";
-import { RootState } from "redux/models/RootState";
+import UserCreator from "redux/user/creator";
 
 import AuthService from "services/auth";
 
+import { RootState } from "redux/models/RootState";
 import {
   SignUpFields,
   LoginFields,
@@ -39,11 +40,12 @@ import {
   TYPE_ERROR_EXPIRED_CONFIRMATION_CODE
 } from "constants/errors";
 
-const applicationCreator = new ApplicationCreator();
-const authService = new AuthService();
-const errorCreator = new ErrorCreator();
-
 export default class AuthCreator {
+  private applicationCreator = new ApplicationCreator();
+  private authService = new AuthService();
+  private errorCreator = new ErrorCreator();
+  private userCreator = new UserCreator();
+
   emitClearCodeResent(): AuthAction {
     return { type: EMIT_CLEAR_CODE_RESENT };
   }
@@ -56,11 +58,11 @@ export default class AuthCreator {
     return async (dispatch: Function) => {
       const { userName, password } = details;
 
-      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN));
+      dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGIN));
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
-      const data = await authService.login(userName, password);
+      const data = await this.authService.login(userName, password);
 
       if (!data.error) {
         dispatch({
@@ -68,7 +70,7 @@ export default class AuthCreator {
           payload: { user: data.user }
         });
       } else if (data.error.name === TYPE_ERROR_USER_NOT_CONFIRMED) {
-        dispatch(emitUpdateUser({ id: data.error.name, userName }));
+        dispatch(this.userCreator.emitUpdateUser({ id: data.error.name, userName }));
 
         dispatch({
           type: EMIT_UPDATE_NEEDS_CONFIRMATION,
@@ -76,7 +78,7 @@ export default class AuthCreator {
         });
       } else {
         dispatch(
-          errorCreator.emitRequestError(
+          this.errorCreator.emitRequestError(
             DOMAIN_ERROR_AUTH,
             VIEW_ERROR_FORM_LOGIN,
             data.error.message
@@ -84,20 +86,21 @@ export default class AuthCreator {
         );
       }
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
   }
+
   requestLogout() {
     return async (dispatch: Function) => {
-      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT));
+      dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT));
 
       dispatch({ type: EMIT_LOGGING_OUT });
 
-      const data = await authService.logout();
+      const data = await this.authService.logout();
 
       if (data && data.error) {
         dispatch(
-          errorCreator.emitRequestError(
+          this.errorCreator.emitRequestError(
             DOMAIN_ERROR_AUTH,
             VIEW_ERROR_FORM_LOGOUT,
             data.error.message
@@ -108,17 +111,18 @@ export default class AuthCreator {
       }
     };
   }
+  
   requestSignUp(details: SignUpFields) {
     return async (dispatch: Function) => {
-      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP));
+      dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP));
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
-      const data = await authService.signup(details);
+      const data = await this.authService.signup(details);
 
       if (data && data.error) {
         dispatch(
-          errorCreator.emitRequestError(
+          this.errorCreator.emitRequestError(
             DOMAIN_ERROR_AUTH,
             VIEW_ERROR_FORM_SIGN_UP,
             data.error.message
@@ -131,7 +135,7 @@ export default class AuthCreator {
         });
       }
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
   }
 
@@ -145,11 +149,11 @@ export default class AuthCreator {
 
       const { code } = details;
 
-      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY));
+      dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_VERIFY));
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
-      const data = await authService.confirm(userName, code);
+      const data = await this.authService.confirm(userName, code);
 
       if (!data.error) {
         dispatch({ type: EMIT_VERIFY_SUCCESS });
@@ -157,7 +161,7 @@ export default class AuthCreator {
         dispatch({ type: EMIT_CONFIRMATION_CODE_EXPIRED });
       } else {
         dispatch(
-          errorCreator.emitRequestError(
+          this.errorCreator.emitRequestError(
             DOMAIN_ERROR_AUTH,
             VIEW_ERROR_FORM_VERIFY,
             data.error.message
@@ -167,7 +171,7 @@ export default class AuthCreator {
         dispatch({ type: EMIT_VERIFY_FAILURE });
       }
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
   }
 
@@ -179,13 +183,13 @@ export default class AuthCreator {
         }
       } = getState() as RootState;
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
-      const data = await authService.resendCode(userName);
+      const data = await this.authService.resendCode(userName);
 
       if (data && data.error) {
         dispatch(
-          errorCreator.emitRequestError(
+          this.errorCreator.emitRequestError(
             DOMAIN_ERROR_AUTH,
             VIEW_ERROR_FORM_VERIFY,
             data.error.message
@@ -195,15 +199,15 @@ export default class AuthCreator {
         dispatch({ type: EMIT_RESEND_CODE_SUCCESS });
       }
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
   }
 
   requestValidation() {
     return async (dispatch: Function) => {
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
-      const data = await authService.validate();
+      const data = await this.authService.validate();
 
       if (data && data.error) {
         dispatch({ type: EMIT_VALIDATION_FAILURE });
@@ -214,7 +218,7 @@ export default class AuthCreator {
         });
       }
 
-      dispatch(applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
+      dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
   }
 }

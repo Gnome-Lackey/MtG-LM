@@ -7,7 +7,7 @@ import {
 
 import ApplicationCreator from "redux/application/creator";
 import ErrorCreator from "redux/error/creator";
-import { emitUpdatePlayers } from "redux/player/creators";
+import PlayerCreator from "redux/player/creator";
 
 import MatchService from "services/match";
 
@@ -22,56 +22,55 @@ import { Player } from "models/Player";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const applicationCreator = new ApplicationCreator();
-const errorCreator = new ErrorCreator();
-const errorUtility = new ErrorUtility();
-const matchService = new MatchService();
-const rankUtility = new RankUtility();
-
 export default class MatchCreator {
+  private applicationCreator = new ApplicationCreator();
+  private errorCreator = new ErrorCreator();
+  private errorUtility = new ErrorUtility();
+  private matchService = new MatchService();
+  private playerCreator = new PlayerCreator();
+  private rankUtility = new RankUtility();
+
   requestMatchesBySeasonAndPlayer(season: string, players: Player[]) {
     return async (dispatch: Function) => {
-      dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
+      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, true));
 
       const playerIds = players.map((player) => player.id);
 
-      const data = await matchService.query({
+      const data = await this.matchService.query({
         "winners|": playerIds,
         "losers|": playerIds,
         season,
         seasonPoint: true
       });
 
-      const errorMessage = errorUtility.getErrorMessage(data);
+      const errorMessage = this.errorUtility.getErrorMessage(data);
 
       if (errorMessage) {
-        dispatch(
-          errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
-        );
+        dispatch(this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
       } else {
         const matchRecordMap = matchMapper.toMatchRecordMap(data);
 
-        const sortedPlayers = rankUtility.sortByRank(players, matchRecordMap);
+        const sortedPlayers = this.rankUtility.sortByRank(players, matchRecordMap);
 
         dispatch({
           type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
           payload: {
-            matchRecords: rankUtility.populateRanks(sortedPlayers, matchRecordMap)
+            matchRecords: this.rankUtility.populateRanks(sortedPlayers, matchRecordMap)
           }
         });
 
-        dispatch(emitUpdatePlayers(sortedPlayers));
+        dispatch(this.playerCreator.emitUpdatePlayers(sortedPlayers));
       }
 
-      dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
+      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
     };
   }
 
   requestCreateMatch(details: RecordMatchFields) {
     return async (dispatch: Function, getState: Function) => {
-      dispatch(errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
+      dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-      dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
+      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
 
       const {
         players: { selected: selectedPlayers },
@@ -101,14 +100,12 @@ export default class MatchCreator {
         season: details.season.key
       };
 
-      const data = await matchService.create(body);
+      const data = await this.matchService.create(body);
 
-      const errorMessage = errorUtility.getErrorMessage(data);
+      const errorMessage = this.errorUtility.getErrorMessage(data);
 
       if (errorMessage) {
-        dispatch(
-          errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
-        );
+        dispatch(this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
       } else {
         dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
 
@@ -117,7 +114,7 @@ export default class MatchCreator {
         }
       }
 
-      dispatch(applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false));
+      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false));
     };
   }
 }

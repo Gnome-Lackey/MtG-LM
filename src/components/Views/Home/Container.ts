@@ -6,15 +6,8 @@ import HomeView from "components/Views/Home/View";
 
 import ApplicationCreator from "redux/application/creator";
 import MatchCreator from "redux/match/creator";
-import {
-  emitClearPlayerResultsForRecord,
-  requestQueryPlayersForRecordMatch
-} from "redux/player/creators";
-import {
-  requestGetActiveSeasons,
-  requestGetCurrentSeason,
-  requestGetSeason
-} from "redux/season/creators";
+import PlayerCreator from "redux/player/creator";
+import SeasonCreator from "redux/season/creator";
 
 import { RootState } from "redux/models/RootState";
 import { User } from "models/User";
@@ -25,6 +18,8 @@ import { Player } from "models/Player";
 
 const applicationCreator = new ApplicationCreator();
 const matchCreator = new MatchCreator();
+const playerCreator = new PlayerCreator();
+const seasonCreator = new SeasonCreator();
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
@@ -72,14 +67,14 @@ const mapStateToProps = (state: RootState): HomeViewProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
   actions: bindActionCreators(
     {
-      emitClearPlayerResultsForRecord,
+      emitClearPlayerResultsForRecord: playerCreator.emitClearPlayerResultsForRecord,
       emitToggleRecordMatchModal: applicationCreator.emitToggleRecordMatchModal,
       requestCreateMatch: matchCreator.requestCreateMatch,
-      requestGetActiveSeasons,
-      requestGetCurrentSeason,
-      requestGetSeason,
+      requestGetActiveSeasons: seasonCreator.requestGetActiveSeasons,
+      requestGetCurrentSeason: seasonCreator.requestGetCurrentSeason,
+      requestGetSeason: seasonCreator.requestGetSeason,
       requestMatchesBySeasonAndPlayer: matchCreator.requestMatchesBySeasonAndPlayer,
-      requestQueryPlayersForRecordMatch
+      requestQueryPlayersForRecordMatch: playerCreator.requestQueryPlayersForRecordMatch
     },
     dispatch
   )

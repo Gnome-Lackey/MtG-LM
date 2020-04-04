@@ -5,21 +5,18 @@ import { History } from "history";
 
 import SeasonMangerView from "components/Views/SeasonManager/View";
 
-import {
-  emitSelectSeasonForEditing,
-  emitDeselectSeasonForEditing,
-  requestCreateSeason,
-  requestGetSeasons,
-  requestUpdateSeason
-} from "redux/season/creators";
-
-import { requestGetSetByCode } from "redux/scryfall/creators";
-import { requestQueryPlayers } from "redux/player/creators";
+import SeasonCreator from "redux/season/creator";
+import ScryfallCreator from "redux/scryfall/creator";
+import PlayerCreator from "redux/player/creator";
 
 import { RootState } from "redux/models/RootState";
 import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
 import { Season } from "models/Season";
+
+const seasonCreator = new SeasonCreator();
+const scryfallCreator = new ScryfallCreator();
+const playerCreator = new PlayerCreator();
 
 interface SeasonMangerViewProps {
   history: History;
@@ -63,13 +60,13 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch: Dispatch): SeasonMangerViewActions => ({
   actions: bindActionCreators(
     {
-      requestGetSetByCode,
-      requestQueryPlayers,
-      emitSelectSeasonForEditing,
-      emitDeselectSeasonForEditing,
-      requestGetSeasons,
-      requestCreateSeason,
-      requestUpdateSeason
+      requestGetSetByCode: scryfallCreator.requestGetSetByCode,
+      requestQueryPlayers: playerCreator.requestQueryPlayers,
+      emitSelectSeasonForEditing: seasonCreator.emitSelectSeasonForEditing,
+      emitDeselectSeasonForEditing: seasonCreator.emitDeselectSeasonForEditing,
+      requestGetSeasons: seasonCreator.requestGetSeasons,
+      requestCreateSeason: seasonCreator.requestCreateSeason,
+      requestUpdateSeason: seasonCreator.requestUpdateSeason
     },
     dispatch
   )
