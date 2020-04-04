@@ -1,16 +1,18 @@
 const { ENV } = process.env;
 
-console.log("Environment set to:", ENV);
+const environment = ENV || "local";
+
+console.log("Environment set to:", environment);
 
 let config;
 
-if (ENV === "prod") {
+if (environment === "prod") {
   console.log('Production environment detected. Using "prod" configuration...');
   config = require("./webpack.config.prod");
-} else if (ENV === "qa") {
+} else if (environment === "qa") {
   console.log('Development environment detected. Using "qa" configuration...');
   config = require("./webpack.config.qa");
-} else if (ENV === "dev") {
+} else if (environment === "dev") {
   console.log('Development environment detected. Using "dev" configuration...');
   config = require("./webpack.config.dev");
 } else {
