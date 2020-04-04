@@ -5,11 +5,11 @@ import { withRouter } from "react-router-dom";
 import HomeView from "components/Views/Home/View";
 
 import ApplicationCreator from "redux/application/creator";
+import MatchCreator from "redux/match/creator";
 import {
   emitClearPlayerResultsForRecord,
   requestQueryPlayersForRecordMatch
 } from "redux/player/creators";
-import { requestCreateMatch, requestMatchesBySeasonAndPlayer } from "redux/match/creators";
 import {
   requestGetActiveSeasons,
   requestGetCurrentSeason,
@@ -24,6 +24,7 @@ import { MatchRecordMap } from "models/Match";
 import { Player } from "models/Player";
 
 const applicationCreator = new ApplicationCreator();
+const matchCreator = new MatchCreator();
 
 interface HomeViewProps {
   isLoadingSeason: boolean;
@@ -73,11 +74,11 @@ const mapDispatchToProps = (dispatch: Dispatch): HomeViewActions => ({
     {
       emitClearPlayerResultsForRecord,
       emitToggleRecordMatchModal: applicationCreator.emitToggleRecordMatchModal,
-      requestCreateMatch,
+      requestCreateMatch: matchCreator.requestCreateMatch,
       requestGetActiveSeasons,
       requestGetCurrentSeason,
       requestGetSeason,
-      requestMatchesBySeasonAndPlayer,
+      requestMatchesBySeasonAndPlayer: matchCreator.requestMatchesBySeasonAndPlayer,
       requestQueryPlayersForRecordMatch
     },
     dispatch
