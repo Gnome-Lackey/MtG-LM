@@ -2,7 +2,7 @@ import {
   EMIT_CREATE_MATCH_SUCCESS,
   EMIT_UPDATE_LOADING_MATCHES,
   EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
-  EMIT_UPDATE_LOADING_MATCH_CREATION
+  EMIT_UPDATE_LOADING_MATCH_CREATION,
 } from "redux/match/actions";
 
 import ApplicationCreator from "redux/application/creator";
@@ -11,7 +11,7 @@ import PlayerCreator from "redux/player/creator";
 
 import MatchService from "services/match";
 
-import * as matchMapper from "mappers/matches";
+import MatchMapper from "mappers/matches";
 
 import ErrorUtility from "utils/errors";
 import RankUtility from "utils/rank";
@@ -21,6 +21,8 @@ import { RootState } from "redux/models/RootState";
 import { Player } from "models/Player";
 
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
+
+const matchMapper = new MatchMapper();
 
 export default class MatchCreator {
   private applicationCreator = new ApplicationCreator();
@@ -40,13 +42,15 @@ export default class MatchCreator {
         "winners|": playerIds,
         "losers|": playerIds,
         season,
-        seasonPoint: true
+        seasonPoint: true,
       });
 
       const errorMessage = this.errorUtility.getErrorMessage(data);
 
       if (errorMessage) {
-        dispatch(this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+        dispatch(
+          this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
+        );
       } else {
         const matchRecordMap = matchMapper.toMatchRecordMap(data);
 
@@ -55,8 +59,8 @@ export default class MatchCreator {
         dispatch({
           type: EMIT_GET_MATCH_SEARCH_RESULTS_SUCCESS,
           payload: {
-            matchRecords: this.rankUtility.populateRanks(sortedPlayers, matchRecordMap)
-          }
+            matchRecords: this.rankUtility.populateRanks(sortedPlayers, matchRecordMap),
+          },
         });
 
         dispatch(this.playerCreator.emitUpdatePlayers(sortedPlayers));
@@ -70,11 +74,13 @@ export default class MatchCreator {
     return async (dispatch: Function, getState: Function) => {
       dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
-      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true));
+      dispatch(
+        this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, true)
+      );
 
       const {
         players: { selected: selectedPlayers },
-        seasons: { selected: selectedSeason }
+        seasons: { selected: selectedSeason },
       } = getState() as RootState;
 
       const winningGameCount = details.playerRecords.reduce(
@@ -97,7 +103,7 @@ export default class MatchCreator {
         winners,
         games: gamesPlayed,
         wins: winningGameCount,
-        season: details.season.key
+        season: details.season.key,
       };
 
       const data = await this.matchService.create(body);
@@ -105,7 +111,9 @@ export default class MatchCreator {
       const errorMessage = this.errorUtility.getErrorMessage(data);
 
       if (errorMessage) {
-        dispatch(this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage));
+        dispatch(
+          this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
+        );
       } else {
         dispatch({ type: EMIT_CREATE_MATCH_SUCCESS });
 
@@ -114,7 +122,9 @@ export default class MatchCreator {
         }
       }
 
-      dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false));
+      dispatch(
+        this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCH_CREATION, false)
+      );
     };
   }
 }

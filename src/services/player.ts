@@ -1,6 +1,6 @@
 import service from "services/service";
 
-import * as playerMapper from "mappers/players";
+import PlayerMapper from "mappers/players";
 
 import { PlayerResponse, PlayerRoleResponse } from "services/models/Responses";
 import { PlayerQueryParameters } from "services/models/QueryParams";
@@ -13,13 +13,15 @@ export default class PlayerService {
   private playerUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/players",
     dev: "https://dsbk2r8c22.execute-api.us-east-1.amazonaws.com/dev/players",
-    qa: "https://zs66h3djm8.execute-api.us-east-1.amazonaws.com/qa/players"
+    qa: "https://zs66h3djm8.execute-api.us-east-1.amazonaws.com/qa/players",
   };
 
   private baseUrl: string = this.playerUrlMap[environment];
 
+  private playerMapper = new PlayerMapper();
+
   private buildQueryString(queryParams: PlayerQueryParameters): string {
-    const queryString = playerMapper.toSearchQueryString(queryParams);
+    const queryString = this.playerMapper.toSearchQueryString(queryParams);
 
     return queryString ? `${this.baseUrl}?${queryString}` : this.baseUrl;
   }

@@ -3,7 +3,7 @@ import * as classNames from "classnames";
 
 import Spinner from "components/Common/Spinner";
 import RoleListItem from "components/Views/RoleManager/RoleList/RoleListItem";
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 
 import { PlayerRole } from "models/Player";
 

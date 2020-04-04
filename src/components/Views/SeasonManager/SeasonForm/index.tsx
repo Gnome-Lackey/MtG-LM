@@ -3,7 +3,7 @@ import * as moment from "moment";
 
 import FormPlayerList from "components/Views/SeasonManager/SeasonForm/FormPlayerList";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
 import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
@@ -11,8 +11,8 @@ import FormButton from "components/Form/Button";
 
 import useFormData from "components/Hooks/useFormData";
 
-import * as setMapper from "mappers/sets";
-import * as playerMapper from "mappers/players";
+import SetMapper from "mappers/sets";
+import PlayerMapper from "mappers/players";
 
 import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
@@ -22,6 +22,9 @@ import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
+
+const setMapper = new SetMapper();
+const playerMapper = new PlayerMapper();
 
 interface SeasonFormProps {
   fetchSetHandler: Function;
@@ -43,14 +46,14 @@ export const buildInitialFormState = (season: Season, players: Player[]): Season
         players: players.map(playerMapper.toOption),
         startedDate: season.startedOn ? season.startedOn : "",
         endedDate: season.endedOn ? season.endedOn : "",
-        isActive: season.isActive || false
+        isActive: season.isActive || false,
       }
     : {
         set: null,
         players: [],
         startedDate: "",
         endedDate: "",
-        isActive: false
+        isActive: false,
       };
 
 export const isSubmitDisabled = (
@@ -90,7 +93,7 @@ const SeasonForm = ({
   searchPlayerHandler,
   selectedPlayers,
   selectedSeason,
-  submitHandler
+  submitHandler,
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
   const { values, updateValues, resetValues } = useFormData(
     buildInitialFormState(selectedSeason, selectedPlayers)

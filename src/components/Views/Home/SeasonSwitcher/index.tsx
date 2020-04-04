@@ -2,12 +2,14 @@ import * as React from "react";
 
 import Dropdown from "components/Form/Dropdown";
 
-import * as seasonMapper from "mappers/seasons";
+import SeasonMapper from "mappers/seasons";
 
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 import { Season } from "models/Season";
 
 import "./styles.scss";
+
+const seasonMapper = new SeasonMapper();
 
 interface SeasonSwitcherProps {
   seasons: Season[];

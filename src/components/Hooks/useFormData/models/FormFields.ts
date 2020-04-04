@@ -1,6 +1,6 @@
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 import { Card } from "models/Scryfall";
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 
 export interface ConfirmFields {
   code: string;

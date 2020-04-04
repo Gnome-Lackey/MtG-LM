@@ -1,7 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
 import "./styles.scss";
 

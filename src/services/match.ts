@@ -1,19 +1,22 @@
 import service from "services/service";
 
-import * as matchMapper from "mappers/matches";
+import MatchMapper from "mappers/matches";
 
 import { MatchResponse } from "services/models/Responses";
 import { CreateMatchNode } from "services/models/Nodes";
 import { MatchQueryParameters } from "services/models/QueryParams";
+
 import { DynamicStringMap } from "models/Dynamics";
 
 const environment: string = process.env.ENV;
+
+const matchMapper = new MatchMapper();
 
 export default class MatchService {
   private matchUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/matches",
     dev: "https://sqjqupsqdh.execute-api.us-east-1.amazonaws.com/dev/matches",
-    qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches"
+    qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches",
   };
 
   private baseUrl: string = this.matchUrlMap[environment];

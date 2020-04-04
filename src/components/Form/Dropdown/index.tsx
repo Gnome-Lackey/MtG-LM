@@ -5,7 +5,7 @@ import useOnClickOutside from "components/Hooks/useOnClickOutside";
 
 import DropdownOptions from "components/Form/Dropdown/DropdownOptions";
 
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 
 import "./styles.scss";
 

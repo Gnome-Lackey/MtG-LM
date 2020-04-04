@@ -6,7 +6,7 @@ import Spinner from "components/Common/Spinner";
 
 import StringUtility from "utils/string";
 
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 import { PlayerRole } from "models/Player";
 
 import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";

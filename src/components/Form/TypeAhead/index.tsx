@@ -7,7 +7,7 @@ import TypeAheadSearchOptions from "components/Form/TypeAhead/SearchOptions";
 
 import useOnClickOutside from "components/Hooks/useOnClickOutside";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
 import "./styles.scss";
 

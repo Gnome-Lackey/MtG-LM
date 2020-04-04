@@ -7,7 +7,7 @@ import {
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
-  EMIT_GET_CURRENT_SEASONS
+  EMIT_GET_CURRENT_SEASONS,
 } from "redux/season/actions";
 
 import ApplicationCreator from "redux/application/creator";
@@ -18,8 +18,8 @@ import { SeasonFields } from "components/Hooks/useFormData/models/FormFields";
 
 import SeasonService from "services/season";
 
-import * as seasonMapper from "mappers/seasons";
-import * as playerMapper from "mappers/players";
+import SeasonMapper from "mappers/seasons";
+import PlayerMapper from "mappers/players";
 
 import ErrorUtility from "utils/errors";
 
@@ -30,6 +30,9 @@ import { Season } from "models/Season";
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
+const seasonMapper = new SeasonMapper();
+const playerMapper = new PlayerMapper();
+
 export default class SeasonCreator {
   private applicationCreator = new ApplicationCreator();
   private errorCreator = new ErrorCreator();
@@ -39,11 +42,11 @@ export default class SeasonCreator {
 
   emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
     type: EMIT_SELECTED_SEASON_FOR_EDITING,
-    payload: { season }
+    payload: { season },
   });
 
   emitDeselectSeasonForEditing = (): SeasonAction => ({
-    type: EMIT_DESELECTED_SEASON_FOR_EDITING
+    type: EMIT_DESELECTED_SEASON_FOR_EDITING,
   });
 
   requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
@@ -64,8 +67,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_CREATE_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data)
-        }
+          season: seasonMapper.toSeason(data),
+        },
       });
 
       dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
@@ -79,7 +82,7 @@ export default class SeasonCreator {
     getState: Function
   ) => {
     const {
-      seasons: { list }
+      seasons: { list },
     }: RootState = getState();
 
     dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
@@ -105,8 +108,8 @@ export default class SeasonCreator {
         type: EMIT_UPDATED_SEASON_SUCCESS,
         payload: {
           season: data,
-          seasons: updatedSeasons
-        }
+          seasons: updatedSeasons,
+        },
       });
 
       dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
@@ -130,8 +133,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data)
-        }
+          season: seasonMapper.toSeason(data),
+        },
       });
 
       dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
@@ -155,8 +158,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data)
-        }
+          season: seasonMapper.toSeason(data),
+        },
       });
 
       dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
@@ -180,8 +183,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
-          seasons: data.map(seasonMapper.toSeason)
-        }
+          seasons: data.map(seasonMapper.toSeason),
+        },
       });
     }
 
@@ -192,7 +195,7 @@ export default class SeasonCreator {
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
 
     const data = await this.seasonService.query({
-      active: true
+      active: true,
     });
 
     const errorMessage = this.errorUtility.getErrorMessage(data);
@@ -205,8 +208,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
-          seasons: data.map(seasonMapper.toSeason)
-        }
+          seasons: data.map(seasonMapper.toSeason),
+        },
       });
     }
 

@@ -1,13 +1,15 @@
 import * as React from "react";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 
-import * as playerMapper from "mappers/players";
+import PlayerMapper from "mappers/players";
 
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 import { Player } from "models/Player";
 
 import "./styles.scss";
+
+const playerMapper = new PlayerMapper();
 
 interface FormPlayerListProps {
   players: TypeAheadOption[];

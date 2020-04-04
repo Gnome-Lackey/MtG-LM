@@ -3,14 +3,16 @@ import * as React from "react";
 import TypeAhead from "components/Form/TypeAhead";
 import FormInput from "components/Form/Input";
 
-import * as playerMapper from "mappers/players";
+import PlayerMapper from "mappers/players";
 
 import { Player } from "models/Player";
 import { PlayerRecordFields } from "components/Hooks/useFormData/models/FormFields";
 import { PlayerSearchResultMap } from "redux/player/models/State";
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 
 import "./styles.scss";
+
+const playerMapper = new PlayerMapper();
 
 interface RecordRowProps {
   clearHandler: Function;
@@ -27,7 +29,7 @@ const RecordRow: React.FunctionComponent<RecordRowProps> = ({
   playerSearchResultsMap,
   record,
   searchHandler,
-  updateValues
+  updateValues,
 }: RecordRowProps): React.FunctionComponentElement<RecordRowProps> => {
   const recordConfig = playerSearchResultsMap[record.id];
   const list = recordConfig && recordConfig.list ? recordConfig.list : [];
@@ -55,7 +57,7 @@ const RecordRow: React.FunctionComponent<RecordRowProps> = ({
 
     updatedPlayerRecords[playerRecordIndex] = {
       ...updatedPlayerRecords[playerRecordIndex],
-      ...value
+      ...value,
     };
 
     updateValues(key, updatedPlayerRecords);
