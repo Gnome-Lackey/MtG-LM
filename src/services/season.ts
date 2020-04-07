@@ -3,57 +3,63 @@ import * as queryString from "query-string";
 import service from "services/service";
 
 import { SeasonDetailsResponse } from "services/models/Responses";
+import { SeasonQueryParameters } from "services/models/QueryParams";
+import { CreateSeasonNode, UpdateSeasonNode } from "services/models/Nodes";
+import { DynamicStringMap } from "models/Dynamics";
 
-import { SeasonFilters } from "services/models/Filters";
-import { CreateSeasonNode, UpdateSeasonNode } from "./models/Nodes";
+const environment: string = process.env.ENV;
 
-import {
-  SEASON_BASE_URL,
-  SEASON_GET_CURRENT_DETAILS,
-  SEASON_GET_DETAILS
-} from "constants/services";
+export default class SeasonService {
+  private seasonUrlMap: DynamicStringMap = {
+    local: "http://localhost:9001/local/seasons",
+    dev: "https://qmhjqb5njl.execute-api.us-east-1.amazonaws.com/dev/seasons",
+    qa: "https://mvd9vvkebg.execute-api.us-east-1.amazonaws.com/qa/seasons"
+  };
 
-export const create = async (body: CreateSeasonNode): Promise<SeasonDetailsResponse> => {
-  const response = await service.post(SEASON_BASE_URL, { body });
+  private baseUrl: string = this.seasonUrlMap[environment];
 
-  return response.body as SeasonDetailsResponse;
-};
+  private fetchDetails = `${this.baseUrl}/details`;
+  private fetchCurrentDetails = `${this.baseUrl}/details/current`;
 
-export const update = async (
-  id: string,
-  body: UpdateSeasonNode
-): Promise<SeasonDetailsResponse> => {
-  const url = `${SEASON_BASE_URL}/${id}`;
+  async create(body: CreateSeasonNode): Promise<SeasonDetailsResponse> {
+    const response = await service.post(this.baseUrl, { body });
 
-  const response = await service.put(url, { body });
+    return response.body as SeasonDetailsResponse;
+  }
 
-  return response.body as SeasonDetailsResponse;
-};
+  async update(id: string, body: UpdateSeasonNode): Promise<SeasonDetailsResponse> {
+    const url = `${this.baseUrl}/${id}`;
 
-export const get = async (id: string): Promise<SeasonDetailsResponse> => {
-  const url = `${SEASON_GET_DETAILS}/${id}`;
+    const response = await service.put(url, { body });
 
-  const response = await service.get(url);
+    return response.body as SeasonDetailsResponse;
+  }
 
-  return response.body as SeasonDetailsResponse;
-};
+  async get(id: string): Promise<SeasonDetailsResponse> {
+    const url = `${this.fetchDetails}/${id}`;
 
-export const getCurrent = async (): Promise<SeasonDetailsResponse> => {
-  const response = await service.get(SEASON_GET_CURRENT_DETAILS);
+    const response = await service.get(url);
 
-  return response.body as SeasonDetailsResponse;
-};
+    return response.body as SeasonDetailsResponse;
+  }
 
-export const getAllDetails = async (): Promise<SeasonDetailsResponse> => {
-  const response = await service.get(SEASON_GET_DETAILS);
+  async getCurrent(): Promise<SeasonDetailsResponse> {
+    const response = await service.get(this.fetchCurrentDetails);
 
-  return response.body as SeasonDetailsResponse;
-};
+    return response.body as SeasonDetailsResponse;
+  }
 
-export const query = async (filters?: SeasonFilters): Promise<SeasonDetailsResponse> => {
-  const url = filters ? `${SEASON_GET_DETAILS}?${queryString.stringify(filters)}` : SEASON_BASE_URL;
+  async getAll(): Promise<SeasonDetailsResponse[]> {
+    const response = await service.get(this.fetchDetails);
 
-  const response = await service.get(url);
+    return response.body as SeasonDetailsResponse[];
+  }
 
-  return response.body as SeasonDetailsResponse;
-};
+  async query(filters?: SeasonQueryParameters): Promise<SeasonDetailsResponse[]> {
+    const url = filters ? `${this.fetchDetails}?${queryString.stringify(filters)}` : this.baseUrl;
+
+    const response = await service.get(url);
+
+    return response.body as SeasonDetailsResponse[];
+  }
+}

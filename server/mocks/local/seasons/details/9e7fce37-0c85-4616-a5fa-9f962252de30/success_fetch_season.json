@@ -7,37 +7,12 @@
     "isActive": false,
     "players": [
       {
-        "id": "87600daf-34d1-43c0-9c15-c0e95b8efd19",
-        "email": "matthewdpfister@gmail.com",
-        "userName": "mrpfister",
-        "displayName": "Matthew Pfister",
-        "colors": ["G"],
-        "epithet": "carnage wurm",
-        "totalLosses": 2,
-        "totalWins": 1,
-        "matches": []
-      },
-      {
-        "id": "123-1232-1232",
-        "email": "beautyInBlack@planeswalker.mtg",
-        "userName": "OfTheVeil",
-        "displayName": "Liliana Vess",
+        "id": "87600daf-34d1-43c0-9c15-c0d43d5b8efd19",
+        "email": "admin@mtglm.com",
+        "userName": "admin",
+        "displayName": "Boss Man McBoss",
         "colors": ["B"],
-        "epithet": "of the veil",
-        "totalLosses": 1,
-        "totalWins": 1,
-        "matches": ["5d369844-ce37-4d51-b71a-7a5934c2e95e"]
-      },
-      {
-        "id": "223-1232-4323",
-        "email": "wiseman@planeswalker.mtg",
-        "userName": "MindSculpter",
-        "displayName": "Jace Beleran",
-        "colors": ["U"],
-        "epithet": "mind sculptor",
-        "totalLosses": 0,
-        "totalWins": 1,
-        "matches": []
+        "epithet": "haloid kite"
       }
     ],
     "set": {

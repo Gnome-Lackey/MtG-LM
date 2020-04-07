@@ -1,20 +1,13 @@
 {
   "status": 200,
   "data": [
-      {
-          "id": "123-1232-1232",
-          "email": "beautyInBlack@planeswalker.mtg",
-          "userName": "OfTheVeil",
-          "displayName": "Liliana Vess",
-          "colors": [
-              "B"
-          ],
-          "epithet": "of the veil",
-          "totalLosses": 1,
-          "totalWins": 0,
-          "matches": [
-              "5d369844-ce37-4d51-b71a-7a5934c2e95e"
-          ]
-      }
+    {
+      "id": "87600daf-1234-43c0-9c15-c0e95b8efd19",
+      "email": "beautyInBlack@planeswalker.mtg",
+      "userName": "OfTheVeil",
+      "displayName": "Liliana Vess",
+      "colors": ["B"],
+      "epithet": "of the veil"
+    }
   ]
 }

@@ -3,7 +3,7 @@ import * as moment from "moment";
 
 import FormPlayerList from "components/Views/SeasonManager/SeasonForm/FormPlayerList";
 
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 import TypeAhead from "components/Form/TypeAhead";
 import DatePicker from "components/Form/DatePicker";
 import FormCheckbox from "components/Form/CheckboxGroup/Checkbox";
@@ -11,8 +11,8 @@ import FormButton from "components/Form/Button";
 
 import useFormData from "components/Hooks/useFormData";
 
-import * as setMapper from "mappers/sets";
-import * as playerMapper from "mappers/players";
+import SetMapper from "mappers/sets";
+import PlayerMapper from "mappers/players";
 
 import { Set } from "models/Scryfall";
 import { Player } from "models/Player";
@@ -23,6 +23,9 @@ import { DISPLAY_DATE_FORMAT } from "constants/dates";
 
 import "./styles.scss";
 
+const setMapper = new SetMapper();
+const playerMapper = new PlayerMapper();
+
 interface SeasonFormProps {
   fetchSetHandler: Function;
   isRequestLoading: boolean;
@@ -31,29 +34,31 @@ interface SeasonFormProps {
   searchForPlayer: boolean;
   searchForSet: boolean;
   searchPlayerHandler: Function;
+  selectedPlayers?: Player[];
   selectedSeason?: Season;
   submitHandler: Function;
 }
 
-export const buildInitialFormState = (season: Season): SeasonFields =>
+export const buildInitialFormState = (season: Season, players: Player[]): SeasonFields =>
   season
     ? {
         set: setMapper.toOption(season.set),
-        players: season.players.map(playerMapper.toOption),
+        players: players.map(playerMapper.toOption),
         startedDate: season.startedOn ? season.startedOn : "",
         endedDate: season.endedOn ? season.endedOn : "",
-        isActive: season.isActive || false
+        isActive: season.isActive || false,
       }
     : {
         set: null,
         players: [],
         startedDate: "",
         endedDate: "",
-        isActive: false
+        isActive: false,
       };
 
 export const isSubmitDisabled = (
   season: Season,
+  players: Player[],
   fields: SeasonFields,
   isFormLoading: boolean
 ): boolean => {
@@ -69,8 +74,8 @@ export const isSubmitDisabled = (
     fields.startedDate === season.startedOn &&
     fields.isActive === season.isActive &&
     fields.set.key === season.set.code &&
-    fields.players.length === season.players.length &&
-    fields.players.every((newP) => !!season.players.find((oldP) => oldP.id === newP.key));
+    fields.players.length === players.length &&
+    fields.players.every((newP) => !!players.find((oldP) => oldP.id === newP.key));
 
   const invalidEndDate = !fields.isActive && !fields.endedDate;
   const invalidRequiredFields = !fields.startedDate || !fields.set;
@@ -86,10 +91,13 @@ const SeasonForm = ({
   searchForPlayer,
   searchForSet,
   searchPlayerHandler,
+  selectedPlayers,
   selectedSeason,
-  submitHandler
+  submitHandler,
 }: SeasonFormProps): React.FunctionComponentElement<SeasonFormProps> => {
-  const { values, updateValues, resetValues } = useFormData(buildInitialFormState(selectedSeason));
+  const { values, updateValues, resetValues } = useFormData(
+    buildInitialFormState(selectedSeason, selectedPlayers)
+  );
 
   const setOptions = potentialSets ? potentialSets.map(setMapper.toOption) : [];
 
@@ -104,11 +112,11 @@ const SeasonForm = ({
   };
 
   React.useEffect(() => {
-    resetValues(buildInitialFormState(selectedSeason));
+    resetValues(buildInitialFormState(selectedSeason, selectedPlayers));
   }, [selectedSeason]);
 
   const isFormLoading = isRequestLoading || searchForPlayer || searchForSet;
-  const isDisabled = isSubmitDisabled(selectedSeason, values, isFormLoading);
+  const isDisabled = isSubmitDisabled(selectedSeason, selectedPlayers, values, isFormLoading);
 
   return (
     <form className="season-form" onSubmit={handleSubmit}>

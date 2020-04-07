@@ -1,11 +1,13 @@
 import { Player } from "models/Player";
 import { User } from "models/User";
 
-export const toPlayer = (details: User): Player => ({
-  id: details.id,
-  userName: details.userName,
-  displayName: details.displayName,
-  epithet: "",
-  favoriteColors: [],
-  email: details.email
-});
+export default class UserMapper {
+  toPlayer = (details: User): Player => ({
+    id: details.id,
+    userName: details.userName,
+    displayName: details.displayName,
+    epithet: "",
+    favoriteColors: [],
+    email: details.email,
+  });
+}

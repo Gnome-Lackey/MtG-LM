@@ -5,11 +5,15 @@ import RoleList from "components/Views/RoleManager/RoleList";
 
 import useDataFetch from "components/Hooks/useDataFetch";
 
+import StringUtility from "utils/string";
+
 import { PlayerRole } from "models/Player";
 
 import { ACCOUNT_TYPES } from "constants/accountTypes";
 
 import "./styles.scss";
+
+const stringUtility = new StringUtility();
 
 interface RoleManagerViewActions {
   requestGetPlayerRoles: Function;
@@ -23,8 +27,6 @@ interface RoleManagerViewProps extends RouteComponentProps {
   playerRoles: PlayerRole[];
 }
 
-const toCapitalCase = (text: string): string => `${text.charAt(0)}${text.slice(1).toLowerCase()}`;
-
 const RoleManagerView = ({
   actions,
   isRequestLoading,
@@ -36,7 +38,7 @@ const RoleManagerView = ({
   const [selectedRoleId, setSelectedRoleId] = React.useState(null);
 
   const accountTypeOptions = ACCOUNT_TYPES.map((type) => ({
-    label: toCapitalCase(type),
+    label: stringUtility.toCapitalCase(type),
     key: type
   }));
 

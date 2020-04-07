@@ -29,6 +29,7 @@ interface SeasonManagerViewProps extends RouteComponentProps {
   potentialPlayers: Player[];
   searchForPlayer: boolean;
   searchForSet: boolean;
+  selectedPlayers: Player[];
   selectedSeason: Season;
   seasons: Season[];
 }
@@ -40,6 +41,7 @@ const SeasonManagerView = ({
   potentialSets,
   searchForPlayer,
   searchForSet,
+  selectedPlayers,
   selectedSeason,
   seasons
 }: SeasonManagerViewProps): React.FunctionComponentElement<SeasonManagerViewProps> => {
@@ -86,6 +88,7 @@ const SeasonManagerView = ({
           potentialSets={potentialSets}
           searchForPlayer={searchForPlayer}
           searchForSet={searchForSet}
+          selectedPlayers={selectedPlayers}
           selectedSeason={selectedSeason}
           fetchSetHandler={actions.requestGetSetByCode}
           searchPlayerHandler={actions.requestQueryPlayers}

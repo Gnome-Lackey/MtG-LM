@@ -2,34 +2,52 @@ import service from "services/service";
 
 import { ScryfallCardResponse, ScryfallSetResponse } from "services/models/Responses";
 
-import { SCRYFALL_RANDOM_CARD, SCRYFALL_SETS, SCRYFALL_CARDS } from "constants/services";
+import { DynamicStringMap } from "models/Dynamics";
 
-export const fetchCard = async (url: string): Promise<ScryfallCardResponse> => {
-  const response = await service.get(url);
+const environment: string = process.env.ENV;
 
-  return response.body as ScryfallCardResponse;
-};
+export default class ScryfallService {
+  private scryfallUrlMap: DynamicStringMap = {
+    local: "http://localhost:9001/local",
+    dev: "https://bt45yjuqmh.execute-api.us-east-1.amazonaws.com/dev",
+    qa: "https://fvgfu582w6.execute-api.us-east-1.amazonaws.com/qa"
+  };
 
-export const getCard = async (id: string): Promise<ScryfallCardResponse> => {
-  const url = `${SCRYFALL_CARDS}/${id}`;
+  private baseUrl: string = this.scryfallUrlMap[environment];
 
-  return fetchCard(url);
-};
+  private fetchCardsUrl = `${this.baseUrl}/cards`;
+  private fetchRandomCardUrl = `${this.baseUrl}/cards/random`;
+  private fetchSetsUrl = `${this.baseUrl}/sets`;
 
-export const queryCard = async (query: string): Promise<ScryfallCardResponse> => {
-  const url = query ? `${SCRYFALL_CARDS}?${query}` : SCRYFALL_CARDS;
+  async getCard(id: string): Promise<ScryfallCardResponse> {
+    const url = `${this.fetchCardsUrl}/${id}`;
 
-  return fetchCard(url);
-};
+    const response = await service.get(url);
 
-export const getRandomCard = async (query: string): Promise<ScryfallCardResponse> => {
-  const url = query ? `${SCRYFALL_RANDOM_CARD}?${query}` : SCRYFALL_RANDOM_CARD;
+    return response.body as ScryfallCardResponse;
+  }
 
-  return fetchCard(url);
-};
+  async queryCard(query: string): Promise<ScryfallCardResponse[]> {
+    const url = query ? `${this.fetchCardsUrl}?${query}` : this.fetchCardsUrl;
 
-export const getSet = async (code: string): Promise<ScryfallSetResponse> => {
-  const response = await service.get(`${SCRYFALL_SETS}/${code}`);
+    const response = await service.get(url);
 
-  return response.body as ScryfallSetResponse;
-};
+    return response.body as ScryfallCardResponse[];
+  }
+
+  async getRandomCard(query: string): Promise<ScryfallCardResponse> {
+    const url = query ? `${this.fetchRandomCardUrl}?${query}` : this.fetchRandomCardUrl;
+
+    const response = await service.get(url);
+
+    return response.body as ScryfallCardResponse;
+  }
+
+  async getSet(code: string): Promise<ScryfallSetResponse> {
+    const url = `${this.fetchSetsUrl}/${code}`;
+
+    const response = await service.get(url);
+
+    return response.body as ScryfallSetResponse;
+  }
+}

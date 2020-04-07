@@ -9,7 +9,7 @@ import ProtectedContent from "components/Navigation/ProtectedContent";
 
 import useErrorMessage from "components/Hooks/useErrorMessage";
 
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 import { User } from "models/User";
 
 import { USER_ROUTES, ADMIN_ROUTES, CONTAINER_ROUTES } from "constants/routes";

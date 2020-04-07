@@ -1,7 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 
 import "./styles.scss";
 

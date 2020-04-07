@@ -18,4 +18,18 @@
       font-size: 35px;
     }
   }
+
+  .empty-message-list-item {
+    align-items: center;
+    color: $colorGrayLighter;
+    display: inline-flex;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+
+    .empty-message {
+      text-align: center;
+      width: 100%;
+    }
+  }
 }

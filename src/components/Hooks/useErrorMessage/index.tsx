@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 const useErrorMessage = (
   domain: string,

@@ -11,7 +11,7 @@ import useFormData from "components/Hooks/useFormData";
 import useAuth from "components/Hooks/useAuth";
 import useNavigator from "components/Hooks/useNavigator";
 
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 import { Card } from "models/Scryfall";
 import { User } from "models/User";

@@ -1,0 +1,70 @@
+{
+    "status": 200,
+    "data": [
+        {
+            "id": "33eb9cc1-74d5-410d-bd58-82e11b687eee",
+            "isSeasonPoint": true,
+            "games": 2,
+            "wins": 2,
+            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
+            "losers": [
+                "87600daf-34d1-43c0-9c15-c0d43d5b8efd19"
+            ],
+            "winners": [
+                "87600daf-34d1-43c0-9c15-c0e95b8ef222"
+            ]
+        },
+        {
+            "id": "8f154103-7d0e-4271-a170-b6d0caefee00",
+            "isSeasonPoint": true,
+            "games": 2,
+            "wins": 2,
+            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
+            "losers": [
+                "87600daf-34d1-43c0-9c15-c0e95b8ef222"
+            ],
+            "winners": [
+                "99990daf-34d1-43c0-9c15-c0e95b8efd19"
+            ]
+        },
+        {
+            "id": "8f154103-7d0e-4271-a170-b6d0caefee22",
+            "isSeasonPoint": true,
+            "games": 2,
+            "wins": 2,
+            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
+            "losers": [
+                "87600daf-34d1-43c0-9c15-c0e95b8ef222"
+            ],
+            "winners": [
+                "87600daf-1234-43c0-9c15-c0e95b8efd19"
+            ]
+        },
+        {
+            "id": "3f154103-7d0e-4271-a170-b6d0caefee23",
+            "isSeasonPoint": true,
+            "games": 2,
+            "wins": 2,
+            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
+            "losers": [
+                "87600daf-34d1-43c0-9c15-c0d43d5b8efd19"
+            ],
+            "winners": [
+                "87600daf-1234-43c0-9c15-c0e95b8efd19"
+            ]
+        },
+        {
+            "id": "25154103-7d0e-4271-a170-b6d0caefee25",
+            "isSeasonPoint": true,
+            "games": 2,
+            "wins": 2,
+            "season": "d90130ce-9c79-4129-9d99-04d5102d9219",
+            "losers": [
+                "99990daf-34d1-43c0-9c15-c0e95b8efd19"
+            ],
+            "winners": [
+                "87600daf-34d1-43c0-9c15-c0d43d5b8efd19"
+            ]
+        }
+    ]
+}

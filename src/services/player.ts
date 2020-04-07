@@ -1,37 +1,56 @@
-import * as queryString from "query-string";
-
 import service from "services/service";
 
+import PlayerMapper from "mappers/players";
+
 import { PlayerResponse, PlayerRoleResponse } from "services/models/Responses";
-import { PlayerFilters } from "services/models/Filters";
+import { PlayerQueryParameters } from "services/models/QueryParams";
 import { CreatePlayerNode, UpdatePlayerRoleNode } from "services/models/Nodes";
+import { DynamicStringMap } from "models/Dynamics";
 
-import { PLAYER_BASE_URL } from "constants/services";
+const environment: string = process.env.ENV;
 
-export const create = async (body: CreatePlayerNode): Promise<PlayerResponse> => {
-  const response = await service.post(PLAYER_BASE_URL, { body });
+export default class PlayerService {
+  private playerUrlMap: DynamicStringMap = {
+    local: "http://localhost:9001/local/players",
+    dev: "https://dsbk2r8c22.execute-api.us-east-1.amazonaws.com/dev/players",
+    qa: "https://zs66h3djm8.execute-api.us-east-1.amazonaws.com/qa/players",
+  };
 
-  return response.body as PlayerResponse;
-};
+  private baseUrl: string = this.playerUrlMap[environment];
 
-export const updateRole = async (id: string, body: UpdatePlayerRoleNode): Promise<PlayerRoleResponse> => {
-  const url = `${PLAYER_BASE_URL}/${id}/roles`;
+  private playerMapper = new PlayerMapper();
 
-  const response = await service.put(url, { body });
+  private buildQueryString(queryParams: PlayerQueryParameters): string {
+    const queryString = this.playerMapper.toSearchQueryString(queryParams);
 
-  return response.body as PlayerRoleResponse;
-};
+    return queryString ? `${this.baseUrl}?${queryString}` : this.baseUrl;
+  }
 
-export const getRoles = async (): Promise<PlayerRoleResponse> => {
-  const response = await service.get(`${PLAYER_BASE_URL}/roles`);
-  
-  return response.body as PlayerRoleResponse;
-};
+  async create(body: CreatePlayerNode): Promise<PlayerResponse> {
+    const response = await service.post(this.baseUrl, { body });
 
-export const query = async (filters?: PlayerFilters): Promise<PlayerResponse> => {
-  const url = filters ? `${PLAYER_BASE_URL}?${queryString.stringify(filters)}` : PLAYER_BASE_URL;
+    return response.body as PlayerResponse;
+  }
 
-  const response = await service.get(url);
+  async updateRole(id: string, body: UpdatePlayerRoleNode): Promise<PlayerRoleResponse> {
+    const url = `${this.baseUrl}/${id}/roles`;
 
-  return response.body as PlayerResponse;
-};
+    const response = await service.put(url, { body });
+
+    return response.body as PlayerRoleResponse;
+  }
+
+  async getRoles(): Promise<PlayerRoleResponse[]> {
+    const response = await service.get(`${this.baseUrl}/roles`);
+
+    return response.body as PlayerRoleResponse[];
+  }
+
+  async query(queryParams?: PlayerQueryParameters): Promise<PlayerResponse[]> {
+    const url = this.buildQueryString(queryParams);
+
+    const response = await service.get(url);
+
+    return response.body as PlayerResponse[];
+  }
+}

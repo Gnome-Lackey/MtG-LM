@@ -5,10 +5,12 @@ import { History } from "history";
 
 import RoleManagerView from "components/Views/RoleManager/View";
 
-import { requestGetPlayerRoles, requestUpdatePlayerRole } from "redux/creators/players";
+import PlayerCreator from "redux/player/creator";
 
 import { RootState } from "redux/models/RootState";
 import { PlayerRole } from "models/Player";
+
+const playerCreator = new PlayerCreator();
 
 interface RoleManagerViewProps {
   history: History;
@@ -37,8 +39,8 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch: Dispatch): RoleManagerViewActions => ({
   actions: bindActionCreators(
     {
-      requestGetPlayerRoles,
-      requestUpdatePlayerRole
+      requestGetPlayerRoles: playerCreator.requestGetPlayerRoles,
+      requestUpdatePlayerRole: playerCreator.requestUpdatePlayerRole
     },
     dispatch
   )

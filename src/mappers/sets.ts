@@ -1,7 +1,9 @@
+import { TypeAheadOption } from "components/Form/TypeAhead/models/TypeAheadOption";
 import { Set } from "models/Scryfall";
-import { TypeAheadOption } from "components/Form/TypeAhead/Model/TypeAheadOption";
 
-export const toOption = (set: Set): TypeAheadOption => ({
-  label: set.name,
-  key: set.code
-});
+export default class SetMapper {
+  toOption = (set: Set): TypeAheadOption => ({
+    label: set.name,
+    key: set.code,
+  });
+}

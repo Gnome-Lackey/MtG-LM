@@ -8,14 +8,16 @@ import Dropdown from "components/Form/Dropdown";
 
 import useFormData from "components/Hooks/useFormData";
 
-import * as seasonMapper from "mappers/seasons";
+import SeasonMapper from "mappers/seasons";
 
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
-import { DropdownOption } from "components/Form/Dropdown/Model/DropdownOption";
-import { Season } from "models/Season";
+import { DropdownOption } from "components/Form/Dropdown/models/DropdownOption";
 import { RecordMatchFields } from "components/Hooks/useFormData/models/FormFields";
+import { PlayerSearchResultMap } from "redux/player/models/State";
+import { Season } from "models/Season";
 
 import "./styles.scss";
+
+const seasonMapper = new SeasonMapper();
 
 interface RecordMatchModalContentProps {
   activeSeasons: Season[];
@@ -30,9 +32,9 @@ interface RecordMatchModalContentProps {
 const buildInitialFormState = (selectedSeasonOption: DropdownOption): RecordMatchFields => ({
   playerRecords: [
     { id: uuid.v4(), player: null, wins: 0 },
-    { id: uuid.v4(), player: null, wins: 0 }
+    { id: uuid.v4(), player: null, wins: 0 },
   ],
-  season: selectedSeasonOption
+  season: selectedSeasonOption,
 });
 
 const isSubmitDisabled = (fields: RecordMatchFields): boolean => {
@@ -52,7 +54,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   playerSearchResultsMap,
   searchHandler,
   selectedSeason,
-  submitHandler
+  submitHandler,
 }: RecordMatchModalContentProps): React.FunctionComponentElement<RecordMatchModalContentProps> => {
   const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
   const seasonOptions = activeSeasons.length ? activeSeasons.map(seasonMapper.toOption) : [];
@@ -76,7 +78,7 @@ const RecordMatchModalContent: React.FunctionComponent<RecordMatchModalContentPr
   const handleAddPlayer = (): void => {
     updateValues("playerRecords", [
       ...values.playerRecords,
-      { id: uuid.v4(), player: null, wins: 0 }
+      { id: uuid.v4(), player: null, wins: 0 },
     ]);
   };
 

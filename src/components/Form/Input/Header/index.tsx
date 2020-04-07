@@ -1,17 +1,15 @@
 import * as React from "react";
 
-import ErrorMessage from "components/Common/ErrorMessage";
+import "./styles.scss";
 
 interface FormInputHeaderProps {
   label: string;
   isRequired: boolean;
-  error: string;
 }
 
 const FormInputHeader = ({
   label,
-  isRequired,
-  error
+  isRequired
 }: FormInputHeaderProps): React.FunctionComponentElement<FormInputHeaderProps> => (
   <div className="input-header">
     {label ? (
@@ -20,7 +18,6 @@ const FormInputHeader = ({
         {isRequired ? <span className="required">*</span> : null}
       </span>
     ) : null}
-    {error ? <ErrorMessage inline>{error}</ErrorMessage> : null}
   </div>
 );
 

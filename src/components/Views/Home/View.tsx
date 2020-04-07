@@ -9,11 +9,14 @@ import SeasonSwitcher from "components/Views/Home/SeasonSwitcher";
 import useDataFetch from "components/Hooks/useDataFetch";
 
 import { User } from "models/User";
-import { PlayerSearchResultMap } from "redux/models/PlayerState";
+import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
+import { MatchRecordMap } from "models/Match";
+
+import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
-import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
+import { Player } from "models/Player";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -22,6 +25,7 @@ interface HomeViewActions {
   requestGetActiveSeasons: Function;
   requestGetCurrentSeason: Function;
   requestGetSeason: Function;
+  requestMatchesBySeasonAndPlayer: Function;
   requestQueryPlayersForRecordMatch: Function;
 }
 
@@ -30,9 +34,12 @@ interface HomeViewProps extends RouteComponentProps {
   isLoadingSeason: boolean;
   isLoadingActiveSeasons: boolean;
   isLoadingCurrentSeason: boolean;
-  isMatchRequestLoading: boolean;
+  isLoadingMatchCreation: boolean;
+  isLoadingMatches: boolean;
+  matchRecords: MatchRecordMap;
   playerSearchResultsMap: PlayerSearchResultMap;
   seasons: Season[];
+  selectedPlayers: Player[];
   selectedSeason: Season;
   showRecordMatchModal: boolean;
   user: User;
@@ -43,21 +50,29 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   isLoadingSeason,
   isLoadingActiveSeasons,
   isLoadingCurrentSeason,
-  isMatchRequestLoading,
+  isLoadingMatchCreation,
+  isLoadingMatches,
+  matchRecords,
   playerSearchResultsMap,
   seasons,
+  selectedPlayers,
   selectedSeason,
   showRecordMatchModal,
   user
 }: HomeViewProps): React.FunctionComponentElement<HomeViewProps> => {
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
+  useDataFetch(
+    selectedSeason && selectedPlayers.length && !matchRecords, 
+    () => actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedPlayers)
+  );
 
-  const playerList = selectedSeason ? selectedSeason.players : [];
+  const setCode = selectedSeason ? selectedSeason.set.code : "";
+  
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
-  const isCurrentUserInSeason = isAdminUser || !!playerList.find(({ id }) => id === user.id);
-  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason;
-  const isFabDisabled = isPageLoading || isMatchRequestLoading || !isCurrentUserInSeason;
+  const isCurrentUserInSeason = isAdminUser || !selectedPlayers.length || !!selectedPlayers.find(({ id }) => id === user.id);
+  const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason || isLoadingMatches;
+  const isFabDisabled = isPageLoading || isLoadingMatchCreation || !isCurrentUserInSeason;
 
   return (
     <div className="home-view">
@@ -69,8 +84,9 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
         />
         <PlayerRecordList
           isRequestLoading={isPageLoading}
-          players={playerList}
-          hasSeason={!!selectedSeason}
+          matchRecords={matchRecords}
+          players={selectedPlayers}
+          setCode={setCode}
           showWarning={!isCurrentUserInSeason}
           user={user}
         />
@@ -89,7 +105,7 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
           <RecordMatchModalContent
             activeSeasons={seasons}
             clearHandler={actions.emitClearPlayerResultsForRecord}
-            isRequestLoading={isMatchRequestLoading}
+            isRequestLoading={isLoadingMatchCreation}
             playerSearchResultsMap={playerSearchResultsMap}
             searchHandler={actions.requestQueryPlayersForRecordMatch}
             submitHandler={actions.requestCreateMatch}

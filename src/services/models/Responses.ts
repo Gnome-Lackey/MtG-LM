@@ -1,6 +1,5 @@
 import {
   PlayerView,
-  RecordView,
   MatchView,
   SeasonView,
   ScryfallSetView
@@ -30,35 +29,16 @@ export interface LoginResponse extends ErrorResponse {
 }
 
 export interface MatchResponse extends MatchView, ErrorResponse {
-  players: RecordResponse[];
+  losers: string[];
+  season: string;
+  winners: string[];
 }
 
 export interface MatchDetailsResponse extends MatchView, ErrorResponse {
-  players: RecordDetailsResponse[];
+  losers: PlayerView[];
+  season: SeasonView;
+  winners: PlayerView[];
 }
-
-type MtglmServiceResponseBody =
-  | AuthResponse
-  | ErrorResponse
-  | LoginResponse
-  | MatchDetailsResponse
-  | MatchDetailsResponse[]
-  | MatchResponse
-  | PlayerDetailsResponse
-  | PlayerDetailsResponse[]
-  | PlayerResponse
-  | PlayerResponse[]
-  | RecordDetailsResponse
-  | RecordDetailsResponse[]
-  | RecordResponse
-  | RecordResponse[]
-  | ScryfallCardResponse
-  | ScryfallCardResponse[]
-  | ScryfallSetResponse
-  | SeasonResponse
-  | SeasonDetailsResponse
-  | SuccessResponse
-  | UserResponse;
 
 export interface MtglmServiceResponse {
   headers: Headers;
@@ -75,24 +55,7 @@ export interface PlayerRoleResponse extends ErrorResponse {
 }
 
 export interface PlayerResponse extends PlayerView, ErrorResponse {
-  matches: string[];
-}
-
-export interface PlayerDetailsResponse extends PlayerView, ErrorResponse {
-  matches: MatchView[];
   isAdmin: boolean;
-}
-
-export interface RecordResponse extends RecordView, ErrorResponse {
-  losses: number;
-  player: string;
-  match: string;
-}
-
-export interface RecordDetailsResponse extends RecordView, ErrorResponse {
-  losses: number;
-  player: PlayerView;
-  match: MatchView;
 }
 
 export interface ScryfallCardResponse extends ScryfallSetView, ErrorResponse {
@@ -127,3 +90,21 @@ export interface UserResponse extends ErrorResponse {
   isFirstTimeLogin?: boolean;
   accountType: string;
 }
+
+type MtglmServiceResponseBody =
+  | AuthResponse
+  | ErrorResponse
+  | LoginResponse
+  | MatchResponse
+  | MatchResponse[]
+  | PlayerResponse
+  | PlayerResponse[]
+  | ScryfallCardResponse
+  | ScryfallCardResponse[]
+  | ScryfallSetResponse
+  | SeasonResponse
+  | SeasonResponse[]
+  | SeasonDetailsResponse
+  | SeasonDetailsResponse[]
+  | SuccessResponse
+  | UserResponse;
