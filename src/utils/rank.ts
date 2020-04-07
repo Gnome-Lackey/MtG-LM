@@ -2,7 +2,7 @@ import { Player } from "models/Player";
 import { MatchRecordMap, MatchRecord } from "models/Match";
 
 export default class RankUtility {
-  private calculatePoints(record: MatchRecord): number {
+  private calculatePoints = (record: MatchRecord): number => {
     if (!record) {
       return 0;
     }
@@ -10,13 +10,13 @@ export default class RankUtility {
     const playedMatchPointFactorA = record.playersPlayed.length * 0.75;
 
     return record.wins * 3 + playedMatchPointFactorA;
-  }
+  };
 
-  private calculateOmw(omw: number, playerRecord: MatchRecord): number {
+  private calculateOmw = (omw: number, playerRecord: MatchRecord): number => {
     return this.calculatePoints(playerRecord) + omw;
-  }
+  };
 
-  sortByRank(players: Player[], matchRecordMap: MatchRecordMap): Player[] {
+  sortByRank = (players: Player[], matchRecordMap: MatchRecordMap): Player[] => {
     return players.sort((playerA: Player, playerB: Player) => {
       const recordA = matchRecordMap[playerA.id];
       const recordB = matchRecordMap[playerB.id];
@@ -42,14 +42,14 @@ export default class RankUtility {
       if (omwPercentageA > omwPercentageB) return -1;
       if (omwPercentageA < omwPercentageB) return 1;
     });
-  }
+  };
 
-  private generateRank(
+  private generateRank = (
     index: number,
     points: number,
     players: Player[],
     matchRecords: MatchRecordMap
-  ): string {
+  ): string => {
     if (points === 0) {
       return "common";
     } else if (index === 0) {
@@ -65,9 +65,9 @@ export default class RankUtility {
     } else {
       return "common";
     }
-  }
+  };
 
-  populateRanks(players: Player[], matchRecordMap: MatchRecordMap): MatchRecordMap {
+  populateRanks = (players: Player[], matchRecordMap: MatchRecordMap): MatchRecordMap => {
     return players.reduce((newMapping, player, index) => {
       const record = newMapping[player.id];
 
@@ -92,5 +92,5 @@ export default class RankUtility {
         }
       };
     }, matchRecordMap);
-  }
+  };
 }

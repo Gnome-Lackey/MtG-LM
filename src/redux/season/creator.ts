@@ -7,7 +7,7 @@ import {
   EMIT_GET_ACTIVE_SEASONS,
   EMIT_GET_SEASON_SUCCESS,
   EMIT_GET_SEASON,
-  EMIT_GET_CURRENT_SEASONS,
+  EMIT_GET_CURRENT_SEASONS
 } from "redux/season/actions";
 
 import ApplicationCreator from "redux/application/creator";
@@ -30,9 +30,6 @@ import { Season } from "models/Season";
 import { REQUEST_CREATE_SEASON, REQUEST_GET_SEASONS } from "constants/request";
 import { DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL } from "constants/errors";
 
-const seasonMapper = new SeasonMapper();
-const playerMapper = new PlayerMapper();
-
 export default class SeasonCreator {
   private applicationCreator = new ApplicationCreator();
   private errorCreator = new ErrorCreator();
@@ -40,13 +37,16 @@ export default class SeasonCreator {
   private playerCreator = new PlayerCreator();
   private seasonService = new SeasonService();
 
+  private seasonMapper = new SeasonMapper();
+  private playerMapper = new PlayerMapper();
+
   emitSelectSeasonForEditing = (season: Season): SeasonAction => ({
     type: EMIT_SELECTED_SEASON_FOR_EDITING,
-    payload: { season },
+    payload: { season }
   });
 
   emitDeselectSeasonForEditing = (): SeasonAction => ({
-    type: EMIT_DESELECTED_SEASON_FOR_EDITING,
+    type: EMIT_DESELECTED_SEASON_FOR_EDITING
   });
 
   requestCreateSeason = (details: SeasonFields) => async (dispatch: Function) => {
@@ -54,7 +54,7 @@ export default class SeasonCreator {
 
     dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
-    const body = seasonMapper.toCreateNode(details);
+    const body = this.seasonMapper.toCreateNode(details);
     const data = await this.seasonService.create(body);
 
     const errorMessage = this.errorUtility.getErrorMessage(data);
@@ -67,11 +67,11 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_CREATE_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data),
-        },
+          season: this.seasonMapper.toSeason(data)
+        }
       });
 
-      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
+      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(this.playerMapper.toPlayer)));
     }
 
     dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
@@ -82,14 +82,14 @@ export default class SeasonCreator {
     getState: Function
   ) => {
     const {
-      seasons: { list },
+      seasons: { list }
     }: RootState = getState();
 
     dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
 
     dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, true));
 
-    const body = seasonMapper.toUpdateNode(details);
+    const body = this.seasonMapper.toUpdateNode(details);
     const data = await this.seasonService.update(id, body);
 
     const errorMessage = this.errorUtility.getErrorMessage(data);
@@ -100,7 +100,7 @@ export default class SeasonCreator {
       );
     } else {
       const updatedSeasons = list.filter((season) => season.id !== data.id);
-      const updatedSeason = seasonMapper.toSeason(data);
+      const updatedSeason = this.seasonMapper.toSeason(data);
 
       updatedSeasons.push(updatedSeason);
 
@@ -108,11 +108,11 @@ export default class SeasonCreator {
         type: EMIT_UPDATED_SEASON_SUCCESS,
         payload: {
           season: data,
-          seasons: updatedSeasons,
-        },
+          seasons: updatedSeasons
+        }
       });
 
-      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
+      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(this.playerMapper.toPlayer)));
     }
 
     dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_CREATE_SEASON, false));
@@ -133,11 +133,11 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data),
-        },
+          season: this.seasonMapper.toSeason(data)
+        }
       });
 
-      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
+      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(this.playerMapper.toPlayer)));
     }
 
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
@@ -158,11 +158,11 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASON_SUCCESS,
         payload: {
-          season: seasonMapper.toSeason(data),
-        },
+          season: this.seasonMapper.toSeason(data)
+        }
       });
 
-      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(playerMapper.toPlayer)));
+      dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(this.playerMapper.toPlayer)));
     }
 
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_SEASON, false));
@@ -183,8 +183,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
-          seasons: data.map(seasonMapper.toSeason),
-        },
+          seasons: data.map(this.seasonMapper.toSeason)
+        }
       });
     }
 
@@ -195,7 +195,7 @@ export default class SeasonCreator {
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, true));
 
     const data = await this.seasonService.query({
-      active: true,
+      active: true
     });
 
     const errorMessage = this.errorUtility.getErrorMessage(data);
@@ -208,8 +208,8 @@ export default class SeasonCreator {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
-          seasons: data.map(seasonMapper.toSeason),
-        },
+          seasons: data.map(this.seasonMapper.toSeason)
+        }
       });
     }
 

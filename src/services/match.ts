@@ -1,4 +1,4 @@
-import service from "services/service";
+import MTGLMService from "services/service";
 
 import MatchMapper from "mappers/matches";
 
@@ -10,34 +10,34 @@ import { DynamicStringMap } from "models/Dynamics";
 
 const environment: string = process.env.ENV;
 
-const matchMapper = new MatchMapper();
+export default class MatchService extends MTGLMService {
+  private mapper = new MatchMapper();
 
-export default class MatchService {
   private matchUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/matches",
     dev: "https://sqjqupsqdh.execute-api.us-east-1.amazonaws.com/dev/matches",
-    qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches",
+    qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches"
   };
 
   private baseUrl: string = this.matchUrlMap[environment];
 
-  private buildQueryString(queryParams: MatchQueryParameters): string {
-    const queryString = matchMapper.toSearchQueryString(queryParams);
+  private buildQueryString = (queryParams: MatchQueryParameters): string => {
+    const queryString = this.mapper.toSearchQueryString(queryParams);
 
     return queryString ? `${this.baseUrl}?${queryString}` : this.baseUrl;
-  }
+  };
 
-  async create(body: CreateMatchNode): Promise<MatchResponse> {
-    const response = await service.post(this.baseUrl, { body });
+  create = async (body: CreateMatchNode): Promise<MatchResponse> => {
+    const response = await this.request.post(this.baseUrl, { body });
 
     return response.body as MatchResponse;
-  }
+  };
 
-  async query(queryParams?: MatchQueryParameters): Promise<MatchResponse[]> {
+  query = async (queryParams?: MatchQueryParameters): Promise<MatchResponse[]> => {
     const url = this.buildQueryString(queryParams);
 
-    const response = await service.get(url);
+    const response = await this.request.get(url);
 
     return response.body as MatchResponse[];
-  }
+  };
 }

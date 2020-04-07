@@ -46,15 +46,15 @@ export default class AuthCreator {
   private errorCreator = new ErrorCreator();
   private userCreator = new UserCreator();
 
-  emitClearCodeResent(): AuthAction {
+  emitClearCodeResent = (): AuthAction => {
     return { type: EMIT_CLEAR_CODE_RESENT };
-  }
+  };
 
-  emitClearCodeNeeded(): AuthAction {
+  emitClearCodeNeeded = (): AuthAction => {
     return { type: EMIT_CLEAR_CODE_NEEDED };
-  }
+  };
 
-  requestLogin(details: LoginFields) {
+  requestLogin = (details: LoginFields) => {
     return async (dispatch: Function) => {
       const { userName, password } = details;
 
@@ -88,9 +88,9 @@ export default class AuthCreator {
 
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
-  }
+  };
 
-  requestLogout() {
+  requestLogout = () => {
     return async (dispatch: Function) => {
       dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_LOGOUT));
 
@@ -110,9 +110,9 @@ export default class AuthCreator {
         dispatch({ type: EMIT_LOGOUT_SUCCESS });
       }
     };
-  }
-  
-  requestSignUp(details: SignUpFields) {
+  };
+
+  requestSignUp = (details: SignUpFields) => {
     return async (dispatch: Function) => {
       dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP));
 
@@ -137,9 +137,9 @@ export default class AuthCreator {
 
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
-  }
+  };
 
-  requestConfirm(details: ConfirmFields) {
+  requestConfirm = (details: ConfirmFields) => {
     return async (dispatch: Function, getState: Function) => {
       const {
         users: {
@@ -173,9 +173,9 @@ export default class AuthCreator {
 
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
-  }
+  };
 
-  requestResendCode() {
+  requestResendCode = () => {
     return async (dispatch: Function, getState: Function) => {
       const {
         users: {
@@ -201,9 +201,9 @@ export default class AuthCreator {
 
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
-  }
+  };
 
-  requestValidation() {
+  requestValidation = () => {
     return async (dispatch: Function) => {
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, true));
 
@@ -220,5 +220,5 @@ export default class AuthCreator {
 
       dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_AUTH, false));
     };
-  }
+  };
 }

@@ -1,4 +1,4 @@
-import service from "services/service";
+import MTGLMService from "services/service";
 
 import { SignUpFields } from "components/Hooks/useFormData/models/FormFields";
 import { AuthResponse, LoginResponse } from "services/models/Responses";
@@ -8,7 +8,7 @@ import { AMAZON_AXT_HEADER, IDT, AMAZON_ID_HEADER, AXT } from "constants/session
 
 const environment: string = process.env.ENV;
 
-export default class AuthService {
+export default class AuthService extends MTGLMService {
   private authUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/auth",
     dev: "https://7isu1ozial.execute-api.us-east-1.amazonaws.com/dev/auth",
@@ -24,19 +24,19 @@ export default class AuthService {
   private signUpUrl = `${this.baseUrl}/signup`;
   private validateUrl = `${this.baseUrl}/validate`;
 
-  async signup(details: SignUpFields): Promise<AuthResponse> {
-    const response = await service.post(this.signUpUrl, {
+  signup = async (details: SignUpFields): Promise<AuthResponse> => {
+    const response = await this.request.post(this.signUpUrl, {
       body: details,
       noAuthorizationHeader: true
     });
 
     return response.body as AuthResponse;
-  }
+  };
 
-  async login(userName: string, password: string): Promise<LoginResponse> {
+  login = async (userName: string, password: string): Promise<LoginResponse> => {
     const body = { userName, password };
 
-    const response = await service.post(this.loginUrl, { body, noAuthorizationHeader: true });
+    const response = await this.request.post(this.loginUrl, { body, noAuthorizationHeader: true });
 
     const accessToken = response.headers.get(AMAZON_AXT_HEADER);
     const idToken = response.headers.get(AMAZON_ID_HEADER);
@@ -47,10 +47,10 @@ export default class AuthService {
     const data = response.body;
 
     return data as LoginResponse;
-  }
+  };
 
-  async logout(): Promise<AuthResponse> {
-    const response = await service.post(this.logoutUrl, {
+  logout = async (): Promise<AuthResponse> => {
+    const response = await this.request.post(this.logoutUrl, {
       useAccessToken: true
     });
 
@@ -58,34 +58,40 @@ export default class AuthService {
     sessionStorage.removeItem(IDT);
 
     return response.body as AuthResponse;
-  }
+  };
 
-  async confirm(userName: string, verificationCode: string): Promise<AuthResponse> {
+  confirm = async (userName: string, verificationCode: string): Promise<AuthResponse> => {
     const body = {
       userName,
       verificationCode
     };
 
-    const response = await service.post(this.confirmUrl, { body, noAuthorizationHeader: true });
+    const response = await this.request.post(this.confirmUrl, {
+      body,
+      noAuthorizationHeader: true
+    });
 
     return response.body as AuthResponse;
-  }
+  };
 
-  async resendCode(userName: string): Promise<AuthResponse> {
+  resendCode = async (userName: string): Promise<AuthResponse> => {
     const body = {
       userName
     };
 
-    const response = await service.post(this.resendCodeUrl, { body, noAuthorizationHeader: true });
+    const response = await this.request.post(this.resendCodeUrl, {
+      body,
+      noAuthorizationHeader: true
+    });
 
     return response.body as AuthResponse;
-  }
+  };
 
-  async validate(): Promise<AuthResponse> {
-    const response = await service.post(this.validateUrl, {
+  validate = async (): Promise<AuthResponse> => {
+    const response = await this.request.post(this.validateUrl, {
       useAccessToken: true
     });
 
     return response.body as AuthResponse;
-  }
+  };
 }

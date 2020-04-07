@@ -11,7 +11,7 @@ import ScryfallService from "services/scryfall";
 export default class ScryfallCreator {
   private scryfallService = new ScryfallService();
 
-  requestGettingStartedCards() {
+  requestGettingStartedCards = () => {
     return async (dispatch: Function) => {
       const queryParams = {
         type: "creature",
@@ -22,10 +22,18 @@ export default class ScryfallCreator {
       };
 
       const results = await Promise.all([
-        this.scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["b"] })),
-        this.scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["w"] })),
-        this.scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["g"] })),
-        this.scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["u"] })),
+        this.scryfallService.getRandomCard(
+          queryString.stringify({ ...queryParams, colors: ["b"] })
+        ),
+        this.scryfallService.getRandomCard(
+          queryString.stringify({ ...queryParams, colors: ["w"] })
+        ),
+        this.scryfallService.getRandomCard(
+          queryString.stringify({ ...queryParams, colors: ["g"] })
+        ),
+        this.scryfallService.getRandomCard(
+          queryString.stringify({ ...queryParams, colors: ["u"] })
+        ),
         this.scryfallService.getRandomCard(queryString.stringify({ ...queryParams, colors: ["r"] }))
       ]);
 
@@ -34,9 +42,9 @@ export default class ScryfallCreator {
         payload: { cards: results }
       });
     };
-  }
+  };
 
-  requestGetSetByCode(code: string) {
+  requestGetSetByCode = (code: string) => {
     return async (dispatch: Function) => {
       dispatch({
         type: EMIT_SEARCHING_FOR_SET,
@@ -55,5 +63,5 @@ export default class ScryfallCreator {
         payload: { searching: false }
       });
     };
-  }
+  };
 }
