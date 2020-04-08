@@ -1,0 +1,30 @@
+{
+  "status": 200,
+  "data": [
+    {
+      "id": "d90130ce-9c79-4129-9d99-04d5102d9219",
+      "startedOn": "12/28/2019",
+      "isActive": true,
+      "players": [
+        "99990daf-34d1-43c0-9c15-c0e95b8efd19",
+        "87600daf-1234-43c0-9c15-c0e95b8efd19",
+        "87600daf-34d1-43c0-9c15-c0e95b8ef222",
+        "87600daf-34d1-43c0-9c15-c0d43d5b8efd19"
+      ],
+      "set": {
+        "name": "Innistrad",
+        "code": "isd"
+      }
+    },
+    {
+      "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+      "startedOn": "12/12/2019",
+      "isActive": true,
+      "players": ["99990daf-34d1-43c0-9c15-c0e95b8efd19", "87600daf-1234-43c0-9c15-c0e95b8efd19"],
+      "set": {
+        "name": "Throne of Eldraine",
+        "code": "eld"
+      }
+    }
+  ]
+}

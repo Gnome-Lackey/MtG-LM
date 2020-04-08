@@ -1,0 +1,30 @@
+{
+  "status": 200,
+  "data": {
+    "id": "565DCC2A-12DB-4F00-8ACF-3F584B71C289",
+    "startedOn": "12/12/2019",
+    "isActive": true,
+    "players": [
+      {
+        "id": "99990daf-34d1-43c0-9c15-c0e95b8efd19",
+        "email": "justiceIsServed@planeswalker.mtg",
+        "userName": "ChampionOfJustice",
+        "displayName": "Gideon Jura",
+        "colors": ["W"],
+        "epithet": "champion of justice"
+      },
+      {
+        "id": "87600daf-1234-43c0-9c15-c0e95b8efd19",
+        "email": "beautyInBlack@planeswalker.mtg",
+        "userName": "OfTheVeil",
+        "displayName": "Liliana Vess",
+        "colors": ["B"],
+        "epithet": "of the veil"
+      }
+    ],
+    "set": {
+      "name": "Throne of Eldraine",
+      "code": "eld"
+    }
+  }
+}

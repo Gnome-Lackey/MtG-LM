@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "data": {
+    "user": {
+      "id": "323-1232-5435",
+      "email": "justiceIsServed@planeswalker.mtg",
+      "userName": "ChampionOfJustice",
+      "displayName": "Gideon Jura",
+      "firstName": "Gideon",
+      "lastName": "Jura",
+      "isFirstTimeLogin": false,
+      "accountType": "USER"
+    }
+  }
+}

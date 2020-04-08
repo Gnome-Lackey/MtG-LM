@@ -1,0 +1,81 @@
+@import "src/styles/variables";
+
+.form-player-list {
+  padding: 20px 0;
+  
+  .player-list {
+    background-color: $colorGrayDarker;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    list-style: none;
+    margin: 0;
+    overflow-y: scroll;
+    padding: 0;
+
+    .player-list-item {
+      align-items: center;
+      border-bottom: 1px $colorGrayLighter solid;
+      color: $colorWhite;
+      display: inline-flex;
+      position: relative;
+      margin: 0;
+      padding: 0;
+
+      .btn-remove {
+        background-color: transparent;
+        border: 0;
+        color: $colorWhite;
+        margin: 0;
+        padding: 0;
+        width: 12px;
+
+        &:hover {
+          color: $colorOrangeLighter;
+          cursor: pointer;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .player-name {
+        align-items: flex-end;
+        display: inline-flex;
+        font-size: 14px;
+        height: 25px;
+        margin: 0;
+        overflow: hidden;
+        padding: 10px 0 15px 25px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 195px;
+      }
+
+      .player-epithet {
+        align-items: center;
+        background-color: $colorGrayDark;
+        border-radius: 0 5px 5px 0;
+        color: $colorWhite;
+        display: flex;
+        font-size: 14px;
+        height: 50px;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 0 15px 0 0;
+        position: absolute;
+        left: -150px;
+        top: 0;
+        transition: left 0.5s ease-in-out;
+        width: 150px;
+        z-index: $zLayerOne;
+
+        &:hover {
+          left: 0;
+        }
+      }
+    }
+  }
+}

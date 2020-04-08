@@ -7,7 +7,7 @@ phases:
     commands:
       - echo Installing global dependencies ...
       - apt-get install -y yarn
-      - yarn global add serverless eslint webpack
+      - npm i --global serverless eslint webpack
       - echo Global dependencies installed without errors
   pre_build:
     commands:
@@ -25,6 +25,6 @@ phases:
   post_build:
     commands:
       - echo Deploying project ...
-      - sls s3remove
+      - sls s3remove --verbose --stage $ENV
       - sls deploy --verbose --key $AWS_ID --secret $AWS_SECRET --stage $ENV
       - echo Project deployed without errors

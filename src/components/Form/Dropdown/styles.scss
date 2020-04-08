@@ -1,0 +1,94 @@
+@import "src/styles/variables";
+
+.form-dropdown {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
+  .btn-dropdown-toggle {
+    align-items: center;
+    background-color: $colorWhite;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    min-height: 50px;
+    padding: 0 30px 0 20px;
+    position: relative;
+    min-width: 250px;
+    text-align: left;
+
+    &:focus {
+      outline: none;
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+
+      .small {
+        font-size: 6px;
+        font-style: italic;
+      }
+    }
+
+    .option-icon {
+      margin: 0 10px 0 0;
+    }
+
+    .fa-caret-up,
+    .fa-caret-down {
+      font-size: 14px;
+      position: absolute;
+      right: 20px;
+    }
+  }
+
+  .dropdown-options-wrapper {
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+      opacity: 0;
+    }
+
+    &.show {
+      &::before {
+        border: 10px solid transparent;
+        border-bottom-color: $colorGrayDarkest;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -13px;
+        opacity: 1;
+        position: absolute;
+        top: 3px;
+        width: 0;
+        z-index: $zLayerThree;
+      }
+
+      &::after {
+        border: 8px solid transparent;
+        border-bottom-color: $colorWhite;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -11px;
+        opacity: 1;
+        position: absolute;
+        top: 5px;
+        width: 0;
+        z-index: $zLayerThree;
+      }
+    }
+  }
+}

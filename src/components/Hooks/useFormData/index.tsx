@@ -1,20 +1,29 @@
 import * as React from "react";
 
 import {
-  SignUpFields,
-  LoginFields,
   ConfirmFields,
+  GettingStartedFields,
+  LoginFields,
+  SignUpFields,
+  RecordMatchFields,
+  SeasonFields,
 } from "components/Hooks/useFormData/models/FormFields";
 
 import {
   ConfirmFormData,
+  GettingStartedFormData,
   LoginFormData,
-  SignUpFormData
+  RecordMatchFormData,
+  SignUpFormData,
+  SeasonFormData
 } from "components/Hooks/useFormData/models/FormData";
 
 function useFormData(formFields: ConfirmFields): ConfirmFormData;
+function useFormData(formFields: GettingStartedFields): GettingStartedFormData;
+function useFormData(formFields: RecordMatchFields): RecordMatchFormData;
 function useFormData(formFields: LoginFields): LoginFormData;
 function useFormData(formFields: SignUpFields): SignUpFormData;
+function useFormData(formFields: SeasonFields): SeasonFormData;
 
 function useFormData(formFields: any): any {
   const [values, setValues] = React.useState(formFields);
@@ -45,7 +54,7 @@ function useFormData(formFields: any): any {
 
       setValues(newValues);
     },
-    updateValues: (id: string, value: string | string[]) => {
+    updateValues: (id: string, value: string | string[] | boolean) => {
       setIsDirty(true);
 
       setValues({

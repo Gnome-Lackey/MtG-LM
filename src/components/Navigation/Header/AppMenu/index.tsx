@@ -5,16 +5,40 @@ import { History } from "history";
 
 import useOnClickOutside from "components/Hooks/useOnClickOutside";
 
-import { APP_MENU_ITEMS } from "constants/appMenuItems";
+import { APP_MENU_ITEMS, ADMIN_APP_MENU_ITEMS } from "constants/appMenuItems";
+import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
 
 interface AppMenuProps {
+  accountType: string;
   history: History;
 }
 
-const AppMenu = ({ history }: AppMenuProps): React.FunctionComponentElement<AppMenuProps> => {
+interface MenuItem {
+  label: string;
+  route: string;
+  icon: string;
+}
+
+const renderMapMenuItem = (
+  menuItem: MenuItem,
+  navigateTo: Function
+): React.FunctionComponentElement<any> => (
+  <li key={`app-menu-item-${menuItem.label}`} className="app-menu-item">
+    <button type="button" className="btn-navigate" onClick={() => navigateTo(menuItem.route)}>
+      <i className={menuItem.icon} />
+      {menuItem.label}
+    </button>
+  </li>
+);
+
+const AppMenu = ({
+  accountType,
+  history
+}: AppMenuProps): React.FunctionComponentElement<AppMenuProps> => {
   const reference = React.useRef();
+  const isAdmin = accountType === ACCOUNT_TYPE_ADMIN;
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -39,18 +63,10 @@ const AppMenu = ({ history }: AppMenuProps): React.FunctionComponentElement<AppM
         <li className="app-menu-item title">
           <p>Main Menu</p>
         </li>
-        {APP_MENU_ITEMS.map((menuItem) => (
-          <li key={`app-menu-item-${menuItem.label}`} className="app-menu-item">
-            <button
-              type="button"
-              className="btn-navigate"
-              onClick={() => navigateTo(menuItem.route)}
-            >
-              <i className={menuItem.icon} />
-              {menuItem.label}
-            </button>
-          </li>
-        ))}
+        {APP_MENU_ITEMS.map((menuItem) => renderMapMenuItem(menuItem, navigateTo))}
+        {isAdmin
+          ? ADMIN_APP_MENU_ITEMS.map((menuItem) => renderMapMenuItem(menuItem, navigateTo))
+          : null}
       </ul>
     </div>
   );

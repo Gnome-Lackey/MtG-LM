@@ -10,6 +10,7 @@ type ValidationLength = (count: number) => string;
 export interface ValidationMessages {
   REQUIRED: string;
   PHONE: string;
+  NO_WHITESPACE: string;
   LENGTH: ValidationLength;
 }
 

@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "data": {
+    "user": {
+      "id": "87600daf-34d1-43c0-9c15-c0d43d5b8efd19",
+      "userName": "admin",
+      "email": "admin@mtglm.com",
+      "firstName": "Boss Man",
+      "lastName": "McBoss",
+      "displayName": "Boss Man McBoss",
+      "accountType": "ADMIN",
+      "isFirstTimeLogin": false
+    }
+  }
+}

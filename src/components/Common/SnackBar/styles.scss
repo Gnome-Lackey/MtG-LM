@@ -1,0 +1,51 @@
+@import "src/styles/variables";
+
+$snackbarHeight: 50px;
+$snackbarWidth: 500px;
+$snackbarPaddingLeft: 25px;
+$snackbarPaddingRight: 10px;
+
+.snackbar {
+  align-items: center;
+  background-color: $colorOrange;
+  border-radius: 5px 5px 0 0;
+  bottom: -$snackbarHeight;
+  display: inline-flex;
+  height: $snackbarHeight;
+  justify-content: space-between;
+  left: calc(50vw - #{$snackbarPaddingLeft} - #{$snackbarPaddingRight} - #{$snackbarWidth} / 2);
+  padding: 0 $snackbarPaddingRight 0 $snackbarPaddingLeft;
+  position: fixed;
+  transition: bottom 0.5s ease-in-out;
+  width: $snackbarWidth;
+  z-index: $zLayerThree;
+
+  &.show {
+    bottom: 0;
+  }
+
+  .message {
+    color: $colorWhite;
+    font-size: 16px;
+    max-width: 450px;
+    text-align: left;
+  }
+
+  .btn-close {
+    background-color: transparent;
+    border: 0;
+    color: $colorWhite;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+
+    &:hover {
+      color: $colorGray;
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

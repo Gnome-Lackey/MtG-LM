@@ -3,12 +3,15 @@ import classNames from "classnames";
 
 import ShowHideButton from "components/Form/Input/ShowHideButton";
 import FormInputHeader from "components/Form/Input/Header";
+import ErrorMessage from "components/Common/ErrorMessage";
 
 import { DynamicValidation } from "models/Dynamics";
 
-import { handleValidation } from "utils/form";
+import ValidationUtility from "utils/form";
 
 import "./styles.scss";
+
+const validationUtility = new ValidationUtility();
 
 interface FormInputProps {
   autoComplete?: string;
@@ -53,7 +56,7 @@ const handleOnBlur = (
     const { target } = event;
     const { value }: any = target;
 
-    const error = handleValidation(value, validations);
+    const error = validationUtility.handleValidation(value, validations);
 
     setIsInvalid(!!error);
 
@@ -111,16 +114,13 @@ const FormInput = ({
   const classes = classNames(
     "form-input",
     { [className]: !!className },
-    { readOnly },
-    { disabled },
-    { isInvalid }
+    { "is-invalid": isInvalid },
+    { "has-validation": !!validations }
   );
 
   return (
     <label className={classes} id={`${id}-label`} htmlFor={id}>
-      {hasHeader ? (
-        <FormInputHeader label={label} error={errorMessage} isRequired={isRequired} />
-      ) : null}
+      {hasHeader ? <FormInputHeader label={label} isRequired={isRequired} /> : null}
       <div className="input-wrapper">
         <input
           autoComplete={useAutoComplete}
@@ -145,6 +145,7 @@ const FormInput = ({
           <ShowHideButton clickHandler={setIsProtectedTextVisible} show={isProtectedTextVisible} />
         ) : null}
       </div>
+      {errorMessage ? <ErrorMessage inline>{errorMessage}</ErrorMessage> : null}
     </label>
   );
 };

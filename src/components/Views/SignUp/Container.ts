@@ -5,12 +5,15 @@ import { History } from "history";
 
 import SignUpView from "components/Views/SignUp/View";
 
-import { requestSignUp } from "redux/creators/auth";
-import { emitResetError } from "redux/creators/errors";
+import AuthCreator from "redux/auth/creator";
+import ErrorCreator from "redux/error/creator";
 import { RootState } from "redux/models/RootState";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 import { User } from "models/User";
+
+const authCreator = new AuthCreator();
+const errorCreator = new ErrorCreator();
 
 interface SignUpViewProps {
   errors: ErrorState;
@@ -30,20 +33,17 @@ const mapStateToProps = (state: RootState, ownProps: RouteComponentProps): SignU
   errors: state.errors,
   history: ownProps.history,
   isRequestLoading: state.application.isRequestLoading,
-  user: state.users.user
+  user: state.users.current
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): SignUpViewActions => ({
   actions: bindActionCreators(
     {
-      emitResetError,
-      requestSignUp
+      emitResetError: errorCreator.emitResetError,
+      requestSignUp: authCreator.requestSignUp
     },
     dispatch
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(SignUpView));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUpView));

@@ -1,7 +1,10 @@
 export interface User {
   id: string;
-  name: string;
+  firstName?: string;
+  lastName?: string;
+  userName: string;
   email?: string;
+  displayName?: string;
   isFirstTimeLogin?: boolean;
-  privileges?: number;
+  accountType?: string;
 }

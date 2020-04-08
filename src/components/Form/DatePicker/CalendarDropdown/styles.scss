@@ -1,0 +1,109 @@
+@import "src/styles/variables.scss";
+
+$dropdownWidth: 280px;
+$calendarDaySize: 40px;
+$calendarWidth: calc(#{$calendarDaySize} * 7);
+
+.date-picker-dropdown {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  z-index: $zLayerTwo;
+
+  .date-picker-dropdown-header {
+    align-items: center;
+    background-color: $colorGrayDarkest;
+    border: 1px solid $colorGrayDarker;
+    display: inline-flex;
+    height: 33px;
+    justify-content: space-between;
+    width: $dropdownWidth;
+
+    .date-picker-dropdown-title {
+      color: $colorWhite;
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      width: calc(#{$dropdownWidth - 100px});
+
+      .small {
+        font-size: 10px;
+      }
+    }
+
+    .btn-arrow {
+      background-color: $colorGrayDarker;
+      border: 0;
+      padding: 10px 0;
+      width: 50px;
+
+      i {
+        color: $colorWhite;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .date-picker-dropdown-calendar {
+    background-color: $colorWhite;
+    border: 1px solid $colorGrayDarker;
+    border-top: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: $calendarWidth;
+
+    .date-picker-dropdown-calendar-day {
+      width: $calendarDaySize;
+
+      .btn-day {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        display: flex;
+        font-size: 12px;
+        height: $calendarDaySize;
+        justify-content: center;
+        padding: 10px;
+        width: $calendarDaySize;
+
+        i {
+          margin: 0;
+          padding: 0;
+        }
+
+        &.disabled {
+          opacity: 0.75;
+        }
+
+        &.match {
+          background-color: $colorOrangeLighter;
+          color: $colorWhite;
+        }
+      }
+
+      &:hover {
+        .btn-day {
+          &:not(.disabled) {
+            background-color: $colorOrangeLighter;
+            color: $colorWhite;
+            cursor: pointer;
+          }
+
+          &.disabled {
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

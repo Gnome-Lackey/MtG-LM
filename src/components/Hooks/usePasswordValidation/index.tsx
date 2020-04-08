@@ -3,7 +3,7 @@ import * as React from "react";
 const capitalizedRegex = /[A-Z]+/;
 const lowercaseRegex = /[a-z]+/;
 const numberRegex = /[0-9]+/;
-const symbolRegex = /\W+/;
+const symbolRegex = /[$.\][}{)(?\-"!@#%/&\\,><':;*|_~`]/;
 const minLength = 8;
 
 interface PasswordValidation {

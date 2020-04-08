@@ -1,9 +1,13 @@
-export interface MtglmServiceResponseBody {
-  status: number;
-  data?: any;
+export interface ServiceConfig {
+  body?: object;
+  useAccessToken?: boolean;
+  noAuthorizationHeader?: boolean;
 }
 
-export interface MtglmServiceResponse {
-  headers?: Headers;
-  body: MtglmServiceResponseBody;
+export interface ServiceRequestConfig {
+  method: string;
+  body?: string;
+  useCredentials?: boolean;
+  useAccessToken?: boolean;
+  useToken?: boolean;
 }

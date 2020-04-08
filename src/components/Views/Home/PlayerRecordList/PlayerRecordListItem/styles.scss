@@ -1,0 +1,47 @@
+@import "src/styles/variables";
+
+.player-record {
+  align-items: center;
+  background-color: $colorWhite;
+  display: inline-flex;
+  margin: 0;
+  padding: 5px 30px;
+  width: calc(100% - 60px);
+
+  &.user {
+    background-color: $colorOrangeHighlight;
+  }
+
+  .set-icon {
+    font-size: 18px;
+  }
+
+  .match-status-icon {
+    height: 16px;
+    margin: 0 30px;
+    width: 16px;
+  }
+
+  .wins,
+  .losses {
+    text-align: center;
+    width: 25%;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    width: 50%;
+
+    &.unplayed {
+      padding-left: 76px;
+    }
+
+    .small {
+      font-size: 9px;
+      font-style: italic;
+      text-transform: capitalize;
+    }
+  }
+}

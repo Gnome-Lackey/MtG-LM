@@ -1,0 +1,32 @@
+@import "src/styles/variables";
+
+.type-ahead-action {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: flex-end;
+  padding-right: 5px;
+  position: absolute;
+  right: 0;
+  width: 60px;
+
+  .btn-clear {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .searching-spinner {
+    padding-right: 8.5px;
+    width: auto;
+
+    i {
+      font-size: 14px;
+    }
+  }
+}

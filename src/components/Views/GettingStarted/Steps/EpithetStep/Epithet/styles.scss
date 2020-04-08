@@ -1,0 +1,29 @@
+@import "src/styles/variables";
+
+.epithet {
+  color: $colorGrayDarkest;
+  display: block;
+  border: 0;
+  background-color: transparent;
+  font-size: 21px;
+  padding: 25px 0 0;
+  text-align: left;
+  width: 100%;
+
+  &.dim {
+    opacity: .5;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .emphasis {
+    color: $colorOrangeDarker;
+    font-style: italic;
+  }
+}

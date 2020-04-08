@@ -1,0 +1,103 @@
+@import "src/styles/variables";
+
+.search-options {
+  align-items: center;
+  background-color: $colorWhite;
+  border: 1px solid $colorGrayDarkest;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  overflow-y: scroll;
+  padding: 10px 0 0;
+  position: absolute;
+  top: 60px;
+  transition: height 0.25s ease-in-out;
+  width: 100%;
+
+  &.show {
+    opacity: 1;
+    z-index: $zLayerThree;
+  }
+
+  &::-moz-scrollbar,
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.has-label {
+    top: 76px;
+  }
+
+  .non-option,
+  .option {
+    background-color: $colorWhite;
+    margin: 0;
+    width: 100%;
+  }
+
+  .non-option {
+    border-radius: 0 0 5px 5px;
+
+    .msg {
+      font-size: 10px;
+      margin: 0;
+      padding: 10px 15px;
+    }
+  }
+
+  .option {
+    .btn-type-ahead-option {
+      align-items: center;
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 10px;
+      margin: 0;
+      padding: 10px 15px;
+      text-align: left;
+      width: 100%;
+
+      .label {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 220px;
+
+        .small {
+          font-size: 6px;
+          font-style: italic;
+        }
+      }
+
+      .option-icon {
+        height: 10px;
+        margin: 0 10px 0 0;
+        width: 10px;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        .label {
+          color: $colorOrangeDarker;
+        }
+
+        .option-icon {
+          color: $colorOrangeDarker;
+        }
+      }
+    }
+  }
+}

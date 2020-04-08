@@ -13,11 +13,11 @@ import useFormData from "components/Hooks/useFormData";
 import useErrorMessage from "components/Hooks/useErrorMessage";
 
 import { User } from "models/User";
-import { ErrorState } from "redux/models/ErrorState";
+import { ErrorState } from "redux/error/models/State";
 
 import { VALIDATION_REQUIRED } from "constants/validations";
 import { ROUTES } from "constants/routes";
-import { DOMAIN_ERROR_AUTH, VIEW_ERROR_SIGN_UP } from "constants/errors";
+import { DOMAIN_ERROR_AUTH, VIEW_ERROR_FORM_SIGN_UP } from "constants/errors";
 
 import "./styles.scss";
 
@@ -46,7 +46,7 @@ const SignUpView = ({
 
   const errorMessage = useErrorMessage(
     DOMAIN_ERROR_AUTH,
-    VIEW_ERROR_SIGN_UP,
+    VIEW_ERROR_FORM_SIGN_UP,
     errors,
     emitResetError
   );
@@ -60,7 +60,10 @@ const SignUpView = ({
     confirmPassword: ""
   });
 
-  const isFormInvalid = Object.values(values).some((value) => !value) || !isPasswordValid;
+  const isFormInvalid =
+    Object.values(values).some((value) => !value) ||
+    Object.values(invalidations).some((invalidation) => !!invalidation) ||
+    !isPasswordValid;
 
   const submitHandler = (ev: React.FormEvent): void => {
     ev.preventDefault();
@@ -70,7 +73,7 @@ const SignUpView = ({
 
   return (
     <div className="sign-up-view">
-      <h1 className="title">Dungeon Master Form</h1>
+      <h1 className="title">Registration</h1>
       <form className="sign-up-form" onSubmit={submitHandler}>
         <FormInput
           errorMessage={invalidations.userName}
@@ -92,8 +95,10 @@ const SignUpView = ({
         />
         <NameFields
           firstName={values.firstName}
+          invalidations={invalidations}
           lastName={values.lastName}
           onChange={updateValues}
+          onInvalidation={updateInvalidations}
         />
         <PasswordFields
           confirmPassword={values.confirmPassword}

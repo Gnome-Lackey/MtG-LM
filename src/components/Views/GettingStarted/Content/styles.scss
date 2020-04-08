@@ -1,0 +1,29 @@
+.getting-started-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  justify-content: flex-start;
+  left: 10px;
+  opacity: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
+  transition: all 0.75s ease-in-out;
+  top: 0;
+  width: 100%;
+
+  &.visible {
+    left: 0;
+    opacity: 1;
+  }
+
+  .note {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    &.visible {
+      opacity: 0.75;
+    }
+  }
+}

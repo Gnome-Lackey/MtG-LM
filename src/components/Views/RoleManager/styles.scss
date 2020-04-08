@@ -1,0 +1,9 @@
+@import "src/styles/variables";
+
+.role-manager-view {
+  align-items: center;
+  display: flex;
+  height: $appContentMinHeight;
+  justify-content: center;
+  width: 100vw;
+}

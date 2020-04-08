@@ -1,0 +1,9 @@
+@import "src/styles/variables";
+
+.season-manager-view {
+  align-items: center;
+  display: flex;
+  height: $appContentMinHeight;
+  justify-content: flex-start;
+  width: 100vw;
+}

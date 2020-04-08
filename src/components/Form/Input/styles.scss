@@ -1,19 +1,13 @@
+@import "src/styles/mixins";
 @import "src/styles/variables";
 
 label.form-input {
+  margin-bottom: 10px;
   width: 100%;
 
-  .input-header {
-    align-items: center;
-    display: inline-flex;
-    justify-content: space-between;
-    height: 20px;
-    width: 100%;
-
-    .title {
-      margin: 0;
-      padding: 0;
-    }
+  &.has-validation {
+    margin-bottom: 0;
+    min-height: 90px;
   }
 
   .input-wrapper {
@@ -21,17 +15,11 @@ label.form-input {
     position: relative;
 
     input {
-      border: 1px solid $colorBlueLighter;
-      border-radius: 0.25rem;
-      border-color: $colorBlueLighter;
-      box-shadow: 0 0 5px $colorBlueLighter;
-      display: block;
-      font-size: 1rem;
-      margin: 8px 0;
-      outline: none;
-      padding: 8px 12px;
-      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-      width: calc(100% - 24px);
+      @include input;
+
+      margin: 5px 0;
+      padding: 10px 12px;
+      width: calc(100% - 26px);
 
       &:focus {
         border-color: $colorBlueLight;
@@ -40,11 +28,11 @@ label.form-input {
     }
   }
 
-  .isRequired {
+  .is-required {
     color: $colorErrorText;
   }
 
-  &.isInvalid {
+  &.is-invalid {
     color: $colorError;
 
     input {

@@ -1,0 +1,40 @@
+@import "src/styles/variables";
+
+.season-form {
+  display: inline-flex;
+  justify-content: center;
+  width: calc(100% - #{$sidePanelMaxWidth});
+
+  .season-players,
+  .season-detail-fields {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .season-players {
+    width: 250px;
+  }
+
+  .season-detail-fields {
+    width: 325px;
+  }
+
+  .set-container {
+    align-items: center;
+    display: inline-flex;
+
+    .set-icon {
+      background-color: $colorOrangeLightest;
+      border: 1px solid $colorOrange;
+      border-radius: 5px;
+      color: $colorOrange;
+      margin: 18px 0 0 10px;
+      padding: 5px 5px 5px 5.5px;
+    }
+  }
+
+  .season-is-active {
+    margin-top: 20px;
+  }
+}

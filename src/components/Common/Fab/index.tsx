@@ -4,20 +4,23 @@ import classNames from "classnames";
 import "./styles.scss";
 
 interface FabProps {
-  children: React.ReactElement;
+  children?: React.ReactElement;
   className?: string;
   clickHandler: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 const Fab = ({
   children,
   className,
-  clickHandler
+  clickHandler,
+  disabled
 }: FabProps): React.FunctionComponentElement<FabProps> => (
   <button
-    className={classNames("fab", { [className]: className })}
+    className={classNames("fab", { [className]: className }, { disabled })}
     type="button"
     onClick={clickHandler}
+    disabled={disabled}
   >
     {children}
   </button>

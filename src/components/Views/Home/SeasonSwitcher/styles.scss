@@ -1,0 +1,15 @@
+@import "src/styles/variables";
+
+.season-switcher {
+  box-shadow: 8px 8px 6px -6px #777;
+  width: 100%;
+
+  .season-switcher-title {
+    background-color: $colorGray;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 20px;
+    padding: 20px 30px;
+    width: calc(100% - 60px);
+  }
+}

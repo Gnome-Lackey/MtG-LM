@@ -1,7 +1,17 @@
 @import "src/styles/variables";
 
 .protected-content {
-  min-height: $appMinHeight;
+  height: $appContentMinHeight;
   margin-top: $headerHeight;
+  overflow: hidden;
+  overflow-y: scroll;
   width: 100%;
+
+  .msg-unauthorized {
+    align-items: center;
+    display: flex;
+    height: $appContentMinHeight;
+    justify-content: center;
+    width: 100%;
+  }
 }

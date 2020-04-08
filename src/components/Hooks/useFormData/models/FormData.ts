@@ -1,7 +1,10 @@
 import {
-  SignUpFields,
+  ConfirmFields,
+  GettingStartedFields,
   LoginFields,
-  ConfirmFields
+  RecordMatchFields,
+  SignUpFields,
+  SeasonFields
 } from "components/Hooks/useFormData/models/FormFields";
 
 export interface FormData {
@@ -16,9 +19,24 @@ export interface ConfirmFormData extends FormData {
   invalidations: ConfirmFields;
 }
 
+export interface GettingStartedFormData extends FormData {
+  values: GettingStartedFields;
+  invalidations: GettingStartedFields;
+}
+
 export interface LoginFormData extends FormData {
   values: LoginFields;
   invalidations: LoginFields;
+}
+
+export interface RecordMatchFormData extends FormData {
+  values: RecordMatchFields;
+  invalidations: RecordMatchFields;
+}
+
+export interface SeasonFormData extends FormData {
+  values: SeasonFields;
+  invalidations: SeasonFields;
 }
 
 export interface SignUpFormData extends FormData {

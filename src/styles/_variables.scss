@@ -10,7 +10,11 @@ $colorGrayLightest: #f7f7f7;
 $colorGrayDark: #8a8a8a;
 $colorGrayDarker: #5b5b5b;
 $colorGrayDarkest: #404040;
+$colorOrangeLighter: #dfbe82;
+$colorOrangeLightest: #fff4e0;
 $colorOrange: #c99128;
+$colorOrangeDarker: #c17b0f;
+$colorOrangeHighlight: #fdda9873;
 $colorWhite: #fff;
 
 $colorError: #e31937;
@@ -22,8 +26,19 @@ $buttonFontSize: 18px;
 $headerHeight: 48px;
 $footerHeight: 48px;
 
-$appMinHeight: calc(100vh + #{$headerHeight});
+$appMinHeight: 100vh;
+$appWithHeaderMinHeight: calc(100vh + #{$headerHeight});
 $appContentMinHeight: calc(100vh - #{$headerHeight} - #{$footerHeight});
+
+$sidePanelMaxWidth: 300px;
+
+$maxModalHeight: 400px;
+$maxModalWidth: 500px;
+$modalHeaderHeight: 35px;
+$modalHeaderVerticalPadding: 10px;
+$modalContentHorizontalPadding: 30px;
+$modalContentMarginTop: calc(#{$modalHeaderHeight} + #{$modalHeaderVerticalPadding} + 25px);
+$modalContentWidth: calc(#{$maxModalWidth} - #{$modalContentHorizontalPadding} * 2);
 
 $zLayerBase: 0;
 $zLayerOne: 1;

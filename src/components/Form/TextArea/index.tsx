@@ -5,9 +5,11 @@ import FormTextareaHeader from "components/Form/TextArea/Header";
 
 import { DynamicValidation } from "models/Dynamics";
 
-import { handleValidation } from "utils/form";
+import ValidationUtility from "utils/form";
 
 import "./styles.scss";
+
+const validationUtility = new ValidationUtility();
 
 interface FormTextAreaProps {
   className?: string;
@@ -43,7 +45,7 @@ const handleOnBlur = (
     const { target } = event;
     const { value }: any = target;
 
-    const error = handleValidation(value, validations);
+    const error = validationUtility.handleValidation(value, validations);
 
     setIsInvalid(!!error);
 
@@ -128,12 +130,7 @@ const FormTextArea = ({
           placeholder={placeholder}
         />
         {maxLength ? (
-          <p
-            className={classNames(
-              "length-counter",
-              { danger: value.length >= (maxLength * 0.8) }
-            )}
-          >
+          <p className={classNames("length-counter", { danger: value.length >= maxLength * 0.8 })}>
             {value.length}
           </p>
         ) : null}

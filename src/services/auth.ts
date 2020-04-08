@@ -1,101 +1,97 @@
-import service from "services/service";
+import MTGLMService from "services/service";
 
 import { SignUpFields } from "components/Hooks/useFormData/models/FormFields";
-import { MtglmServiceResponseBody } from "services/models/Service";
+import { AuthResponse, LoginResponse } from "services/models/Responses";
+import { DynamicStringMap } from "models/Dynamics";
 
 import { AMAZON_AXT_HEADER, IDT, AMAZON_ID_HEADER, AXT } from "constants/session";
-import {
-  AUTH_CONFIRM,
-  AUTH_LOGIN,
-  AUTH_LOGOUT,
-  AUTH_RESEND_CODE,
-  AUTH_SIGN_UP,
-  AUTH_VALIDATE
-} from "constants/services";
-import { ROUTES } from "constants/routes";
 
-export const signup = async (details: SignUpFields): Promise<MtglmServiceResponseBody> => {
-  const response = await service.post(AUTH_SIGN_UP, details);
+const environment: string = process.env.ENV;
 
-  return response.body;
-};
+export default class AuthService extends MTGLMService {
+  private authUrlMap: DynamicStringMap = {
+    local: "http://localhost:9001/local/auth",
+    dev: "https://7isu1ozial.execute-api.us-east-1.amazonaws.com/dev/auth",
+    qa: "https://xmtndwqidj.execute-api.us-east-1.amazonaws.com/qa/auth"
+  };
 
-export const login = async (
-  userName: string,
-  password: string
-): Promise<MtglmServiceResponseBody> => {
-  const headers = new Headers();
+  private baseUrl: string = this.authUrlMap[environment];
 
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
+  private loginUrl = `${this.baseUrl}/login`;
+  private logoutUrl = `${this.baseUrl}/logout`;
+  private confirmUrl = `${this.baseUrl}/confirm`;
+  private resendCodeUrl = `${this.baseUrl}/resend_code`;
+  private signUpUrl = `${this.baseUrl}/signup`;
+  private validateUrl = `${this.baseUrl}/validate`;
 
-  const body = { userName, password };
+  signup = async (details: SignUpFields): Promise<AuthResponse> => {
+    const response = await this.request.post(this.signUpUrl, {
+      body: details,
+      noAuthorizationHeader: true
+    });
 
-  const response = await service.post(AUTH_LOGIN, body, headers);
+    return response.body as AuthResponse;
+  };
 
-  const accessToken = response.headers.get(AMAZON_AXT_HEADER);
-  const idToken = response.headers.get(AMAZON_ID_HEADER);
+  login = async (userName: string, password: string): Promise<LoginResponse> => {
+    const body = { userName, password };
 
-  if (accessToken && idToken) {
+    const response = await this.request.post(this.loginUrl, { body, noAuthorizationHeader: true });
+
+    const accessToken = response.headers.get(AMAZON_AXT_HEADER);
+    const idToken = response.headers.get(AMAZON_ID_HEADER);
+
     sessionStorage.setItem(AXT, accessToken);
     sessionStorage.setItem(IDT, idToken);
-  } else {
-    window.location.href = ROUTES.ROOT;
-  }
 
-  return response.body;
-};
+    const data = response.body;
 
-export const logout = async (): Promise<MtglmServiceResponseBody> => {
-  const headers = new Headers();
+    return data as LoginResponse;
+  };
 
-  const token = sessionStorage.getItem(AXT);
+  logout = async (): Promise<AuthResponse> => {
+    const response = await this.request.post(this.logoutUrl, {
+      useAccessToken: true
+    });
 
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
+    sessionStorage.removeItem(AXT);
+    sessionStorage.removeItem(IDT);
 
-  const response = await service.post(AUTH_LOGOUT, undefined, headers);
+    return response.body as AuthResponse;
+  };
 
-  sessionStorage.removeItem(AXT);
-  sessionStorage.removeItem(IDT);
+  confirm = async (userName: string, verificationCode: string): Promise<AuthResponse> => {
+    const body = {
+      userName,
+      verificationCode
+    };
 
-  return response.body;
-};
+    const response = await this.request.post(this.confirmUrl, {
+      body,
+      noAuthorizationHeader: true
+    });
 
-export const confirm = async (
-  userName: string,
-  verificationCode: string
-): Promise<MtglmServiceResponseBody> => {
-  const response = await service.post(AUTH_CONFIRM, {
-    userName,
-    verificationCode
-  });
+    return response.body as AuthResponse;
+  };
 
-  return await response.body;
-};
+  resendCode = async (userName: string): Promise<AuthResponse> => {
+    const body = {
+      userName
+    };
 
-export const resendCode = async (userName: string): Promise<MtglmServiceResponseBody> => {
-  const response = await service.post(AUTH_RESEND_CODE, {
-    userName
-  });
+    const response = await this.request.post(this.resendCodeUrl, {
+      body,
+      noAuthorizationHeader: true
+    });
 
-  return await response.body;
-};
+    return response.body as AuthResponse;
+  };
 
-export const validate = async (): Promise<MtglmServiceResponseBody> => {
-  const headers = new Headers();
+  validate = async (): Promise<AuthResponse> => {
+    const response = await this.request.post(this.validateUrl, {
+      useAccessToken: true
+    });
 
-  const token = sessionStorage.getItem(AXT);
-
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append("Access-Control-Allow-Credentials", "true");
-
-  const response = await service.post(AUTH_VALIDATE, undefined, headers);
-
-  return await response.body;
-};
+    return response.body as AuthResponse;
+  };
+}

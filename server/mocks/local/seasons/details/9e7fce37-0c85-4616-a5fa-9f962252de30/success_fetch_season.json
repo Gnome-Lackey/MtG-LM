@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "data": {
+    "id": "9e7fce37-0c85-4616-a5fa-9f962252de30",
+    "startedOn": "10/01/2019",
+    "endedOn": "12/12/2019",
+    "isActive": false,
+    "players": [
+      {
+        "id": "87600daf-34d1-43c0-9c15-c0d43d5b8efd19",
+        "email": "admin@mtglm.com",
+        "userName": "admin",
+        "displayName": "Boss Man McBoss",
+        "colors": ["B"],
+        "epithet": "haloid kite"
+      }
+    ],
+    "set": {
+      "name": "Zendikar",
+      "code": "zen"
+    }
+  }
+}

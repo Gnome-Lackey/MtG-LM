@@ -1,0 +1,12 @@
+@import "src/styles/variables";
+
+.form-date-picker {
+  align-items: flex-start;
+  display: inline-flex;
+
+  .date-picker-container {
+    position: relative;
+    min-width: 280px;
+    width: 100%;
+  }
+}

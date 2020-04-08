@@ -1,0 +1,89 @@
+@import "src/styles/variables";
+
+.season-list-item {
+  width: 100%;
+
+  .btn-season {
+    background-color: transparent;
+    border: 0;
+    color: $colorWhite;
+    text-align: left;
+    padding: 30px 20px;
+    width: 100%;
+
+    .season-description {
+      align-items: center;
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .season-set-name {
+        align-items: center;
+        display: inline-flex;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+
+        i {
+          margin-right: 10px;
+        }
+      }
+
+      .indicator-container {
+        align-items: center;
+        background-color: transparent;
+        border: 1px solid $colorOrangeLighter;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        height: 10px;
+        margin: 0;
+        width: 10px;
+
+        .indicator {
+          background-color: $colorOrangeLighter;
+          border-radius: 100%;
+          height: 8px;
+          margin: 0;
+          width: 8px;
+        }
+      }
+    }
+
+    .season-date-range {
+      margin: 0;
+      margin-top: 5px;
+      padding: 0;
+      padding-left: 25px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: $colorGray;
+      color: $colorGrayDarker;
+      cursor: pointer;
+
+      .indicator-container {
+        border: 1px solid $colorOrangeDarker;
+
+        .indicator {
+          background-color: $colorOrangeDarker;
+        }
+      }
+    }
+  }
+
+  &.selected {
+    .btn-season {
+      background-color: $colorGrayLighter;
+      color: $colorGrayDarker;
+
+      .indicator {
+        background-color: $colorOrangeDarker;
+      }
+    }
+  }
+}

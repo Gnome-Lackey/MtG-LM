@@ -1,0 +1,9 @@
+{
+  "status": 500,
+  "data": {
+    "error": {
+      "name": "serverError",
+      "message": "An unexpected error occurred. Please try again later."
+    }
+  }
+}

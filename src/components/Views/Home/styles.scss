@@ -1,50 +1,8 @@
 @import "src/styles/variables";
 
 .home-view {
-  align-items: center;
   background-color: $colorGrayLighter;
   display: flex;
+  justify-content: center;
   min-height: $appContentMinHeight;
-  
-  .start-campaign-message {
-    align-items: center;
-    display: flex;
-    font-size: 18px;
-    justify-content: center;
-    width: 100%;
-
-    .user-name {
-      text-transform: capitalize;
-    }
-
-    .quip {
-      display: block;
-      font-size: 10px;
-      font-style: italic;
-      width: 100%;
-    }
-  }
-
-  h3 {
-    display: inline-block;
-    height: 30px;
-    font-size: 22px;
-    letter-spacing: normal;
-    line-height: 1.36;
-  }
-
-  h4 {
-    display: inline-block;
-    height: 27px;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  h5 {
-    height: 25px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.39;
-  }
 }

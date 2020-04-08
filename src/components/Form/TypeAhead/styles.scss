@@ -1,0 +1,59 @@
+@import "src/styles/variables";
+
+.form-type-ahead {
+  align-items: flex-start;
+  display: inline-flex;
+
+  .search {
+    min-width: 250px;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+      opacity: 0;
+    }
+
+    &.show {
+      &::before {
+        border: 10px solid transparent;
+        border-bottom-color: $colorGrayDarkest;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -13px;
+        opacity: 1;
+        position: absolute;
+        top: 51px;
+        width: 0;
+        z-index: $zLayerThree;
+      }
+
+      &::after {
+        border: 8px solid transparent;
+        border-bottom-color: $colorWhite;
+        border-top: 0;
+        content: "";
+        height: 0;
+        left: 20%;
+        margin-left: -11px;
+        opacity: 1;
+        position: absolute;
+        top: 53px;
+        width: 0;
+        z-index: $zLayerThree;
+      }
+
+      &.has-label {
+        &::before {
+          top: 67px;
+        }
+
+        &::after {
+          top: 69px;
+        }
+      }
+    }
+  }
+}

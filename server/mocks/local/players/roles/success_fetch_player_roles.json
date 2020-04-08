@@ -1,0 +1,47 @@
+{
+  "status": 200,
+  "data": [
+    {
+      "id": "87600daf-34d1-43c0-9c15-c0e95b777777",
+      "email": "matthewdpfister@gmail.com",
+      "userName": "mrpfister",
+      "displayName": "Matthew Pfister",
+      "role": "USER"
+    },
+    {
+      "id": "99990daf-34d1-43c0-9c15-c0e95b8efd19",
+      "email": "justiceIsServed@planeswalker.mtg",
+      "userName": "ChampionOfJustice",
+      "displayName": "Gideon Jura",
+      "role": "USER"
+    },
+    {
+      "id": "87600daf-1234-43c0-9c15-c0e95b8efd19",
+      "email": "beautyInBlack@planeswalker.mtg",
+      "userName": "OfTheVeil",
+      "displayName": "Liliana Vess",
+      "role": "USER"
+    },
+    {
+      "id": "87600daf-34d1-43c0-9c15-c0e95b8ef222",
+      "email": "wiseman@planeswalker.mtg",
+      "userName": "MindSculpter",
+      "displayName": "Jace Beleran",
+      "role": "USER"
+    },
+    {
+      "id": "87600daf-34d1-43c0-9c15-c0d43d5b8efd19",
+      "email": "admin@mtglm.com",
+      "userName": "admin",
+      "displayName": "Boss Man McBoss",
+      "role": "ADMIN"
+    },
+    {
+      "id": "87600daf-34d1-43c0-9c15-c0e95b8easd11",
+      "email": "burnItAllDown@planeswalker.mtg",
+      "userName": "TorchOfDefiance",
+      "displayName": "Chandra Nalaar",
+      "role": "USER"
+    }
+  ]
+}
