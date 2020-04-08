@@ -8,6 +8,6 @@ export default class UserMapper {
     displayName: details.displayName,
     epithet: "",
     favoriteColors: [],
-    email: details.email,
+    email: details.email
   });
 }

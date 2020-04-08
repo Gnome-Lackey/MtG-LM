@@ -9,7 +9,7 @@ export default class SeasonMapper {
     key: details.id,
     icon: `ss ss-${details.set.code}`,
     label: details.set.name,
-    subLabel: details.startedOn,
+    subLabel: details.startedOn
   });
 
   toSeason = (details: SeasonDetailsResponse): Season => ({
@@ -17,7 +17,7 @@ export default class SeasonMapper {
     isActive: details.isActive,
     set: details.set,
     startedOn: details.startedOn,
-    endedOn: details.endedOn,
+    endedOn: details.endedOn
   });
 
   toCreateNode(details: SeasonFields): CreateSeasonNode {
@@ -27,7 +27,7 @@ export default class SeasonMapper {
       startedOn: startedDate,
       set: set.key,
       players: players.length ? players.map((player) => player.key) : [],
-      isActive: isActive || false,
+      isActive: isActive || false
     };
 
     if (endedDate) {

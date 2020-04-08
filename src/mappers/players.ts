@@ -15,14 +15,14 @@ export default class PlayerMapper {
     totalWins: player.totalWins,
     totalLosses: player.totalLosses,
     epithet: player.epithet,
-    favoriteColors: player.colors,
+    favoriteColors: player.colors
   });
 
   toOption = (player: Player): TypeAheadOption => ({
     label: player.displayName,
     subLabel: `${player.epithet} / ${player.userName}`,
     icon: "fas fa-user",
-    key: player.id,
+    key: player.id
   });
 
   toCreateNode = (player: Player): CreatePlayerNode => ({
@@ -31,7 +31,7 @@ export default class PlayerMapper {
     userName: player.userName,
     email: player.email,
     epithet: player.epithet,
-    favoriteColors: player.favoriteColors,
+    favoriteColors: player.favoriteColors
   });
 
   toSearchQueryString(queryParams: PlayerQueryParameters): string {
@@ -42,7 +42,7 @@ export default class PlayerMapper {
     return querystring.stringify({
       "name|": queryParams.name,
       season: queryParams.season,
-      "userName|": queryParams.userName,
+      "userName|": queryParams.userName
     });
   }
 }

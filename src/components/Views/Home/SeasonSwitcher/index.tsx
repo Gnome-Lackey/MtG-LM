@@ -22,8 +22,19 @@ const SeasonSwitcher: React.FunctionComponent<SeasonSwitcherProps> = ({
   selectedSeason,
   selectHandler
 }: SeasonSwitcherProps): React.FunctionComponentElement<SeasonSwitcherProps> => {
-  const selectedSeasonOption = selectedSeason ? seasonMapper.toOption(selectedSeason) : null;
+  let selectedSeasonOption = null;
+
   const seasonOptions = seasons.length ? seasons.map(seasonMapper.toOption) : [];
+
+  if (selectedSeason) {
+    selectedSeasonOption = seasonMapper.toOption(selectedSeason);
+  } else if (seasons && seasons.length) {
+    selectedSeasonOption = {
+      key: "empty-season-switcher",
+      icon: `fas fa-exclamation-circle`,
+      label: "No Seasons"
+    };
+  }
 
   return (
     <div className="season-switcher">

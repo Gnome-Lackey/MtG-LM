@@ -4,6 +4,6 @@ import { Set } from "models/Scryfall";
 export default class SetMapper {
   toOption = (set: Set): TypeAheadOption => ({
     label: set.name,
-    key: set.code,
+    key: set.code
   });
 }

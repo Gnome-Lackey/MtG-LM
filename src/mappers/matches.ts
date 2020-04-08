@@ -14,7 +14,7 @@ export default class MatchMapper {
       "winners|": queryParams.winners,
       "losers|": queryParams.losers,
       season: queryParams.season,
-      seasonPoint: queryParams.seasonPoint,
+      seasonPoint: queryParams.seasonPoint
     });
   }
 
@@ -53,7 +53,7 @@ export default class MatchMapper {
             wins: isWin ? 1 : 0,
             losses: isWin ? 0 : 1,
             playersPlayed: isWin ? otherLosers : otherWinners,
-            opponentsDefeated: isWin ? otherLosers : [],
+            opponentsDefeated: isWin ? otherLosers : []
           };
         }
       });
