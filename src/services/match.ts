@@ -16,7 +16,7 @@ export default class MatchService extends MTGLMService {
   private matchUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/matches",
     dev: "https://sqjqupsqdh.execute-api.us-east-1.amazonaws.com/dev/matches",
-    qa: "https://vu62zw4lj6.execute-api.us-east-1.amazonaws.com/qa/matches"
+    qa: "https://tfflsi784b.execute-api.us-east-1.amazonaws.com/qa/matches"
   };
 
   private baseUrl: string = this.matchUrlMap[environment];

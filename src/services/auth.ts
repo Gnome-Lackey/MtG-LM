@@ -12,7 +12,7 @@ export default class AuthService extends MTGLMService {
   private authUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/auth",
     dev: "https://7isu1ozial.execute-api.us-east-1.amazonaws.com/dev/auth",
-    qa: "https://wm2farj3t2.execute-api.us-east-1.amazonaws.com/qa/auth"
+    qa: "https://xmtndwqidj.execute-api.us-east-1.amazonaws.com/qa/auth"
   };
 
   private baseUrl: string = this.authUrlMap[environment];

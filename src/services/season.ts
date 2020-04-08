@@ -13,7 +13,7 @@ export default class SeasonService extends MTGLMService {
   private seasonUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local/seasons",
     dev: "https://qmhjqb5njl.execute-api.us-east-1.amazonaws.com/dev/seasons",
-    qa: "https://mvd9vvkebg.execute-api.us-east-1.amazonaws.com/qa/seasons"
+    qa: "https://ax7l5mgc5a.execute-api.us-east-1.amazonaws.com/qa/seasons"
   };
 
   private baseUrl: string = this.seasonUrlMap[environment];

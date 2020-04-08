@@ -10,7 +10,7 @@ export default class ScryfallService extends MTGLMService {
   private scryfallUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local",
     dev: "https://bt45yjuqmh.execute-api.us-east-1.amazonaws.com/dev",
-    qa: "https://fvgfu582w6.execute-api.us-east-1.amazonaws.com/qa"
+    qa: "https://pmuiar2v2g.execute-api.us-east-1.amazonaws.com/qa"
   };
 
   private baseUrl: string = this.scryfallUrlMap[environment];
