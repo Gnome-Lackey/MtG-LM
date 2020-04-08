@@ -51,7 +51,7 @@ export default class MatchCreator {
         dispatch(
           this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
         );
-      } else {
+      } else if (data && data.length) {
         const matchRecordMap = this.matchMapper.toMatchRecordMap(data);
 
         const sortedPlayers = this.rankUtility.sortByRank(players, matchRecordMap);
@@ -64,6 +64,12 @@ export default class MatchCreator {
         });
 
         dispatch(this.playerCreator.emitUpdatePlayers(sortedPlayers));
+      } else {
+        this.errorCreator.emitRequestError(
+          DOMAIN_ERROR_GENERAL,
+          VIEW_ERROR_GENERAL,
+          "We encountered an issue, either there is no active season, or there are no players. Please contact your admin for more information."
+        );
       }
 
       dispatch(this.applicationCreator.emitRequestLoading(EMIT_UPDATE_LOADING_MATCHES, false));
