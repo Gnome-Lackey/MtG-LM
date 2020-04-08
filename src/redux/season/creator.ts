@@ -129,7 +129,7 @@ export default class SeasonCreator {
       dispatch(
         this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
       );
-    } else {
+    } else if (data) {
       dispatch({
         type: EMIT_GET_SEASON_SUCCESS,
         payload: {
@@ -138,6 +138,14 @@ export default class SeasonCreator {
       });
 
       dispatch(this.playerCreator.emitUpdatePlayers(data.players.map(this.playerMapper.toPlayer)));
+    } else {
+      dispatch(
+        this.errorCreator.emitRequestError(
+          DOMAIN_ERROR_GENERAL,
+          VIEW_ERROR_GENERAL,
+          "There are no active seasons. Please contact an admin for more details."
+        )
+      );
     }
 
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_CURRENT_SEASONS, false));
@@ -179,13 +187,21 @@ export default class SeasonCreator {
       dispatch(
         this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
       );
-    } else {
+    } else if (data && data.length) {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
           seasons: data.map(this.seasonMapper.toSeason)
         }
       });
+    } else {
+      dispatch(
+        this.errorCreator.emitRequestError(
+          DOMAIN_ERROR_GENERAL,
+          VIEW_ERROR_GENERAL,
+          "There are no seasons. Please contact an admin for more details."
+        )
+      );
     }
 
     dispatch(this.applicationCreator.emitFullPageRequestLoading(REQUEST_GET_SEASONS, false));
@@ -204,13 +220,21 @@ export default class SeasonCreator {
       dispatch(
         this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
       );
-    } else {
+    } else if (data && data.length) {
       dispatch({
         type: EMIT_GET_SEASONS_SUCCESS,
         payload: {
           seasons: data.map(this.seasonMapper.toSeason)
         }
       });
+    } else {
+      dispatch(
+        this.errorCreator.emitRequestError(
+          DOMAIN_ERROR_GENERAL,
+          VIEW_ERROR_GENERAL,
+          "There are no active seasons. Please contact an admin for more details."
+        )
+      );
     }
 
     dispatch(this.applicationCreator.emitRequestLoading(EMIT_GET_ACTIVE_SEASONS, false));

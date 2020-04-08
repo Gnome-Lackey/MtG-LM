@@ -144,13 +144,21 @@ export default class PlayerCreator {
         dispatch(
           this.errorCreator.emitRequestError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL, errorMessage)
         );
-      } else {
+      } else if (data && data.length) {
         dispatch({
           type: EMIT_GET_PLAYER_ROLES_SUCCESS,
           payload: {
             playerRoles: data
           }
         });
+      } else {
+        dispatch(
+          this.errorCreator.emitRequestError(
+            DOMAIN_ERROR_GENERAL,
+            VIEW_ERROR_GENERAL,
+            "There are no players in your league. Go find some!"
+          )
+        );
       }
 
       dispatch(
