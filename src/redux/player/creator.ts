@@ -10,7 +10,7 @@ import {
   REQUEST_UPDATE_PLAYER_ROLE,
   EMIT_LOADING_PLAYER_ROLES,
   EMIT_GET_PLAYER_ROLES_SUCCESS,
-  EMIT_UPDATE_PLAYERS,
+  EMIT_UPDATE_PLAYERS
 } from "redux/player/actions";
 
 import ApplicationCreator from "redux/application/creator";
@@ -40,32 +40,32 @@ export default class PlayerCreator {
   private playerMapper = new PlayerMapper();
   private userMapper = new UserMapper();
 
-  emitClearPlayerResultsForRecord(searchId: string): PlayerAction {
+  emitClearPlayerResultsForRecord = (searchId: string): PlayerAction => {
     return {
       type: EMIT_CLEAR_PLAYER_LIST_BY_RECORD,
       payload: {
-        playerSearchId: searchId,
-      },
+        playerSearchId: searchId
+      }
     };
-  }
+  };
 
-  emitClearPlayerResults(): PlayerAction {
+  emitClearPlayerResults = (): PlayerAction => {
     return {
-      type: EMIT_CLEAR_PLAYER_LIST,
+      type: EMIT_CLEAR_PLAYER_LIST
     };
-  }
+  };
 
-  emitUpdatePlayers(players: Player[]): PlayerAction {
+  emitUpdatePlayers = (players: Player[]): PlayerAction => {
     return {
       type: EMIT_UPDATE_PLAYERS,
-      payload: { players },
+      payload: { players }
     };
-  }
+  };
 
-  requestCreatePlayer(details: GettingStartedFields) {
+  requestCreatePlayer = (details: GettingStartedFields) => {
     return async (dispatch: Function, getState: Function) => {
       const {
-        users: { current },
+        users: { current }
       } = getState() as RootState;
 
       dispatch(this.errorCreator.emitResetError(DOMAIN_ERROR_GENERAL, VIEW_ERROR_GENERAL));
@@ -90,7 +90,7 @@ export default class PlayerCreator {
         );
       } else {
         dispatch({
-          type: EMIT_CREATE_PLAYER_SUCCESS,
+          type: EMIT_CREATE_PLAYER_SUCCESS
         });
       }
 
@@ -98,14 +98,14 @@ export default class PlayerCreator {
         this.applicationCreator.emitFullPageRequestLoading(REQUEST_GETTING_STARTED_PLAYER, false)
       );
     };
-  }
+  };
 
-  requestUpdatePlayerRole(id: string, role: string) {
+  requestUpdatePlayerRole = (id: string, role: string) => {
     return async (dispatch: Function, getState: Function) => {
       dispatch(this.applicationCreator.emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, true));
 
       const {
-        players: { roles },
+        players: { roles }
       } = getState() as RootState;
 
       const data = await this.playerService.updateRole(id, { role });
@@ -124,15 +124,15 @@ export default class PlayerCreator {
 
         dispatch({
           type: EMIT_UPDATE_PLAYER_ROLE_SUCCESS,
-          payload: { playerRoles: dupRoles },
+          payload: { playerRoles: dupRoles }
         });
       }
 
       dispatch(this.applicationCreator.emitRequestLoading(REQUEST_UPDATE_PLAYER_ROLE, false));
     };
-  }
+  };
 
-  requestGetPlayerRoles() {
+  requestGetPlayerRoles = () => {
     return async (dispatch: Function) => {
       dispatch(this.applicationCreator.emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, true));
 
@@ -148,8 +148,8 @@ export default class PlayerCreator {
         dispatch({
           type: EMIT_GET_PLAYER_ROLES_SUCCESS,
           payload: {
-            playerRoles: data,
-          },
+            playerRoles: data
+          }
         });
       }
 
@@ -157,69 +157,69 @@ export default class PlayerCreator {
         this.applicationCreator.emitFullPageRequestLoading(EMIT_LOADING_PLAYER_ROLES, false)
       );
     };
-  }
+  };
 
-  requestQueryPlayers(query: string) {
+  requestQueryPlayers = (query: string) => {
     return async (dispatch: Function) => {
       dispatch({
         type: EMIT_SEARCHING_FOR_PLAYERS,
         payload: {
-          searching: true,
-        },
+          searching: true
+        }
       });
 
       const data = await this.playerService.query({
         userName: query,
-        name: query,
+        name: query
       });
 
       dispatch({
         type: EMIT_GET_PLAYER_SEARCH_RESULTS_SUCCESS,
         payload: {
-          players: this.errorUtility.hasError(data) ? [] : data,
-        },
+          players: this.errorUtility.hasError(data) ? [] : data
+        }
       });
 
       dispatch({
         type: EMIT_SEARCHING_FOR_PLAYERS,
         payload: {
-          searching: false,
-        },
+          searching: false
+        }
       });
     };
-  }
+  };
 
-  requestQueryPlayersForRecordMatch(searchId: string, query: string, seasonId: string) {
+  requestQueryPlayersForRecordMatch = (searchId: string, query: string, seasonId: string) => {
     return async (dispatch: Function) => {
       dispatch({
         type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
         payload: {
           playerSearchId: searchId,
-          searching: true,
-        },
+          searching: true
+        }
       });
 
       const data = await this.playerService.query({
         userName: query,
         name: query,
-        season: seasonId,
+        season: seasonId
       });
 
       dispatch({
         type: EMIT_GET_PLAYER_SEARCH_RESULTS_BY_RECORD_SUCCESS,
         payload: {
           playerSearchId: searchId,
-          players: this.errorUtility.hasError(data) ? [] : data,
-        },
+          players: this.errorUtility.hasError(data) ? [] : data
+        }
       });
 
       dispatch({
         type: EMIT_SEARCHING_FOR_PLAYERS_BY_RECORD,
         payload: {
           playerSearchId: searchId,
-          searching: false,
-        },
+          searching: false
+        }
       });
     };
-  }
+  };
 }

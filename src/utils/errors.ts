@@ -14,6 +14,11 @@ import {
 } from "services/models/Responses";
 
 export default class ErrorUtility {
+  constructor() {
+    Function.prototype.bind(this.hasError, this);
+    Function.prototype.bind(this.getErrorMessage, this);
+  }
+
   hasError(results: AuthResponse): boolean;
   hasError(results: AuthResponse[]): boolean;
   hasError(results: LoginResponse): boolean;

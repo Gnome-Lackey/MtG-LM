@@ -8,7 +8,7 @@ import { ApplicationAction } from "redux/application/models/Action";
 import { RootState } from "redux/models/RootState";
 
 export default class ApplicationCreator {
-  emitFullPageRequestLoading(key: string, isRequestLoading: boolean, uid?: string): Function {
+  emitFullPageRequestLoading = (key: string, isRequestLoading: boolean, uid?: string): Function => {
     return (dispatch: Function, getState: Function) => {
       const {
         application: { requestsMap }
@@ -26,24 +26,24 @@ export default class ApplicationCreator {
         }
       });
     };
-  }
+  };
 
-  emitRequestLoading(type: string, isRequestLoading: boolean): ApplicationAction {
+  emitRequestLoading = (type: string, isRequestLoading: boolean): ApplicationAction => {
     return {
       type,
       payload: { loading: isRequestLoading }
     };
-  }
+  };
 
-  emitToggleMask(): ApplicationAction {
+  emitToggleMask = (): ApplicationAction => {
     return {
       type: EMIT_TOGGLE_MASK
     };
-  }
+  };
 
-  emitToggleRecordMatchModal(): ApplicationAction {
+  emitToggleRecordMatchModal = (): ApplicationAction => {
     return {
       type: EMIT_TOGGLE_RECORD_MATCH_MODAL
     };
-  }
+  };
 }

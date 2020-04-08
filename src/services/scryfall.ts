@@ -1,4 +1,4 @@
-import service from "services/service";
+import MTGLMService from "services/service";
 
 import { ScryfallCardResponse, ScryfallSetResponse } from "services/models/Responses";
 
@@ -6,7 +6,7 @@ import { DynamicStringMap } from "models/Dynamics";
 
 const environment: string = process.env.ENV;
 
-export default class ScryfallService {
+export default class ScryfallService extends MTGLMService {
   private scryfallUrlMap: DynamicStringMap = {
     local: "http://localhost:9001/local",
     dev: "https://bt45yjuqmh.execute-api.us-east-1.amazonaws.com/dev",
@@ -19,35 +19,35 @@ export default class ScryfallService {
   private fetchRandomCardUrl = `${this.baseUrl}/cards/random`;
   private fetchSetsUrl = `${this.baseUrl}/sets`;
 
-  async getCard(id: string): Promise<ScryfallCardResponse> {
+  getCard = async (id: string): Promise<ScryfallCardResponse> => {
     const url = `${this.fetchCardsUrl}/${id}`;
 
-    const response = await service.get(url);
+    const response = await this.request.get(url);
 
     return response.body as ScryfallCardResponse;
-  }
+  };
 
-  async queryCard(query: string): Promise<ScryfallCardResponse[]> {
+  queryCard = async (query: string): Promise<ScryfallCardResponse[]> => {
     const url = query ? `${this.fetchCardsUrl}?${query}` : this.fetchCardsUrl;
 
-    const response = await service.get(url);
+    const response = await this.request.get(url);
 
     return response.body as ScryfallCardResponse[];
-  }
+  };
 
-  async getRandomCard(query: string): Promise<ScryfallCardResponse> {
+  getRandomCard = async (query: string): Promise<ScryfallCardResponse> => {
     const url = query ? `${this.fetchRandomCardUrl}?${query}` : this.fetchRandomCardUrl;
 
-    const response = await service.get(url);
+    const response = await this.request.get(url);
 
     return response.body as ScryfallCardResponse;
-  }
+  };
 
-  async getSet(code: string): Promise<ScryfallSetResponse> {
+  getSet = async (code: string): Promise<ScryfallSetResponse> => {
     const url = `${this.fetchSetsUrl}/${code}`;
 
-    const response = await service.get(url);
+    const response = await this.request.get(url);
 
     return response.body as ScryfallSetResponse;
-  }
+  };
 }
