@@ -12,11 +12,11 @@ import { User } from "models/User";
 import { PlayerSearchResultMap } from "redux/player/models/State";
 import { Season } from "models/Season";
 import { MatchRecordMap } from "models/Match";
+import { Player } from "models/Player";
 
 import { ACCOUNT_TYPE_ADMIN } from "constants/accountTypes";
 
 import "./styles.scss";
-import { Player } from "models/Player";
 
 interface HomeViewActions {
   emitClearPlayerResultsForRecord: Function;
@@ -63,21 +63,22 @@ const HomeView: React.FunctionComponent<HomeViewProps> = ({
   useDataFetch(!selectedSeason, actions.requestGetCurrentSeason);
   useDataFetch(!seasons.length, actions.requestGetActiveSeasons);
   useDataFetch(
-    selectedSeason && selectedPlayers.length && !matchRecords, 
+    selectedSeason && selectedPlayers.length && !matchRecords,
     () => actions.requestMatchesBySeasonAndPlayer(selectedSeason.id, selectedPlayers)
   );
 
   const setCode = selectedSeason ? selectedSeason.set.code : "";
-  
+
   const isAdminUser = user.accountType === ACCOUNT_TYPE_ADMIN;
   const isCurrentUserInSeason = isAdminUser || !selectedPlayers.length || !!selectedPlayers.find(({ id }) => id === user.id);
   const isPageLoading = isLoadingActiveSeasons || isLoadingCurrentSeason || isLoadingSeason || isLoadingMatches;
-  const isFabDisabled = isPageLoading || isLoadingMatchCreation || !isCurrentUserInSeason;
+  const isFabDisabled = isPageLoading || isLoadingMatchCreation || !isCurrentUserInSeason || !selectedSeason;
 
   return (
     <div className="home-view">
       <div className="content">
         <SeasonSwitcher
+          isLoading={isLoadingCurrentSeason}
           seasons={seasons}
           selectedSeason={selectedSeason}
           selectHandler={actions.requestGetSeason}
