@@ -1,0 +1,85 @@
+@import "src/styles/variables";
+
+$contentPadding: 20px 30px;
+$contentWidth: calc(100% - 60px);
+
+.season-switcher-spinner {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: $contentPadding;
+  width: $contentWidth;
+
+  .spinner > i {
+    font-size: 20px;
+  }
+}
+
+.season-switcher-empty-message {
+  background-color: $colorOrange;
+  display: inline-flex;
+  padding: $contentPadding;
+  width: $contentWidth;
+
+  .fa-exclamation-circle {
+    color: $colorWhite;
+    margin-right: 10px;
+  }
+
+  .message {
+    background-color: transparent;
+    color: $colorWhite;
+    margin: 0;
+  }
+}
+
+.season-switcher-dropdown {
+  max-width: unset;
+  width: 100%;
+
+  .btn-dropdown-toggle {
+    border-radius: 0;
+    font-size: 18px;
+    padding: 30px;
+    width: 100%;
+
+    .small {
+      font-size: 10px;
+    }
+
+    .fa-caret-up,
+    .fa-caret-down {
+      font-size: 24px;
+      right: 40px;
+    }
+
+    .option-icon {
+      margin: 0 30px 0 0;
+    }
+  }
+
+  .dropdown-options {
+    .non-option {
+      .msg {
+        font-size: 18px;
+        padding: 25px 15px;
+        text-align: center;
+      }
+    }
+
+    .option {
+      padding: 10px 15px;
+
+      .btn-dropdown-option {
+        font-size: 18px;
+
+        .label {
+          .small {
+            font-size: 10px;
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+}
